@@ -23,11 +23,11 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 			else if (event.type == Event::KeyReleased)
 			{
-	//			InputManager::OnKeyboard(event.key, true);
+				//			InputManager::OnKeyboard(event.key, true);
 			}
 			else if (event.type == Event::KeyPressed)
 			{
-	//			InputManager::OnKeyboard(event.key, true);
+				//			InputManager::OnKeyboard(event.key, true);
 			}
 
 
@@ -37,12 +37,13 @@ int _tmain(int argc, _TCHAR* argv[])
 			window.close();
 		}
 
-		if (Mouse::isButtonPressed(Mouse::Button::Left))
+		/*	if (Mouse::isButtonPressed(Mouse::Button::Left))
 		{
-			window.close();
+		window.close();
 		}
+		*/
 
-		
+
 		window.clear(Color(0x11,0x22,0x33,0xff));
 		window.draw(shape);
 		window.display();
