@@ -1,5 +1,5 @@
 // SpriteManger.h
-
+#pragma once
 
 
 

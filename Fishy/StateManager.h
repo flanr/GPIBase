@@ -1,4 +1,4 @@
 // StateManager.h
-
+#pragma once
 
 

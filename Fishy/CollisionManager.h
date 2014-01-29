@@ -1,2 +1,3 @@
 // CollisionManager.h
 
+#pragma once

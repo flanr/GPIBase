@@ -1,3 +1,3 @@
 // OptionState.h
-
+#pragma once
 

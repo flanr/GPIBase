@@ -1,5 +1,5 @@
 // FishObject.h
-
+#pragma once
 
 
 

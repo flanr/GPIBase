@@ -1,4 +1,4 @@
 // GameState.h
-
+#pragma once
 
 

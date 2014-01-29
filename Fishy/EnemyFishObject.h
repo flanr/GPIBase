@@ -1,4 +1,4 @@
 // EnemyFishObject
-
+#pragma once
 
 

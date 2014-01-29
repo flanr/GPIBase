@@ -1,4 +1,4 @@
 // GameObjectManager.h
-
+#pragma once
 
 

@@ -1,5 +1,5 @@
 // State.h
-
+#pragma once
 
 
 
