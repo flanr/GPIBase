@@ -8,7 +8,7 @@ using namespace sf;
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	RenderWindow window(VideoMode(1024,640), "Caption");
+	RenderWindow window(VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
 
 	CircleShape shape(10.0f);
 
