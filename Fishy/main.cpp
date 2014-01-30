@@ -3,55 +3,58 @@
 
 #include "stdafx.h"
 
+
 using namespace sf;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 
 	RenderWindow window(VideoMode(1024,640), "Caption");
+	
 
 	CircleShape shape(10.0f);
-
+	
+	sf::Event event;
+	InputManager InputMgr;
 	while (window.isOpen())
 	{
-		Event event;
+		window.setKeyRepeatEnabled(true);
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			if (event.type == sf::Event::Closed)
 			{
 				window.close();
 			}
-			else if (event.type == Event::KeyReleased)
-			{
-				//			InputManager::OnKeyboard(event.key, true);
-			}
-			else if (event.type == Event::KeyPressed)
-			{
-				//			InputManager::OnKeyboard(event.key, true);
-			}
-
-
+			
+			InputMgr.UpdateEvents(event);
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Escape))
+		if (InputMgr.IsDownOnceK(sf::Keyboard::Key::A))
 		{
-			window.close();
+			std::cout << "IsDownOnce\n";
 		}
-
-		/*	if (Mouse::isButtonPressed(Mouse::Button::Left))
+		if(InputMgr.IsDownK(sf::Keyboard::Key::A))
 		{
-		window.close();
+			std::cout << "IsDown\n";
 		}
-		*/
-
-
+		if (InputMgr.IsDown(MB_LEFT))
+		{
+			std::cout << "IsDownMouse\n";
+		}
+		if (InputMgr.IsDownOnce(MB_RIGHT))
+		{
+			std::cout << "IsDownOnceMouse\n";
+		}
 		window.clear(Color(0x11,0x22,0x33,0xff));
 		window.draw(shape);
 		window.display();
+		InputMgr.PostUpdateKeyboard();
+		InputMgr.PostUpdateMouse();
+	
 	}
-
 
 	return 0;
 }
+
 
 /**
 

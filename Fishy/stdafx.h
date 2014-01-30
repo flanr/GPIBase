@@ -29,3 +29,6 @@
 #include <SFML\System.hpp>
 #include <SFML\Audio.hpp>
 // TODO: reference additional headers your program requires here
+/*******************************************************Oscar's includes*****************************************/
+#include "InputManager.h"
+#include <iostream>
