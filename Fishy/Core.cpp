@@ -24,9 +24,9 @@ bool Core::Initialize()
 
 	if (m_StateManager.GetCurrentState() == nullptr)
 	{
-		m_StateManager.Attach(new GameState());
-		m_StateManager.Attach(new OptionState());
-		m_StateManager.Attach(new StartState());
+		m_StateManager.Attach(new GameState(this));
+		m_StateManager.Attach(new OptionState(this));
+		m_StateManager.Attach(new StartState(this));
 
 		m_StateManager.SetState("GameState");
 	}

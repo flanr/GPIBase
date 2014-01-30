@@ -5,7 +5,7 @@
 
 
 using namespace std;
-StartState::StartState()
+StartState::StartState(Core* p_core)
 {
 
 }

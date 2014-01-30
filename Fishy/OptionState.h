@@ -3,12 +3,13 @@
 
 #include "State.h"
 #include "stdafx.h"
+#include "Core.h"
 using namespace std;
 
 class OptionState : public State
 {
 public:
-	OptionState();
+	OptionState(Core * core);
 
 	bool EnterState();
 	bool Update(float p_deltatime);

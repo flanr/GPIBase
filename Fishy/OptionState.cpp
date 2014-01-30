@@ -3,7 +3,7 @@
 #include "OptionState.h"
 
 using namespace std;
-OptionState::OptionState()
+OptionState::OptionState(Core* p_core)
 {
 
 }

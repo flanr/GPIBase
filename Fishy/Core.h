@@ -1,6 +1,7 @@
 // Core.h
 #include "stdafx.h"
 #pragma once
+#include "StateManager.h"
 //using namespace sf;
 
 class Core

@@ -2,8 +2,9 @@
 
 #include "stdafx.h"
 #include "GameState.h"
+#include "Core.h"
 using namespace std;
-GameState::GameState()
+GameState::GameState(Core* p_core)
 {
 
 }

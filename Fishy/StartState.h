@@ -9,7 +9,7 @@ using namespace std;
 class StartState : public State
 {
 public:
-	StartState();
+	StartState(Core *core);
 	/**
 	Called upon StartState Entry
 	**/

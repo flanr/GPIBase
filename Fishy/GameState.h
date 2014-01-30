@@ -2,12 +2,13 @@
 #pragma once
 #include "State.h"
 #include "stdafx.h"
+#include "Core.h"
 using namespace std;
 
 class GameState : public State
 {
 public:
-	GameState();
+	GameState(Core* p_core);
 
 	bool EnterState();
 	bool Update(float p_fDeltatime);
