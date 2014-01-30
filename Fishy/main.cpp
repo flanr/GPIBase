@@ -3,19 +3,39 @@
 
 #include "stdafx.h"
 
-<<<<<<< HEAD
-
 using namespace sf;
-=======
 //using namespace sf;
->>>>>>> 29aec8be01b3e279e74c3313e1ba314338387d51
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Core core;
+	if (core.Initialize())
+	{
+		core.Run();
+	}
 
-<<<<<<< HEAD
-	RenderWindow window(VideoMode(1024,640), "Caption");
+	core.Cleanup();
+
+	return 0;
+}
+
+
+/**
+
+InputManager
+StateManager
+SoundManager
+CollisionManager
+GameObjectManager / EntityManager  /  ***
+DrawManager
+Engine / Core
+
+
+SpriteManager
+Sprite
+
+*****************************************************************detta under funkade som det ska*_****************************************
+RenderWindow window(VideoMode(1024,640), "Caption");
 	
 
 	CircleShape shape(10.0f);
@@ -57,39 +77,5 @@ int _tmain(int argc, _TCHAR* argv[])
 		InputMgr.PostUpdateMouse();
 	
 	}
-
-=======
-	if (core.Initialize())
-	{
-		core.Run();
-	}
-
-	core.Cleanup();
-
-	
-
-	//
-
-	
-
->>>>>>> 29aec8be01b3e279e74c3313e1ba314338387d51
-	return 0;
-}
-
-
-/**
-
-InputManager
-StateManager
-SoundManager
-CollisionManager
-GameObjectManager / EntityManager  /  ***
-DrawManager
-Engine / Core
-
-
-SpriteManager
-Sprite
-
 
 */
