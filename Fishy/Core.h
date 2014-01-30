@@ -4,6 +4,8 @@
 #include "StateManager.h"
 //using namespace sf;
 
+class InputManager;
+
 class Core
 {
 public:
@@ -32,7 +34,7 @@ public:
 
 	float m_fDeltaTime;
 
-
+	InputManager* m_pInputManager;
 private:
 
 };

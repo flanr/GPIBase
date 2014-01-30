@@ -8,6 +8,7 @@ Core::Core()
 {
 	m_bRunning = false;
 	window = nullptr;
+	m_pInputManager = nullptr;
 	m_fDeltaTime = 0.0f;
 }
 
@@ -22,6 +23,11 @@ bool Core::Initialize()
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
 	window = new sf::RenderWindow(sf::VideoMode(1024,640), (string)"MEGA FUCKING AWESOME SUPER GAME");
 
+	if (m_pInputManager == nullptr)
+	{
+		m_pInputManager = new InputManager;
+	}
+	//Delete the states***********************************************************************************************
 	if (m_StateManager.GetCurrentState() == nullptr)
 	{
 		m_StateManager.Attach(new GameState(this));
@@ -46,38 +52,47 @@ void Core::Run()
 			{
 				window->close();
 			}
-			else if (event.type == sf::Event::KeyReleased)
-			{
-				//			InputManager::OnKeyboard(event.key, true);
-			}
-			else if (event.type == sf::Event::KeyPressed)
-			{
-				//			InputManager::OnKeyboard(event.key, true);
-			}
 
-
+			////////Following is a demo: to have window.pollEvent(param) or window->close() in imput manager, add a sf::RenderWindow parameter
+			/////////to UpdateEvents and copypaste. 
+			////////Demonstrating isdown and isdownonce functions in the console.
+			m_pInputManager->UpdateEvents(event);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		if (m_pInputManager->IsDownOnceK(sf::Keyboard::Key::A))
 		{
-			window->close();
+			std::cout << "IsDownOnce\n";
 		}
-
-		/*	if (Mouse::isButtonPressed(Mouse::Button::Left))
+		if(m_pInputManager->IsDownK(sf::Keyboard::Key::D))
 		{
-		window.close();
+			std::cout << "IsDown\n";
 		}
-		*/
+		if (m_pInputManager->IsDown(MB_LEFT))
+		{
+			std::cout << "IsDownMouse\n";
+		}
+		if (m_pInputManager->IsDownOnce(MB_RIGHT))
+		{
+			std::cout << "IsDownOnceMouse\n";
+		}
 		sf::CircleShape shape(10.0f);
 
 		window->clear(sf::Color(0x11,0x22,0x33,0xff));
 		window->draw(shape);
 		window->display();
+
+		//Must have postupdates for isdownonce to function properly.
+		m_pInputManager->PostUpdateKeyboard();
+		m_pInputManager->PostUpdateMouse();
 	}
 
 }
 
 void Core::Cleanup()
 {
-
+	if (m_pInputManager != nullptr)
+	{
+		delete m_pInputManager;
+		m_pInputManager = nullptr;
+	}
 }
 
