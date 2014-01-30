@@ -4,7 +4,7 @@
 
 DrawManager::DrawManager(sf::RenderWindow *p_Window)
 {
-	m_Window = p_Window;
+	m_pWindow = p_Window;
 }
 
 DrawManager::~DrawManager()
@@ -14,30 +14,23 @@ DrawManager::~DrawManager()
 void DrawManager::ClearWindow()
 {
 	//Change color to whatever
-	m_Window->clear(sf::Color(0x00,0x00,0x00,0xff));
+	m_pWindow->clear(sf::Color(0x00,0x00,0x00,0xff));
 	
 }
 
 //Change sf::Sprite to our sprite class, it has to be a sf:Drawable
 void DrawManager::DrawSprite(sf::Sprite * p_pSprite)
 {
-	m_Window->draw(*p_pSprite);
+	m_pWindow->draw(*p_pSprite);
 }
 //Change sf::Sprite to our sprite class, it has to be a sf:Drawable
 void DrawManager::DrawSprite(sf::Sprite * p_pSprite, sf::RenderStates * p_pEffect)
 {
-	m_Window->draw(*p_pSprite, *p_pEffect);
+	m_pWindow->draw(*p_pSprite, *p_pEffect);
 }
 
 void DrawManager::DisplayWindow()
 {
-	m_Window->display();
+	m_pWindow->display();
 	
 }
-
-
-
-
-
-
-
