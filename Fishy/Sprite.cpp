@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-Sprite::Sprite(int x, int y, int width, int height){
+Sprite::Sprite(sf::RenderWindow *m_pWindow, int x, int y, int width, int height){
 
 
 	m_x = x;

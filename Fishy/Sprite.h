@@ -6,7 +6,7 @@ class Sprite{
 	friend class DrawManager;
 	friend class SpriteManager;
 public:
-	Sprite(int x, int y, int width, int height);
+	Sprite(sf::RenderWindow *m_pWindow, int x, int y, int width, int height);
 protected:
 	
 	int m_x;
