@@ -4,7 +4,7 @@
 class DrawManager
 {
 public:
-	DrawManager(sf::RenderWindow *p_Window);
+	DrawManager(sf::RenderWindow *p_pWindow);
 	~DrawManager();
 
 
@@ -15,6 +15,6 @@ public:
 	void DrawSprite(sf::Sprite * p_pSprite, sf::RenderStates * p_pEffect);
 	void DisplayWindow();
 private:
-	sf::RenderWindow * m_Window;
+	sf::RenderWindow * m_pWindow;
 
 };
