@@ -20,6 +20,12 @@ StateManager::~StateManager()
 	m_aStates.clear();
 }
 
+State *StateManager::GetCurrentState()
+{
+	return m_pCurrentState;
+}
+
+
 string StateManager::CurrentState()
 {
 	return m_pCurrentState->GetCurrentState();
