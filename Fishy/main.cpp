@@ -3,12 +3,18 @@
 
 #include "stdafx.h"
 
+<<<<<<< HEAD
 
 using namespace sf;
+=======
+//using namespace sf;
+>>>>>>> 29aec8be01b3e279e74c3313e1ba314338387d51
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	Core core;
 
+<<<<<<< HEAD
 	RenderWindow window(VideoMode(1024,640), "Caption");
 	
 
@@ -52,6 +58,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	}
 
+=======
+	if (core.Initialize())
+	{
+		core.Run();
+	}
+
+	core.Cleanup();
+
+	
+
+	//
+
+	
+
+>>>>>>> 29aec8be01b3e279e74c3313e1ba314338387d51
 	return 0;
 }
 

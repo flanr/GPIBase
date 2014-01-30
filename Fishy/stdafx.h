@@ -7,8 +7,8 @@
 
 #include "SDKDDKVer.h" // Good compile thing yes
 
-#include <stdio.h>
-#include <tchar.h>
+
+//
 
 #pragma warning(disable:4099)
 #define SFML_STATIC
@@ -28,6 +28,20 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\System.hpp>
 #include <SFML\Audio.hpp>
+
+#include <stdio.h>
+#include <tchar.h>
+#include <iostream>
+#include <vector>
+
+//
+#include "GameState.h"
+#include "StartState.h"
+#include "OptionState.h"
+#include "StateManager.h"
+#include "Core.h"
+
+
 // TODO: reference additional headers your program requires here
 /*******************************************************Oscar's includes*****************************************/
 #include "InputManager.h"
