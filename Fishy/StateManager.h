@@ -32,6 +32,8 @@ public:
 	/**
 	**/
 	bool IsRunning();
+
+	State* GetCurrentState();
 	
 private:
 	/**
