@@ -10,38 +10,22 @@ class StartState : public State
 {
 public:
 	StartState(Core *core);
-	/**
-	Called upon StartState Entry
-	**/
+	/* Called upon StartState Entry */
 	bool EnterState();
-	/**
-	Updating StartState
-	**/
+	/* Updating StartState */
 	bool Update(float p_fDeltaTime);
-	/**
-	Returns True if p_type == StartState
-	**/
+	/*	Returns True if p_type == StartState */
 	bool IsType(const string &p_sType);
-	/**
-	Exits StartState
-	**/
+	/* Exits StartState */
 	void ExitState();	
-	/**
-	Draws StartState
-	**/
+	/* Draws StartState */
 	void Draw();
-	/**
-	Handle Input in StartState
-	**/
+	/* Handle Input in StartState */
 	void HandleInput();
 
-	/**
-	Returns default Next State
-	**/
+	/* Returns default Next State */
 	string Next();
-	/**
-	Returns Current State
-	**/
+	/*Returns Current State */
 	string GetCurrentState();
 	
 private:

@@ -3,3 +3,13 @@
 
 
 
+class Level
+{
+public:
+	Level();
+	~Level();
+
+private:
+
+};
+
