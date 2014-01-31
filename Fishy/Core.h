@@ -11,18 +11,12 @@ class Core
 public:
 	Core();
 	~Core();
-	/**
-	Inizializes the Game Window
-	**/
+	/*	Inizializes the Game Window*/
 	bool Initialize();
-	/**
-	The Main Game Loop
-	Runs Every Frame
-	**/
+	/*	The Main Game Loop
+	Runs Every Frame */
 	void Run();
-	/**
-	Cleans up all the Pointers when closing down
-	**/
+	/*	Cleans up all the Pointers when closing down */
 	void Cleanup();
 
 public:
