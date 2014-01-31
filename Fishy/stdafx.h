@@ -36,6 +36,8 @@
 #include <vector>
 
 //
+#include "InputManager.h"
+#include <iostream>
 #include "GameState.h"
 #include "StartState.h"
 #include "OptionState.h"
@@ -43,7 +45,7 @@
 #include "Core.h"
 
 
-// TODO: reference additional headers your program requires here
-/*******************************************************Oscar's includes*****************************************/
-#include "InputManager.h"
-#include <iostream>
+// TODO: reference additional headers your program requires here.
+
+
+
