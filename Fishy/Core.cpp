@@ -74,10 +74,10 @@ void Core::Run()
 		{
 			std::cout << "IsDownOnceMouse\n";
 		}
-		sf::CircleShape shape(10.0f);
 
-		window->clear(sf::Color(0x11,0x22,0x33,0xff));
-		window->draw(shape);
+
+		m_StateManager.Update(m_fDeltaTime);
+		
 		window->display();
 
 		//Must have postupdates for isdownonce to function properly.

@@ -28,5 +28,8 @@ public:
 	string GetCurrentState();
 
 private:
+	InputManager *m_pInputManager;
+	Core *m_pCore;
+	sf::RenderWindow  *m_pWindow;
 
 };

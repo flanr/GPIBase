@@ -4,9 +4,11 @@
 #include "GameState.h"
 #include "Core.h"
 using namespace std;
-GameState::GameState(Core* p_core)
+GameState::GameState(Core* p_pCore)
 {
-
+	m_pCore = p_pCore;
+	m_pInputManager = p_pCore->m_pInputManager;
+	m_pWindow = p_pCore->window;
 }
 
 string GameState::GetCurrentState()
@@ -35,17 +37,34 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
+	HandleInput();
+	Draw();
 	return true;
 }
 
 void GameState::HandleInput()
 {
+	if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
+	{
+		m_pCore->m_StateManager.SetState("StartState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
+	{
+		cout << "Already in GameState" << endl;
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
+	{
+		m_pCore->m_StateManager.SetState("OptionState");
+	}
 
 }
 
 void GameState::Draw()
 {
 
+	sf::CircleShape shape(20.0f);
+	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
+	m_pWindow->draw(shape);
 }
 
 bool GameState::IsType(const string &p_type)
