@@ -1,8 +1,6 @@
 // GameObjectManager.h
 #pragma once
 
-#include <vector>
-
 class SpriteManager;
 class InputManager;
 
@@ -21,7 +19,7 @@ class GameObjectManager
 public:
 	GameObjectManager(SpriteManager *p_pxSpriteManager);
 	~GameObjectManager();
-
+	
 	void Cleanup();
 	
 	//attach objects
