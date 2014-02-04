@@ -21,6 +21,7 @@ void DrawManager::ClearWindow()
 //Change sf::Sprite to our sprite class, it has to be a sf:Drawable
 void DrawManager::DrawSprite(sf::Sprite * p_pSprite)
 {
+
 	m_pWindow->draw(*p_pSprite);
 }
 //Change sf::Sprite to our sprite class, it has to be a sf:Drawable
