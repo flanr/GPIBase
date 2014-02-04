@@ -63,7 +63,7 @@ void StartState::HandleInput()
 
 void StartState::Draw()
 {
-	sf::CircleShape shape(40.0f);
+	sf::CircleShape shape(15.0f);
 	m_pWindow->clear(sf::Color(0x44,0x55,0x22,0xff));
 	m_pWindow->draw(shape);
 }

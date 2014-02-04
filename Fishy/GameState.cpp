@@ -62,7 +62,7 @@ void GameState::HandleInput()
 void GameState::Draw()
 {
 
-	sf::CircleShape shape(20.0f);
+	sf::CircleShape shape(30.0f);
 	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
 	m_pWindow->draw(shape);
 }

@@ -61,7 +61,7 @@ void OptionState::HandleInput()
 
 void OptionState::Draw()
 {
-	sf::CircleShape shape(60.0f);
+	sf::CircleShape shape(45.0f);
 	m_pWindow->clear(sf::Color(0x55,0x66,0x77,0xff));
 	m_pWindow->draw(shape);
 }
