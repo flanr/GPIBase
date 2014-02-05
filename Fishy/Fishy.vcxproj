@@ -110,7 +110,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\gech4129%40user.uu.se\Desktop\Skola\GPIBase\Fishy\GameObject.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="PowerupObject.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Core.cpp" />

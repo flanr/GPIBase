@@ -6,11 +6,14 @@
 
 class Sprite;
 class Collider;
+class InputManager;
 
 class PlayerFishObject : public FishObject {
 public:
-		PlayerFishObject(Sprite* sprite = nullptr, Collider* collider = nullptr);
+		PlayerFishObject(sf::Sprite* sprite = nullptr, Collider* collider = nullptr);
 
 		void Update(float deltatime);
 
+
+private:
 };

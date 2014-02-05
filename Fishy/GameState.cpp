@@ -9,6 +9,7 @@ GameState::GameState(Core* p_pCore)
 	m_pCore = p_pCore;
 	m_pInputManager = p_pCore->m_pInputManager;
 	m_pWindow = p_pCore->window;
+
 }
 
 string GameState::GetCurrentState()
