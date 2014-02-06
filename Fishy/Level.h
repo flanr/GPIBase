@@ -18,11 +18,11 @@ public:
 	bool Load(const string &p_FileName, SpriteManager *p_pSpriteManager);
 	void Draw(DrawManager *p_pDrawManager);
 
-private:
+protected:
 	string m_SpriteMapFileName;
-	unsigned int m_width;
-	unsigned int m_height;
-	map<char,Coords> m_TimeCoords;
+	unsigned int m_iWidth;
+	unsigned int m_iHeight;
+	map<char,Coords> m_TileCoords;
 	
 };
 
