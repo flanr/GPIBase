@@ -25,7 +25,10 @@ protected:
 	unsigned int m_iWidth;
 	unsigned int m_iHeight;
 
+	sf::Vector2f m_PlayerStartPosition; 
+
 	map<char,Coords> m_TileCoords;
-	// vector<GameObject*> m_GameObjects;
+	vector<GameObject*> m_GameObjects;
+
 };
 

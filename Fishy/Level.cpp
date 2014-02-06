@@ -3,10 +3,12 @@
 #include "stdafx.h"
 #include "Level.h"
 
+
 Level::Level()
 {
 	m_iHeight = 0;
 	m_iWidth = 0;
+	m_PlayerStartPosition = sf::Vector2f(0.0f, 0.0f);
 }
 
 Level::~Level()
@@ -78,6 +80,14 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 
 			Coords &c = it->second;
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
+<<<<<<< HEAD
+=======
+
+
+			// Collider
+			//Collider 
+
+>>>>>>> 687f2cdb21b14659aa619fd3828c1c2f0f53e4db
 			iX += m_iWidth;
 
 		}
