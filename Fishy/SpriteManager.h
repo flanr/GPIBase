@@ -15,7 +15,7 @@ public:
 		bool Initialize(const std::string &directory);
 		void Cleanup();
 		bool LoadImage(const std::string &filename);
-		Sprite* Load(const std::string &filename, int x, int y, int width, int height);
+		sf::Sprite* Load(const std::string &filename, int x, int y, int width, int height);
 
 
 private:

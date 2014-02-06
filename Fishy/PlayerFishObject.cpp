@@ -7,9 +7,10 @@
 #include "PlayerFishObject.h"
 #include "Sprite.h"
 #include "InputManager.h"
+#include "GameObject.h"
 
 PlayerFishObject::PlayerFishObject(sf::Sprite *sprite , Collider* collider )
-	: FishObject(sprite, collider)
+	: GameObject(m_xPosition, m_pxSprite, m_pxCollider)
 {
 
 };

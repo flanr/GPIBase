@@ -22,7 +22,7 @@ void SpriteManager::Cleanup(){
 
 };
 
-Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
+sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
 	return 0;
 
 };

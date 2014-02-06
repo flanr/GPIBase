@@ -65,7 +65,7 @@ void GameState::HandleInput()
 
 void GameState::Draw()
 {
-	/*
+	
 	sf::Texture	texture;
 	if (!texture.loadFromFile("player.png"))
 	{
@@ -73,14 +73,14 @@ void GameState::Draw()
 	texture.setSmooth(true);
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
-	*/
+	
 	
 
 
 	sf::CircleShape shape(30.0f);
 	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
 	m_pWindow->draw(shape);
-	//m_pWindow->draw();
+	m_pWindow->draw(sprite);
 }
 
 bool GameState::IsType(const string &p_type)
