@@ -23,6 +23,10 @@ void SpriteManager::Cleanup(){
 };
 
 sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
+<<<<<<< HEAD
+	return 0;
+
+=======
 	
 	std::map<std::string,sf::Texture>::iterator it = m_axSprites.find(filename);
 	if(it == m_axSprites.end()) 
@@ -34,6 +38,7 @@ sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int w
 		it = m_axSprites.find(filename);
 	}
 	return new sf::Sprite(it->second, sf::IntRect(x, y, width, height) );
+>>>>>>> 687f2cdb21b14659aa619fd3828c1c2f0f53e4db
 };
 
 bool SpriteManager::LoadImage(const std::string &filename, sf::IntRect size){
