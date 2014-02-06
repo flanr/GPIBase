@@ -19,6 +19,10 @@ Level::~Level()
 bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 {
 	ifstream stream(p_sFileName);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1a6e168bbf056e4ea998c190a3f0928608c8c228
 	if (!stream.is_open())
 	{
 		return false;

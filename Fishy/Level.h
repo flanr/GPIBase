@@ -28,6 +28,10 @@ protected:
 	sf::Vector2f m_PlayerStartPosition; 
 
 	map<char,Coords> m_TileCoords;
+<<<<<<< HEAD
 	vector<GameObject*> m_GameObjects;
+=======
+	// vector<GameObject*> m_GameObjects;
+>>>>>>> 1a6e168bbf056e4ea998c190a3f0928608c8c228
 };
 

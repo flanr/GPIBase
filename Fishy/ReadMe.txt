@@ -28,7 +28,7 @@ SFML Game.cpp
 Other standard files:
 
 StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
+    These files are used to build a precompiled Optioner (PCH) file
     named SFML Game.pch and a precompiled types file named StdAfx.obj.
 
 /////////////////////////////////////////////////////////////////////////////

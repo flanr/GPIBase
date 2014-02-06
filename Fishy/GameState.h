@@ -5,6 +5,7 @@
 #include "Core.h"
 using namespace std;
 
+class PlayerFishObject;
 class GameState : public State
 {
 public:
@@ -31,5 +32,6 @@ private:
 	InputManager *m_pInputManager;
 	Core *m_pCore;
 	sf::RenderWindow  *m_pWindow;
+	PlayerFishObject *m_player;
 
 };

@@ -1,9 +1,5 @@
 // FishObject
 #include "stdafx.h"
-#include "FishObject.h"
-#include "Sprite.h"
-#include "InputManager.h"
-#include "Vector2.h"
 
 
 FishObject::FishObject(sf::Sprite *sprite, Collider *collider) 
@@ -21,11 +17,11 @@ void FishObject::SetPosition(const sf::Vector2f &position){
 	m_position = position;
 };
 
-bool FishObject::HasSprite() const {
-	return m_sprite != nullptr;
+sf::Sprite *FishObject::HasSprite(){
+	return m_sprite;
 };
 
-sf::Sprite* FishObject::GetSprite() {
+sf::Sprite *FishObject::GetSprite() {
 	return m_sprite;
 };
 

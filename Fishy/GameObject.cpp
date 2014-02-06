@@ -2,30 +2,21 @@
 #include "stdafx.h"
 
 #include "GameObject.h"
-#include "Sprite.h"
 
+//#include "Collider.h"
 
-//#include "BoxCollider.h"
-//#include "CircleCollider.h"
+//GameObject::GameObject()
+//{
+//}
+//
+//GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite)
+//: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite)
+//{
+//	m_bDestroyed = false;
+//}
 
-GameObject::GameObject()
-{
-}
-
-GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite)
-: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite)
-{
-	m_bDestroyed = false;
-}
-
-GameObject::GameObject(sf::Vector2f p_xPosition, BoxCollider * p_pxCollider, sf::Sprite * p_pxSprite)
-: m_xPosition(p_xPosition), m_pxCollider(p_pxCollider), m_pxSprite(p_pxSprite)
-{
-	m_bDestroyed = false;
-}
-
-GameObject::GameObject(sf::Vector2f p_xPosition, CircleCollider * p_pxCircleCollider, sf::Sprite * p_pxSprite)
-: m_xPosition(p_xPosition), m_pxCircleCollider(p_pxCircleCollider), m_pxSprite(p_pxSprite)
+GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collider * p_pxCollider)
+: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider)
 {
 	m_bDestroyed = false;
 }
@@ -52,30 +43,19 @@ sf::Sprite* GameObject::GetSprite()
 	return m_pxSprite;
 }
 
-void GameObject::SetNewSprite(sf::Sprite* p_pxNewSprite)
-{
-	m_pxSprite = p_pxNewSprite;
-}
+//void GameObject::SetNewSprite(sf::Sprite* p_pxNewSprite)
+//{
+//	m_pxSprite = p_pxNewSprite;
+//}
 
-bool GameObject::HasBoxCollider() const
+bool GameObject::HasCollider() const
 {
 	return m_pxCollider != nullptr;
 }
-BoxCollider* GameObject::GetBoxCollider()
+Collider* GameObject::GetCollider()
 {
 	
 	return m_pxCollider;
-}
-
-bool GameObject::HasCircleCollider() const
-{
-	return m_pxCircleCollider != nullptr;
-}
-
-CircleCollider* GameObject::GetCircleCollider()
-{
-
-	return m_pxCircleCollider;
 }
 
 void GameObject::SetDestroyed(bool p_bDestroyed)
