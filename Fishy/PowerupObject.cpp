@@ -3,8 +3,8 @@
 #include "stdafx.h"
 #include "PowerupObject.h"
 
-PowerupObject::PowerupObject(eType p_eUpgrade, sf::Vector2f p_xPosition, BoxCollider* p_pxBoxCollider, sf::Sprite* p_pxSprite)
-: GameObject(p_xPosition, p_pxBoxCollider, p_pxSprite) 
+PowerupObject::PowerupObject(eType p_eUpgrade, sf::Vector2f p_xPosition, sf::Sprite* p_pxSprite, Collider* p_pxCollider)
+: GameObject(p_xPosition,  p_pxSprite, p_pxCollider) 
 {
 	m_xStartPos = p_xPosition;
 	bMovingUp = true;
