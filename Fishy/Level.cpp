@@ -82,8 +82,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 
 			Coords &c = it->second;
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
-<<<<<<< HEAD
-=======
+
 
 
 			// Collider
@@ -95,7 +94,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 			go->SetPosition(sf::Vector2f(iX,iY));
 			m_GameObjects.push_back(go);
 
->>>>>>> 687f2cdb21b14659aa619fd3828c1c2f0f53e4db
 			iX += m_iWidth;
 
 		}
