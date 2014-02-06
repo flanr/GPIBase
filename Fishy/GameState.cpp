@@ -5,6 +5,8 @@
 #include "Core.h"
 #include "PlayerFishObject.h"
 #include "FishObject.h"
+#include "DrawManager.h"
+#include "Level.h"
 
 using namespace std;
 GameState::GameState(Core* p_pCore)
@@ -13,6 +15,9 @@ GameState::GameState(Core* p_pCore)
 	m_pInputManager = p_pCore->m_pInputManager;
 	m_pWindow = p_pCore->window;
 	m_player = p_pCore->m_player;
+	m_spritemanager = nullptr;
+	m_level = nullptr;
+	m_DrawManager = nullptr;
 }
 
 string GameState::GetCurrentState()
@@ -31,6 +36,26 @@ bool GameState::EnterState()
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
+	if (m_DrawManager == nullptr)
+	{
+		m_DrawManager = new DrawManager(m_pWindow);
+	}
+
+	if (m_spritemanager == nullptr)
+	{
+		m_spritemanager = new SpriteManager(m_DrawManager);
+		if(!m_spritemanager ->Initialize("../data/sprites/"))
+		{
+			return false;
+		}
+	}
+	if (m_level == nullptr)
+	{
+		m_level = new Level;
+		m_level->Load("../data/levels/level.txt", m_spritemanager);
+	}
+
+
 	return false;
 }
 
@@ -43,6 +68,7 @@ bool GameState::Update(float p_DeltaTime)
 {
 	HandleInput();
 	Draw();
+	m_level->Draw(m_DrawManager);
 	return true;
 }
 

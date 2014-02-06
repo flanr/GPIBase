@@ -26,6 +26,11 @@ void DrawManager::DrawSprite(sf::Sprite * p_pSprite, sf::RenderStates * p_pEffec
 {
 	m_pWindow->draw(*p_pSprite, *p_pEffect);
 }
+void DrawManager::Draw(sf::Sprite *p_sprite)
+{
+	m_pWindow->draw(*p_sprite);
+}
+
 
 void DrawManager::DisplayWindow()
 {

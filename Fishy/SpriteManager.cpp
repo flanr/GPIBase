@@ -27,7 +27,7 @@ sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int w
 	std::map<std::string,sf::Texture>::iterator it = m_axSprites.find(filename);
 	if(it == m_axSprites.end()) 
 	{
-		if(!LoadImage(filename)) 
+		if(!LoadImage(filename, sf::IntRect(x, y, width, height))) 
 		{
 			return nullptr;
 		}
@@ -36,11 +36,11 @@ sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int w
 	return new sf::Sprite(it->second, sf::IntRect(x, y, width, height) );
 };
 
-bool SpriteManager::LoadImage(const std::string &filename){
+bool SpriteManager::LoadImage(const std::string &filename, sf::IntRect size){
 
 	std::string path = m_directory + filename;
 	sf::Texture texture;
-	if(!texture.loadFromFile(path.c_str() ) )
+	if(!texture.loadFromFile(path.c_str(), size))
 	{
 		return false;
 	}
