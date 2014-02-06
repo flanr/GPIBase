@@ -1,26 +1,27 @@
 // FishObject
 #include "stdafx.h"
-#include "FishObject.h"
-#include "Sprite.h"
-#include "InputManager.h"
 
 
-FishObject::FishObject(Sprite *sprite, Collider *collider) 
+FishObject::FishObject(sf::Sprite *sprite, Collider *collider) 
 : m_sprite(sprite)
 , m_collider(collider)
 {
 
 };
 
-void FishObject::SetPosition(float x, float y){
-	
+const sf::Vector2f &FishObject::GetPosition() const{
+	return  m_position;
 };
 
-bool FishObject::HasSprite() const {
-	return m_sprite != nullptr;
+void FishObject::SetPosition(const sf::Vector2f &position){
+	m_position = position;
 };
 
-Sprite* FishObject::GetSprite() {
+sf::Sprite *FishObject::HasSprite(){
+	return m_sprite;
+};
+
+sf::Sprite *FishObject::GetSprite() {
 	return m_sprite;
 };
 

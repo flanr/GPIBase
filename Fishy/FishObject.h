@@ -1,23 +1,23 @@
 // FishObject.h
 #pragma once
 
-
-class Sprite;
 class Collider;
 
 class FishObject {
 public:
-	FishObject(Sprite *sprite = nullptr, Collider *collider = nullptr);
+	FishObject(sf::Sprite *sprite, Collider *collider = nullptr);
 
-	void SetPosition(float x, float y);
+	const sf::Vector2f &GetPosition() const;
+	void SetPosition(const sf::Vector2f &position);
 
-	bool HasSprite() const;
-	Sprite* GetSprite();
+	sf::Sprite *HasSprite();
+	sf::Sprite *GetSprite();
 
 	bool HasCollider() const;
 	Collider* GetCollider();
 
 public:
-	Sprite *m_sprite;
+	sf::Sprite *m_sprite;
 	Collider *m_collider;
+	sf::Vector2f m_position;
 };

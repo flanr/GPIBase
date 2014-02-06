@@ -33,6 +33,8 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <vector>
 
 //
@@ -43,6 +45,9 @@
 #include "OptionState.h"
 #include "StateManager.h"
 #include "Core.h"
+#include "FishObject.h"
+#include "InputManager.h"
+#include "Collider.h"
 
 
 // TODO: reference additional headers your program requires here.
