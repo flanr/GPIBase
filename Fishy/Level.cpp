@@ -83,7 +83,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 			Coords &c = it->second;
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 
-
+			sprite->setPosition(iX,iY);
 
 			// Collider
 			Collider *collider = new Collider;
