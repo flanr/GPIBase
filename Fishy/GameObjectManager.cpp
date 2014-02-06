@@ -42,7 +42,8 @@ void GameObjectManager::Cleanup()
 	if(m_pxLight != nullptr) 
 	{
 		/*delete m_pxLight->GetSprite();
-		delete m_pxLight->GetCollider();*/
+		delete m_pxLight->GetCollider();
+		delete m_pxLight->GetCircleCollider();*/
 		delete m_pxLight;
 		m_pxLight = nullptr;
 	}

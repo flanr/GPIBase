@@ -3,7 +3,7 @@
 
 
 class Sprite{
-	friend class DrawManager;
+	/*friend class DrawManager;*/
 	friend class SpriteManager;
 public:
 	Sprite(sf::RenderWindow *m_pWindow, int x, int y, int width, int height);
