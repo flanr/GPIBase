@@ -5,6 +5,8 @@
 //using namespace sf;
 
 class InputManager;
+class PlayerFishObject;
+class Collider;
 
 class Core
 {
@@ -24,11 +26,18 @@ public:
 
 	sf::RenderWindow  *window;
 
+	PlayerFishObject *m_player;
+
 	bool m_bRunning;
 
 	float m_fDeltaTime;
 
 	InputManager* m_pInputManager;
+	
+	sf::Sprite *playerSprite;
+	
+	Collider *collider;
+
 private:
 
 };

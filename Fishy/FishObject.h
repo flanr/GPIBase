@@ -5,13 +5,13 @@ class Collider;
 
 class FishObject {
 public:
-	FishObject(sf::Sprite *sprite = nullptr, Collider *collider = nullptr);
+	FishObject(sf::Sprite *sprite, Collider *collider = nullptr);
 
 	const sf::Vector2f &GetPosition() const;
 	void SetPosition(const sf::Vector2f &position);
 
-	bool HasSprite() const;
-	sf::Sprite* GetSprite();
+	sf::Sprite *HasSprite();
+	sf::Sprite *GetSprite();
 
 	bool HasCollider() const;
 	Collider* GetCollider();

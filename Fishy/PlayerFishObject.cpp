@@ -8,9 +8,10 @@
 #include "Sprite.h"
 #include "InputManager.h"
 
-PlayerFishObject::PlayerFishObject(sf::Sprite* sprite , Collider* collider )
+PlayerFishObject::PlayerFishObject(sf::Sprite *sprite , Collider* collider )
 	: FishObject(sprite, collider)
 {
+
 };
 
 void PlayerFishObject::Update(float deltatime)

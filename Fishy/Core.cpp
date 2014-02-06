@@ -1,5 +1,9 @@
 // Core.cpp
 #include "stdafx.h"
+#include "FishObject.h"
+#include "PlayerFishObject.h"
+#include "GameObject.h"
+#include "GameObjectManager.h"
 
 #include "Core.h"
 //using namespace sf;
@@ -10,6 +14,8 @@ Core::Core()
 	window = nullptr;
 	m_pInputManager = nullptr;
 	m_fDeltaTime = 0.0f;
+	playerSprite = nullptr;
+	
 }
 
 Core::~Core()
@@ -21,23 +27,33 @@ bool Core::Initialize()
 {
 
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
-	window = new sf::RenderWindow(sf::VideoMode(1024,640), (string)"MEGA FUCKING AWESOME SUPER GAME");
+	window = new sf::RenderWindow(sf::VideoMode(1024,640), (string)"MEGA AWESOME SUPER GAME");
 
 	if (m_pInputManager == nullptr)
 	{
 		m_pInputManager = new InputManager;
 	}
-	//Delete the states***********************************************************************************************
+	//Delete the states*******************************************************************
 	if (m_StateManager.GetCurrentState() == nullptr)
 	{
 		m_StateManager.Attach(new GameState(this));
 		m_StateManager.Attach(new OptionState(this));
 		m_StateManager.Attach(new StartState(this));
 
-		m_StateManager.SetState("GameState");
+		m_StateManager.SetState("StartState");
 	}
+	
+	sf::Texture	texture;
+	if (!texture.loadFromFile("player.png"))
+	{
+	};
+	texture.setSmooth(true);
 
-
+//	playerSprite->setTexture(texture);
+	
+	collider = new Collider;
+	//m_player = new PlayerFishObject(playerSprite, collider);
+	
 	return true;
 }
 
@@ -75,6 +91,8 @@ void Core::Run()
 			std::cout << "IsDownOnceMouse\n";
 		}
 
+		
+
 
 		m_StateManager.Update(m_fDeltaTime);
 		
@@ -95,4 +113,3 @@ void Core::Cleanup()
 		m_pInputManager = nullptr;
 	}
 }
-
