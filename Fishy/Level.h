@@ -20,18 +20,14 @@ public:
 
 protected:
 	string m_SpriteMapFileName;
-<<<<<<< HEAD
-	unsigned int m_iWidth;
-	unsigned int m_iHeight;
-	map<char,Coords> m_TileCoords;
-	
-=======
+
 
 	unsigned int m_iWidth;
 	unsigned int m_iHeight;
 
+	sf::Vector2f m_PlayerStartPosition; 
+
 	map<char,Coords> m_TileCoords;
-	// vector<GameObject*> m_GameObjects;
->>>>>>> 3ff671343fa104d8b0b5dbcc188dc7de727a080c
+	vector<GameObject*> m_GameObjects;
 };
 

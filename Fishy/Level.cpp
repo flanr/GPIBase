@@ -3,38 +3,27 @@
 #include "stdafx.h"
 #include "Level.h"
 
+
 Level::Level()
 {
 	m_iHeight = 0;
 	m_iWidth = 0;
+	m_PlayerStartPosition = sf::Vector2f(0.0f, 0.0f);
 }
 
 Level::~Level()
 {
 }
 
-<<<<<<< HEAD
-bool Level::Load(const string &p_FileName, SpriteManager* p_pSpriteManager)
-{
-	ifstream stream(p_FileName);
 
-=======
 bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 {
 	ifstream stream(p_sFileName);
->>>>>>> 3ff671343fa104d8b0b5dbcc188dc7de727a080c
 	if (!stream.is_open())
 	{
 		return false;
 	}
-<<<<<<< HEAD
 
-	string row;
-	unsigned int iCoordCount = 0;
-	stream >> m_SpriteMapFileName;
-
-
-=======
 	string row;
 	unsigned int iCoordCount = 0;
 	stream >> m_SpriteMapFileName;
@@ -89,7 +78,12 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 			}
 
 			Coords &c = it->second;
-			Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
+			//sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h); // Sprite
+
+			// Collider
+			//Collider 
+
+
 			iX += m_iWidth;
 
 		}
@@ -97,5 +91,4 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 	}
 	stream.close();
 	return true;
->>>>>>> 3ff671343fa104d8b0b5dbcc188dc7de727a080c
 }
