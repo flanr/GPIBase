@@ -22,12 +22,29 @@ void SpriteManager::Cleanup(){
 
 };
 
-Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
-	return 0;
-
+sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
+	
+	std::map<std::string,sf::Texture>::iterator it = m_axSprites.find(filename);
+	if(it == m_axSprites.end()) 
+	{
+		if(!LoadImage(filename)) 
+		{
+			return nullptr;
+		}
+		it = m_axSprites.find(filename);
+	}
+	return new sf::Sprite(it->second, sf::IntRect(x, y, width, height) );
 };
 
 bool SpriteManager::LoadImage(const std::string &filename){
 
-	return 0;
+	std::string path = m_directory + filename;
+	sf::Texture texture;
+	if(!texture.loadFromFile(path.c_str() ) )
+	{
+		return false;
+	}
+
+	m_axSprites.insert(std::pair<std::string, sf::Texture>(filename,texture) );
+	return true;
 };
