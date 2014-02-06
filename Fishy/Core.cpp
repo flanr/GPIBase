@@ -74,7 +74,7 @@ void Core::Run()
 			////////Demonstrating isdown and isdownonce functions in the console.
 			m_pInputManager->UpdateEvents(event);
 		}
-		if (m_pInputManager->IsDownOnceK(sf::Keyboard::Key::A))
+		/*if (m_pInputManager->IsDownOnceK(sf::Keyboard::Key::A))
 		{
 			std::cout << "IsDownOnce\n";
 		}
@@ -90,8 +90,7 @@ void Core::Run()
 		{
 			std::cout << "IsDownOnceMouse\n";
 		}
-
-		
+*/
 
 
 		m_StateManager.Update(m_fDeltaTime);
