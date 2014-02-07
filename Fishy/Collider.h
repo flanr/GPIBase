@@ -20,6 +20,8 @@ public:
 	void SetPositionY(float y);
 	sf::Vector2f m_position;
 	sf::Vector2f m_extention;
+
+	void SetRadius(float p_radius);
 private:
 
 	float m_radius;

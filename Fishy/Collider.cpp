@@ -125,3 +125,8 @@ bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset)
  }
  return false;
 }
+
+void Collider::SetRadius(float p_radius)
+{
+	m_radius = p_radius;
+}

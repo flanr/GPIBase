@@ -13,6 +13,7 @@ public:
 	~EnemyFishObject();
 
 	void SetSpawnPosition(sf::Vector2f p_xSpawnPosition);
+	sf::Vector2f GetSpawnPosition(sf::Vector2f p_xSpawnPosition);
 	void SetAttractRadius(float p_fAttractRadius);
 	
 	void Update(float deltatime);

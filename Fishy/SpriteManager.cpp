@@ -41,7 +41,7 @@ bool SpriteManager::LoadImage(const std::string &filename, sf::IntRect size){
 
 	std::string path = m_directory + filename;
 	sf::Texture texture;
-	if(!texture.loadFromFile(path.c_str()/*, size*/))
+	if(!texture.loadFromFile(path.c_str() ))
 	{
 		return false;
 	}
