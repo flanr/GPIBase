@@ -13,11 +13,14 @@ public:
 
 		bool Initialize(const std::string &directory);
 		void Cleanup();
+
+		bool LoadImage(const std::string &filename);
+
 		sf::Sprite* Load(const std::string &filename, int x, int y, int width, int height);
 
 
 private:
-	bool LoadImage(const std::string &filename);
+	bool LoadImage(const std::string &filename, sf::IntRect size);
 	DrawManager *m_draw_manager;
 	std::string m_directory;
 	std::map<std::string, sf::Texture> m_axSprites;

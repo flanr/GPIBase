@@ -3,9 +3,11 @@
 #include "State.h"
 #include "stdafx.h"
 #include "Core.h"
+#include "SpriteManager.h"
 using namespace std;
-
+class Level;
 class PlayerFishObject;
+class DrawManager;
 class GameState : public State
 {
 public:
@@ -33,7 +35,9 @@ private:
 	Core *m_pCore;
 	sf::RenderWindow  *m_pWindow;
 	PlayerFishObject *m_player;
-	sf::Sprite *m_playerSprite;
-	Collider *m_collider;
+
+	Level * m_level;
+	SpriteManager * m_spritemanager;
+	DrawManager * m_DrawManager;
 
 };

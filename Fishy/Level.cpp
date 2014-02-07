@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 #include "Level.h"
+#include "DrawManager.h"
+#include "Collider.h"
 
 
 Level::Level()
@@ -81,6 +83,18 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 			Coords &c = it->second;
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 
+
+			sprite->setPosition(iX,iY);
+
+			// Collider
+			Collider *collider = new Collider;
+			collider->m_position = sf::Vector2f(iX,iY) ;
+			collider->m_extention = sf::Vector2f(c.w, c.h);
+
+			GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
+			go->SetPosition(sf::Vector2f(iX,iY));
+			m_GameObjects.push_back(go);
+
 			iX += m_iWidth;
 
 		}
@@ -88,4 +102,14 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 	}
 	stream.close();
 	return true;
+}
+
+
+void Level::Draw(DrawManager *p_draw_manager)
+{
+	for(auto i=0UL; i < m_GameObjects.size();i++)
+	{		
+		p_draw_manager->Draw(m_GameObjects[i]->GetSprite());
+	}
+
 }
