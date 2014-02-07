@@ -43,16 +43,9 @@ bool Core::Initialize()
 		m_StateManager.SetState("StartState");
 	}
 	
-	sf::Texture	texture;
-	if (!texture.loadFromFile("player.png"))
-	{
-	};
-	texture.setSmooth(true);
 
-//	playerSprite->setTexture(texture);
-	
 	collider = new Collider;
-	//m_player = new PlayerFishObject(playerSprite, collider);
+	
 	
 	return true;
 }

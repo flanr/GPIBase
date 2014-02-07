@@ -33,5 +33,7 @@ private:
 	Core *m_pCore;
 	sf::RenderWindow  *m_pWindow;
 	PlayerFishObject *m_player;
+	sf::Sprite *m_playerSprite;
+	Collider *m_collider;
 
 };

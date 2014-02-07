@@ -12,7 +12,6 @@ GameState::GameState(Core* p_pCore)
 	m_pCore = p_pCore;
 	m_pInputManager = p_pCore->m_pInputManager;
 	m_pWindow = p_pCore->window;
-	m_player = p_pCore->m_player;
 }
 
 string GameState::GetCurrentState()
@@ -26,10 +25,14 @@ string GameState::Next()
 }
 
 
-bool GameState::EnterState()
+bool GameState::EnterState() 
 {
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
+
+
+
+	m_player = new PlayerFishObject(m_playerSprite, m_collider);
 
 	return false;
 }
@@ -65,7 +68,7 @@ void GameState::HandleInput()
 
 void GameState::Draw()
 {
-	
+	/*
 	sf::Texture	texture;
 	if (!texture.loadFromFile("player.png"))
 	{
@@ -73,14 +76,14 @@ void GameState::Draw()
 	texture.setSmooth(true);
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
-	
+	*/
 	
 
 
 	sf::CircleShape shape(30.0f);
 	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
 	m_pWindow->draw(shape);
-	m_pWindow->draw(sprite);
+//	m_pWindow->draw(sprite);
 }
 
 bool GameState::IsType(const string &p_type)
