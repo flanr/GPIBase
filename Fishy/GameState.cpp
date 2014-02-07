@@ -68,7 +68,7 @@ void GameState::ExitState()
 bool GameState::Update(float p_DeltaTime)
 {
 	HandleInput();
-	Draw();
+	//Draw();
 	m_level->Draw(m_DrawManager);
 	return true;
 }
@@ -101,13 +101,10 @@ void GameState::Draw()
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
 	*/
-	
-
 
 	sf::CircleShape shape(30.0f);
 	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
 	m_pWindow->draw(shape);
-//	m_pWindow->draw(sprite);
 }
 
 bool GameState::IsType(const string &p_type)

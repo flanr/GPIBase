@@ -17,12 +17,7 @@ void DrawManager::ClearWindow()
 	m_pWindow->clear(sf::Color(0x00,0x00,0x00,0xff));	
 }
 
-void DrawManager::DrawSprite(sf::Sprite * p_pSprite)
-{
-
-	m_pWindow->draw(*p_pSprite);
-}
-void DrawManager::DrawSprite(sf::Sprite * p_pSprite, sf::RenderStates * p_pEffect)
+void DrawManager::DrawSpriteEffect(sf::Sprite * p_pSprite, sf::RenderStates * p_pEffect)
 {
 	m_pWindow->draw(*p_pSprite, *p_pEffect);
 }

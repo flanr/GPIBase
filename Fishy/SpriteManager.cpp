@@ -2,7 +2,6 @@
 #include "stdafx.h"
 
 #include "SpriteManager.h"
-#include "Sprite.h"
 #include "DrawManager.h"
 
 SpriteManager::SpriteManager(DrawManager *draw_manager){
@@ -35,13 +34,14 @@ sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int w
 		it = m_axSprites.find(filename);
 	}
 	return new sf::Sprite(it->second, sf::IntRect(x, y, width, height) );
+
 };
 
 bool SpriteManager::LoadImage(const std::string &filename, sf::IntRect size){
 
 	std::string path = m_directory + filename;
 	sf::Texture texture;
-	if(!texture.loadFromFile(path.c_str(), size))
+	if(!texture.loadFromFile(path.c_str()/*, size*/))
 	{
 		return false;
 	}
