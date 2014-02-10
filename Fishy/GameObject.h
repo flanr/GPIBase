@@ -5,6 +5,7 @@
 #include <string>
 
 class Collider;
+class Sprite;
 
 class GameObject
 {
@@ -33,7 +34,7 @@ public:
 	void SetDestroyed(bool p_bDestroyed);
 	bool GetDestroyed();
 
-	virtual void Update();
+	virtual void Update(float deltatime);
 
 protected:
 	sf::Sprite *m_pxSprite;

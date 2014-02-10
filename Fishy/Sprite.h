@@ -2,17 +2,17 @@
 #pragma once
 
 
-class Sprite{
-	/*friend class DrawManager;*/
+class Sprite : sf::Sprite
+{
 	friend class SpriteManager;
 public:
-	Sprite(sf::RenderWindow *m_pWindow, int x, int y, int width, int height);
+
+	Sprite(sf::Texture *Texture, int x, int y, int width, int height);
+	~Sprite();
+	sf::Sprite* getSfSprite();
+
 protected:
 	
-	int m_x;
-	int m_y;
-	int m_width;
-	int m_height;
-
-
+	sf::Sprite *m_Sprite;
+	sf::Texture *m_Texture;
 };

@@ -1,10 +1,11 @@
 // Core.h
 #include "stdafx.h"
 #pragma once
-#include "StateManager.h"
-//using namespace sf;
 
+//using namespace sf;
+class StateManager;
 class InputManager;
+class DrawManager;
 class PlayerFishObject;
 class Collider;
 
@@ -21,9 +22,11 @@ public:
 	/*	Cleans up all the Pointers when closing down */
 	void Cleanup();
 
-public:
-	StateManager m_StateManager;
+	void UpdateDeltatime();
 
+public:
+	StateManager *m_StateManager;
+	DrawManager *m_DrawManager;
 	sf::RenderWindow  *window;
 
 	PlayerFishObject *m_player;
@@ -39,5 +42,6 @@ public:
 	Collider *collider;
 
 private:
-
+	sf::Clock m_Clock;
+	sf::Time m_TimeSinceLastUpdate;
 };

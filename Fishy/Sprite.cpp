@@ -3,11 +3,16 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-Sprite::Sprite(sf::RenderWindow *m_pWindow, int x, int y, int width, int height){
+Sprite::Sprite(sf::Texture *Texture, int x, int y, int width, int height)
+{
+	m_Sprite->setTexture(*Texture);
+	m_Sprite->setTextureRect(sf::IntRect(x, y, width, height) );
+}
+	Sprite::~Sprite()
+{
+}
 
-
-	m_x = x;
-	m_y = y;
-	m_width = width;
-	m_height = height;
-};
+sf::Sprite* Sprite::getSfSprite()
+{
+	return m_Sprite;
+}

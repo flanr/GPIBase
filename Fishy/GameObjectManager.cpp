@@ -19,7 +19,7 @@
 GameObjectManager::GameObjectManager(SpriteManager *p_pxSpriteManager)
 {
 	m_pxSpriteManager = p_pxSpriteManager;
-	//m_pxPlayer = nullptr;
+	m_pxPlayer = nullptr;
 	//m_pxLight = nullptr;
 }
 GameObjectManager::~GameObjectManager()
@@ -154,10 +154,10 @@ void GameObjectManager::Attach(GameObject *p_pxGameObject)
 {
 	m_apxGameObject.push_back(p_pxGameObject);
 }
-//void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
-//{
-//	m_pxPlayer = p_pxPlayer;
-//}
+void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
+{
+	m_pxPlayer = p_pxPlayer;
+}
 //void GameObjectManager::AttachLight(LightObject *p_pxLight)
 //{
 //	m_pxLight = p_pxLight;
@@ -324,8 +324,14 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 {
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
-		m_apxGameObject[i]->Update();
+		m_apxGameObject[i]->Update(p_fDeltatime);
 	}
+	//m_pxPlayer->Update(p_fDeltatime);
+
+    /*for ( auto element : m_apxGameObject )
+	{
+		element->Update(p_fDeltatime);
+	}*/
 	/*UpdatePlayer(p_fDeltatime);
 	UpdateTerrain(p_fDeltatime);
 	UpdateEnemies(p_fDeltatime);

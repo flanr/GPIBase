@@ -8,6 +8,7 @@ using namespace std;
 class Level;
 class PlayerFishObject;
 class DrawManager;
+class GameObjectManager;
 class GameState : public State
 {
 public:
@@ -31,13 +32,15 @@ public:
 	string GetCurrentState();
 
 private:
+	bool bStateRunning;
 	InputManager *m_pInputManager;
 	Core *m_pCore;
-	sf::RenderWindow  *m_pWindow;
+	sf::RenderWindow *m_window;
 	PlayerFishObject *m_player;
 
 	Level * m_level;
 	SpriteManager * m_spritemanager;
 	DrawManager * m_DrawManager;
+	GameObjectManager *m_GameObjMgr;
 
 };

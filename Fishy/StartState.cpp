@@ -8,8 +8,9 @@ using namespace std;
 StartState::StartState(Core* p_pCore)
 {
 	m_pCore = p_pCore;
+	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
-	m_pWindow = p_pCore->window;
+	m_DrawManager = p_pCore->m_DrawManager;
 }
 
 string StartState::GetCurrentState()
@@ -38,34 +39,24 @@ void StartState::ExitState()
 
 bool StartState::Update(float p_fDeltaTime)
 {
+	
 	HandleInput();
-	Draw();
 	return true;
 }
 
 void StartState::HandleInput()
 {
-	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
-	{
-		cout << "Already in StartState" << endl;
-	}
-	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
-	{
-		m_pCore->m_StateManager.SetState("GameState");
-	}
-	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
-	{
-		m_pCore->m_StateManager.SetState("OptionState");
-	}
-	
-
+	m_pInputManager->UpdateEvents(m_pCore);
 }
 
 void StartState::Draw()
 {
 	sf::CircleShape shape(15.0f);
-	m_pWindow->clear(sf::Color(0x44,0x55,0x22,0xff));
-	m_pWindow->draw(shape);
+	//m_pWindow->clear(sf::Color(0x44,0x55,0x22,0xff));
+
+	m_DrawManager->ClearWindow();
+	//m_level->Draw(m_DrawManager);
+	m_DrawManager->DisplayWindow();
 }
 
 bool StartState::IsType(const string &p_sType)

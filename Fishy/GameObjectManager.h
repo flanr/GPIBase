@@ -5,7 +5,7 @@ class SpriteManager;
 class InputManager;
 
 class GameObject;
-//class PlayerFishObject;
+class PlayerFishObject;
 //class LightObject;
 class PowerupObject;
 
@@ -18,7 +18,7 @@ class PowerupObject;
 
 class GameObjectManager
 {
-
+	friend class Level;
 public:
 	GameObjectManager(SpriteManager *p_pxSpriteManager);
 	~GameObjectManager();
@@ -27,8 +27,8 @@ public:
 	
 	//attach objects
 	void Attach(GameObject *p_pxGameObject);
-	/*void AttachPlayer(PlayerFishObject *p_pxPlayer);
-	void AttachLight(LightObject *p_pxLight);*/
+	void AttachPlayer(PlayerFishObject *p_pxPlayer);
+	//void AttachLight(LightObject *p_pxLight);
 	//void AttachTerrain(TerrainObject *p_pxTerrain);
 	//void AttachEnemy(EnemyFishObject *p_pxEnemy);
 	//void AttachPowerup(PowerupObject *p_pxPowerup);
@@ -69,6 +69,7 @@ private:
 	SpriteManager *m_pxSpriteManager;
 
 	std::vector<GameObject*> m_apxGameObject;
+	PlayerFishObject *m_pxPlayer;
 
 	//PlayerFishObject *m_pxPlayer;
 	//LightObject *m_pxLight;

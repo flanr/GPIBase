@@ -27,11 +27,11 @@ GameObject::~GameObject()
 
 sf::Vector2f GameObject::GetPosition()
 {
-	return m_xPosition;
+	return m_pxSprite->getPosition();
 }
 void GameObject::SetPosition(const sf::Vector2f &p_xPosition)
 {
-	m_xPosition = p_xPosition;
+	m_pxSprite->setPosition(p_xPosition);
 }
 
 bool GameObject::HasSprite() const
@@ -68,7 +68,7 @@ bool GameObject::GetDestroyed()
 	return m_bDestroyed;
 }
 
-void GameObject::Update()
+void GameObject::Update(float deltatime)
 {
 	//Uppdatera spelobjekt
 }

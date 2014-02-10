@@ -2,6 +2,10 @@
 #pragma once
 #include "SpriteManager.h"
 #include "GameObject.h"
+#include "PlayerFishObject.h"
+
+class GameObjectManager;
+
 using namespace std;
 
 class Level
@@ -12,10 +16,11 @@ class Level
 	};
 
 public:
-	Level();
+	Level(GameObjectManager *p_pxGameObjMgr = nullptr);
 	~Level();
 
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager);
+	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager);
 	void Draw(DrawManager *p_pDrawManager);
 
 protected:
@@ -29,6 +34,7 @@ protected:
 
 	map<char,Coords> m_TileCoords;
 	vector<GameObject*> m_GameObjects;
+	GameObjectManager *m_pxGameObjMgr;
 
 };
 

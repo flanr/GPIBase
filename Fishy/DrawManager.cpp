@@ -14,7 +14,7 @@ DrawManager::~DrawManager()
 void DrawManager::ClearWindow()
 {
 	//Change color to whatever
-	m_pWindow->clear(sf::Color(0x00,0x00,0x00,0xff));	
+	m_pWindow->clear(sf::Color(0x00,0x50,0x00,0xff));	
 }
 
 void DrawManager::DrawSpriteEffect(sf::Sprite * p_pSprite, sf::RenderStates * p_pEffect)
