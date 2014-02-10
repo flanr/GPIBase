@@ -18,11 +18,9 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 void PlayerFishObject::Update(float deltatime)
 {
 
-
 	if(m_pxCurrentAnimation != nullptr) {
 		m_pxCurrentAnimation->Update(deltatime * 5.0f);
 	}
-
 };
 
 void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite)

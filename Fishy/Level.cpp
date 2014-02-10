@@ -107,7 +107,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 /*Test function, to load player*/
 bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 {
-	sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, 0, 0, 70, 70);
+	sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, 0, 0, 0, 0);
 	
 	sprite->setPosition(100,100);
 
@@ -131,7 +131,7 @@ void Level::Draw(DrawManager *p_draw_manager)
 		p_draw_manager->Draw(m_GameObjects[i]->GetSprite());
 	}
 	//& sprite eller sf::sprite? animSprite?z
-	p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+	//p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 
 	//for( auto i = 0UL; i < m_pxGameObjMgr->m_apxGameObj.size(); i++)		//0UL = 0 unsigned long
 	//{
