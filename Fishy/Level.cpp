@@ -99,14 +99,13 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
 				go->SetPosition(sf::Vector2f(iX,iY));
-				m_GameObjects.push_back(go);
+				m_pxGameObjMgr->Attach(go);
 
 			}else
 			{
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
 				go->SetPosition(sf::Vector2f(iX,iY));
-				m_GameObjects.push_back(go);
-
+				m_pxGameObjMgr->Attach(go);
 			}
 
 
