@@ -32,12 +32,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
-<<<<<<< HEAD
-=======
 #include <iostream>
 #include <sstream>
 #include <fstream>
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 #include <vector>
 #include <iostream>
 
@@ -51,15 +48,12 @@
 #include "OptionState.h"
 #include "StateManager.h"
 #include "Core.h"
-<<<<<<< HEAD
 #include "Geographics.h"
 #include "Collider.h"
 #include "CollisionManager.h"
 
-=======
 #include "FishObject.h"
 #include "Collider.h"
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 
 
 // TODO: reference additional headers your program requires here.

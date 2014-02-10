@@ -34,16 +34,13 @@ bool Core::Initialize()
 {
 
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
-<<<<<<< HEAD
 	window = new sf::RenderWindow(sf::VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
-=======
 	window = new sf::RenderWindow(sf::VideoMode(1024,640), (string)"MEGA AWESOME SUPER GAME");
 
 	//This sets framerate to the monitors framerate (like 60FPS), if this is commented out the loop will run faster
 	window->setVerticalSyncEnabled(true);
 	//This sets framerate to your chosen limit, (DON'T use together with vertical sync above)
 	//window->setFramerateLimit(30);
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 
 	if (m_pInputManager == nullptr)
 	{
@@ -74,7 +71,6 @@ bool Core::Initialize()
 
 void Core::Run()
 {
-<<<<<<< HEAD
 	while (window->isOpen())
 	{
 		sf::Event event;
@@ -101,7 +97,6 @@ void Core::Run()
 		m_pInputManager->PostUpdateMouse();
 	}
 	
-=======
 
 	//while(m_StateManager->IsRunning() )
 	//{
@@ -128,7 +123,6 @@ void Core::Run()
 			m_pInputManager->PostUpdateMouse();
 		}
 	/*}*/
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 }
 
 

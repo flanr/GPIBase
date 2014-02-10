@@ -15,7 +15,6 @@ GameState::GameState(Core* p_pCore)
 	m_pCore = p_pCore;
 	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
-<<<<<<< HEAD
 	m_pWindow = p_pCore->window;
 
 	m_circle = new Collider(sf::Vector2f(100.f, 100.f), 20);
@@ -63,7 +62,6 @@ GameState::GameState(Core* p_pCore)
 	mgr->AttachCollider(m_rect2);
 	mgr->AttachCollider(m_rect3);
 
-=======
 	m_DrawManager = p_pCore->m_DrawManager;
 	m_player = p_pCore->m_player;
 	m_spritemanager = nullptr;
@@ -71,7 +69,7 @@ GameState::GameState(Core* p_pCore)
 	m_GameObjMgr = nullptr;
 
 	bStateRunning = false;
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
+
 }
 
 string GameState::GetCurrentState()
@@ -118,7 +116,7 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-<<<<<<< HEAD
+
 	//Draw();
 	HandleInput();
 	
@@ -149,12 +147,12 @@ bool GameState::Update(float p_DeltaTime)
 
 	//Just until I come to think about something else sf::FloatRect
 	mgr->CheckCollisionRectVsCircle(m_floatrect);
-=======
+
 
 	HandleInput();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
+
 	return true;
 }
 
@@ -189,7 +187,7 @@ void GameState::HandleInput()
 		m_shape.move(0.0, 0.01f);
 	}
 
-<<<<<<< HEAD
+
 	if (m_pInputManager->IsDownK(sf::Keyboard::Key::A))
 	{
 		m_shape2.move(-0.01, 0.f);
@@ -239,9 +237,7 @@ void GameState::HandleInput()
 	{
 		m_rectShape2.move(0.0, 0.05f);
 	}
-=======
 	
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 }
 
 void GameState::Draw()
@@ -261,7 +257,6 @@ void GameState::Draw()
 	m_level->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();
 
-<<<<<<< HEAD
 
 
 
@@ -274,11 +269,11 @@ void GameState::Draw()
 	m_pWindow->draw(m_shape3);
 	m_pWindow->draw(m_rectShape2);
 	m_pWindow->draw(m_rectShape3);
-=======
+
 	/*sf::CircleShape shape(30.0f);
 	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
 	m_pWindow->draw(shape);*/
->>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
+
 }
 
 bool GameState::IsType(const string &p_type)
