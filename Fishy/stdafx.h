@@ -32,8 +32,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
-#include <iostream>
 #include <vector>
+#include <iostream>
+
 
 //
 #include "InputManager.h"
@@ -43,6 +44,10 @@
 #include "OptionState.h"
 #include "StateManager.h"
 #include "Core.h"
+#include "Geographics.h"
+#include "Collider.h"
+#include "CollisionManager.h"
+
 
 
 // TODO: reference additional headers your program requires here.

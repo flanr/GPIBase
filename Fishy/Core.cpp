@@ -21,7 +21,7 @@ bool Core::Initialize()
 {
 
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
-	window = new sf::RenderWindow(sf::VideoMode(1024,640), (string)"MEGA FUCKING AWESOME SUPER GAME");
+	window = new sf::RenderWindow(sf::VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
 
 	if (m_pInputManager == nullptr)
 	{
@@ -52,40 +52,25 @@ void Core::Run()
 			{
 				window->close();
 			}
-
-			////////Following is a demo: to have window.pollEvent(param) or window->close() in imput manager, add a sf::RenderWindow parameter
-			/////////to UpdateEvents and copypaste. 
-			////////Demonstrating isdown and isdownonce functions in the console.
 			m_pInputManager->UpdateEvents(event);
 		}
-		if (m_pInputManager->IsDownOnceK(sf::Keyboard::Key::A))
-		{
-			std::cout << "IsDownOnce\n";
-		}
-		if(m_pInputManager->IsDownK(sf::Keyboard::Key::D))
-		{
-			std::cout << "IsDown\n";
-		}
-		if (m_pInputManager->IsDown(MB_LEFT))
-		{
-			std::cout << "IsDownMouse\n";
-		}
-		if (m_pInputManager->IsDownOnce(MB_RIGHT))
-		{
-			std::cout << "IsDownOnceMouse\n";
-		}
+		////////Following is a demo: to have window.pollEvent(param) or window->close() in imput manager, add a sf::RenderWindow parameter
+		/////////to UpdateEvents and copypaste. 
+		////////Demonstrating isdown and isdownonce functions in the console.
+		
 
 
 		m_StateManager.Update(m_fDeltaTime);
-		
-		window->display();
+		m_StateManager.Draw();
 
+		window->display();
 		//Must have postupdates for isdownonce to function properly.
 		m_pInputManager->PostUpdateKeyboard();
 		m_pInputManager->PostUpdateMouse();
 	}
-
+	
 }
+
 
 void Core::Cleanup()
 {
