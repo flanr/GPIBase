@@ -33,7 +33,7 @@ protected:
 	sf::Vector2f m_PlayerStartPosition; 
 
 	map<char,Coords> m_TileCoords;
-	vector<GameObject*> m_GameObjects;
+	//vector<GameObject*> m_GameObjects;
 	GameObjectManager *m_pxGameObjMgr;
 
 };

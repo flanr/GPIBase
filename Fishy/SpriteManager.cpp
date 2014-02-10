@@ -61,7 +61,7 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 		it = m_axSprites.find(row);
 	}
 
-	AnimatedSprite *pxSprite = new AnimatedSprite(it->second, 0, 0, 0, 0);
+	AnimatedSprite *pxSprite = new AnimatedSprite(&it->second, 0, 0, 0, 0);
 
 	while(!file.eof()) 
 	{
@@ -86,7 +86,6 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 		pxSprite->AddFrame(Rect);
 	}
 	file.close();
-
 	return pxSprite;
 }
 
@@ -98,7 +97,7 @@ bool SpriteManager::LoadImage(const std::string &filename){
 	{
 		return false;
 	}
-
+	
 	m_axSprites.insert(std::pair<std::string, sf::Texture>(filename, texture) );
 	return true;
 };

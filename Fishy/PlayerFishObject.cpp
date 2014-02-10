@@ -19,7 +19,7 @@ void PlayerFishObject::Update(float deltatime)
 {
 
 	if(m_pxCurrentAnimation != nullptr) {
-		m_pxCurrentAnimation->Update(deltatime * 5.0f);
+		m_pxCurrentAnimation->Update(deltatime);
 	}
 };
 

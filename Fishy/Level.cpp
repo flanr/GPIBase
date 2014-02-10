@@ -94,7 +94,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 
 			GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
 			go->SetPosition(sf::Vector2f(iX,iY));
-			m_GameObjects.push_back(go);
+			m_pxGameObjMgr->Attach(go);
 
 			iX += m_iWidth;
 
@@ -107,7 +107,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 /*Test function, to load player*/
 bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 {
-	sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, 0, 0, 0, 0);
+	sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, 0, 0, 70, 70);
 	
 	sprite->setPosition(100,100);
 
@@ -126,12 +126,12 @@ bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 
 void Level::Draw(DrawManager *p_draw_manager)
 {
-	for(auto i=0UL; i < m_GameObjects.size();i++)
+	for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 	{		
-		p_draw_manager->Draw(m_GameObjects[i]->GetSprite());
+		p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
 	}
 	//& sprite eller sf::sprite? animSprite?z
-	//p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+	p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 
 	//for( auto i = 0UL; i < m_pxGameObjMgr->m_apxGameObj.size(); i++)		//0UL = 0 unsigned long
 	//{

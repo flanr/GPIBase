@@ -68,7 +68,7 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-	
+
 	HandleInput();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 
@@ -77,7 +77,20 @@ bool GameState::Update(float p_DeltaTime)
 
 void GameState::HandleInput()
 {
-	m_pInputManager->UpdateEvents(m_pCore);
+		if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
+	{
+		m_pCore->m_StateManager->SetState("StartState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
+	{
+		m_pCore->m_StateManager->SetState("GameState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
+	{
+		m_pCore->m_StateManager->SetState("OptionState");
+	}
+
+	
 }
 
 void GameState::Draw()

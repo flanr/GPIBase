@@ -71,12 +71,31 @@ bool Core::Initialize()
 void Core::Run()
 {
 
-	while(m_StateManager->IsRunning() )
-	{
-		UpdateDeltatime();
-		m_StateManager->Update(m_fDeltaTime);
-		m_StateManager->Draw();
-	}
+	//while(m_StateManager->IsRunning() )
+	//{
+		
+		while (window->isOpen())
+		{
+			UpdateDeltatime();
+			sf::Event event;
+			while (window->pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+				{
+					window->close();
+				}
+
+
+				m_pInputManager->UpdateEvents(event);
+			}
+
+			m_StateManager->Update(m_fDeltaTime);
+			m_StateManager->Draw();
+			//Must have postupdates for isdownonce to function properly.
+			m_pInputManager->PostUpdateKeyboard();
+			m_pInputManager->PostUpdateMouse();
+		}
+	/*}*/
 }
 
 void Core::Cleanup()
@@ -94,7 +113,7 @@ void Core::UpdateDeltatime()
 	m_TimeSinceLastUpdate += m_Clock.restart();
 
 	m_fDeltaTime = m_TimeSinceLastUpdate.asSeconds();
-	
+
 	if(m_fDeltaTime > 0.1f)
 	{
 		m_fDeltaTime = 0.1f;

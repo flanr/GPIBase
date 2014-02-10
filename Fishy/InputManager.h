@@ -15,7 +15,7 @@ class InputManager
 public:
 	InputManager();
 	
-	void UpdateEvents(Core* p_pCore);
+	void UpdateEvents(sf::Event event);
 	//Keyboard
 	bool IsDownK(int key) const;
 	bool IsDownOnceK(int key) const;

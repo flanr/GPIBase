@@ -5,6 +5,7 @@
 #include "Core.h"
 #include "SpriteManager.h"
 using namespace std;
+
 class Level;
 class PlayerFishObject;
 class DrawManager;

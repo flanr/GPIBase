@@ -322,10 +322,12 @@ m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
 ////Update functions
 void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 {
+
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
 		m_apxGameObject[i]->Update(p_fDeltatime);
 	}
+
 	if(m_pxPlayer != nullptr)
 	{
 		m_pxPlayer->Update(p_fDeltatime);
