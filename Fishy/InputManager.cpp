@@ -6,10 +6,10 @@
 InputManager::InputManager()
 {
 	for (int i = 0; i < sf::Keyboard::Key::KeyCount ; i++)
-		{
-			m_Current[i] = false;
-			m_Previous[i] = false;
-		}
+	{
+		m_Current[i] = false;
+		m_Previous[i] = false;
+	}
 
 	for (int i = 0; i < MB_COUNT; i++)
 	{
@@ -18,35 +18,34 @@ InputManager::InputManager()
 	}
 }
 
-void InputManager::UpdateEvents(sf::Event& event)
+void InputManager::UpdateEvents(sf::Event event)
 {
 
-	
-			
-		if (event.type == sf::Event::KeyPressed)
-		{
-			int index = event.key.code;
-			m_Current[index] = true;
-		
-		}
-		else if (event.type == sf::Event::KeyReleased)
-		{
-			int index = event.key.code;
-			m_Current[index]  = false;
-			std::cout << "released\n";
-		}
-		else if (event.type == sf::Event::MouseButtonPressed)
-		{
-			int index = event.key.code;
-			m_current[index] = true;
-		}
-		else if (event.type == sf::Event::MouseButtonReleased)
-		{
-			int index = event.key.code;
-			m_current[index] = false;
-			std::cout << "released\n";
-		}
+	if (event.type == sf::Event::KeyPressed)
+	{
+		int index = event.key.code;
+		m_Current[index] = true;
+
+	}
+	else if (event.type == sf::Event::KeyReleased)
+	{
+		int index = event.key.code;
+		m_Current[index]  = false;
+		//std::cout << "released\n";
+	}
+	else if (event.type == sf::Event::MouseButtonPressed)
+	{
+		int index = event.key.code;
+		m_current[index] = true;
+	}
+	else if (event.type == sf::Event::MouseButtonReleased)
+	{
+		int index = event.key.code;
+		m_current[index] = false;
+		//std::cout << "released\n";
+	}
 }
+
 bool InputManager::IsDownK(int key) const
 {
 	return m_Current[key];

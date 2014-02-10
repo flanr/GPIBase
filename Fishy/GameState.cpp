@@ -3,11 +3,19 @@
 #include "stdafx.h"
 #include "GameState.h"
 #include "Core.h"
+#include "PlayerFishObject.h"
+#include "FishObject.h"
+#include "DrawManager.h"
+#include "Level.h"
+#include "GameObjectManager.h"
+
 using namespace std;
 GameState::GameState(Core* p_pCore)
 {
 	m_pCore = p_pCore;
+	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
+<<<<<<< HEAD
 	m_pWindow = p_pCore->window;
 
 	m_circle = new Collider(sf::Vector2f(100.f, 100.f), 20);
@@ -55,6 +63,15 @@ GameState::GameState(Core* p_pCore)
 	mgr->AttachCollider(m_rect2);
 	mgr->AttachCollider(m_rect3);
 
+=======
+	m_DrawManager = p_pCore->m_DrawManager;
+	m_player = p_pCore->m_player;
+	m_spritemanager = nullptr;
+	m_level = nullptr;
+	m_GameObjMgr = nullptr;
+
+	bStateRunning = false;
+>>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 }
 
 string GameState::GetCurrentState()
@@ -68,10 +85,28 @@ string GameState::Next()
 }
 
 
-bool GameState::EnterState()
+bool GameState::EnterState() 
 {
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
+
+
+	if (m_spritemanager == nullptr)
+	{
+		m_spritemanager = new SpriteManager(m_DrawManager);
+		if(!m_spritemanager ->Initialize("../data/sprites/"))
+		{
+			return false;
+		}
+	}
+	m_GameObjMgr = new GameObjectManager(m_pInputManager);
+
+	if (m_level == nullptr)
+	{
+		m_level = new Level(m_GameObjMgr);
+		m_level->Load("../data/levels/level.txt", m_spritemanager, true);
+		m_level->LoadFish("../data/anim/PlayerAnimIdle.txt", m_spritemanager, m_window);
+	}
 
 	return false;
 }
@@ -83,6 +118,7 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
+<<<<<<< HEAD
 	//Draw();
 	HandleInput();
 	
@@ -113,22 +149,28 @@ bool GameState::Update(float p_DeltaTime)
 
 	//Just until I come to think about something else sf::FloatRect
 	mgr->CheckCollisionRectVsCircle(m_floatrect);
+=======
+
+	HandleInput();
+	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+
+>>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 	return true;
 }
 
 void GameState::HandleInput()
 {
-	if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
+		if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
 	{
-		m_pCore->m_StateManager.SetState("StartState");
+		m_pCore->m_StateManager->SetState("StartState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
 	{
-		cout << "Already in GameState" << endl;
+		m_pCore->m_StateManager->SetState("GameState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
 	{
-		m_pCore->m_StateManager.SetState("OptionState");
+		m_pCore->m_StateManager->SetState("OptionState");
 	}
 	if (m_pInputManager->IsDownK(sf::Keyboard::L))
 	{
@@ -147,6 +189,7 @@ void GameState::HandleInput()
 		m_shape.move(0.0, 0.01f);
 	}
 
+<<<<<<< HEAD
 	if (m_pInputManager->IsDownK(sf::Keyboard::Key::A))
 	{
 		m_shape2.move(-0.01, 0.f);
@@ -196,11 +239,29 @@ void GameState::HandleInput()
 	{
 		m_rectShape2.move(0.0, 0.05f);
 	}
+=======
+	
+>>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 }
 
 void GameState::Draw()
 {
+	/*
+	sf::Texture	texture;
+	if (!texture.loadFromFile("player.png"))
+	{
+	};
+	texture.setSmooth(true);
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
+	*/
+	
+	m_DrawManager->ClearWindow();
+	m_window->setView(m_GameObjMgr->m_pxPlayer->GetPlayerView() );
+	m_level->Draw(m_DrawManager);
+	m_DrawManager->DisplayWindow();
 
+<<<<<<< HEAD
 
 
 
@@ -213,11 +274,14 @@ void GameState::Draw()
 	m_pWindow->draw(m_shape3);
 	m_pWindow->draw(m_rectShape2);
 	m_pWindow->draw(m_rectShape3);
+=======
+	/*sf::CircleShape shape(30.0f);
+	m_pWindow->clear(sf::Color(0x11,0x22,0x33,0xff));
+	m_pWindow->draw(shape);*/
+>>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
 }
 
 bool GameState::IsType(const string &p_type)
 {
 	return p_type.compare("GameState") == 0;
-}
-
-
+}																																										//Sten

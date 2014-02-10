@@ -88,7 +88,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="Collider.h" />
+=======
+    <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="PowerupObject.h" />
+    <ClInclude Include="GameObject.h" />
+>>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DrawManager.h" />
@@ -110,7 +117,14 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="Collider.cpp" />
+=======
+    <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="PowerupObject.cpp" />
+>>>>>>> 504c28a9939b3bed4337199b8b9b34178d7459f5
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DrawManager.cpp" />

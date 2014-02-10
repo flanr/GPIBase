@@ -8,12 +8,14 @@ enum EMouseButton
 	MB_COUNT
 };
 
+class Core;
+
 class InputManager
 {
 public:
 	InputManager();
 	
-	void UpdateEvents(sf::Event& window);
+	void UpdateEvents(sf::Event event);
 	//Keyboard
 	bool IsDownK(int key) const;
 	bool IsDownOnceK(int key) const;

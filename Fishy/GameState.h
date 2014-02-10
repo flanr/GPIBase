@@ -3,11 +3,16 @@
 #include "State.h"
 #include "stdafx.h"
 #include "Core.h"
+#include "SpriteManager.h"
 using namespace std;
 //FWD declare för testning av circle collider.
 class Collider;
 class CollisionManager;
 
+class Level;
+class PlayerFishObject;
+class DrawManager;
+class GameObjectManager;
 class GameState : public State
 {
 public:
@@ -31,9 +36,16 @@ public:
 	string GetCurrentState();
 
 private:
+	bool bStateRunning;
 	InputManager *m_pInputManager;
 	Core *m_pCore;
-	sf::RenderWindow  *m_pWindow;
+	sf::RenderWindow *m_window;
+	PlayerFishObject *m_player;
+
+	Level * m_level;
+	SpriteManager * m_spritemanager;
+	DrawManager * m_DrawManager;
+	GameObjectManager *m_GameObjMgr;
 
 	//Orre testar
 
