@@ -1,7 +1,6 @@
 // GameObjectManager.h
 #pragma once
 
-class SpriteManager;
 class InputManager;
 
 class GameObject;
@@ -19,8 +18,9 @@ class PowerupObject;
 class GameObjectManager
 {
 	friend class Level;
+	friend class GameState;
 public:
-	GameObjectManager(SpriteManager *p_pxSpriteManager);
+	GameObjectManager(InputManager *p_pxInputManager);
 	~GameObjectManager();
 	
 	void Cleanup();
@@ -66,7 +66,7 @@ public:
 	//void UpdateTrapObjects(float p_fDeltatime);
 	//void UpdateParticles(float p_fDeltatime); // Uppdaterar position, velocity // opacity?
 private:
-	SpriteManager *m_pxSpriteManager;
+	InputManager *m_pxInputManager;
 
 	std::vector<GameObject*> m_apxGameObject;
 	PlayerFishObject *m_pxPlayer;

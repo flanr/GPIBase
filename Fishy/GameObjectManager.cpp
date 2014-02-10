@@ -4,7 +4,7 @@
 
 //include all objects in stdafx.h eller här?
 
-#include "SpriteManager.h"
+
 #include "InputManager.h"
 
 //#include "TerrainObject.h"
@@ -16,9 +16,9 @@
 //#include "TrapObject.h"
 //#include "ParticleObject.h"
 
-GameObjectManager::GameObjectManager(SpriteManager *p_pxSpriteManager)
+GameObjectManager::GameObjectManager(InputManager *p_pxInputManager)
 {
-	m_pxSpriteManager = p_pxSpriteManager;
+	m_pxInputManager = p_pxInputManager;
 	m_pxPlayer = nullptr;
 	//m_pxLight = nullptr;
 }
@@ -330,7 +330,7 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 
 	if(m_pxPlayer != nullptr)
 	{
-		m_pxPlayer->Update(p_fDeltatime);
+		m_pxPlayer->Update(m_pxInputManager, p_fDeltatime);
 	}
 
 	/*for ( auto element : m_apxGameObject )

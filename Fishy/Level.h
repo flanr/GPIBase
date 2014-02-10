@@ -20,7 +20,7 @@ public:
 	~Level();
 
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager);
-	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager);
+	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window);
 	void Draw(DrawManager *p_pDrawManager);
 
 protected:

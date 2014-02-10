@@ -49,13 +49,13 @@ bool GameState::EnterState()
 			return false;
 		}
 	}
-	m_GameObjMgr = new GameObjectManager(m_spritemanager);
+	m_GameObjMgr = new GameObjectManager(m_pInputManager);
 
 	if (m_level == nullptr)
 	{
 		m_level = new Level(m_GameObjMgr);
 		m_level->Load("../data/levels/level.txt", m_spritemanager);
-		m_level->LoadFish("../data/anim/PlayerAnimIdle.txt", m_spritemanager);
+		m_level->LoadFish("../data/anim/PlayerAnimIdle.txt", m_spritemanager, m_window);
 	}
 
 	return false;
@@ -104,7 +104,9 @@ void GameState::Draw()
 	sf::Sprite sprite;
 	sprite.setTexture(texture);
 	*/
+	
 	m_DrawManager->ClearWindow();
+	m_window->setView(m_GameObjMgr->m_pxPlayer->GetPlayerView() );
 	m_level->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();
 

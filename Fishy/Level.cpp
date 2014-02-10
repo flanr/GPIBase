@@ -105,7 +105,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 	return true;
 }
 /*Test function, to load player*/
-bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
+bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window)
 {
 	sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, 0, 0, 70, 70);
 	
@@ -119,6 +119,9 @@ bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
 	Player->AddAnimation("Idle", pxAnimSprite);
 	Player->SetPosition(sf::Vector2f(800,0));
+	sf::View view;
+	view = p_window->getDefaultView();
+	Player->InitPlayerView(sf::Vector2f(p_window->getSize() ) );
 	m_pxGameObjMgr->AttachPlayer(Player);
 	return true;
 }
