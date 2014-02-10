@@ -18,7 +18,7 @@ Level::~Level()
 }
 
 
-bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
+bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider)
 {
 	ifstream stream(p_sFileName);
 
@@ -85,15 +85,27 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager)
 
 
 			sprite->setPosition(iX,iY);
+			if (p_collider)
+			{
+				// Collider
+				Collider *collider = new Collider;
+				collider->m_position = sf::Vector2f(iX,iY) ;
+				collider->m_extention = sf::Vector2f(c.w, c.h);
 
-			// Collider
-			Collider *collider = new Collider;
-			collider->m_position = sf::Vector2f(iX,iY) ;
-			collider->m_extention = sf::Vector2f(c.w, c.h);
+				GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
+				go->SetPosition(sf::Vector2f(iX,iY));
+				m_GameObjects.push_back(go);
 
-			GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
-			go->SetPosition(sf::Vector2f(iX,iY));
-			m_GameObjects.push_back(go);
+			}else
+			{
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX,iY));
+				m_GameObjects.push_back(go);
+
+			}
+
+
+
 
 			iX += m_iWidth;
 

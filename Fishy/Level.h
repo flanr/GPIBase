@@ -14,8 +14,8 @@ class Level
 public:
 	Level();
 	~Level();
-
-	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager);
+	/* If bool value = true create level with colliders, If False no colliders */
+	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider);
 	void Draw(DrawManager *p_pDrawManager);
 
 protected:

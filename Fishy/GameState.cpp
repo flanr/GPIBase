@@ -53,7 +53,7 @@ bool GameState::EnterState()
 	if (m_level == nullptr)
 	{
 		m_level = new Level;
-		m_level->Load("../data/levels/level.txt", m_spritemanager);
+		m_level->Load("../data/levels/level.txt", m_spritemanager, true);
 	}
 
 
