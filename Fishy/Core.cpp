@@ -36,8 +36,8 @@ bool Core::Initialize()
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
 	window = new sf::RenderWindow(sf::VideoMode(1024,640), (string)"MEGA AWESOME SUPER GAME");
 
-	//This sets framerate to the monitors framerate (like 60FPS)
-	//window->setVerticalSyncEnabled(true);
+	//This sets framerate to the monitors framerate (like 60FPS), if this is commented out the loop will run faster
+	window->setVerticalSyncEnabled(true);
 	//This sets framerate to your chosen limit, (DON'T use together with vertical sync above)
 	//window->setFramerateLimit(30);
 
