@@ -30,6 +30,7 @@ public:
 
 private:
 	Core * m_pCore;
+	sf::RenderWindow  *m_window;
 	InputManager * m_pInputManager;
-	sf::RenderWindow * m_pWindow;
+	DrawManager * m_DrawManager;
 };

@@ -2,23 +2,22 @@
 #pragma once
 
 #include "FishObject.h"
-#include "InputManager.h"
 #include "GameObject.h"
 
-class Sprite;
+class AnimatedSprite;
 class Collider;
-class InputManager;
 
 class PlayerFishObject : public GameObject {
 public:
-		PlayerFishObject(sf::Sprite *sprite, Collider* collider = nullptr);
+		PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite, Collider* p_Collider = nullptr);
 
 		void Update(float deltatime);
-
-
-
-
+		void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
 
 private:
+
+	AnimatedSprite *m_pxCurrentAnimation;
+	std::map<std::string, AnimatedSprite*> m_mpAnimations;
+
 
 };

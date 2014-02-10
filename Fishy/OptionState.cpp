@@ -2,12 +2,14 @@
 #include "stdafx.h"
 #include "OptionState.h"
 
+
 using namespace std;
 OptionState::OptionState(Core* p_pCore)
 {
 	m_pCore = p_pCore;
+	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
-	m_pWindow = p_pCore->window;
+	m_DrawManager = p_pCore->m_DrawManager;
 }
 
 string OptionState::GetCurrentState()
@@ -37,33 +39,21 @@ void OptionState::ExitState()
 bool OptionState::Update(float p_fDeltaTime)
 {
 	HandleInput();
-	Draw();
 	return true;
 }
 
 void OptionState::HandleInput()
 {
-	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
-	{
-		
-		m_pCore->m_StateManager.SetState("StartState");
-	}
-	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
-	{
-		m_pCore->m_StateManager.SetState("GameState");
-	}
-	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
-	{
-		cout << "Already in OptionState" << endl;
-	}
-	
+	m_pInputManager->UpdateEvents(m_pCore);
 }
 
 void OptionState::Draw()
 {
 	sf::CircleShape shape(45.0f);
-	m_pWindow->clear(sf::Color(0x55,0x66,0x77,0xff));
-	m_pWindow->draw(shape);
+
+	m_DrawManager->ClearWindow();
+	//m_level->Draw(m_DrawManager);
+	m_DrawManager->DisplayWindow();
 }
 
 bool OptionState::IsType(const string &p_sType)

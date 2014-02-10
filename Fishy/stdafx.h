@@ -39,6 +39,7 @@
 
 //
 #include "InputManager.h"
+#include "DrawManager.h"
 #include <iostream>
 #include "GameState.h"
 #include "StartState.h"
@@ -46,7 +47,6 @@
 #include "StateManager.h"
 #include "Core.h"
 #include "FishObject.h"
-#include "InputManager.h"
 #include "Collider.h"
 
 

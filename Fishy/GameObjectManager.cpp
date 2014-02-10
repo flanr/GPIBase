@@ -19,7 +19,7 @@
 GameObjectManager::GameObjectManager(SpriteManager *p_pxSpriteManager)
 {
 	m_pxSpriteManager = p_pxSpriteManager;
-	//m_pxPlayer = nullptr;
+	m_pxPlayer = nullptr;
 	//m_pxLight = nullptr;
 }
 GameObjectManager::~GameObjectManager()
@@ -35,11 +35,11 @@ void GameObjectManager::Cleanup()
 		{
 			/*if((*it)->HasAnimSprite()
 			{
-				delete (*it->GetAnimatedSprite();
+			delete (*it->GetAnimatedSprite();
 			}
 			else
 			{
-				delete (*it)->GetSprite();
+			delete (*it)->GetSprite();
 			}*/
 			delete (*it)->GetSprite();
 			delete (*it)->GetCollider();
@@ -154,10 +154,10 @@ void GameObjectManager::Attach(GameObject *p_pxGameObject)
 {
 	m_apxGameObject.push_back(p_pxGameObject);
 }
-//void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
-//{
-//	m_pxPlayer = p_pxPlayer;
-//}
+void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
+{
+	m_pxPlayer = p_pxPlayer;
+}
 //void GameObjectManager::AttachLight(LightObject *p_pxLight)
 //{
 //	m_pxLight = p_pxLight;
@@ -298,22 +298,22 @@ void GameObjectManager::Attach(GameObject *p_pxGameObject)
 /*
 void GameObjectManager::DestroyParticle(ParticleObject * p_pxParticle)
 {
-	if(p_pxParticle != nullptr)
-	{
-		int iVectorPosition;
-		for(int i = 0; i < m_apxParticles.size(); i ++)
-		{
-			if(m_apxParticles[i] == p_pxParticle)
-			{
-				iVectorPosition = i;
-				//delete p_pxParticle->GetSprite();
-				//delete p_pxParticle->GetCollider();
-				delete p_pxParticle;
-				p_pxParticle = nullptr;
-			}
-		}
-		m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
-	}
+if(p_pxParticle != nullptr)
+{
+int iVectorPosition;
+for(int i = 0; i < m_apxParticles.size(); i ++)
+{
+if(m_apxParticles[i] == p_pxParticle)
+{
+iVectorPosition = i;
+//delete p_pxParticle->GetSprite();
+//delete p_pxParticle->GetCollider();
+delete p_pxParticle;
+p_pxParticle = nullptr;
+}
+}
+m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
+}
 
 }
 */
@@ -324,8 +324,17 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 {
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
-		m_apxGameObject[i]->Update();
+		m_apxGameObject[i]->Update(p_fDeltatime);
 	}
+	if(m_pxPlayer != nullptr)
+	{
+		m_pxPlayer->Update(p_fDeltatime);
+	}
+
+	/*for ( auto element : m_apxGameObject )
+	{
+	element->Update(p_fDeltatime);
+	}*/
 	/*UpdatePlayer(p_fDeltatime);
 	UpdateTerrain(p_fDeltatime);
 	UpdateEnemies(p_fDeltatime);
