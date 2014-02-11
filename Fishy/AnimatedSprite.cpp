@@ -4,8 +4,8 @@
 #include "Sprite.h"
 #include "AnimatedSprite.h"
 
-AnimatedSprite::AnimatedSprite(sf::Texture p_texture, int p_iX, int p_iY, int p_iWidth, int p_iHeight)
-	: sf::Sprite(p_texture, sf::IntRect(p_iX, p_iY , p_iWidth , p_iHeight) )
+AnimatedSprite::AnimatedSprite(sf::Texture *p_texture, int p_iX, int p_iY, int p_iWidth, int p_iHeight)
+	: sf::Sprite(*p_texture, sf::IntRect(p_iX, p_iY , p_iWidth , p_iHeight) )
 {
 	m_fTime = 0.0f;
 	m_iCurrentFrame = 0;
@@ -23,7 +23,7 @@ void AnimatedSprite::Update(float p_fDeltatime)
 	{
 		m_fTime = 0.0f;
 		m_iCurrentFrame = ++m_iCurrentFrame % m_axAnimation.size();
-		setTextureRect( m_axAnimation[m_iCurrentFrame]);
+		setTextureRect( sf::IntRect(m_axAnimation[m_iCurrentFrame]) );
 	}
 }
 

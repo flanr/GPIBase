@@ -1,9 +1,10 @@
 // Core.h
 #include "stdafx.h"
+#include "StateManager.h"
 #pragma once
 
 //using namespace sf;
-class StateManager;
+//class StateManager;
 class InputManager;
 class DrawManager;
 class PlayerFishObject;
@@ -25,7 +26,7 @@ public:
 	void UpdateDeltatime();
 
 public:
-	StateManager *m_StateManager;
+	StateManager m_StateManager;
 	DrawManager *m_DrawManager;
 	sf::RenderWindow  *window;
 

@@ -20,8 +20,7 @@ public:
 	~Level();
 	/* If bool value = true create level with colliders, If False no colliders */
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider);
-
-	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager);
+	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window);
 	void Draw(DrawManager *p_pDrawManager);
 
 protected:
@@ -34,7 +33,7 @@ protected:
 	sf::Vector2f m_PlayerStartPosition; 
 
 	map<char,Coords> m_TileCoords;
-	vector<GameObject*> m_GameObjects;
+	//vector<GameObject*> m_GameObjects;
 	GameObjectManager *m_pxGameObjMgr;
 
 };

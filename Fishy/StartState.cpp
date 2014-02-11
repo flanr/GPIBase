@@ -39,14 +39,27 @@ void StartState::ExitState()
 
 bool StartState::Update(float p_fDeltaTime)
 {
-	
+
 	HandleInput();
 	return true;
 }
 
 void StartState::HandleInput()
 {
-	m_pInputManager->UpdateEvents(m_pCore);
+	if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
+	{
+		m_pCore->m_StateManager.SetState("StartState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
+	{
+		m_pCore->m_StateManager.SetState("GameState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
+	{
+		m_pCore->m_StateManager.SetState("OptionState");
+	}
+
+
 }
 
 void StartState::Draw()

@@ -23,4 +23,5 @@ private:
 	DrawManager *m_draw_manager;
 	std::string m_directory;
 	std::map<std::string, sf::Texture> m_axSprites;
+
 };

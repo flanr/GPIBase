@@ -18,54 +18,32 @@ InputManager::InputManager()
 	}
 }
 
-void InputManager::UpdateEvents(Core* p_pCore)
+void InputManager::UpdateEvents(sf::Event event)
 {
-	sf::Event event;
-	while (p_pCore->window->pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-		{
-			p_pCore->window->close();
-		}
-		if (event.type == sf::Event::KeyPressed)
-		{
-			int index = event.key.code;
-			m_Current[index] = true;
 
-		}
-		else if (event.type == sf::Event::KeyReleased)
-		{
-			int index = event.key.code;
-			m_Current[index]  = false;
-			//std::cout << "released\n";
-		}
-		else if (event.type == sf::Event::MouseButtonPressed)
-		{
-			int index = event.key.code;
-			m_current[index] = true;
-		}
-		else if (event.type == sf::Event::MouseButtonReleased)
-		{
-			int index = event.key.code;
-			m_current[index] = false;
-			//std::cout << "released\n";
-		}
-		if (IsDownOnceK(sf::Keyboard::Num1))
-		{
-			p_pCore->m_StateManager->SetState("StartState");
-		}
-		if (IsDownOnceK(sf::Keyboard::Num2))
-		{
-			p_pCore->m_StateManager->SetState("GameState");
-		}
-		if (IsDownOnceK(sf::Keyboard::Num3))
-		{
-			p_pCore->m_StateManager->SetState("OptionState");
-		}
+	if (event.type == sf::Event::KeyPressed)
+	{
+		int index = event.key.code;
+		m_Current[index] = true;
+
 	}
-	//Must have postupdates for isdownonce to function properly.
-	PostUpdateKeyboard();
-	PostUpdateMouse();
+	else if (event.type == sf::Event::KeyReleased)
+	{
+		int index = event.key.code;
+		m_Current[index]  = false;
+		//std::cout << "released\n";
+	}
+	else if (event.type == sf::Event::MouseButtonPressed)
+	{
+		int index = event.key.code;
+		m_current[index] = true;
+	}
+	else if (event.type == sf::Event::MouseButtonReleased)
+	{
+		int index = event.key.code;
+		m_current[index] = false;
+		//std::cout << "released\n";
+	}
 }
 
 bool InputManager::IsDownK(int key) const

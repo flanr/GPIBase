@@ -26,7 +26,6 @@ void DrawManager::Draw(sf::Sprite *p_sprite)
 	m_pWindow->draw(*p_sprite);
 }
 
-
 void DrawManager::DisplayWindow()
 {
 	m_pWindow->display();

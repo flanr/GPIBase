@@ -36,6 +36,8 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <iostream>
+
 
 //
 #include "InputManager.h"
@@ -44,10 +46,16 @@
 #include "GameState.h"
 #include "StartState.h"
 #include "OptionState.h"
-#include "StateManager.h"
-#include "Core.h"
+
+#include "Geographics.h"
+#include "Collider.h"
+#include "CollisionManager.h"
+
 #include "FishObject.h"
 #include "Collider.h"
+
+#include "StateManager.h"
+#include "Core.h"
 
 
 // TODO: reference additional headers your program requires here.

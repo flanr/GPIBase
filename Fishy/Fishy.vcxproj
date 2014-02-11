@@ -88,8 +88,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="PowerupObject.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -99,6 +99,7 @@
     <ClInclude Include="FishObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Geographics.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="OptionState.h" />
@@ -113,8 +114,8 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="PowerupObject.cpp" />
     <ClCompile Include="CollisionManager.cpp" />

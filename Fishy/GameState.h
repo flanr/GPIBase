@@ -5,6 +5,10 @@
 #include "Core.h"
 #include "SpriteManager.h"
 using namespace std;
+//FWD declare för testning av circle collider.
+class Collider;
+class CollisionManager;
+
 class Level;
 class PlayerFishObject;
 class DrawManager;
@@ -45,4 +49,21 @@ private:
 	DrawManager * m_DrawManager;
 	GameObjectManager *m_GameObjMgr;
 
+	//Orre testar
+
+	sf::CircleShape m_shape;
+	sf::CircleShape m_shape2;
+	sf::CircleShape m_shape3;
+	sf::RectangleShape m_rectShape;
+	sf::RectangleShape m_rectShape2;
+	sf::RectangleShape m_rectShape3;
+	Collider* m_circle;
+	Collider* m_circle2;
+	Collider* m_rect;
+	Collider* m_circle3;
+	Collider* m_rect2;
+	Collider* m_rect3;
+	CollisionManager* mgr;
+
+	sf::FloatRect m_floatrect;
 };

@@ -7,7 +7,7 @@ class Sprite : sf::Sprite
 	friend class SpriteManager;
 public:
 
-	Sprite(sf::Texture *Texture, int x, int y, int width, int height);
+	Sprite(sf::Texture *p_Texture, int x, int y, int width, int height);
 	~Sprite();
 	sf::Sprite* getSfSprite();
 
