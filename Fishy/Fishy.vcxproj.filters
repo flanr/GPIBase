@@ -2,158 +2,158 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DrawManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyFishObject.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FishObject.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OptionState.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerFishObject.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PowerupObject.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Slider.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StartState.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StateManager.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DrawManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnemyFishObject.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FishObject.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Geographics.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OptionState.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerFishObject.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PowerupObject.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Slider.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SoundManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpriteManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StartState.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StateManager.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>H</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="H">
-      <UniqueIdentifier>{7962daff-09da-4673-beb6-ccaf65ebf45e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CPP">
+    <Filter Include="Source Files">
       <UniqueIdentifier>{aab60714-b7b4-4ed6-9e07-c4e142540dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{7962daff-09da-4673-beb6-ccaf65ebf45e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
