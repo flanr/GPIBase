@@ -4,129 +4,168 @@
 #include "Collider.h"
 
 Collider::Collider() 
- : m_position(0.f, 0.f)
- , m_extention(0.f,0.f)
+	: m_position(0.f, 0.f)
+	, m_extention(0.f,0.f)
 {
- m_radius = 0.f;
+	m_radius = 0.f;
 }
 Collider::Collider(sf::Vector2f p_position, sf::Vector2f p_extension)
- : m_position(p_position)
- , m_extention(p_extension)
+	: m_position(p_position)
+	, m_extention(p_extension)
 {
 }
 
 Collider::Collider(sf::Vector2f p_position, float p_radius)
- : m_radius(p_radius)
- , m_position(p_position)
+	: m_radius(p_radius)
+	, m_position(p_position)
 {
 }
 
 sf::Vector2f Collider::GetPosition()
 {
- return m_position;
+	return m_position;
 }
 void Collider::SetPositionX(float x)
 {
- m_position.x = x;
+	m_position.x = x;
 }
 void Collider::SetPositionY(float y)
 {
- m_position.y = y;
+	m_position.y = y;
 }
 bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 {
- float A = m_extention.x * 0.5f;
- float B = other->m_extention.x * 0.5f;
- float C = m_position.x - other->m_position.x;
+	float A = m_extention.x * 0.5f;
+	float B = other->m_extention.x * 0.5f;
+	float C = m_position.x - other->m_position.x;
 
- float P = m_extention.y *0.5f;
- float Q = other->m_extention.y * 0.5f;
- float Z = m_position.y - other->m_position.y;
+	float P = m_extention.y *0.5f;
+	float Q = other->m_extention.y * 0.5f;
+	float Z = m_position.y - other->m_position.y;
 
- if (fabs(C) < (A + B))
- {
-  if (fabs(Z) < (P + Q))
-  {
-   float deltaX = fabs(C) - (A + B);
-   float deltaY = fabs(Z) - (P + Q);
-   if (deltaX > deltaY)
-   {
-    if (m_position.x < other->m_position.x)
-    {
-     deltaX = -deltaX;
-    }
-    offset.x = deltaX;
-    other->m_position.x += deltaX; //Wonder if this is nesicarry when both objects check. they could expell each other a little too much...
-   }
-   if (deltaY > deltaX)
-   {
-    if (m_position.y < other->m_position.y)
-    {
-     deltaY = -deltaY;
-    }
-    offset.y = deltaY;
-    other->m_position.y += deltaY; // same here of course...
-   }
-   return true;
-  }
- }
- return false;
+	if (fabs(C) <= (A + B))
+	{
+		if (fabs(Z) <= (P + Q))
+		{
+			float deltaX = fabs(C) - (A + B);
+			float deltaY = fabs(Z) - (P + Q);
+			if (deltaX > deltaY)
+			{
+				if (m_position.x > other->m_position.x)
+				{
+					deltaX = -deltaX;
+				}
+				offset.x = deltaX;
+				other->m_position.x += deltaX/2.f;
+				m_position.x += deltaX/2.f;
+			}
+			if (deltaY > deltaX)
+			{
+				if (m_position.y > other->m_position.y)
+				{
+					deltaY = -deltaY;
+				}
+				offset.y = deltaY;
+				other->m_position.y += deltaY/2.f;
+				m_position.y += deltaY/2.f;
+			}
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Collider::OverlapCircleVsCircle(Collider* other, sf::Vector2f& offset)
 {
- float A = m_radius;
- float B = other->m_radius;
- float C = m_position.x - other->m_position.x;
+	float A = m_radius;
+	float B = other->m_radius;
+	float C = m_position.x - other->m_position.x;
 
- float Z = m_position.y - other->m_position.y;
+	float Z = m_position.y - other->m_position.y;
 
- if ((fabs(C)*fabs(C)) + (fabs(Z) * fabs(Z)) <= (A + B) * (A + B))
- {
+	if ((fabs(C)*fabs(C)) + (fabs(Z) * fabs(Z)) <= (A + B) * (A + B))
+	{
 
+		//Unit vector pointing at other collider's position(B) from first collider position(A).
+		//NOTE: NOT THE FLOATS A AND B, The VECTORS below. (a little confusing I know)
+		sf::Vector2f vA(m_position);
+		sf::Vector2f vB(other->m_position);
+		sf::Vector2f vU = vB - vA;
+		float lenght = (vU.x*vU.x + vU.y*vU.y);
+		vU/=lenght;
 
-  float deltaX = fabs(C) - (A + B);
-  float deltaY = fabs(Z) - (A + B);
-  if (deltaX > deltaY)
-  {
-   if (m_position.x < other->m_position.x)
-   {
-    deltaX = -deltaX;
-   }
-   offset.x = deltaX;
-  }
-  if (deltaY > deltaX)
-  {
-   if (m_position.y < other->m_position.y)
-   {
-    deltaY = -deltaY;
-   }
-   offset.y = deltaY;
-  }
-  return true;
+		//The amount of overlap.
+		float DeltaOverlap = sqrtf((fabs(C)*fabs(C)) + (fabs(Z) * fabs(Z))) - sqrtf((A + B) * (A + B));
 
- }
- return false;
+		//offset is a vector the lenght of the overlap pointing at B from A
+		offset = vU * DeltaOverlap;
+
+		//seperate the colliders by half the offset each.
+		other->m_position -= offset /2.f;
+		m_position += offset /2.f;
+		return true;
+
+	}
+	return false;
 }
 
-bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset)
+bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset, sf::FloatRect f_rect)
 {
- float W = m_extention.x * 0.5;
- float R = other->m_radius;
- float distanceX = m_position.x - other->m_position.x;
+	float W = m_extention.x;
+	float H = m_extention.y;
+	float R = other->m_radius;
+	/*float distanceX = fabs(m_position.x - other->m_position.x);
+	float distanceY = fabs(m_position.y - other->m_position.y);*/
+	sf::Vector2f vA(m_position.x +W/2.f, m_position.y - H/2.f);
+	sf::Vector2f vB(m_position.x +W/2.f, m_position.y );
+	sf::Vector2f CirclePoint = other->m_position;
+	sf::Vector2f ClosestPoint = ClosestPointOnLine(vA, vB, CirclePoint);
+	sf::Vector2f distance = CirclePoint - ClosestPoint;
 
- float H = m_extention.y * 0.5;
- float distanceY = m_position.y - other->m_position.y;
+	//Trying to decide the distance between the circle center and the closest point.
+	if (sqrtf(distance.x * distance.x + distance.y * distance.y) <= R)
+	{
+		return true;
+	}
+	return false;
 
- if((distanceX * distanceX) + (distanceY * distanceY) < (R * R) + (W*W + H*H))
- {
-  float diffX = (distanceX * distanceX) + (distanceY * distanceY) + (R * R) - ((W*W + H*H));
-  return true;
- }
- return false;
 }
+const sf::Vector2f& Collider::ClosestPointOnLine(const sf::Vector2f& p_vA,const sf::Vector2f& p_vB,const sf::Vector2f& p_vPoint) {
+	// Calculate unit vector from A->B
+	sf::Vector2f vU=p_vB-p_vA;//former u
+	float fLength=sqrt(vU.x*vU.x+vU.y*vU.y);
+	vU/=fLength;
 
+	// Vector from A->Point
+	sf::Vector2f vAPoint=p_vPoint-p_vA;
+
+	// Dot product between vU and vAPoint
+	float fDot=vU.x*vAPoint.x+vU.y*vAPoint.y;
+	
+	// Length between two points that define the line
+	fLength=sqrt(pow((p_vA.x-p_vB.x),2)+pow((p_vA.y-p_vB.y),2));
+
+	// Clamp values
+	fDot=Clamp(fDot,0.0f,fLength);
+
+	return sf::Vector2f(vU.x*fDot+p_vA.x,vU.y*fDot+p_vA.y);
+};
+
+
+float Collider::GetRadius()
+{
+	return m_radius;
+}
 void Collider::SetRadius(float p_radius)
 {
 	m_radius = p_radius;
+}
+
+void Collider::SetPosition(const sf::Vector2f p_pos)
+{
+	m_position = p_pos;
+}
+void Collider::SetExtention(const sf::Vector2f p_ext)
+{
+	m_extention = p_ext;
 }

@@ -94,8 +94,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			{
 				// Collider
 				Collider *collider = new Collider;
-				collider->m_position = sf::Vector2f(iX,iY) ;
-				collider->m_extention = sf::Vector2f(c.w, c.h);
+				collider->SetPosition(sf::Vector2f(iX,iY) );
+				collider->SetExtention(sf::Vector2f(c.w, c.h));
 
 				GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
 				go->SetPosition(sf::Vector2f(iX,iY));
@@ -111,8 +111,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			// Collider
 			Collider *collider = new Collider;
-			collider->m_position = sf::Vector2f(iX,iY) ;
-			collider->m_extention = sf::Vector2f(c.w, c.h);
+			collider->SetPosition(sf::Vector2f(iX,iY) );
+			collider->SetExtention(sf::Vector2f(c.w, c.h) );
 
 			iX += m_iWidth;
 
@@ -130,8 +130,8 @@ bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager,
 	sprite->setPosition(100,100);
 
 	Collider *collider = new Collider;
-	collider->m_position = sf::Vector2f(sprite->getPosition() );
-	collider->m_extention = sf::Vector2f(sprite->getTextureRect().width, sprite->getTextureRect().height);
+	collider->SetPosition(sf::Vector2f(sprite->getPosition()) );
+	collider->SetExtention(sf::Vector2f(sprite->getTextureRect().width, sprite->getTextureRect().height));
 
 	PlayerFishObject *Player = new PlayerFishObject(sprite->getPosition(),nullptr,collider);
 	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
