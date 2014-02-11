@@ -18,7 +18,9 @@ GameState::GameState(Core* p_pCore)
 	m_DrawManager = p_pCore->m_DrawManager;
 	m_player = p_pCore->m_player;
 	m_spritemanager = nullptr;
-	m_level = nullptr;
+	m_LevelLayerBackground = nullptr;
+	m_LevelLayerMidleGround = nullptr;
+	m_LevelLayerForGround = nullptr;
 	m_GameObjMgr = nullptr;
 
 	bStateRunning = false;
@@ -51,12 +53,17 @@ bool GameState::EnterState()
 	}
 	m_GameObjMgr = new GameObjectManager(m_spritemanager);
 
-	if (m_level == nullptr)
+	if (m_LevelLayerBackground == nullptr)
 	{
 
-		m_level = new Level(m_GameObjMgr);
-		m_level->Load("../data/levels/level.txt", m_spritemanager, true);
-		m_level->LoadFish("../data/anim/PlayerAnimIdle.txt", m_spritemanager);
+		m_LevelLayerBackground = new Level(m_GameObjMgr);
+		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_spritemanager, false);
+		m_LevelLayerMidleGround = new Level(m_GameObjMgr);
+		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_spritemanager, true);
+		m_LevelLayerForGround = new Level(m_GameObjMgr);
+		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_spritemanager, false);
+
+		//m_LevelLayerBackground->LoadFish("../data/anim/PlayerAnimIdle.txt", m_spritemanager);
 
 	}
 
@@ -70,7 +77,7 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-	
+
 	HandleInput();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 
@@ -94,7 +101,9 @@ void GameState::Draw()
 	sprite.setTexture(texture);
 	*/
 	m_DrawManager->ClearWindow();
-	m_level->Draw(m_DrawManager);
+	m_LevelLayerBackground->Draw(m_DrawManager);
+	m_LevelLayerMidleGround->Draw(m_DrawManager);
+	m_LevelLayerForGround->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();
 
 	/*sf::CircleShape shape(30.0f);

@@ -103,6 +103,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="OptionState.h" />
     <ClInclude Include="PlayerFishObject.h" />
+    <ClInclude Include="Slider.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="PlayerFishObject.cpp" />
+    <ClCompile Include="Slider.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
