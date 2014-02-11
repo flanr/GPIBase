@@ -28,6 +28,7 @@ public:
 	//attach objects
 	void Attach(GameObject *p_pxGameObject);
 	void AttachPlayer(PlayerFishObject *p_pxPlayer);
+	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window);
 	//void AttachLight(LightObject *p_pxLight);
 	//void AttachTerrain(TerrainObject *p_pxTerrain);
 	//void AttachEnemy(EnemyFishObject *p_pxEnemy);

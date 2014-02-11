@@ -70,6 +70,7 @@ void Core::Run()
 {
 	while (window->isOpen())
 	{
+		UpdateDeltatime();
 		sf::Event event;
 		while (window->pollEvent(event))
 		{

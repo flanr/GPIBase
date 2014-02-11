@@ -13,7 +13,6 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	: GameObject(p_Position, p_Sprite, p_Collider)
 {
 	m_fPlayerSpeed = 80.0f;
-	
 };
 
 void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)

@@ -122,27 +122,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 	stream.close();
 	return true;
 }
-/*Test function, to load player*/
-bool Level::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window)
-{
-	sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, 0, 0, 70, 70);
-	
-	sprite->setPosition(100,100);
-
-	Collider *collider = new Collider;
-	collider->m_position = sf::Vector2f(sprite->getPosition() );
-	collider->m_extention = sf::Vector2f(sprite->getTextureRect().width, sprite->getTextureRect().height);
-
-	PlayerFishObject *Player = new PlayerFishObject(sprite->getPosition(),nullptr,collider);
-	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
-	Player->AddAnimation("Idle", pxAnimSprite);
-	Player->SetPosition(sf::Vector2f(800,0));
-	sf::View view;
-	view = p_window->getDefaultView();
-	Player->InitPlayerView(sf::Vector2f(p_window->getSize() ) );
-	m_pxGameObjMgr->AttachPlayer(Player);
-	return true;
-}
 
 
 void Level::Draw(DrawManager *p_draw_manager)
