@@ -27,12 +27,12 @@ void CollisionManager::CheckCollisionRectVsRect()
 	{
 		for (int j = i+1; j < m_axRectColliders.size(); j++)
 		{
-			/*if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
+			if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
 			{
 				std::cout << "Collision!\n";
 				m_axRectColliders[i]->SetPosition(m_axRectColliders[i]->GetPosition() += offset);
 				m_axRectColliders[j]->SetPosition(m_axRectColliders[j]->GetPosition() += -offset);
-			}*/
+			}
 		}
 	}
 }
@@ -62,10 +62,10 @@ void CollisionManager::CheckCollisionRectVsCircle(sf::FloatRect f_rect)
 	{
 		for (int j = 0; j < m_axCircleColliders.size(); j++)
 		{
-			/*if (m_axRectColliders[i]->OverlapRectVsCircle(m_axCircleColliders[j], offset, f_rect))
+			if (m_axRectColliders[i]->OverlapRectVsCircle(m_axCircleColliders[j], offset, f_rect))
 			{
 				std::cout << "Collision!\n";
-			}*/
+			}
 		}
 	}
 }
