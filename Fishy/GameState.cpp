@@ -15,6 +15,7 @@ GameState::GameState(Core* p_pCore)
 	m_pCore = p_pCore;
 	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
+	m_SpriteManager = p_pCore->m_SpriteManager;
 
 	m_circle = new Collider(sf::Vector2f(100.f, 100.f), 20);
 	m_circle2 = new Collider(sf::Vector2f(200.f,200.f), 20);
@@ -63,7 +64,6 @@ GameState::GameState(Core* p_pCore)
 
 	m_DrawManager = p_pCore->m_DrawManager;
 	m_player = p_pCore->m_player;
-	m_spritemanager = nullptr;
 	m_LevelLayerBackground = nullptr;
 	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerForGround = nullptr;
@@ -89,26 +89,17 @@ bool GameState::EnterState()
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
-
-	if (m_spritemanager == nullptr)
-	{
-		m_spritemanager = new SpriteManager(m_DrawManager);
-		if(!m_spritemanager ->Initialize("../data/sprites/"))
-		{
-			return false;
-		}
-	}
 	m_GameObjMgr = new GameObjectManager(m_pInputManager);
-	m_GameObjMgr->LoadFish("../data/anim/PlayerAnimIdle.txt", m_spritemanager, m_window);
+	m_GameObjMgr->LoadFish("../data/anim/PlayerAnimIdle.txt", m_SpriteManager, m_window);
 
 	if (m_LevelLayerBackground == nullptr)
 	{
 		m_LevelLayerBackground = new Level(m_GameObjMgr);
-		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_spritemanager, false);
+		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_SpriteManager, false);
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr);
-		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_spritemanager, true);
+		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true);
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
-		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_spritemanager, false);
+		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false);
 	} 
 	
 	return false;

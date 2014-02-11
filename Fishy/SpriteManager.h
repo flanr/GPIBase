@@ -22,6 +22,6 @@ private:
 	bool LoadImage(const std::string &filename);
 	DrawManager *m_draw_manager;
 	std::string m_directory;
-	std::map<std::string, sf::Texture> m_axSprites;
+	std::map<std::string, sf::Texture*> m_axSprites;
 
 };

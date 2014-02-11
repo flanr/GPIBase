@@ -15,6 +15,7 @@ Core::Core()
 	m_bRunning = false;
 	window = nullptr;
 	m_pInputManager = nullptr;
+	m_SpriteManager = nullptr;
 
 	playerSprite = nullptr;
 	m_DrawManager = nullptr;
@@ -48,6 +49,15 @@ bool Core::Initialize()
 	if (m_DrawManager == nullptr)
 	{
 		m_DrawManager = new DrawManager(window);
+	}
+
+	if (m_SpriteManager == nullptr)
+	{
+		m_SpriteManager = new SpriteManager(m_DrawManager);
+		if(!m_SpriteManager ->Initialize("../data/sprites/"))
+		{
+			return false;
+		}
 	}
 	//Delete the states*******************************************************************
 	if (m_StateManager.GetCurrentState() == nullptr)
@@ -104,6 +114,12 @@ void Core::Cleanup()
 	{
 		delete m_pInputManager;
 		m_pInputManager = nullptr;
+	}
+
+	if (m_SpriteManager != nullptr)
+	{
+		delete m_SpriteManager;
+		m_SpriteManager = nullptr;
 	}
 }
 

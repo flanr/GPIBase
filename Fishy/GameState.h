@@ -45,7 +45,7 @@ private:
 	Level * m_LevelLayerForGround;
 	Level * m_LevelLayerMidleGround;
 	Level * m_LevelLayerBackground;
-	SpriteManager * m_spritemanager;
+	SpriteManager * m_SpriteManager;
 	DrawManager * m_DrawManager;
 	GameObjectManager *m_GameObjMgr;
 
