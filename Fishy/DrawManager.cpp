@@ -1,5 +1,6 @@
 // DrawManager.cpp
 #include "stdafx.h"
+#include "Slider.h"
 #include "DrawManager.h"
 
 DrawManager::DrawManager(sf::RenderWindow *p_Window)
@@ -24,6 +25,16 @@ void DrawManager::DrawSpriteEffect(sf::Sprite * p_pSprite, sf::RenderStates * p_
 void DrawManager::Draw(sf::Sprite *p_sprite)
 {
 	m_pWindow->draw(*p_sprite);
+}
+void DrawManager::DrawRect(sf::RectangleShape rect)
+{
+	m_pWindow->draw(rect);
+}
+void DrawManager::DrawSlider(Slider slider)
+{
+	DrawRect(slider.m_FullSlider);
+	DrawRect(slider.m_EmptySlider);
+	
 }
 
 void DrawManager::DisplayWindow()

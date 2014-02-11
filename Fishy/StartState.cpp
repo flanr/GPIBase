@@ -1,12 +1,17 @@
 // StartState.cpp
 #include "stdafx.h"
-
+//#include "Slider.h"
 #include "StartState.h"
-
+// Health
+// w 259 h 41
+// Energy
+// w 150 h 25
 
 using namespace std;
 StartState::StartState(Core* p_pCore)
 {
+	m_EnergySlider.SetSlider(100,200,259,41);
+	m_HealthSlider.SetSlider(500,100,150,25);
 	m_pCore = p_pCore;
 	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
@@ -65,9 +70,10 @@ void StartState::HandleInput()
 void StartState::Draw()
 {
 	sf::CircleShape shape(15.0f);
-	//m_pWindow->clear(sf::Color(0x44,0x55,0x22,0xff));
-
-	m_DrawManager->ClearWindow();
+	//m_pWindow->clear(_sf::Color(0x44,0x55,0x22,0xff));
+  m_DrawManager->DrawSlider(m_HealthSlider);
+  m_DrawManager->DrawSlider(m_EnergySlider);
+	//m_DrawManager->ClearWindow();
 	//m_level->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();
 }

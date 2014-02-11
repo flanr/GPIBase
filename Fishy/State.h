@@ -1,5 +1,4 @@
 // State.h
-#include "stdafx.h"
 #pragma once
 
 

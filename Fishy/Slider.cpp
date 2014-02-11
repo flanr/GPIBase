@@ -4,15 +4,18 @@
 #include "Slider.h"
 
 
+Slider::Slider()
+{
 
-Slider::Slider(int p_X, int p_Y, int p_Width, int p_Height)
+}
+
+
+void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 {
 	m_x = p_X;
 	m_y = p_Y;
 	m_w = p_Width;
 	m_h = p_Height;
-
-	value = 0;
 
 	hovered = false;
 	selected = true;
@@ -23,10 +26,11 @@ Slider::Slider(int p_X, int p_Y, int p_Width, int p_Height)
 	m_EmptySlider.setSize(sf::Vector2f(p_Width,p_Height));
 	m_EmptySlider.setPosition(p_X,p_Y);
 	m_FullSlider = m_EmptySlider;
-
+	m_EmptySlider.setFillColor(sf::Color::Blue);
+	m_FullSlider.setFillColor(sf::Color::Red);
 	SetValue(50);
-
 }
+
 
 Slider::~Slider()
 {
@@ -38,27 +42,12 @@ bool Slider::MouseOver(int x, int y)
 }
 
 
-void Slider::Draw()
-{
-	if (selected)
-	{
 
-	}else if (hovered)
-	{
-
-	}else
-	{
-
-	}
-
-
-
-}
 
 void Slider::SetValue(int v)
 {
-	this-> value = v % 101;
-	m_EmptySlider.setSize(sf::Vector2f(v,m_y));
+	value = v % 101;				// emptySlider.w = sw*value/100;
+	m_EmptySlider.setSize(sf::Vector2f(m_sw*v/100,m_h));
 	printf("SliderValue changed to: %d \r\n", value);
 }
 

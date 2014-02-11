@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include "stdafx.h"
-
 class Collider
 {
 public:

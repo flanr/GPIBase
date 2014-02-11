@@ -1,7 +1,6 @@
 // GameState.h
 #pragma once
 #include "State.h"
-#include "stdafx.h"
 #include "Core.h"
 #include "SpriteManager.h"
 using namespace std;
