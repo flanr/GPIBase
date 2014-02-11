@@ -2,7 +2,6 @@
 #pragma once
 
 #include "State.h"
-#include "stdafx.h"
 #include "Core.h"
 using namespace std;
 

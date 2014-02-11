@@ -1,9 +1,8 @@
 // StartState.h
 #pragma once
 
-
 #include "State.h"
-#include "stdafx.h"
+#include "Slider.h"
 using namespace std;
 
 class StartState : public State
@@ -27,10 +26,12 @@ public:
 	string Next();
 	/*Returns Current State */
 	string GetCurrentState();
-	
+
 private:
 	Core* m_pCore;
 	sf::RenderWindow *m_window;
 	InputManager * m_pInputManager;
 	DrawManager * m_DrawManager;
+	Slider m_HealthSlider;
+	Slider m_EnergySlider;
 };
