@@ -158,6 +158,7 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 {
 	m_pxPlayer = p_pxPlayer;
 }
+
 /*Test function, to load player*/
 bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window)
 {
@@ -175,6 +176,7 @@ bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSp
 	AttachPlayer(Player);
 	return true;
 }
+
 //void GameObjectManager::AttachLight(LightObject *p_pxLight)
 //{
 //	m_pxLight = p_pxLight;

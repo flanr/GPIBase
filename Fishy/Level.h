@@ -20,7 +20,6 @@ public:
 	~Level();
 	/* If bool value = true create level with colliders, If False no colliders */
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider);
-	bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window);
 	void Draw(DrawManager *p_pDrawManager);
 
 protected:

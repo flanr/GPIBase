@@ -129,14 +129,7 @@ void Level::Draw(DrawManager *p_draw_manager)
 	{		
 		p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
 	}
-	//& sprite eller sf::sprite? animSprite?z
-	p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 
-	//for( auto i = 0UL; i < m_pxGameObjMgr->m_apxGameObj.size(); i++)		//0UL = 0 unsigned long
-	//{
-	//	p_pxDrawManager->DrawSprite(m_pxGameObjMgr->m_apxGameObj[i]->GetSprite(),
-	//		m_pxGameObjMgr->m_apxGameObj[i]->GetPosition().m_fX,
-	//		m_pxGameObjMgr->m_apxGameObj[i]->GetPosition().m_fY);
-	//}
+	p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 
 }
