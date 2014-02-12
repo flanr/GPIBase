@@ -20,7 +20,7 @@ void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 	hovered = false;
 	selected = true;
 
-	m_sw = p_Width - p_Width/5;
+	m_sw = p_Width/* - p_Width/5*/;
 
 
 	m_EmptySlider.setSize(sf::Vector2f(p_Width,p_Height));
@@ -28,8 +28,15 @@ void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 	m_FullSlider = m_EmptySlider;
 	m_EmptySlider.setFillColor(sf::Color::Blue);
 	m_FullSlider.setFillColor(sf::Color::Red);
-	SetValue(50);
+	SetValue(100);
 }
+
+void Slider::SetPosition(int p_X, int p_Y)
+{
+	m_EmptySlider.setPosition(p_X,p_Y);
+	m_FullSlider = m_EmptySlider;
+}
+
 
 
 Slider::~Slider()
@@ -47,7 +54,7 @@ bool Slider::MouseOver(int x, int y)
 void Slider::SetValue(int v)
 {
 	value = v % 101;				// emptySlider.w = sw*value/100;
-	m_EmptySlider.setSize(sf::Vector2f(m_sw*v/100,m_h));
+	m_EmptySlider.setSize(sf::Vector2f((m_sw*v)/100,m_h));
 	printf("SliderValue changed to: %d \r\n", value);
 }
 

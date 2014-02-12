@@ -54,7 +54,8 @@ void OptionState::HandleInput()
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
 	{
-		m_pCore->m_StateManager.SetState("OptionState");
+		cout << " You are already in OptionState" << endl;
+		//m_pCore->m_StateManager.SetState("OptionState");
 	}
 
 
