@@ -66,7 +66,7 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 		}
 		it = m_axSprites.find(row);
 	}
-
+	//Flytta allt nedan till egen funktion så man kan bestämma vilken 
 	AnimatedSprite *pxSprite = new AnimatedSprite(it->second, 0, 0, 0, 0);
 
 	while(!file.eof()) 

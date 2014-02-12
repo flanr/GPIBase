@@ -5,7 +5,7 @@
 
 class Collider;
 
-class EnemyFishObject : GameObject
+class EnemyFishObject : public GameObject
 {
 public:
 	//EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite);

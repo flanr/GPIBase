@@ -32,6 +32,10 @@ void EnemyFishObject::SetAttractRadius(float p_fAttractRadius)
 void EnemyFishObject::Update(float deltatime)
 {
 
+	if(HasCollider() )
+	{
+		m_pxCollider->SetPosition(GetPosition() );
+	}
 	//ADD movement, AI and Animations here
 }
 

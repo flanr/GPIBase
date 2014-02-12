@@ -14,10 +14,33 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 {
 	m_fPlayerSpeed = 80.0f;
 	m_fDash = 30.0f;
+	for(int i = 0; i < StateCount; i++)
+	{
+		m_CurrentState[i] = false;
+	}
+	m_CurrentState[Idle] = true;
 };
+
+PlayerFishObject::~PlayerFishObject()
+{
+	//delete all Animated sprites
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		delete it->second;
+		it++;
+	}
+	m_mpAnimations.clear();
+	//Delete Collider
+	if(m_pxCollider != nullptr)
+	{
+		delete  m_pxCollider;
+	}
+}
 
 void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 {
+	//Note to myself try std::map<std::string, vector<sf::Intrect>> m_Rects so you load a big sprite and cut rects depending on animations
 	m_fVelocity = sf::Vector2f(0.0f, 0.0f);
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Right))
 	{
@@ -60,9 +83,21 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 
 	if(HasCollider() ) 
 	{
-		//move collider
+		m_pxCollider->SetPosition(GetPosition());
 	}
 
+	if(m_CurrentState[Idle])
+	{
+		/*SetActiveAnimation("Idle");*/
+	}
+	if(m_CurrentState[Moving])
+	{
+		/*SetActiveAnimation("Move");*/
+	}
+	if(m_CurrentState[Dash])
+	{
+		/*SetActiveAnimation("Dash");*/
+	}
 	if(m_pxCurrentAnimation != nullptr) {
 		m_pxCurrentAnimation->Update(p_Deltatime);
 	}
@@ -77,6 +112,21 @@ void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *
 		m_pxCurrentAnimation = p_pxAnimSprite;
 	}
 }
+
+//void PlayerFishObject::SetActiveAnimation(const std::string &p_sName)
+//{
+//	SetNewSprite(GetAnimation(p_sName) );
+//}
+//AnimatedSprite* PlayerFishObject::GetAnimation(const std::string &p_sName)
+//{
+//	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.find(p_sName);
+//
+//	if(it == m_mpAnimations.end()) 
+//	{
+//		it = m_mpAnimations.find(p_sName);
+//	}
+//	return it->second;
+//}
 
 void PlayerFishObject::SetPlayerState(eState p_State)
 {

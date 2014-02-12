@@ -10,14 +10,14 @@ CollisionManager::CollisionManager()
 
 void CollisionManager::AttachCollider(Collider* p_collider)
 {
-	//if(p_collider->GetRadius() <= 0) //Collider is not a circle
-	//{
-	//	m_axRectColliders.push_back(p_collider);
-	//}
-	//else
-	//{
-	//	m_axCircleColliders.push_back(p_collider);
-	//}
+	if(p_collider->GetRadius() <= 0) //Collider is not a circle
+	{
+		m_axRectColliders.push_back(p_collider);
+	}
+	else
+	{
+		m_axCircleColliders.push_back(p_collider);
+	}
 }
 
 void CollisionManager::CheckCollisionRectVsRect()

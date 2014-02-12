@@ -5,6 +5,7 @@
 #include "PlayerFishObject.h"
 
 class GameObjectManager;
+class CollisionManager;
 
 using namespace std;
 
@@ -16,7 +17,7 @@ class Level
 	};
 
 public:
-	Level(GameObjectManager *p_pxGameObjMgr = nullptr);
+	Level(GameObjectManager *p_pxGameObjMgr = nullptr, CollisionManager * p_CollisionMgr = nullptr);
 	~Level();
 	/* If bool value = true create level with colliders, If False no colliders */
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider);
@@ -34,6 +35,7 @@ protected:
 	map<char,Coords> m_TileCoords;
 	//vector<GameObject*> m_GameObjects;
 	GameObjectManager *m_pxGameObjMgr;
+	CollisionManager * m_CollisionMgr;
 
 };
 

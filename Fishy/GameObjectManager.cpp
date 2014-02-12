@@ -162,14 +162,14 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 /*Test function, to load player*/
 bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window)
 {
-	Collider *collider = new Collider;
+	Collider *collider = new Collider(sf::Vector2f(100.f, 100.f),sf::Vector2f(70.f, 70.f) );
 	/*collider->m_position = sf::Vector2f(100.f, 100.f );
 	collider->m_extention = sf::Vector2f(sprite->getTextureRect().width, sprite->getTextureRect().height);
 */
 	PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(100.f, 100.f ), nullptr, collider);
-	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
-	Player->AddAnimation("Idle", pxAnimSprite);
-	Player->SetPosition(sf::Vector2f(2000,0));
+	AnimatedSprite *Idle = p_pSpriteManager->LoadAnim(p_sFileName);	
+	Player->AddAnimation("Idle", Idle);
+	Player->SetPosition(sf::Vector2f(0,0));
 	sf::View view;
 	view = p_window->getDefaultView();
 	Player->InitPlayerView(sf::Vector2f(p_window->getSize() ) );

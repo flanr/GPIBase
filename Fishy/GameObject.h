@@ -26,7 +26,6 @@ public:
 	sf::Sprite * GetSprite();
 	//bool HasAnimSprite() const;
 	//AnimSprite * GetAnimSprite();
-	//void SetNewSprite(sf::Sprite* p_pxNewSprite);
 
 	bool HasCollider() const;
 	Collider *GetCollider();
@@ -35,6 +34,9 @@ public:
 	bool GetDestroyed();
 
 	virtual void Update(float deltatime);
+
+//protected:
+//	void SetNewSprite(sf::Sprite* p_pxNewSprite);
 
 protected:
 	sf::Sprite *m_pxSprite;

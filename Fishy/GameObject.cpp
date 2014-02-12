@@ -16,7 +16,7 @@
 //}
 
 GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collider * p_pxCollider)
-: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider)
+	: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider)
 {
 	m_bDestroyed = false;
 }
@@ -42,10 +42,14 @@ sf::Sprite* GameObject::GetSprite()
 {
 	return m_pxSprite;
 }
-
+/*WARNING! Only use with animated sprites. otherwise you will have a huge memory leak*/
 //void GameObject::SetNewSprite(sf::Sprite* p_pxNewSprite)
 //{
-//	m_pxSprite = p_pxNewSprite;
+//	if(m_pxSprite != nullptr)
+//	{
+//		m_pxSprite = nullptr;
+//		m_pxSprite = p_pxNewSprite;
+//	}
 //}
 
 bool GameObject::HasCollider() const
@@ -54,7 +58,7 @@ bool GameObject::HasCollider() const
 }
 Collider* GameObject::GetCollider()
 {
-	
+
 	return m_pxCollider;
 }
 

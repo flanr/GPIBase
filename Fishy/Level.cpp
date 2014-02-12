@@ -6,15 +6,17 @@
 #include "Collider.h"
 #include "AnimatedSprite.h"
 #include "PlayerFishObject.h"
+#include "EnemyFishObject.h"
 #include "GameObjectManager.h"
 
 
-Level::Level(GameObjectManager *p_pxGameObjMgr)
+Level::Level(GameObjectManager *p_pxGameObjMgr, CollisionManager * p_CollisionMgr)
 {
 	m_iHeight = 0;
 	m_iWidth = 0;
 	m_PlayerStartPosition = sf::Vector2f(0.0f, 0.0f);
 	m_pxGameObjMgr = p_pxGameObjMgr;
+	m_CollisionMgr = p_CollisionMgr;
 }
 
 Level::~Level()
@@ -75,6 +77,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			{
 				//start pos x
 				//start pos y
+				
 				iX += m_iWidth;
 			}
 
@@ -86,20 +89,29 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			Coords &c = it->second;
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
-
-
-
 			sprite->setPosition(iX,iY);
+
 			if (p_collider)
 			{
+
 				// Collider
 				Collider *collider = new Collider;
 				collider->SetPosition(sf::Vector2f(iX,iY) );
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
+				if (row[i] == 'E')
+				{
+					EnemyFishObject *enemy = new EnemyFishObject(sprite->getPosition(),sprite,collider);
+					enemy->SetPosition(sf::Vector2f(iX, iY) );
+					m_pxGameObjMgr->Attach(enemy);
+					m_CollisionMgr->AttachCollider(collider);
 
-				GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
-				go->SetPosition(sf::Vector2f(iX,iY));
-				m_pxGameObjMgr->Attach(go);
+				}
+				else
+				{
+					GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
+					go->SetPosition(sf::Vector2f(iX,iY));
+					m_pxGameObjMgr->Attach(go);
+				}
 
 			}else
 			{
@@ -108,14 +120,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				m_pxGameObjMgr->Attach(go);
 			}
 
-
-			// Collider
-			Collider *collider = new Collider;
-			collider->SetPosition(sf::Vector2f(iX,iY) );
-			collider->SetExtention(sf::Vector2f(c.w, c.h) );
-
 			iX += m_iWidth;
-
 		}
 		iY += m_iHeight;
 	}

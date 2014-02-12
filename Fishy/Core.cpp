@@ -90,11 +90,6 @@ void Core::Run()
 			}
 			m_pInputManager->UpdateEvents(event);
 		}
-		////////Following is a demo: to have window.pollEvent(param) or window->close() in imput manager, add a sf::RenderWindow parameter
-		/////////to UpdateEvents and copypaste. 
-		////////Demonstrating isdown and isdownonce functions in the console.
-		
-
 
 		m_StateManager.Update(m_fDeltaTime);
 		m_StateManager.Draw();
@@ -103,8 +98,6 @@ void Core::Run()
 		m_pInputManager->PostUpdateKeyboard();
 		m_pInputManager->PostUpdateMouse();
 	}
-	
-
 }
 
 
@@ -134,7 +127,6 @@ void Core::UpdateDeltatime()
 	{
 		m_fDeltaTime = 0.1f;
 	}
-
 	// cout << m_fDeltaTime << endl;
 }
 

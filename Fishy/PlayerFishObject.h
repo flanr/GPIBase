@@ -28,10 +28,13 @@ enum eDirection
 class PlayerFishObject : public GameObject {
 public:
 		PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite, Collider* p_Collider = nullptr);
+		~PlayerFishObject();
 
 		void Update(InputManager *p_pxInputManager, float p_Deltatime);
-		void SetActiveAnimation();
 		void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
+
+	/*	void SetActiveAnimation(const std::string &p_sName);
+		AnimatedSprite* GetAnimation(const std::string &p_sName);*/
 
 		void SetPlayerState(eState p_State);
 		int GetPlayerState();
