@@ -4,7 +4,7 @@
 #include "State.h"
 #include "Slider.h"
 using namespace std;
-
+class SpriteManager;
 class StartState : public State
 {
 public:
@@ -32,6 +32,6 @@ private:
 	sf::RenderWindow *m_window;
 	InputManager * m_pInputManager;
 	DrawManager * m_DrawManager;
-	Slider m_HealthSlider;
-	Slider m_EnergySlider;
+	SpriteManager *m_SpriteManager;
+	
 };
