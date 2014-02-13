@@ -72,6 +72,22 @@ bool GameObject::GetDestroyed()
 	return m_bDestroyed;
 }
 
+void GameObject::FlipXLeft()
+{
+	if(m_pxSprite != nullptr)
+	{
+		m_pxSprite->setScale(-1.f , 1.f);
+	}
+}
+
+void GameObject::FlipXRight()
+{
+	if(m_pxSprite != nullptr)
+	{
+		m_pxSprite->setScale(1.f , 1.f);
+	}
+}
+
 void GameObject::Update(float deltatime)
 {
 	//Uppdatera spelobjekt
