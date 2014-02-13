@@ -14,7 +14,7 @@ public:
 
 	void CheckCollisionRectVsRect();
 	void CheckCollisionCircleVsCircle();
-	void CheckCollisionRectVsCircle(sf::FloatRect f_rect);
+	void CheckCollisionRectVsCircle();
 
 	
 
