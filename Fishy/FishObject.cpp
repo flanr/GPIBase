@@ -6,6 +6,8 @@ FishObject::FishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider*
 	: GameObject(p_Position, p_Sprite, p_Collider)
 {
 	m_fDashpower = 0.0f;
+	m_fSpeed = 0.0f; 
+	m_Velocity = sf::Vector2f(0.0f, 0.0f);
 
 	for(int i = 0; i < StateCount; i++)
 	{
@@ -66,6 +68,16 @@ int FishObject::GetDirection()
 		}
 	}
 	return 0;
+}
+
+void FishObject::SetVelocity(sf::Vector2f p_Velocity)
+{
+	m_Velocity = p_Velocity;
+}
+
+sf::Vector2f FishObject::GetVelocity()
+{
+	return m_Velocity;
 }
 
 

@@ -39,17 +39,18 @@ PlayerFishObject::~PlayerFishObject()
 void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 {
 	//Note to myself try std::map<std::string, vector<sf::Intrect>> m_Rects so you load a big sprite and cut rects depending on animations
-	m_fVelocity = sf::Vector2f(0.0f, 0.0f);
+	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	if(GetState() == Dash )
 	{
 
 		if(GetDirection() == FacingRight)
 		{
-			m_fVelocity.x = p_Deltatime * GetSpeed() * GetDashPower();
+			SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetDashPower(), 0.0f) );
 		}
 		else if(GetDirection()  == FacingLeft)
 		{
-			m_fVelocity.x = p_Deltatime * -GetSpeed() * GetDashPower();
+			SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetDashPower(), 0.0f) );
+			//m_fVelocity.x = p_Deltatime * -GetSpeed() * GetDashPower();
 		}
 		if(m_SlowingDown)
 		{
@@ -77,26 +78,26 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Right))
 	{
-		m_fVelocity.x = p_Deltatime * GetSpeed();
+		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), 0.0f) );
 		SetState(Moving);
 		SetDirection(FacingRight);
 		FlipXRight();
 	}
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Left))
 	{
-		m_fVelocity.x = p_Deltatime * -GetSpeed();
+		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed(), 0.0f) );
 		SetState(Moving);
 		SetDirection(FacingLeft);
 		FlipXLeft();
 	}
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Up))
 	{
-		m_fVelocity.y = p_Deltatime * -GetSpeed();
+		SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed()) );
 		SetState(Moving);
 	}
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Down))
 	{
-		m_fVelocity.y = p_Deltatime * GetSpeed();
+		SetVelocity(sf::Vector2f(0.0f, p_Deltatime * GetSpeed()) );
 		SetState(Moving);
 	}
 	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::Space))
@@ -104,8 +105,8 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 		SetState(Dash);
 	}
 
-	SetPosition( GetPosition() + m_fVelocity );
-	m_PlayerView.move(m_fVelocity);
+	SetPosition( GetPosition() + GetVelocity() );
+	m_PlayerView.move(GetVelocity() );
 
 	if(HasCollider() ) 
 	{

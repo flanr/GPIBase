@@ -29,7 +29,6 @@ private:
 	bool m_SlowingDown;
 	int m_iDashtimer;
 
-	sf::Vector2f m_fVelocity;
 	sf::View m_PlayerView;
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
