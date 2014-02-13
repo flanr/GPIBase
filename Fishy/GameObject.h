@@ -33,6 +33,9 @@ public:
 	void SetDestroyed(bool p_bDestroyed);
 	bool GetDestroyed();
 
+	void FlipXLeft();
+	void FlipXRight();
+
 	virtual void Update(float deltatime);
 
 //protected:

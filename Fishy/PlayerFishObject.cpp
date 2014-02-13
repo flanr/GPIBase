@@ -13,12 +13,16 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	: GameObject(p_Position, p_Sprite, p_Collider)
 {
 	m_fPlayerSpeed = 80.0f;
-	m_fDash = 30.0f;
+	m_fDashpower = 0.0f;
+	m_iDashtimer = 50;
+	m_SlowingDown = false;
+
 	for(int i = 0; i < StateCount; i++)
 	{
 		m_CurrentState[i] = false;
 	}
 	m_CurrentState[Idle] = true;
+	SetPlayerDirection(FacingRight);
 };
 
 PlayerFishObject::~PlayerFishObject()
@@ -42,17 +46,55 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 {
 	//Note to myself try std::map<std::string, vector<sf::Intrect>> m_Rects so you load a big sprite and cut rects depending on animations
 	m_fVelocity = sf::Vector2f(0.0f, 0.0f);
+	if(GetPlayerState() == Dash )
+	{
+
+		if(GetPlayerDirection() == FacingRight)
+		{
+			m_fVelocity.x = p_Deltatime * m_fPlayerSpeed * m_fDashpower;
+		}
+		else if(GetPlayerDirection()  == FacingLeft)
+		{
+			m_fVelocity.x = p_Deltatime * -m_fPlayerSpeed * m_fDashpower;
+		}
+		if(m_SlowingDown)
+		{
+			m_fDashpower -= 0.1f;
+		}
+		else
+		{
+			m_fDashpower += 0.5f;
+			if(m_fDashpower > 5.f)
+			{
+				m_SlowingDown = true;
+			}
+		}
+
+		m_iDashtimer--;
+		if(m_iDashtimer == 0)
+		{
+			SetPlayerState(Idle);
+			m_iDashtimer = 50;
+			m_fDashpower = 0.f;
+			m_SlowingDown = false;
+		}
+
+	}
+
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Right))
 	{
 		m_fVelocity.x = p_Deltatime * m_fPlayerSpeed;
 		SetPlayerState(Moving);
 		SetPlayerDirection(FacingRight);
+		FlipXRight();
+
 	}
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Left))
 	{
 		m_fVelocity.x = p_Deltatime * -m_fPlayerSpeed;
 		SetPlayerState(Moving);
 		SetPlayerDirection(FacingLeft);
+		FlipXLeft();
 	}
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Up))
 	{
@@ -66,16 +108,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	}
 	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::Space))
 	{
-		if(GetPlayerDirection() == FacingRight)
-		{
-			m_fVelocity.x = p_Deltatime * m_fPlayerSpeed * m_fDash;
-			SetPlayerState(Dash);
-		}
-		else if(GetPlayerDirection()  == FacingLeft)
-		{
-			m_fVelocity.x = p_Deltatime * -m_fPlayerSpeed * m_fDash;
-			SetPlayerState(Dash);
-		}
+		SetPlayerState(Dash);
 	}
 
 	SetPosition( GetPosition() + m_fVelocity );
@@ -212,3 +245,4 @@ sf::FloatRect PlayerFishObject::GetPlayerViewport()
 {
 	return m_PlayerView.getViewport();
 }
+

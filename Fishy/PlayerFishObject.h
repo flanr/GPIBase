@@ -56,7 +56,9 @@ private:
 	bool m_Direction[DirectionCount];
 	bool m_CurrentState[StateCount];
 	float m_fPlayerSpeed;
-	float m_fDash;
+	float m_fDashpower;
+	int m_iDashtimer;
+	bool m_SlowingDown;
 
 	sf::Vector2f m_fVelocity;
 	sf::View m_PlayerView;
