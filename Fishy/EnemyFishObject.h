@@ -9,7 +9,7 @@ class EnemyFishObject : public GameObject
 {
 public:
 	//EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite);
-	EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite, Collider* p_xCollider);
+	EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite, Collider* p_xCollider = nullptr);
 	~EnemyFishObject();
 
 	void SetSpawnPosition(sf::Vector2f p_xSpawnPosition);
