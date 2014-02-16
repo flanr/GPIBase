@@ -73,13 +73,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			{
 				iX += m_iWidth;
 				continue;
-			} else if (row[i] == 'S')
-			{
-				//start pos x
-				//start pos y
-				
-				iX += m_iWidth;
-			}
+			} 
 
 			map<char,Coords>::iterator it = m_TileCoords.find(row[i]);
 			if (it == m_TileCoords.end())
@@ -88,6 +82,26 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 
 			Coords &c = it->second;
+			if (p_collider)
+			{
+				//måste ligga före ny sprite skapas. annars blir det minneslekage
+				if (row[i] == 'S')
+				{
+					//352.f, 287.f
+					Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
+					//PlayerObject måste laddas in som nullptr,
+					PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
+					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnimIdle.txt");	
+					Player->AddAnimation("Idle", pxAnimSprite);
+					Player->SetPosition(sf::Vector2f(iX, iY) );
+					m_pxGameObjMgr->AttachPlayer(Player);
+					m_CollisionMgr->AttachCollider(Player->GetCollider() );
+
+					iX += m_iWidth;
+					continue;
+				}
+			}
+
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 			sprite->setOrigin(sprite->getTextureRect().width / 2.0f, sprite->getTextureRect().height / 2.0f);
 			sprite->setPosition(iX,iY);

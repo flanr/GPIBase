@@ -201,7 +201,8 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 	{
 		SetState(Sneak);
 	}
-	std::cout << GetState();
+
+	//std::cout << GetState();
 }
 
 void PlayerFishObject::UpdateIdle(float p_Deltatime)

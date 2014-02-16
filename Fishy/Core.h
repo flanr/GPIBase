@@ -8,6 +8,8 @@
 class InputManager;
 class DrawManager;
 class SpriteManager;
+class GameObjectManager;
+
 class PlayerFishObject;
 class Collider;
 
@@ -30,6 +32,7 @@ public:
 	StateManager m_StateManager;
 	DrawManager *m_DrawManager;
 	SpriteManager *m_SpriteManager;
+	GameObjectManager *m_GameObjectManager;
 	sf::RenderWindow  *window;
 
 	PlayerFishObject *m_player;

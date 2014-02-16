@@ -16,6 +16,7 @@ GameState::GameState(Core* p_pCore)
 	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
 	m_SpriteManager = p_pCore->m_SpriteManager;
+	m_GameObjMgr = p_pCore->m_GameObjectManager;
 
 	mgr = new CollisionManager;
 
@@ -25,7 +26,7 @@ GameState::GameState(Core* p_pCore)
 	m_LevelLayerBackground = nullptr;
 	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerForGround = nullptr;
-	m_GameObjMgr = nullptr;
+
 
 	bStateRunning = false;
 
@@ -51,15 +52,6 @@ bool GameState::EnterState()
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
-
-	if (m_GameObjMgr == nullptr)
-	{
-		m_GameObjMgr = new GameObjectManager(m_pInputManager);
-		m_GameObjMgr->LoadFish("../data/anim/PlayerAnimIdle.txt", m_SpriteManager, m_window);
-		mgr->AttachCollider(m_GameObjMgr->m_pxPlayer->GetCollider() );
-
-	}
-
 	if (m_LevelLayerBackground == nullptr)
 	{
 		m_LevelLayerBackground = new Level(m_GameObjMgr);
@@ -69,6 +61,12 @@ bool GameState::EnterState()
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false);
 	} 
+	
+	if(m_GameObjMgr->m_pxPlayer != nullptr)
+	{
+		//Måste anropas efter spelare är inladdad
+		m_GameObjMgr->m_pxPlayer->InitPlayerView(sf::Vector2f(m_window->getSize() ) );
+	}
 
 	return false;
 }
