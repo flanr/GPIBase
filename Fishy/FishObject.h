@@ -8,7 +8,8 @@ enum eState
 {
 	Idle,
 	Moving,
-	Dash,
+	Attack,
+	Sneak,
 	Chewing,
 	StateCount
 };
@@ -19,6 +20,10 @@ enum eDirection
 	FacingDown,
 	FacingLeft,
 	FacingRight,
+	FacingUpRight,
+	FacingUpLeft,
+	FacingDownRight,
+	FacingDownLeft,
 	DirectionCount
 };
 
@@ -32,12 +37,12 @@ public:
 	int GetState();
 
 	/*Set Direction Fish is facing*/
-	void SetDirectionTrue(eDirection p_Direction);
-	void SetDirectionFalse(eDirection p_Direction);
-	eDirection GetHorizontalDirection();
-	eDirection GetVerticalDirection();
+	void SetDirection(eDirection p_Direction);
+	eDirection GetDirection();
 
 	/*Set Movement of the fish*/
+	void SetVelocityX(float p_VelocityX);
+	void SetVelocityY(float p_VelocityY);
 	void SetVelocity(sf::Vector2f p_Velocity);
 	sf::Vector2f GetVelocity();
 
@@ -46,8 +51,8 @@ public:
 	float GetSpeed();
 
 	/*Set Dash / Attack Power */
-	void SetDashPower(float p_fDashpower);
-	float GetDashPower();
+	void SetAttackPower(float p_fAttackpower);
+	float GetAttackPower();
 
 private:
 
@@ -55,7 +60,7 @@ private:
 	bool m_CurrentState[StateCount];
 
 	float m_fSpeed;
-	float m_fDashpower;
-
+	float m_fAttackpower;
 	sf::Vector2f m_Velocity;
+
 };

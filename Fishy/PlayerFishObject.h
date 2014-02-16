@@ -24,12 +24,18 @@ public:
 		void SetPlayerViewport(sf::FloatRect p_NewViewPort);
 		sf::FloatRect GetPlayerViewport();
 private:
-	void UpdateDash(float p_Deltatime);
+
+	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
+	void UpdateIdle(float p_Deltatime);
+	void UpdateMovement(float p_Deltatime);
+	void UpdateAttack(float p_Deltatime);
+	void UpdateSneak(float p_Deltatime);
+	void UpdateChewing(float p_Deltatime);
 
 private:
 	
 	bool m_SlowingDown;
-	int m_iDashtimer;
+	int m_iAttacktimer;
 
 	sf::View m_PlayerView;
 	AnimatedSprite *m_pxCurrentAnimation;

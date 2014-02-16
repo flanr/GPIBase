@@ -5,7 +5,7 @@
 FishObject::FishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: GameObject(p_Position, p_Sprite, p_Collider)
 {
-	m_fDashpower = 0.0f;
+	m_fAttackpower = 0.0f;
 	m_fSpeed = 0.0f; 
 	m_Velocity = sf::Vector2f(0.0f, 0.0f);
 
@@ -39,38 +39,34 @@ int FishObject::GetState()
 	return 0;
 }
 
-void FishObject::SetDirectionTrue(eDirection p_Direction)
+void FishObject::SetDirection(eDirection p_Direction)
 {
+	for(int i = 0; i < DirectionCount; i++)
+	{
+		m_Direction[i] = false;
+	}
 	m_Direction[p_Direction] = true;
 }
 
-void FishObject::SetDirectionFalse(eDirection p_Direction)
+eDirection FishObject::GetDirection()
 {
-	m_Direction[p_Direction] = false;
+	for(int i = 0; i < DirectionCount; i++)
+	{
+		if(m_Direction[i] == true)
+		{
+			return (eDirection)i ;
+		}
+	}
+	return FacingRight;
 }
 
-eDirection FishObject::GetHorizontalDirection()
+void FishObject::SetVelocityX(float p_VelocityX)
 {
-		if(m_Direction[FacingLeft] == true)
-		{
-			return FacingLeft;
-		}
-		else
-		{
-			return FacingRight;
-		}
+	m_Velocity.x = p_VelocityX;
 }
-
-eDirection FishObject::GetVerticalDirection()
+void FishObject::SetVelocityY(float p_VelocityY)
 {
-		if(m_Direction[FacingUp] == true)
-		{
-			return FacingUp;
-		}
-		else
-		{
-			return FacingDown;
-		}
+	m_Velocity.y = p_VelocityY;
 }
 
 void FishObject::SetVelocity(sf::Vector2f p_Velocity)
@@ -93,11 +89,11 @@ float FishObject::GetSpeed()
 	return m_fSpeed;
 }
 
-void FishObject::SetDashPower(float p_fDashpower)
+void FishObject::SetAttackPower(float p_fAttackpower)
 {
-	m_fDashpower = p_fDashpower;
+	m_fAttackpower = p_fAttackpower;
 }
-float FishObject::GetDashPower()
+float FishObject::GetAttackPower()
 {
-	return m_fDashpower;
+	return m_fAttackpower;
 }
