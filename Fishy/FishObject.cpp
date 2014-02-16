@@ -44,30 +44,38 @@ int FishObject::GetState()
 	return 0;
 }
 
-void FishObject::SetDirection(eDirection p_Direction)
+void FishObject::SetDirectionTrue(eDirection p_Direction)
 {
-	for(int i = 0; i < DirectionCount; i++)
-	{
-		if(p_Direction == i)
-		{
-			m_Direction[i] = true;
-		}
-		else 
-		{
-			m_Direction[i] = false;
-		}
-	}
+	m_Direction[p_Direction] = true;
 }
-int FishObject::GetDirection()
+
+void FishObject::SetDirectionFalse(eDirection p_Direction)
 {
-	for(int i = 0; i < DirectionCount; i++)
-	{
-		if(m_Direction[i] == true)
+	m_Direction[p_Direction] = false;
+}
+
+eDirection FishObject::GetHorizontalDirection()
+{
+		if(m_Direction[FacingLeft] == true)
 		{
-			return i;
+			return FacingLeft;
 		}
-	}
-	return 0;
+		else
+		{
+			return FacingRight;
+		}
+}
+
+eDirection FishObject::GetVerticalDirection()
+{
+		if(m_Direction[FacingUp] == true)
+		{
+			return FacingUp;
+		}
+		else
+		{
+			return FacingDown;
+		}
 }
 
 void FishObject::SetVelocity(sf::Vector2f p_Velocity)

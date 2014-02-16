@@ -12,11 +12,12 @@
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
 {
-	SetSpeed(80.0f);
-	m_iDashtimer = 25;
+	SetSpeed(120.0f);
+	m_iDashtimer = 15;
 	m_SlowingDown = false;
 
-	SetDirection(FacingRight);
+	SetDirectionTrue(FacingRight);
+	SetDirectionTrue(FacingDown);
 };
 
 PlayerFishObject::~PlayerFishObject()
@@ -42,67 +43,56 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	if(GetState() == Dash )
 	{
-
-		if(GetDirection() == FacingRight)
+		UpdateDash(p_Deltatime);
+	}
+	else
+	{
+		if(p_pxInputManager->IsDownK(sf::Keyboard::Right))
 		{
-			SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetDashPower(), 0.0f) );
-		}
-		else if(GetDirection()  == FacingLeft)
-		{
-			SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetDashPower(), 0.0f) );
-			//m_fVelocity.x = p_Deltatime * -GetSpeed() * GetDashPower();
-		}
-		if(m_SlowingDown)
-		{
-			SetDashPower( GetDashPower() - 0.1f);
-		}
-		else
-		{
-			SetDashPower( GetDashPower() + 1.f);
-			if(GetDashPower() > 5.f)
+			SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), 0.0f) );
+			if(GetState() != Dash)
 			{
-				m_SlowingDown = true;
+				SetState(Moving);
 			}
+			SetDirectionTrue(FacingRight);
+			SetDirectionFalse(FacingLeft);
+			FlipXRight();
 		}
-
-		m_iDashtimer--;
-		if(m_iDashtimer == 0)
+		if(p_pxInputManager->IsDownK(sf::Keyboard::Left))
 		{
-			SetState(Idle);
-			m_iDashtimer = 25;
-			SetDashPower(0.0f);
-			m_SlowingDown = false;
+			SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed(), 0.0f) );
+			if(GetState() != Dash)
+			{
+				SetState(Moving);
+			}
+			SetDirectionTrue(FacingLeft);
+			SetDirectionFalse(FacingRight);
+			FlipXLeft();
 		}
-
-	}
-
-	if(p_pxInputManager->IsDownK(sf::Keyboard::Right))
-	{
-		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), 0.0f) );
-		SetState(Moving);
-		SetDirection(FacingRight);
-		FlipXRight();
-	}
-	if(p_pxInputManager->IsDownK(sf::Keyboard::Left))
-	{
-		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed(), 0.0f) );
-		SetState(Moving);
-		SetDirection(FacingLeft);
-		FlipXLeft();
-	}
-	if(p_pxInputManager->IsDownK(sf::Keyboard::Up))
-	{
-		SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed()) );
-		SetState(Moving);
-	}
-	if(p_pxInputManager->IsDownK(sf::Keyboard::Down))
-	{
-		SetVelocity(sf::Vector2f(0.0f, p_Deltatime * GetSpeed()) );
-		SetState(Moving);
-	}
-	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::Space))
-	{
-		SetState(Dash);
+		if(p_pxInputManager->IsDownK(sf::Keyboard::Up))
+		{
+			SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed()) );
+			if(GetState() != Dash)
+			{
+				SetState(Moving);
+			}
+			SetDirectionTrue(FacingUp);
+			SetDirectionFalse(FacingDown);
+		}
+		if(p_pxInputManager->IsDownK(sf::Keyboard::Down))
+		{
+			SetVelocity(sf::Vector2f(0.0f, p_Deltatime * GetSpeed()) );
+			if(GetState() != Dash)
+			{
+				SetState(Moving);
+			}
+			SetDirectionTrue(FacingDown);
+			SetDirectionFalse(FacingUp);
+		}
+		if(p_pxInputManager->IsDownOnceK(sf::Keyboard::Space))
+		{
+			SetState(Dash);
+		}
 	}
 
 	SetPosition( GetPosition() + GetVelocity() );
@@ -177,3 +167,43 @@ sf::FloatRect PlayerFishObject::GetPlayerViewport()
 	return m_PlayerView.getViewport();
 }
 
+void PlayerFishObject::UpdateDash(float p_Deltatime)
+{
+	if(GetHorizontalDirection() == FacingRight && (GetVerticalDirection() == FacingUp || GetVerticalDirection() == FacingDown) )
+		{
+			SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetDashPower(), 0.0f) );
+		}
+		else if(GetHorizontalDirection()  == FacingLeft && (GetVerticalDirection() == FacingUp || GetVerticalDirection() == FacingDown) )
+		{
+			SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetDashPower(), 0.0f) );
+		}
+	/*	else if(GetVerticalDirection() == FacingUp)
+		{
+			SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed() * GetDashPower()) );
+		}
+		else if(GetVerticalDirection()  == FacingDown)
+		{
+			SetVelocity(sf::Vector2f( 0.0f, p_Deltatime * GetSpeed() * GetDashPower() ) );
+		}*/
+		if(m_SlowingDown)
+		{
+			SetDashPower( GetDashPower() - 0.1f);
+		}
+		else
+		{
+			SetDashPower( GetDashPower() + 1.f);
+			if(GetDashPower() > 5.f)
+			{
+				m_SlowingDown = true;
+			}
+		}
+
+		m_iDashtimer--;
+		if(m_iDashtimer == 0)
+		{
+			SetState(Idle);
+			m_iDashtimer = 25;
+			SetDashPower(0.0f);
+			m_SlowingDown = false;
+		}
+}

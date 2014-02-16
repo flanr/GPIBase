@@ -15,8 +15,8 @@ enum eState
 
 enum eDirection
 {
-	/*FacingUp,
-	FacingDown,*/
+	FacingUp,
+	FacingDown,
 	FacingLeft,
 	FacingRight,
 	DirectionCount
@@ -32,8 +32,10 @@ public:
 	int GetState();
 
 	/*Set Direction Fish is facing*/
-	void SetDirection(eDirection p_Direction);
-	int GetDirection();
+	void SetDirectionTrue(eDirection p_Direction);
+	void SetDirectionFalse(eDirection p_Direction);
+	eDirection GetHorizontalDirection();
+	eDirection GetVerticalDirection();
 
 	/*Set Movement of the fish*/
 	void SetVelocity(sf::Vector2f p_Velocity);

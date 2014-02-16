@@ -23,9 +23,11 @@ public:
 
 		void SetPlayerViewport(sf::FloatRect p_NewViewPort);
 		sf::FloatRect GetPlayerViewport();
+private:
+	void UpdateDash(float p_Deltatime);
 
 private:
-
+	
 	bool m_SlowingDown;
 	int m_iDashtimer;
 
