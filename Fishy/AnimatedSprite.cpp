@@ -24,7 +24,6 @@ void AnimatedSprite::Update(float p_fDeltatime)
 		m_fTime = 0.0f;
 		m_iCurrentFrame = ++m_iCurrentFrame % m_axAnimation.size();
 		setTextureRect( sf::IntRect(m_axAnimation[m_iCurrentFrame]) );
-		setOrigin(getTextureRect().width / 2.0f, getTextureRect().height / 2.0f);
 	}
 }
 

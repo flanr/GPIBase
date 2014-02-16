@@ -21,15 +21,10 @@ void FishObject::SetState(eState p_State)
 {
 	for(int i = 0; i < StateCount; i++)
 	{
-		if(p_State == i)
-		{
-			m_CurrentState[i] = true;
-		}
-		else 
-		{
-			m_CurrentState[i] = false;
-		}
+		m_CurrentState[i] = false;
 	}
+
+	m_CurrentState[p_State] = true;
 }
 
 int FishObject::GetState()

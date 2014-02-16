@@ -31,9 +31,9 @@ PlayerFishObject::~PlayerFishObject()
 	}
 	m_mpAnimations.clear();
 	//Delete Collider
-	if(m_pxCollider != nullptr)
+	if(GetCollider() != nullptr)
 	{
-		delete  m_pxCollider;
+		delete  GetCollider();
 	}
 }
 
@@ -100,7 +100,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 
 	if(HasCollider() ) 
 	{
-		m_pxCollider->SetPosition(GetPosition());
+		m_pxCollider->SetPosition(GetPosition() );
 	}
 
 	//if(m_CurrentState[Idle])
@@ -117,6 +117,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	//}
 	if(m_pxCurrentAnimation != nullptr) {
 		m_pxCurrentAnimation->Update(p_Deltatime);
+		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
 	}
 };
 
@@ -127,6 +128,7 @@ void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *
 	{
 		m_pxSprite = p_pxAnimSprite;
 		m_pxCurrentAnimation = p_pxAnimSprite;
+		
 	}
 }
 
