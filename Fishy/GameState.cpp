@@ -109,16 +109,6 @@ void GameState::HandleInput()
 
 void GameState::Draw()
 {
-	/*
-	sf::Texture	texture;
-	if (!texture.loadFromFile("player.png"))
-	{
-	};
-	texture.setSmooth(true);
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-	*/
-
 	m_DrawManager->ClearWindow();
 	m_window->setView(m_GameObjMgr->m_pxPlayer->GetPlayerView() );
 	m_LevelLayerBackground->Draw(m_DrawManager);
@@ -129,7 +119,6 @@ void GameState::Draw()
 	m_DrawManager->DrawSlider(m_EnergySlider);
 	m_DrawManager->Draw(Gui);
 
-	//m_level->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();
 
 }

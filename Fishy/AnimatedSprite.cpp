@@ -9,7 +9,6 @@ AnimatedSprite::AnimatedSprite(sf::Texture *p_texture, int p_iX, int p_iY, int p
 {
 	m_fTime = 0.0f;
 	m_iCurrentFrame = 0;
-
 }
 AnimatedSprite::~AnimatedSprite()
 {
@@ -25,6 +24,7 @@ void AnimatedSprite::Update(float p_fDeltatime)
 		m_iCurrentFrame = ++m_iCurrentFrame % m_axAnimation.size();
 		setTextureRect( sf::IntRect(m_axAnimation[m_iCurrentFrame]) );
 	}
+
 }
 
 void AnimatedSprite::SetFrameDuration(float p_fFrameDuration)

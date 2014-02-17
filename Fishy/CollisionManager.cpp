@@ -30,6 +30,16 @@ void CollisionManager::CheckCollisionRectVsRect()
 			if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
 			{
 				std::cout << "Collision!\n";
+				//Temporary for testing
+				if(m_axRectColliders[i] != nullptr)
+				{
+					m_axRectColliders[i]->SetStatus(true);
+				}
+				//Temporary for testing
+				if(m_axRectColliders[j] != nullptr)
+				{
+					m_axRectColliders[j]->SetStatus(true);
+				}
 				m_axRectColliders[i]->SetPosition(m_axRectColliders[i]->GetPosition() += offset);
 				m_axRectColliders[j]->SetPosition(m_axRectColliders[j]->GetPosition() += -offset);
 			}

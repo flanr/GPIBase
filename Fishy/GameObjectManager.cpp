@@ -160,16 +160,16 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 }
 
 /*Test function, to load player*/
-bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
-{
-	/*Collider *collider = new Collider(sf::Vector2f(0.f, 0.f),sf::Vector2f(352.f, 287.f) );
-
-	PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(0.f, 0.f ), nullptr, collider);
-	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
-	Player->AddAnimation("Idle", pxAnimSprite);
-	AttachPlayer(Player);*/
-	return true;
-}
+//bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
+//{
+//	/*Collider *collider = new Collider(sf::Vector2f(0.f, 0.f),sf::Vector2f(352.f, 287.f) );
+//
+//	PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(0.f, 0.f ), nullptr, collider);
+//	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
+//	Player->AddAnimation("Idle", pxAnimSprite);
+//	AttachPlayer(Player);*/
+//	return true;
+//}
 
 //void GameObjectManager::AttachLight(LightObject *p_pxLight)
 //{
@@ -249,26 +249,18 @@ bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSp
 //		m_pxLight = nullptr;
 //	}
 //}
-//void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy)
-//{
-//	
-//	if(p_pxEnemy != nullptr)
-//	{
-//		int iVectorPosition;
-//		for(int i = 0; i < m_apxEnemy.size(); i ++)
-//		{
-//			if(m_apxEnemy[i] == p_pxEnemy)
-//			{
-//				iVectorPosition = i;
-//				/*delete p_apxEnemy->GetAnimSprite();
-//				delete p_apxEnemy->GetCollider();*/
-//				delete p_pxEnemy;
-//				p_pxEnemy = nullptr;
-//			}
-//		}
-//		m_apxEnemy.erase(m_apxEnemy.begin() + iVectorPosition);
-//	}
-//}
+void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index)
+{
+
+	if(p_pxEnemy != nullptr)
+	{
+		delete p_pxEnemy;
+		p_pxEnemy = nullptr;
+	}
+
+	//m_apxGameObject.erase(m_apxGameObject.begin() + p_Index);
+}
+
 //void GameObjectManager::DestroyPowerup(PowerupObject *p_pxPowerup)
 //{
 //	if(p_pxPowerup != nullptr)
@@ -339,11 +331,27 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
 		m_apxGameObject[i]->Update(p_fDeltatime);
+		if(m_apxGameObject[i]->HasCollider() )
+		{
+			if( m_apxGameObject[i]->GetCollider()->GetStatus() == true )
+			{
+				m_apxGameObject[i]->SetDestroyed(true);
+			}
+			if( (EnemyFishObject*)m_apxGameObject[i]->GetDestroyed() )
+			{
+				DestroyEnemy((EnemyFishObject*)m_apxGameObject[i], i);
+				m_apxGameObject.erase(m_apxGameObject.begin() + i);
+			}
+		}
 	}
 
 	if(m_pxPlayer != nullptr)
 	{
 		m_pxPlayer->Update(m_pxInputManager, p_fDeltatime);
+		if(m_pxPlayer->GetCollider()->GetStatus() == true)
+		{
+			m_pxPlayer->SetDestroyed(false);
+		}
 	}
 
 	/*for ( auto element : m_apxGameObject )

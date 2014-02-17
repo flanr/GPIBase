@@ -10,8 +10,8 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	: FishObject(p_xPosition, p_pxSprite,  p_pxCollider) 
 {
 	SetSpeed(50);
-	SetState(Idle);
-	StateTimer = 0;
+	SetState(Moving);
+	m_iStateTimer = 0;
 }
 EnemyFishObject::~EnemyFishObject()
 {
@@ -21,26 +21,26 @@ EnemyFishObject::~EnemyFishObject()
 		delete  GetSprite();
 	}
 	
-	//Delete Collider
-	if(GetCollider() != nullptr)
-	{
-		delete  GetCollider();
-	}
+	////Delete Collider
+	//if(GetCollider() != nullptr)
+	//{
+	//	delete  GetCollider();
+	//}
 	
 }
 
 void EnemyFishObject::Update(float deltatime)
 {
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
-	StateTimer++;
-	if(StateTimer >= 500)
+	m_iStateTimer++;
+	if(m_iStateTimer >= 500)
 	{
 		ChangeState();
-		StateTimer = 0;
+		m_iStateTimer = 0;
 	}
 	if(GetState() == Moving)
 	{
-		if(StateTimer > 250)
+		if(m_iStateTimer > 250)
 		{
 			SetVelocity(sf::Vector2f(deltatime * -GetSpeed(), 0.0f) );
 		}

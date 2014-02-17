@@ -13,6 +13,8 @@ Collider::Collider(sf::Vector2f p_position, sf::Vector2f p_extension)
 	: m_position(p_position)
 	, m_extention(p_extension)
 {
+	//Temporary for testing
+	m_bCollisionStatus = false;
 }
 
 Collider::Collider(sf::Vector2f p_position, float p_radius)
@@ -114,7 +116,7 @@ bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset)
 	float W = m_extention.x*0.5f;
 	float H = m_extention.y*0.5f;
 	float R = other->m_radius;
-	
+
 	//The corner points
 	sf::Vector2f topright = sf::Vector2f(m_position.x+W, m_position.y-H);
 	sf::Vector2f botright = sf::Vector2f(m_position.x+W, m_position.y+H);
@@ -154,7 +156,7 @@ bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset)
 		&& other->m_position.x < botright.x && other->m_position.y < botright.y
 		&& other->m_position.x > topleft.x && other->m_position.y > topleft.y
 		&& other->m_position.x > botleft.x && other->m_position.y < botleft.y)	{	return true;	}
-	
+
 	return false;
 
 }
@@ -169,7 +171,7 @@ const sf::Vector2f& Collider::ClosestPointOnLine(const sf::Vector2f& p_vA,const 
 
 	// Dot product between vU and vAPoint
 	float fDot=vU.x*vAPoint.x+vU.y*vAPoint.y;
-	
+
 	// Length between two points that define the line
 	fLength=sqrt(pow((p_vA.x-p_vB.x),2)+pow((p_vA.y-p_vB.y),2));
 
@@ -196,4 +198,13 @@ void Collider::SetPosition(const sf::Vector2f p_pos)
 void Collider::SetExtention(const sf::Vector2f p_ext)
 {
 	m_extention = p_ext;
+}
+
+void Collider::SetStatus(bool p_Collision)
+{
+	m_bCollisionStatus = p_Collision;
+}
+bool Collider::GetStatus()
+{
+	return m_bCollisionStatus;
 }

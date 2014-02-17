@@ -9,7 +9,7 @@ class PlayerFishObject;
 class PowerupObject;
 
 //class TerrainObject;
-//class EnemyFishObject;
+class EnemyFishObject;
 
 //class InfoObject;
 //class TrapObject;
@@ -51,7 +51,7 @@ public:
 
 	////Destroy Functions for objects that can be destroyed in game
 	//void DestroyPlayer();
-	//void DestroyEnemy(EnemyFishObject *p_pxEnemy);
+	void DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index);
 	//void DestroyPowerup(PowerupObject *p_pxPowerup);
 	//void DestroyInfoObject(InfoObject *p_pxInfoObject);
 	//void DestroyParticle(ParticleObject * p_pxParticle);
