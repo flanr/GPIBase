@@ -11,7 +11,7 @@ public:
 
 	bool OverlapRectVsRect(Collider* other, sf::Vector2f& offset);
 	bool OverlapCircleVsCircle(Collider* other, sf::Vector2f& offset);
-	bool OverlapRectVsCircle(Collider* other, sf::Vector2f& offset, sf::FloatRect f_rect);
+	bool OverlapRectVsCircle(Collider* other, sf::Vector2f& offset);
 	const sf::Vector2f& ClosestPointOnLine(const sf::Vector2f& p_vA,const sf::Vector2f& p_vB,const sf::Vector2f& p_vPoint);
 
 	sf::Vector2f GetPosition();
@@ -28,6 +28,5 @@ private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_extention;
 	float m_radius;
-	//std::vector<Collider*> m_axColliders;
 
 };

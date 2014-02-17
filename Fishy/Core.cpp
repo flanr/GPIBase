@@ -16,9 +16,11 @@ Core::Core()
 	window = nullptr;
 	m_pInputManager = nullptr;
 	m_SpriteManager = nullptr;
+	m_DrawManager = nullptr;
+	m_GameObjectManager = nullptr;
 
 	playerSprite = nullptr;
-	m_DrawManager = nullptr;
+
 
 	m_fDeltaTime = 0.0f;
 	m_Clock.restart();
@@ -59,6 +61,12 @@ bool Core::Initialize()
 			return false;
 		}
 	}
+
+	if(m_GameObjectManager == nullptr)
+	{
+		m_GameObjectManager = new GameObjectManager(m_pInputManager);
+	}
+
 	//Delete the states*******************************************************************
 	if (m_StateManager.GetCurrentState() == nullptr)
 	{
@@ -113,6 +121,13 @@ void Core::Cleanup()
 	{
 		delete m_SpriteManager;
 		m_SpriteManager = nullptr;
+	}
+
+	if(m_GameObjectManager != nullptr)
+	{
+		m_GameObjectManager->Cleanup();
+		delete m_GameObjectManager;
+		m_GameObjectManager = nullptr;
 	}
 }
 

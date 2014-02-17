@@ -109,24 +109,52 @@ bool Collider::OverlapCircleVsCircle(Collider* other, sf::Vector2f& offset)
 	return false;
 }
 
-bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset, sf::FloatRect f_rect)
+bool Collider::OverlapRectVsCircle(Collider* other, sf::Vector2f& offset)
 {
-	float W = m_extention.x;
-	float H = m_extention.y;
+	float W = m_extention.x*0.5f;
+	float H = m_extention.y*0.5f;
 	float R = other->m_radius;
-	/*float distanceX = fabs(m_position.x - other->m_position.x);
-	float distanceY = fabs(m_position.y - other->m_position.y);*/
-	sf::Vector2f vA(m_position.x +W/2.f, m_position.y - H/2.f);
-	sf::Vector2f vB(m_position.x +W/2.f, m_position.y );
-	sf::Vector2f CirclePoint = other->m_position;
-	sf::Vector2f ClosestPoint = ClosestPointOnLine(vA, vB, CirclePoint);
-	sf::Vector2f distance = CirclePoint - ClosestPoint;
+	
+	//The corner points
+	sf::Vector2f topright = sf::Vector2f(m_position.x+W, m_position.y-H);
+	sf::Vector2f botright = sf::Vector2f(m_position.x+W, m_position.y+H);
+	sf::Vector2f topleft = sf::Vector2f(m_position.x-W, m_position.y-H);
+	sf::Vector2f botleft = sf::Vector2f(m_position.x-W, m_position.y+H);
 
-	//Trying to decide the distance between the circle center and the closest point.
-	if (sqrtf(distance.x * distance.x + distance.y * distance.y) <= R)
-	{
-		return true;
-	}
+	//The closest points on the sides
+	sf::Vector2f ClosestPointRight = ClosestPointOnLine(topright, botright, other->m_position);
+	sf::Vector2f ClosestPointBottom = ClosestPointOnLine(botright, botleft, other->m_position);
+	sf::Vector2f ClosestPointLeft = ClosestPointOnLine(botleft, topleft, other->m_position);
+	sf::Vector2f ClosestPointTop = ClosestPointOnLine(topleft, topright, other->m_position);
+
+
+	//Bulky deltas and their vectors
+	float deltax = ClosestPointRight.x - other->m_position.x;
+	float deltay = ClosestPointRight.y - other->m_position.y;
+	float deltaxB = ClosestPointBottom.x - other->m_position.x;
+	float deltayB = ClosestPointBottom.y - other->m_position.y;
+	float deltaxL = ClosestPointLeft.x - other->m_position.x;
+	float deltayL = ClosestPointLeft.y - other->m_position.y;
+	float deltaxT = ClosestPointTop.x - other->m_position.x;
+	float deltayT = ClosestPointTop.y - other->m_position.y;
+	sf::Vector2f distanceright(fabs(deltax), fabs(deltay));
+	sf::Vector2f distancerbottom(fabs(deltaxB), fabs(deltayB));
+	sf::Vector2f distancerLeft(fabs(deltaxL), fabs(deltayL));
+	sf::Vector2f distancerTop(fabs(deltaxT), fabs(deltayT));
+
+	//Checking to see if the distance between each "closest points"
+	// and the circle's center is less than the circle's radius.
+	if ( distanceright.x < R && distanceright.y < R)	{	return true;	}
+	if (distancerbottom.x < R && distancerbottom.y < R)	{	return true;	}
+	if (distancerLeft.x < R && distancerLeft.y < R)		{	return true;	}
+	if (distancerTop.x < R && distancerTop.y < R)		{	return true;	}
+
+	//Is the circle within the rectangle?
+	if (other->m_position.x < topright.x && other->m_position.y > topright.y
+		&& other->m_position.x < botright.x && other->m_position.y < botright.y
+		&& other->m_position.x > topleft.x && other->m_position.y > topleft.y
+		&& other->m_position.x > botleft.x && other->m_position.y < botleft.y)	{	return true;	}
+	
 	return false;
 
 }

@@ -55,14 +55,14 @@ void CollisionManager::CheckCollisionCircleVsCircle()
 	//position update here
 }
 
-void CollisionManager::CheckCollisionRectVsCircle(sf::FloatRect f_rect)
+void CollisionManager::CheckCollisionRectVsCircle()
 {
 	sf::Vector2f offset;
-	for (int i = 0; i < m_axRectColliders.size() - 1; i++)
+	for (int i = 0; i < m_axRectColliders.size(); i++)
 	{
 		for (int j = 0; j < m_axCircleColliders.size(); j++)
 		{
-			if (m_axRectColliders[i]->OverlapRectVsCircle(m_axCircleColliders[j], offset, f_rect))
+			if (m_axRectColliders[i]->OverlapRectVsCircle(m_axCircleColliders[j], offset))
 			{
 				std::cout << "Collision!\n";
 			}
