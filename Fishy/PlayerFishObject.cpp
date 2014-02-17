@@ -12,11 +12,40 @@
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
 {
+
+	//m_fPlayerSpeed = 80.0f;
+	//m_fDash = 30.0f;
+	//for(int i = 0; i < StateCount; i++)
+	//{
+	//	m_CurrentState[i] = false;
+	//}
+	//m_CurrentState[Idle] = true;
+	m_Health = 90;
+	m_Energy = 90;
+
 	SetSpeed(250.0f);
 	m_iAttacktimer = 15;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
+
 };
+
+void PlayerFishObject::SetScale(float x)
+{
+	float Scale = x;
+
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		it->second->setScale(Scale,Scale);
+		it++;
+	}
+
+	//->scale(Scale,Scale);
+	m_pxCollider->SetExtention(m_pxCollider->GetExtension()*Scale);
+
+}
+
 
 PlayerFishObject::~PlayerFishObject()
 {
@@ -56,6 +85,14 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	if(GetState() == Sneak)
 	{
 		UpdateSneak(p_Deltatime);
+	}
+	if (p_pxInputManager->IsDownK(sf::Keyboard::H))
+	{
+		if (m_Health >= 100)
+		{
+			m_Health = 0;
+		}
+		m_Health ++;
 	}
 
 	SetPosition( GetPosition() + GetVelocity() );
@@ -296,4 +333,15 @@ void PlayerFishObject::UpdateSneak(float p_Deltatime)
 }
 void PlayerFishObject::UpdateChewing(float p_Deltatime)
 {
+	//return m_PlayerView.getViewport();
+}
+
+int PlayerFishObject::GetHealth()
+{
+	return m_Health;
+}
+
+int PlayerFishObject::GetEnergy()
+{
+	return m_Energy;
 }

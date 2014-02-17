@@ -17,12 +17,26 @@ public:
 
 	/*	void SetActiveAnimation(const std::string &p_sName);
 		AnimatedSprite* GetAnimation(const std::string &p_sName);*/
+		void SetScale(float x);
 
 		void InitPlayerView(sf::Vector2f p_Size);
 		sf::View GetPlayerView();
 
 		void SetPlayerViewport(sf::FloatRect p_NewViewPort);
 		sf::FloatRect GetPlayerViewport();
+
+
+		int GetHealth();
+		int GetEnergy();
+
+private:
+
+	/*bool m_Direction[DirectionCount];
+	bool m_CurrentState[StateCount];
+	float m_fPlayerSpeed;
+	float m_fDash;*/
+	
+	sf::Vector2f m_fVelocity;
 private:
 
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
@@ -33,7 +47,8 @@ private:
 	void UpdateChewing(float p_Deltatime);
 
 private:
-	
+	int m_Health;
+	int m_Energy;
 	bool m_SlowingDown;
 	int m_iAttacktimer;
 

@@ -37,12 +37,12 @@ void Collider::SetPositionY(float y)
 }
 bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 {
-	float A = m_extention.x * 0.5f;
-	float B = other->m_extention.x * 0.5f;
+	float A = m_extention.x *0.5f;
+	float B = other->m_extention.x *0.5f;
 	float C = m_position.x - other->m_position.x;
 
 	float P = m_extention.y *0.5f;
-	float Q = other->m_extention.y * 0.5f;
+	float Q = other->m_extention.y *0.5f;
 	float Z = m_position.y - other->m_position.y;
 
 	if (fabs(C) <= (A + B))
@@ -58,8 +58,8 @@ bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 					deltaX = -deltaX;
 				}
 				offset.x = deltaX;
-				other->m_position.x += deltaX/2.f;
-				m_position.x += deltaX/2.f;
+				/*other->m_position.x += deltaX/2.f;
+				m_position.x += deltaX/2.f;*/
 			}
 			if (deltaY > deltaX)
 			{
@@ -68,8 +68,8 @@ bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 					deltaY = -deltaY;
 				}
 				offset.y = deltaY;
-				other->m_position.y += deltaY/2.f;
-				m_position.y += deltaY/2.f;
+				/*other->m_position.y += deltaY/2.f;
+				m_position.y += deltaY/2.f;*/
 			}
 			return true;
 		}

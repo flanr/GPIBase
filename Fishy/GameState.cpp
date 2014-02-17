@@ -79,16 +79,26 @@ void GameState::ExitState()
 bool GameState::Update(float p_DeltaTime)
 {
 	HandleInput();
-
+	m_GameObjMgr->m_pxPlayer->SetScale(0.2f);
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	UpdateGUI();
+
+	return true;
+}
+
+void GameState::UpdateGUI()
+{
 	Gui->setPosition(m_GameObjMgr->m_pxPlayer->GetPosition().x - 500 ,m_GameObjMgr->m_pxPlayer->GetPosition().y - 310 );
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetPosition(GUI_pos.x + 96 ,GUI_pos.y +29);
 	m_HealthSlider.SetPosition(GUI_pos.x + 96 ,GUI_pos.y +60);
 
-	return true;
+	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
+	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
+
 }
+
 
 void GameState::HandleInput()
 {

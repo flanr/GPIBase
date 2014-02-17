@@ -33,6 +33,9 @@ public:
 	string Next();
 	/*Returns Current State */
 	string GetCurrentState();
+	
+	void UpdateGUI();
+
 
 private:
 	bool bStateRunning;

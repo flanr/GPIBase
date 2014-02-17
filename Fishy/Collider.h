@@ -2,6 +2,13 @@
 
 #pragma once
 
+enum Identity
+{
+	EPLAYER,
+	EENEMY,
+	ELIGHT
+};
+
 class Collider
 {
 public:
@@ -26,6 +33,8 @@ public:
 	//Temporary for testing
 	void SetStatus(bool p_Collision);
 	bool GetStatus();
+	sf::Vector2f GetExtension(){return m_extention;}
+
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_extention;
