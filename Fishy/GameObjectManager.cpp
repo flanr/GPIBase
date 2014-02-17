@@ -162,7 +162,7 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 /*Test function, to load player*/
 bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager, sf::RenderWindow *p_window)
 {
-	Collider *collider = new Collider(sf::Vector2f(100.f, 100.f),sf::Vector2f(70.f, 70.f) );
+	Collider *collider = new Collider(sf::Vector2f(100.f, 100.f),sf::Vector2f(352.0f, 287.0f) );
 	/*collider->m_position = sf::Vector2f(100.f, 100.f );
 	collider->m_extention = sf::Vector2f(sprite->getTextureRect().width, sprite->getTextureRect().height);
 */

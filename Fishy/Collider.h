@@ -22,6 +22,8 @@ public:
 
 	void SetRadius(float p_radius);
 	float GetRadius();
+	sf::Vector2f GetExtension(){return m_extention;}
+	
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_extention;
