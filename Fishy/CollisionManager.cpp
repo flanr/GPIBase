@@ -32,6 +32,7 @@ void CollisionManager::CheckCollisionRectVsRect()
 				std::cout << "Collision!\n";
 				m_axRectColliders[i]->SetPosition(m_axRectColliders[i]->GetPosition() += offset);
 				m_axRectColliders[j]->SetPosition(m_axRectColliders[j]->GetPosition() += -offset);
+				/*if (m_axRectColliders[i]->*/
 			}
 		}
 	}

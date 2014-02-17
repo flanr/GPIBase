@@ -22,5 +22,6 @@ public:
 private:
 	std::vector<Collider*> m_axCircleColliders;
 	std::vector<Collider*> m_axRectColliders;
-
+	bool b_playerVsenemy;
+	bool b_enemyVsLight;
 };

@@ -2,6 +2,13 @@
 
 #pragma once
 
+enum Identity
+{
+	EPLAYER,
+	EENEMY,
+	ELIGHT
+};
+
 class Collider
 {
 public:
