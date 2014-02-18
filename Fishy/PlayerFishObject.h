@@ -9,8 +9,8 @@ class Collider;
 
 class PlayerFishObject : public FishObject {
 public:
-		PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite, Collider* p_Collider = nullptr);
-		~PlayerFishObject();
+	PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite, Collider* p_Collider = nullptr);
+	~PlayerFishObject();
 
 		void SetScale(float x);
 		void Update(InputManager *p_pxInputManager, float p_Deltatime);
@@ -18,13 +18,12 @@ public:
 
 	/*	void SetActiveAnimation(const std::string &p_sName);
 		AnimatedSprite* GetAnimation(const std::string &p_sName);*/
-		
 
-		void InitPlayerView(sf::Vector2f p_Size);
-		sf::View GetPlayerView();
+	void InitPlayerView(sf::Vector2f p_Size);
+	sf::View GetPlayerView();
 
-		void SetPlayerViewport(sf::FloatRect p_NewViewPort);
-		sf::FloatRect GetPlayerViewport();
+	void SetPlayerViewport(sf::FloatRect p_NewViewPort);
+	sf::FloatRect GetPlayerViewport();
 
 		void SetHealth(int p_Health);
 		int GetHealth();
@@ -38,7 +37,7 @@ private:
 	bool m_CurrentState[StateCount];
 	float m_fPlayerSpeed;
 	float m_fDash;*/
-	
+
 	sf::Vector2f m_fVelocity;
 private:
 
@@ -53,6 +52,8 @@ private:
 private:
 	int m_Health;
 	int m_Energy;
+
+	float m_scale;
 	bool m_SlowingDown;
 	int m_Healthtimer;
 	int m_iAttacktimer;

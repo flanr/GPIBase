@@ -26,8 +26,8 @@ void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 	m_EmptySlider.setSize(sf::Vector2f(p_Width,p_Height));
 	m_EmptySlider.setPosition(p_X,p_Y);
 	m_FullSlider = m_EmptySlider;
-	m_EmptySlider.setFillColor(sf::Color::Blue);
-	m_FullSlider.setFillColor(sf::Color::Red);
+	m_EmptySlider.setFillColor(sf::Color::Red);
+	m_FullSlider.setFillColor(sf::Color::Transparent);
 	SetValue(100);
 }
 

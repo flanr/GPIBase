@@ -72,19 +72,19 @@ bool GameObject::GetDestroyed()
 	return m_bDestroyed;
 }
 
-void GameObject::FlipXLeft()
+void GameObject::FlipXLeft(float scale)
 {
 	if(m_pxSprite != nullptr)
 	{
-		m_pxSprite->setScale(-1.f , 1.f);
+		m_pxSprite->setScale(-scale , scale);
 	}
 }
 
-void GameObject::FlipXRight()
+void GameObject::FlipXRight(float scale)
 {
 	if(m_pxSprite != nullptr)
 	{
-		m_pxSprite->setScale(1.f , 1.f);
+		m_pxSprite->setScale(scale , scale);
 	}
 }
 
