@@ -88,6 +88,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="PowerupObject.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="GameObject.cpp" />

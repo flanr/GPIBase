@@ -33,8 +33,8 @@ public:
 	void SetDestroyed(bool p_bDestroyed);
 	bool GetDestroyed();
 
-	void FlipXLeft();
-	void FlipXRight();
+	void FlipXLeft(float scale);
+	void FlipXRight(float scale);
 
 	virtual void Update(float deltatime);
 

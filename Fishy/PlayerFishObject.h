@@ -9,25 +9,25 @@ class Collider;
 
 class PlayerFishObject : public FishObject {
 public:
-		PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite, Collider* p_Collider = nullptr);
-		~PlayerFishObject();
+	PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite, Collider* p_Collider = nullptr);
+	~PlayerFishObject();
 
-		void Update(InputManager *p_pxInputManager, float p_Deltatime);
-		void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
+	void Update(InputManager *p_pxInputManager, float p_Deltatime);
+	void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
 
 	/*	void SetActiveAnimation(const std::string &p_sName);
-		AnimatedSprite* GetAnimation(const std::string &p_sName);*/
-		void SetScale(float x);
+	AnimatedSprite* GetAnimation(const std::string &p_sName);*/
+	void SetScale(float x);
 
-		void InitPlayerView(sf::Vector2f p_Size);
-		sf::View GetPlayerView();
+	void InitPlayerView(sf::Vector2f p_Size);
+	sf::View GetPlayerView();
 
-		void SetPlayerViewport(sf::FloatRect p_NewViewPort);
-		sf::FloatRect GetPlayerViewport();
+	void SetPlayerViewport(sf::FloatRect p_NewViewPort);
+	sf::FloatRect GetPlayerViewport();
 
 
-		int GetHealth();
-		int GetEnergy();
+	int GetHealth();
+	int GetEnergy();
 
 private:
 
@@ -35,7 +35,7 @@ private:
 	bool m_CurrentState[StateCount];
 	float m_fPlayerSpeed;
 	float m_fDash;*/
-	
+
 	sf::Vector2f m_fVelocity;
 private:
 
@@ -49,6 +49,8 @@ private:
 private:
 	int m_Health;
 	int m_Energy;
+
+	float m_scale;
 	bool m_SlowingDown;
 	int m_iAttacktimer;
 

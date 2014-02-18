@@ -70,6 +70,7 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -100,9 +101,6 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Header Files\States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="OptionState.h">
@@ -144,6 +142,10 @@
     <ClInclude Include="Level.h">
       <Filter>Header Files\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
