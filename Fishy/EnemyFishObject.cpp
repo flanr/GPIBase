@@ -26,7 +26,7 @@ EnemyFishObject::~EnemyFishObject()
 	//{
 	//	delete  GetCollider();
 	//}
-	
+	//
 }
 
 void EnemyFishObject::Update(float deltatime)

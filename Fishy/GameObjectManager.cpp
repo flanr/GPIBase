@@ -42,7 +42,7 @@ void GameObjectManager::Cleanup()
 			delete (*it)->GetSprite();
 			}*/
 			delete (*it)->GetSprite();
-			delete (*it)->GetCollider();
+			//delete (*it)->GetCollider();
 			delete (*it);
 			it++;
 		}
@@ -67,86 +67,6 @@ void GameObjectManager::Cleanup()
 	//	delete m_pxLight;
 	//	m_pxLight = nullptr;
 	//}
-	//Delete Terrain Objects
-	//{
-
-	//	auto it = m_apxTerrain.begin();
-	//	while(it != m_apxTerrain.end() )
-	//	{
-	//		/*delete (*it)->GetSprite();
-	//		delete (*it)->GetCollider();*/
-	//		delete (*it);
-	//		it++;
-	//	}
-	//	m_apxTerrain.clear();
-	//}
-
-	//Delete Enemy Objects
-	//{
-	//	auto it = m_apxEnemy.begin();
-	//	while(it != m_apxEnemy.end() )
-	//	{
-	//		/*delete (*it)->GetSprite();
-	//		or delete (*it->GetAnimatedSprite();
-	//		delete (*it)->GetCollider();*/
-	//		delete (*it);
-	//		it++;
-	//	}
-	//	m_apxEnemy.clear();
-	//}
-
-	//Delete Powerup Objects
-	//{
-	//	auto it = m_apxPowerup.begin();
-	//	while(it != m_apxPowerup.end() )
-	//	{
-	//		/*delete (*it)->GetSprite();
-	//		delete (*it)->GetCollider();*/
-	//		delete (*it);
-	//		it++;
-	//	}
-	//	m_apxPowerup.clear();
-	//}
-
-	//Delete Info Objects
-	//{
-	//	auto it = m_apxInfoObject.begin();
-	//	while(it != m_apxInfoObject.end() )
-	//	{
-	//		/*delete (*it)->GetSprite();
-	//		delete (*it)->GetCollider();*/
-	//		delete (*it);
-	//		it++;
-	//	}
-	//	m_apxInfoObject.clear();
-	//}
-
-	//Delete Trap Objects
-	//{
-	//	auto it = m_apxTrapObject.begin();
-	//	while(it != m_apxTrapObject.end() )
-	//	{
-	//		/*delete (*it)->GetSprite();
-	//		delete (*it)->GetCollider();*/
-	//		delete (*it);
-	//		it++;
-	//	}
-	//	m_apxTrapObject.clear();
-	//}
-
-	//Delete Particle Objects
-	//{
-	//	auto it = m_apxParticles.begin();
-	//	while(it != m_apxParticles.end() )
-	//	{
-	//		/*delete (*it)->GetSprite();
-	//		delete (*it)->GetCollider();*/
-	//		delete (*it);
-	//		it++;
-	//	}
-	//	m_apxParticles.clear();
-	//}
-
 }
 
 //attach objects
@@ -333,7 +253,7 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		m_apxGameObject[i]->Update(p_fDeltatime);
 		if(m_apxGameObject[i]->HasCollider() )
 		{
-			if( m_apxGameObject[i]->GetCollider()->GetStatus() == true )
+			/*if( m_apxGameObject[i]->GetCollider()->GetStatus() == true )
 			{
 				m_apxGameObject[i]->SetDestroyed(true);
 			}
@@ -341,60 +261,23 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 			{
 				DestroyEnemy((EnemyFishObject*)m_apxGameObject[i], i);
 				m_apxGameObject.erase(m_apxGameObject.begin() + i);
-			}
+				m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
+			}*/
 		}
 	}
 
 	if(m_pxPlayer != nullptr)
 	{
 		m_pxPlayer->Update(m_pxInputManager, p_fDeltatime);
-		if(m_pxPlayer->GetCollider()->GetStatus() == true)
+		/*if(m_pxPlayer->GetCollider()->GetStatus() == true)
 		{
 			m_pxPlayer->SetDestroyed(false);
-		}
+		}*/
 	}
 
 	/*for ( auto element : m_apxGameObject )
 	{
 	element->Update(p_fDeltatime);
 	}*/
-	/*UpdatePlayer(p_fDeltatime);
-	UpdateTerrain(p_fDeltatime);
-	UpdateEnemies(p_fDeltatime);
-	UpdatePowerups(p_fDeltatime);
-	UpdateInfoObjects(p_fDeltatime);
-	UpdateTrapObjects(p_fDeltatime);*/
-	//UpdateParticles(p_fDeltatime);
+	
 }
-
-//void GameObjectManager::UpdatePlayer(float p_fDeltatime)
-//{
-//	//Ex
-//	//if(m_pxPlayer != nullptr)
-//	//{
-//	//	m_pxPlayer->Update(p_fDeltatime, p_pxInputManager);
-//	//}
-//}
-//void GameObjectManager::UpdateTerrain(float p_fDeltatime)
-//{
-//	//uppdatera Terrain
-//}
-//void GameObjectManager::UpdateEnemies(float p_fDeltatime)
-//{
-//	//uppdatera Enemies
-//}
-//void GameObjectManager::UpdatePowerups(float p_fDeltatime)
-//{
-//	//uppdatera Powerups
-//}
-//void GameObjectManager::UpdateInfoObjects(float p_fDeltatime)
-//{
-//	//uppdatera info Objects
-//}
-//void GameObjectManager::UpdateTrapObjects(float p_fDeltatime)
-//{
-//	//uppdatera Trap Objects
-//}
-////void GameObjectManager::UpdateParticles(float p_fDeltatime) // Uppdaterar position, velocity // opacity?
-////{
-////}

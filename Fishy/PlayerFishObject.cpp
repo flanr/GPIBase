@@ -24,28 +24,12 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_Energy = 90;
 
 	SetSpeed(250.0f);
+	m_Healthtimer = 10;
 	m_iAttacktimer = 15;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
 
 };
-
-void PlayerFishObject::SetScale(float x)
-{
-	float Scale = x;
-
-	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
-	while(it != m_mpAnimations.end() )
-	{
-		it->second->setScale(Scale,Scale);
-		it++;
-	}
-
-	//->scale(Scale,Scale);
-	m_pxCollider->SetExtention(m_pxCollider->GetExtension()*Scale);
-
-}
-
 
 PlayerFishObject::~PlayerFishObject()
 {
@@ -64,12 +48,34 @@ PlayerFishObject::~PlayerFishObject()
 	}
 }
 
+void PlayerFishObject::SetScale(float x)
+{
+	float Scale = x;
+
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		it->second->setScale(Scale,Scale);
+		it++;
+	}
+
+	//->scale(Scale,Scale);
+	//m_pxCurrentAnimation->setScale(x, x);
+	m_pxCollider->SetExtention(m_pxCollider->GetExtension()*Scale);
+
+
+}
+
 void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 {
 	//Note to myself try std::map<std::string, vector<sf::Intrect>> m_Rects so you load a big sprite and cut rects depending on animations
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
-
-	if(GetState() == Attack )
+	UpdateHealth();
+	if(GetState() == Death)
+	{
+		cout << "DEAD!" << endl;
+	}
+	else if(GetState() == Attack )
 	{
 		UpdateAttack(p_Deltatime);
 	}
@@ -116,8 +122,9 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 		m_pxCurrentAnimation->Update(p_Deltatime);
 		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
 		//m_pxCurrentAnimation->setScale(0.25f, 0.25f);
+		SetScale(0.25f);
 	}
-	
+
 	if(HasCollider() ) 
 	{
 		m_pxCollider->SetPosition(GetPosition() );
@@ -336,12 +343,45 @@ void PlayerFishObject::UpdateChewing(float p_Deltatime)
 	//return m_PlayerView.getViewport();
 }
 
+void PlayerFishObject::SetHealth(int p_Health)
+{
+	if(p_Health <= 100)
+	{
+		m_Health = p_Health;
+	}
+}
+
 int PlayerFishObject::GetHealth()
 {
 	return m_Health;
 }
 
+void PlayerFishObject::SetEnergy(int p_Energy)
+{
+	m_Energy = p_Energy;
+}
+
 int PlayerFishObject::GetEnergy()
 {
 	return m_Energy;
+}
+
+void PlayerFishObject::UpdateHealth()
+{
+	if(GetState() != Death)
+	{
+		if(m_Healthtimer == 0)
+		{
+			m_Health--;
+			m_Healthtimer = 10;
+			if(GetHealth() == 0)
+			{
+				SetState(Death);
+			}
+		}
+		else
+		{
+			m_Healthtimer--;
+		}
+	}
 }

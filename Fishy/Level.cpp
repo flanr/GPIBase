@@ -91,7 +91,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
 					//PlayerObject måste laddas in som nullptr,
 					PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
-					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnimIdle.txt");	
+					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnimMove.txt");	
 					Player->AddAnimation("Idle", pxAnimSprite);
 					Player->SetPosition(sf::Vector2f(iX, iY) );
 					m_pxGameObjMgr->AttachPlayer(Player);
