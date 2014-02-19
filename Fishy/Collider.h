@@ -30,9 +30,9 @@ public:
 	void SetRadius(float p_radius);
 	float GetRadius();
 
-	////Temporary for testing
-	//void SetStatus(bool p_Collision);
-	//bool GetStatus();
+	//Temporary for testing
+	void SetStatus(bool p_Collision);
+	bool GetStatus();
 	sf::Vector2f GetExtension(){return m_extention;}
 
 private:
@@ -40,7 +40,7 @@ private:
 	sf::Vector2f m_extention;
 	float m_radius;
 
-	////Temporary for testing
-	//bool m_bCollisionStatus;
+	//Temporary for testing
+	bool m_bCollisionStatus;
 
 };
