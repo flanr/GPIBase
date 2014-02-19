@@ -11,6 +11,10 @@ public:
 	void SetSprite(sf::Sprite*);
 	void SetPosition(float x, float y);
 
+void MouseMove(int x, int y);
+void MouseDown(int x, int y);
+void MouseUp();
+
 	sf::Sprite* GetSprite();
 	sf::CircleShape GetCircle();
 

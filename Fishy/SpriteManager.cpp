@@ -99,6 +99,7 @@ bool SpriteManager::LoadImage(const std::string &filename){
 	
 	std::string &path = m_directory + filename;
 	sf::Texture *texture = new sf::Texture;
+	//texture->setSmooth(true);
 	if(!texture->loadFromFile(path.c_str() ) )
 	{
 		return false;
