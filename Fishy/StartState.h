@@ -3,6 +3,7 @@
 
 #include "State.h"
 #include "Slider.h"
+
 using namespace std;
 class SpriteManager;
 class StartState : public State
@@ -22,6 +23,9 @@ public:
 	/* Handle Input in StartState */
 	void HandleInput();
 
+	void MouseDown(int x, int y);
+	int MouseOver(int x, int y);
+
 	/* Returns default Next State */
 	string Next();
 	/*Returns Current State */
@@ -33,5 +37,6 @@ private:
 	InputManager * m_pInputManager;
 	DrawManager * m_DrawManager;
 	SpriteManager *m_SpriteManager;
-	
+	Button m_ButtonQuit;
+
 };
