@@ -33,6 +33,8 @@ GameState::GameState(Core* p_pCore)
 	Gui = m_SpriteManager->Load("gui.png",0,0,361,136);
 	m_EnergySlider.SetSlider(0,0,150,25);
 	m_HealthSlider.SetSlider(0,0,259,41);
+	m_HealthSlider.SetColor(sf::Color::Magenta);
+	m_EnergySlider.SetColor(sf::Color::Yellow);
 
 }
 
@@ -90,13 +92,15 @@ bool GameState::Update(float p_DeltaTime)
 
 void GameState::UpdateGUI()
 {
+	
 	Gui->setPosition(m_GameObjMgr->m_pxPlayer->GetPosition().x - 500 ,m_GameObjMgr->m_pxPlayer->GetPosition().y - 310 );
 	sf::Vector2f GUI_pos = Gui->getPosition();
+	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
+	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
 	m_EnergySlider.SetPosition(GUI_pos.x + 96 ,GUI_pos.y +29);
 	m_HealthSlider.SetPosition(GUI_pos.x + 96 ,GUI_pos.y +60);
 
-	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
-	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
+	
 
 }
 
@@ -125,10 +129,11 @@ void GameState::Draw()
 	m_LevelLayerBackground->Draw(m_DrawManager);
 	m_LevelLayerMidleGround->Draw(m_DrawManager);
 	m_LevelLayerForGround->Draw(m_DrawManager);
-
+	
+	m_DrawManager->Draw(Gui);
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
-	m_DrawManager->Draw(Gui);
+	
 
 	m_DrawManager->DisplayWindow();
 
