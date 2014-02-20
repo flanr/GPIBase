@@ -108,3 +108,8 @@ void Slider::MoveMouse(int x, int y)
 
 
 }
+
+void Slider::SetColor(sf::Color color)
+{
+	m_EmptySlider.setFillColor(color);
+}

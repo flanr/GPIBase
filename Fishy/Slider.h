@@ -17,6 +17,7 @@ public:
 	void MouseDown(int x, int y);
 	void MouseUp();
 	void MoveMouse(int x, int y);
+	void SetColor(sf::Color);
 
 	
 	sf::RectangleShape m_EmptySlider, m_FullSlider;

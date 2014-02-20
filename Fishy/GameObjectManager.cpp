@@ -253,7 +253,7 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		m_apxGameObject[i]->Update(p_fDeltatime);
 		if(m_apxGameObject[i]->HasCollider() )
 		{
-			if( m_apxGameObject[i]->GetCollider()->GetStatus() == true )
+			/*if( m_apxGameObject[i]->GetCollider()->GetStatus() == true )
 			{
 				m_apxGameObject[i]->SetDestroyed(true);
 			}
@@ -262,17 +262,17 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 				DestroyEnemy((EnemyFishObject*)m_apxGameObject[i], i);
 				m_apxGameObject.erase(m_apxGameObject.begin() + i);
 				m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
-			}
+			}*/
 		}
 	}
 
 	if(m_pxPlayer != nullptr)
 	{
 		m_pxPlayer->Update(m_pxInputManager, p_fDeltatime);
-		if(m_pxPlayer->GetCollider()->GetStatus() == true)
+		/*if(m_pxPlayer->GetCollider()->GetStatus() == true)
 		{
 			m_pxPlayer->SetDestroyed(false);
-		}
+		}*/
 	}
 
 	/*for ( auto element : m_apxGameObject )
