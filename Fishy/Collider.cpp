@@ -8,19 +8,22 @@ Collider::Collider()
 	, m_extention(0.f,0.f)
 {
 	m_radius = 0.f;
+	m_nr = 0;
 }
 Collider::Collider(sf::Vector2f p_position, sf::Vector2f p_extension)
 	: m_position(p_position)
 	, m_extention(p_extension)
 {
 	////Temporary for testing
-	//m_bCollisionStatus = false;
+	m_bCollisionStatus = false;
+	m_nr = 0;
 }
 
 Collider::Collider(sf::Vector2f p_position, float p_radius)
 	: m_radius(p_radius)
 	, m_position(p_position)
 {
+	m_nr = 0;
 }
 
 sf::Vector2f Collider::GetPosition()
@@ -200,11 +203,11 @@ void Collider::SetExtention(const sf::Vector2f p_ext)
 	m_extention = p_ext;
 }
 //
-//void Collider::SetStatus(bool p_Collision)
-//{
-//	m_bCollisionStatus = p_Collision;
-//}
-//bool Collider::GetStatus()
-//{
-//	return m_bCollisionStatus;
-//}
+void Collider::SetStatus(bool p_Collision)
+{
+	m_bCollisionStatus = p_Collision;
+}
+bool Collider::GetStatus()
+{
+	return m_bCollisionStatus;
+}

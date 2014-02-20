@@ -85,9 +85,15 @@ bool GameState::Update(float p_DeltaTime)
 
 
 	
-
+	
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	/*if (mgr->GetPlayerVsEnemy())
+	{
+		mgr->RemoveEnemyCollider();
+		mgr->SetPlayerVsEnemy(false);
+	}*/
+	
 	UpdateGUI();
 	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
 	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;

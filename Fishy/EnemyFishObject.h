@@ -25,5 +25,5 @@ public:
 private:
 	sf::Vector2f m_xSpawnPosition;
 	int m_iStateTimer;
-	
+	sf::RectangleShape testcolliderbox;
 };

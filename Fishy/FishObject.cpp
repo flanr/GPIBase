@@ -97,3 +97,19 @@ float FishObject::GetAttackPower()
 {
 	return m_fAttackpower;
 }
+
+float FishObject::GetScale()
+{
+	return m_scale;
+}
+void FishObject::SetScale(float x)
+{
+	m_scale = x;
+	/*std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		it->second->setScale(m_scale,m_scale);
+		it++;
+	}*/
+	//m_pxCollider->SetExtention(m_pxCollider->GetExtension() * x);
+}
