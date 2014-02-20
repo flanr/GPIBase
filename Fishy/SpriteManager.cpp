@@ -31,7 +31,7 @@ void SpriteManager::Cleanup()
 
 sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
 
-	
+
 	std::map<std::string,sf::Texture*>::iterator it = m_axSprites.find(filename);
 	if(it == m_axSprites.end()) 
 	{
@@ -68,35 +68,46 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 	}
 	//Flytta allt nedan till egen funktion så man kan bestämma vilken 
 	AnimatedSprite *pxSprite = new AnimatedSprite(it->second, 0, 0, 0, 0);
+	//create temp Anim Struct to store all rects
 
 	while(!file.eof()) 
 	{
-		std::getline(file, row);
-		if(row.length() == 0) 
-		{ 
-			continue; 
+
+		AnimatedSprite::Anim anim;
+		std::string AnimName;
+		int NumFrames;
+		file >> AnimName ;
+		file >> NumFrames;
+
+		for(int i = 0; i <= NumFrames; i++)
+		{
+			std::getline(file, row);
+			if(row.length() == 0) 
+			{ 
+				continue; 
+			}
+			std::stringstream ss(row);
+			sf::IntRect Rect;
+			float fFrameDuration;
+
+			ss >> fFrameDuration;
+			ss >> Rect.left;
+			ss >> Rect.top;
+			ss >> Rect.width;
+			ss >> Rect.height;
+			anim.m_fFrameDuration = fFrameDuration;
+			anim.m_axAnimation.push_back(Rect);
 		}
 
-		std::stringstream ss(row);
-
-		sf::IntRect Rect;
-		float fFrameDuration;
-
-		ss >> fFrameDuration;
-		ss >> Rect.left;
-		ss >> Rect.top;
-		ss >> Rect.width;
-		ss >> Rect.height;
-
-		pxSprite->SetFrameDuration(fFrameDuration);
-		pxSprite->AddFrame(Rect);
+		//lagrar i <map> när tom rad kommer
+		pxSprite->StoreAnim(AnimName, anim);
 	}
 	file.close();
 	return pxSprite;
 }
 
 bool SpriteManager::LoadImage(const std::string &filename){
-	
+
 	std::string &path = m_directory + filename;
 	sf::Texture *texture = new sf::Texture;
 	//texture->setSmooth(true);
@@ -104,7 +115,8 @@ bool SpriteManager::LoadImage(const std::string &filename){
 	{
 		return false;
 	}
-	
+
 	m_axSprites.insert(std::pair<std::string, sf::Texture*>(filename, texture) );
 	return true;
+
 };

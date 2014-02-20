@@ -199,7 +199,7 @@ void Collider::SetExtention(const sf::Vector2f p_ext)
 {
 	m_extention = p_ext;
 }
-
+//
 //void Collider::SetStatus(bool p_Collision)
 //{
 //	m_bCollisionStatus = p_Collision;

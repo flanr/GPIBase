@@ -53,7 +53,6 @@
 #include "CollisionManager.h"
 
 #include "FishObject.h"
-#include "Collider.h"
 #include "StateManager.h"
 
 #include "Core.h"

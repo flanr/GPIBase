@@ -40,7 +40,7 @@ private:
 	sf::Vector2f m_extention;
 	float m_radius;
 
-	////Temporary for testing
-	//bool m_bCollisionStatus;
+	//Temporary for testing
+	bool m_bCollisionStatus;
 
 };

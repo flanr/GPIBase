@@ -76,6 +76,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	}
 	else if(GetState() == Attack )
 	{
+		m_pxCurrentAnimation->SetActiveAnimation("Dash");
 		UpdateAttack(p_Deltatime);
 	}
 	else if(GetState() == Chewing )
@@ -104,18 +105,6 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	m_PlayerView.move(GetVelocity() );
 
 
-	//if(m_CurrentState[Idle])
-	//{
-	//	/*SetActiveAnimation("Idle");*/
-	//}
-	//if(m_CurrentState[Moving])
-	//{
-	//	/*SetActiveAnimation("Move");*/
-	//}
-	//if(m_CurrentState[Attack])
-	//{
-	//	/*SetActiveAnimation("Attack");*/
-	//}
 	if(m_pxCurrentAnimation != nullptr) 
 	{
 		m_pxCurrentAnimation->Update(p_Deltatime);
@@ -180,6 +169,7 @@ sf::FloatRect PlayerFishObject::GetPlayerViewport()
 void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Deltatime)
 {
 	SetState(Idle);
+	m_pxCurrentAnimation->SetActiveAnimation("Idle");
 	if(p_pxInputManager->IsDownK(sf::Keyboard::Up) && p_pxInputManager->IsDownK(sf::Keyboard::Right) )
 	{
 		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), p_Deltatime * -GetSpeed() ) );

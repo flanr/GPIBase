@@ -9,6 +9,7 @@ AnimatedSprite::AnimatedSprite(sf::Texture *p_texture, int p_iX, int p_iY, int p
 {
 	m_fTime = 0.0f;
 	m_iCurrentFrame = 0;
+	m_AnimType = "Idle";
 }
 AnimatedSprite::~AnimatedSprite()
 {
@@ -16,23 +17,27 @@ AnimatedSprite::~AnimatedSprite()
 
 void AnimatedSprite::Update(float p_fDeltatime)
 {
-	m_fTime += p_fDeltatime;
-
-	if (m_fTime >= m_fFrameDuration) 
+	std::map<std::string, Anim>::iterator it = m_mAllAnimations.find(m_AnimType);
+	it = m_mAllAnimations.find(m_AnimType);
+	if(it->first == m_AnimType)
 	{
-		m_fTime = 0.0f;
-		m_iCurrentFrame = ++m_iCurrentFrame % m_axAnimation.size();
-		setTextureRect( sf::IntRect(m_axAnimation[m_iCurrentFrame]) );
+		m_fTime += p_fDeltatime;
+		if (m_fTime >= it->second.m_fFrameDuration ) 
+		{
+			m_fTime = 0.0f;
+			m_iCurrentFrame = ++m_iCurrentFrame % it->second.m_axAnimation.size();
+			setTextureRect( sf::IntRect(it->second.m_axAnimation[m_iCurrentFrame]) );
+		}
 	}
-
 }
 
-void AnimatedSprite::SetFrameDuration(float p_fFrameDuration)
+void AnimatedSprite::SetActiveAnimation(const std::string AnimName)
 {
-	m_fFrameDuration = p_fFrameDuration;
+	m_AnimType = AnimName;
 }
 
-void AnimatedSprite::AddFrame(sf::IntRect &p_Rect)
+bool AnimatedSprite::StoreAnim(const std::string AnimName, Anim p_Anim)
 {
-	m_axAnimation.push_back(p_Rect);
+	m_mAllAnimations.insert(std::pair<std::string, Anim>(AnimName, p_Anim) );
+	return true;
 }
