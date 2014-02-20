@@ -36,8 +36,7 @@ void AnimatedSprite::SetActiveAnimation(const std::string AnimName)
 	m_AnimType = AnimName;
 }
 
-bool AnimatedSprite::StoreAnim(const std::string AnimName, Anim p_Anim)
+void AnimatedSprite::StoreAnim(const std::string AnimName, Anim p_Anim)
 {
 	m_mAllAnimations.insert(std::pair<std::string, Anim>(AnimName, p_Anim) );
-	return true;
 }
