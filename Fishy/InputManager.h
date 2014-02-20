@@ -17,6 +17,7 @@ public:
 	
 	void UpdateEvents(sf::Event event);
 	//Keyboard
+	bool IsReleasedK(int key) const;
 	bool IsDownK(int key) const;
 	bool IsDownOnceK(int key) const;
 	void PostUpdateKeyboard();
@@ -26,7 +27,7 @@ public:
 	float GetY() const;
 	bool IsDown(EMouseButton button) const;
 	bool IsDownOnce(EMouseButton button) const;
-
+	bool IsReleased(EMouseButton Button) const;
 	void PostUpdateMouse();
 
 private:

@@ -38,5 +38,6 @@ private:
 	DrawManager * m_DrawManager;
 	SpriteManager *m_SpriteManager;
 	Button m_ButtonQuit;
+	sf::Sprite *m_BackGroundImg;
 
 };

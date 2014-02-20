@@ -33,7 +33,7 @@ GameState::GameState(Core* p_pCore)
 	Gui = m_SpriteManager->Load("gui.png",0,0,361,136);
 	m_EnergySlider.SetSlider(0,0,150,25);
 	m_HealthSlider.SetSlider(0,0,259,41);
-	m_HealthSlider.SetColor(sf::Color::Magenta);
+	m_HealthSlider.SetColor(sf::Color::Red);
 	m_EnergySlider.SetColor(sf::Color::Yellow);
 
 }
@@ -83,9 +83,30 @@ bool GameState::Update(float p_DeltaTime)
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 
+
+	
+
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	UpdateGUI();
+	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
+	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
+	if (x > 2000)
+	{
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2000,m_GameObjMgr->m_pxPlayer->GetPosition().y));
+	}
+	if (x < 0)
+	{
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(0,m_GameObjMgr->m_pxPlayer->GetPosition().y));
+	}
+	if (y > 2000)
+	{
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,2000));
+	}
+	if (y < 0)
+	{
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().y,0));
+	}
 
 	return true;
 }

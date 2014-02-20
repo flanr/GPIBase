@@ -75,6 +75,14 @@ float InputManager::GetY() const
 {
 	return m_y;
 }
+bool InputManager::IsReleased(EMouseButton button) const
+{
+ return m_previous[button] && !m_current[button];
+}
+bool InputManager::IsReleasedK(int key) const
+{
+ return m_Previous[key] && !m_Current[key];
+}
 bool InputManager::IsDown(EMouseButton button) const
 {
 	return m_current[button];
