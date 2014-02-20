@@ -19,7 +19,7 @@ public:
 	void Update(float p_fDeltatime);
 	void SetActiveAnimation(const std::string AnimName);
 	void Stop();
-	bool StoreAnim(const std::string AnimName, Anim p_Anim);
+	void StoreAnim(const std::string AnimName, Anim p_Anim);
 
 private:
 	float m_fTime;

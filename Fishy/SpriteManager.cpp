@@ -68,11 +68,11 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 	}
 	//Flytta allt nedan till egen funktion så man kan bestämma vilken 
 	AnimatedSprite *pxSprite = new AnimatedSprite(it->second, 0, 0, 0, 0);
-	//create temp Anim Struct to store all rects
+	
 
 	while(!file.eof()) 
 	{
-
+		//create temp Anim Struct to store all rects
 		AnimatedSprite::Anim anim;
 		std::string AnimName;
 		int NumFrames;
