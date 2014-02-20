@@ -105,7 +105,7 @@ bool GameState::Update(float p_DeltaTime)
 	}
 	if (y < 0)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().y,0));
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,0));
 	}
 
 	return true;
