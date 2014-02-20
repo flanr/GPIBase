@@ -39,5 +39,6 @@ private:
 	SpriteManager *m_SpriteManager;
 	Button m_ButtonQuit;
 	sf::Sprite *m_BackGroundImg;
+	bool button_down;
 
 };

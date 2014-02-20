@@ -27,7 +27,7 @@ StartState::StartState(Core* p_pCore)
 	m_ButtonQuit.SetPosition(500,350);
 
 
-
+	button_down = false;
 
 }
 
@@ -68,9 +68,11 @@ bool StartState::Update(float p_fDeltaTime)
 void StartState::MouseDown(int x, int y)
 {
 	MouseOver(x,y);
+	button_down = true;
 }
 int StartState::MouseOver(int x, int y)
 {
+
 	int xx = m_ButtonQuit.GetCircle().getGlobalBounds().left; 
 	///cout << "left : " << m_ButtonQuit.GetCircle().getGlobalBounds().left << " ";
 	int yy = m_ButtonQuit.GetCircle().getGlobalBounds().top;
@@ -78,24 +80,36 @@ int StartState::MouseOver(int x, int y)
 	int rad = m_ButtonQuit.GetCircle().getRadius();
 	//cout << "radius : " << m_ButtonQuit.GetCircle().getRadius() << " " << endl;;
 
-	if ((x > xx - m_ButtonQuit.GetCircle().getRadius() & x < xx + m_ButtonQuit.GetCircle().getRadius() ) && (y > yy - m_ButtonQuit.GetCircle().getRadius()  && y < yy + m_ButtonQuit.GetCircle().getRadius() ) )
-	{
+	int circlex = xx;
+	int circley = yy;
+	int mousex = x;
+	int mousey = y;
+
+	int deltax = abs(circlex - x);
+	int deltay = abs(circley - y);
+
+	int distancestuff = sqrt( (pow(deltax, 2.0f) + pow(deltay, 2.0f)));
+
+	//if ((x > xx - m_ButtonQuit.GetCircle().getRadius() & x < xx + m_ButtonQuit.GetCircle().getRadius() ) && (y > yy - m_ButtonQuit.GetCircle().getRadius()  && y < yy + m_ButtonQuit.GetCircle().getRadius() ) )
+	if(distancestuff < m_ButtonQuit.GetCircle().getRadius())
+	{ 
 		cout << "Its alive  x:" << x << "  y: " << y << endl;
 		m_ButtonQuit.SetSprite(m_SpriteManager->Load("Button_concept_small.png",150,0,150,150)); 
 		m_ButtonQuit.SetPosition(500,350);
 		/*if (m_pInputManager->IsReleased(MB_LEFT))
 		{
-			m_pCore->m_StateManager.SetState("GameState");
+		m_pCore->m_StateManager.SetState("GameState");
 		}*/
 		//
+		return 1;
 	} else
 	{
-		
+
 		m_ButtonQuit.SetSprite(m_SpriteManager->Load("Button_concept_small.png",0,0,150,150)); 
 		m_ButtonQuit.SetPosition(500,350);
 	}
 
-	
+
 
 	return 0;
 }
@@ -116,16 +130,25 @@ void StartState::HandleInput()
 	{
 		m_pCore->m_StateManager.SetState("OptionState");
 	}
-	
+	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
 	if (m_pInputManager->IsDown(MB_LEFT))
 	{
-		// MouseDown(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1)
+		{
+			m_ButtonQuit.SetSprite(m_SpriteManager->Load("Button_concept_small.png",300,0,152,150)); 
+		m_ButtonQuit.SetPosition(500,350);
+		}
+
 
 	}else if (m_pInputManager->IsReleased(MB_LEFT))
 	{
-		
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1)
+		{
+			m_pCore->m_StateManager.SetState("GameState");
+		}
+
 	}
-	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
+
 
 
 	//cout << "x : " << sf::Mouse::getPosition().x << " y : " << sf::Mouse::getPosition().y << endl;
