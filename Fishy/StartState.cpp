@@ -83,13 +83,19 @@ int StartState::MouseOver(int x, int y)
 		cout << "Its alive  x:" << x << "  y: " << y << endl;
 		m_ButtonQuit.SetSprite(m_SpriteManager->Load("Button_concept_small.png",150,0,150,150)); 
 		m_ButtonQuit.SetPosition(500,350);
-		if (!m_pInputManager->IsReleased(MB_LEFT))
+		/*if (m_pInputManager->IsReleased(MB_LEFT))
 		{
 			m_pCore->m_StateManager.SetState("GameState");
-		}
+		}*/
 		//
+	} else
+	{
+		
+		m_ButtonQuit.SetSprite(m_SpriteManager->Load("Button_concept_small.png",0,0,150,150)); 
+		m_ButtonQuit.SetPosition(500,350);
 	}
 
+	
 
 	return 0;
 }
@@ -113,12 +119,13 @@ void StartState::HandleInput()
 	
 	if (m_pInputManager->IsDown(MB_LEFT))
 	{
-		MouseDown(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
+		// MouseDown(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
 
 	}else if (m_pInputManager->IsReleased(MB_LEFT))
 	{
 		
 	}
+	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
 
 
 	//cout << "x : " << sf::Mouse::getPosition().x << " y : " << sf::Mouse::getPosition().y << endl;
