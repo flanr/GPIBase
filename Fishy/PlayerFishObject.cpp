@@ -102,7 +102,8 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 	}
 
 	SetPosition( GetPosition() + GetVelocity() );
-	m_PlayerView.move(GetVelocity() );
+	//m_PlayerView.move(GetVelocity() );
+	m_PlayerView.setCenter(GetPosition() );
 
 
 	if(m_pxCurrentAnimation != nullptr) 
