@@ -37,8 +37,8 @@ private:
 	InputManager * m_pInputManager;
 	DrawManager * m_DrawManager;
 	SpriteManager *m_SpriteManager;
-	Button m_ButtonQuit;
+	Button m_ButtonStart;
 	sf::Sprite *m_BackGroundImg;
-	bool button_down;
+	Button m_ButtonQuit;
 
 };

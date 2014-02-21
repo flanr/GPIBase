@@ -158,7 +158,7 @@ void Level::Draw(DrawManager *p_draw_manager)
 	{		
 		p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
 	}
-
 	p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
-
 }
+
+
