@@ -137,6 +137,20 @@ void GameState::HandleInput()
 	{
 		m_pCore->m_StateManager.SetState("OptionState");
 	}
+	//Not working correctly
+	//if (m_pInputManager->IsDownOnceK(sf::Keyboard::R))
+	//{
+	//	m_GameObjMgr->Cleanup();
+	//	delete m_LevelLayerBackground;
+	//	m_LevelLayerBackground = nullptr;
+	//	
+	//	delete m_LevelLayerMidleGround; 
+	//	m_LevelLayerMidleGround = nullptr;
+	//	
+	//	delete m_LevelLayerForGround;
+	//	m_LevelLayerForGround = nullptr;
+	//	m_pCore->m_StateManager.SetState("StartState");
+	//}
 }
 
 void GameState::Draw()
