@@ -16,7 +16,9 @@ public:
 	void CheckCollisionCircleVsCircle();
 	void CheckCollisionRectVsCircle();
 
-	
+	void RemoveEnemyCollider();
+	bool GetPlayerVsEnemy() {return b_playerVsenemy; }
+	void SetPlayerVsEnemy(bool value) {b_playerVsenemy = value; }
 
 
 private:

@@ -28,23 +28,27 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_iAttacktimer = 15;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
-	m_scale = 0.2f;
+	SetPlayerScale(0.2f);
 
 };
 
-void PlayerFishObject::SetScale(float x)
+void PlayerFishObject::SetPlayerScale(float x)
 {
-	m_scale = x;
+	SetScale(x);
 
 	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
 	while(it != m_mpAnimations.end() )
 	{
-		it->second->setScale(m_scale,m_scale);
+		it->second->setScale(GetScale(),GetScale());
 		it++;
 	}
 
 	//->scale(Scale,Scale);
-	m_pxCollider->SetExtention(m_pxCollider->GetExtension()*m_scale);
+	if (m_pxCollider->GetExtension().x >= 237 && m_pxCollider->GetExtension().y >= 195)
+	{
+		m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
+	}
+   	
 
 }
 
@@ -127,7 +131,7 @@ void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *
 		m_pxSprite = p_pxAnimSprite;
 		m_pxCurrentAnimation = p_pxAnimSprite;
 	}
-	SetScale(m_scale);
+	SetPlayerScale(GetScale());
 }
 
 //void PlayerFishObject::SetActiveAnimation(const std::string &p_sName)
@@ -177,7 +181,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), p_Deltatime * -GetSpeed() ) );
 		SetState(Moving);
 		SetDirection(FacingUpRight);
-		FlipXRight(m_scale);
+		FlipXRight(GetScale());
 	}
 	else if(p_pxInputManager->IsDownK(sf::Keyboard::Up) && p_pxInputManager->IsDownK(sf::Keyboard::Left)
 		|| p_pxInputManager->IsDownK(sf::Keyboard::W) && p_pxInputManager->IsDownK(sf::Keyboard::A ))
@@ -185,7 +189,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed(), p_Deltatime * -GetSpeed() ) );
 		SetState(Moving);
 		SetDirection(FacingUpLeft);
-		FlipXLeft(m_scale);
+		FlipXLeft(GetScale());
 	}
 	else if(p_pxInputManager->IsDownK(sf::Keyboard::Down) && p_pxInputManager->IsDownK(sf::Keyboard::Right)
 		|| p_pxInputManager->IsDownK(sf::Keyboard::S) && p_pxInputManager->IsDownK(sf::Keyboard::D ))
@@ -193,7 +197,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), p_Deltatime * GetSpeed() ) );
 		SetState(Moving);
 		SetDirection(FacingDownRight);
-		FlipXRight(m_scale);
+		FlipXRight(GetScale());
 	}
 	else if(p_pxInputManager->IsDownK(sf::Keyboard::Down) && p_pxInputManager->IsDownK(sf::Keyboard::Left )
 		|| p_pxInputManager->IsDownK(sf::Keyboard::S) && p_pxInputManager->IsDownK(sf::Keyboard::A ))
@@ -201,7 +205,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed(), p_Deltatime * GetSpeed() ) );
 		SetState(Moving);
 		SetDirection(FacingDownLeft);
-		FlipXLeft(m_scale);
+		FlipXLeft(GetScale());
 	}
 	else
 	{
@@ -210,14 +214,14 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 			SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed(), 0.0f) );
 			SetState(Moving);
 			SetDirection(FacingRight);
-			FlipXRight(m_scale);
+			FlipXRight(GetScale());
 		}
 		else if(p_pxInputManager->IsDownK(sf::Keyboard::Left) || p_pxInputManager->IsDownK(sf::Keyboard::A) )
 		{
 			SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed(), 0.0f) );
 			SetState(Moving);
 			SetDirection(FacingLeft);
-			FlipXLeft(m_scale);
+			FlipXLeft(GetScale());
 		}
 		else if(p_pxInputManager->IsDownK(sf::Keyboard::Up) || p_pxInputManager->IsDownK(sf::Keyboard::W) )
 		{
@@ -372,7 +376,7 @@ void PlayerFishObject::UpdateHealth()
 		if(m_Healthtimer == 0)
 		{
 			m_Health--;
-			m_Healthtimer = 10;
+			m_Healthtimer = 100;
 			if(GetHealth() == 0)
 			{
 				SetState(Death);

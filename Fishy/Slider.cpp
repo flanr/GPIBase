@@ -31,7 +31,7 @@ void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 	SetValue(100);
 }
 
-void Slider::SetPosition(int p_X, int p_Y)
+void Slider::SetPosition(float p_X, float p_Y)
 {
 	m_EmptySlider.setPosition(p_X,p_Y);
 	m_FullSlider = m_EmptySlider;

@@ -6,6 +6,7 @@ CollisionManager::CollisionManager()
 {
 	m_axRectColliders;
 	m_axCircleColliders;
+	b_playerVsenemy = false;
 }
 
 void CollisionManager::AttachCollider(Collider* p_collider)
@@ -31,7 +32,16 @@ void CollisionManager::CheckCollisionRectVsRect()
 			{
 				std::cout << "Collision!\n";
 
-				//Temporary for testing
+				if (m_axRectColliders[i]->GetId() == EPLAYER)
+				{
+					std::cout << "Player" << std::endl;
+					if (m_axRectColliders[j]->GetId()== EENEMY)
+					{
+						std::cout << "player vs enemy" << std::endl;
+						b_playerVsenemy = true;	
+					}
+				}
+				////Temporary for testing
 				if(m_axRectColliders[i] != nullptr)
 				{
 					m_axRectColliders[i]->SetStatus(true);
@@ -100,5 +110,30 @@ void CollisionManager::Cleanup()
 		it2++;
 	}
 	m_axCircleColliders.clear();
+}
+
+void CollisionManager::RemoveEnemyCollider()
+{
+	for (size_t it = m_axRectColliders.size()-1; it > 0; it--)
+	{
+		if (m_axRectColliders[it]->GetId() == EENEMY)
+		{
+			
+				int nr1 = m_axRectColliders[it]->GetNr();
+				int nr2 = m_axRectColliders[it -1]->GetNr();
+				delete m_axRectColliders[it];
+				m_axRectColliders[it] = nullptr;
+				/*swap(m_axRectColliders[it], m_axRectColliders.back());
+				m_axRectColliders.pop_back();*/
+				m_axRectColliders.erase(m_axRectColliders.begin()+ it);
+				if (nr1 != nr2)
+				{
+					break;
+				}
+			
+
+		}
+	}
+	
 }
 

@@ -9,7 +9,7 @@ class Slider
 public:
 	Slider();
 	void SetSlider(int p_X, int p_Y, int p_Width, int p_Height);
-	void SetPosition(int p_x, int p_y);
+	void SetPosition(float p_x, float p_y);
 	~Slider();
 	void SetValue(int value);
 	int GetValue();

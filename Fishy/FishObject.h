@@ -55,6 +55,9 @@ public:
 	void SetAttackPower(float p_fAttackpower);
 	float GetAttackPower();
 
+	float GetScale();
+	void SetScale(float x);
+
 private:
 
 	bool m_Direction[DirectionCount];
@@ -63,5 +66,6 @@ private:
 	float m_fSpeed;
 	float m_fAttackpower;
 	sf::Vector2f m_Velocity;
+	float m_scale;
 
 };

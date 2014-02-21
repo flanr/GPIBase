@@ -85,27 +85,33 @@ bool GameState::Update(float p_DeltaTime)
 
 
 	
-
+	
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	/*if (mgr->GetPlayerVsEnemy())
+	{
+		mgr->RemoveEnemyCollider();
+		mgr->SetPlayerVsEnemy(false);
+	}*/
+	
 	UpdateGUI();
 	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
 	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
-	if (x > 2000)
+	if (x > 2390)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2000,m_GameObjMgr->m_pxPlayer->GetPosition().y));
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2390,m_GameObjMgr->m_pxPlayer->GetPosition().y));
 	}
-	if (x < 0)
+	if (x < 35)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(0,m_GameObjMgr->m_pxPlayer->GetPosition().y));
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(35,m_GameObjMgr->m_pxPlayer->GetPosition().y));
 	}
-	if (y > 2000)
+	if (y > 1270)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,2000));
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,1270));
 	}
-	if (y < 0)
+	if (y < 50)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,0));
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
 	}
 
 	return true;
@@ -160,7 +166,7 @@ void GameState::Draw()
 	m_LevelLayerBackground->Draw(m_DrawManager);
 	m_LevelLayerMidleGround->Draw(m_DrawManager);
 	m_LevelLayerForGround->Draw(m_DrawManager);
-	
+	 
 	m_DrawManager->Draw(Gui);
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
