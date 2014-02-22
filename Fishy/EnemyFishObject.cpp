@@ -33,6 +33,7 @@ EnemyFishObject::~EnemyFishObject()
 
 void EnemyFishObject::Update(float deltatime)
 {
+
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	m_iStateTimer++;
 	if(m_iStateTimer >= 500)

@@ -31,6 +31,7 @@ public:
 	void SetRadius(float p_radius);
 	float GetRadius();
 
+
 	void SetId(Identity id) { m_eID = id; }
 	Identity GetId()		{return m_eID; }
 	int GetNr() {return m_nr;}

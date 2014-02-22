@@ -31,6 +31,7 @@ void CollisionManager::CheckCollisionRectVsRect()
 			if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
 			{
 				std::cout << "Collision!\n";
+
 				if (m_axRectColliders[i]->GetId() == EPLAYER)
 				{
 					std::cout << "Player" << std::endl;
