@@ -40,5 +40,6 @@ private:
 	Button m_ButtonStart;
 	sf::Sprite *m_BackGroundImg;
 	Button m_ButtonQuit;
+	int m_ButtonClick;
 
 };

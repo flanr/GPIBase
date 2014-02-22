@@ -142,30 +142,34 @@ void StartState::HandleInput()
 	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
 	if (m_pInputManager->IsDown(MB_LEFT))
 	{
-		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1)
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1 && (m_ButtonClick == 0 || m_ButtonClick == 1))
 		{
+			m_ButtonClick = 1;
 			m_ButtonStart.SetSprite(m_SpriteManager->Load("Button_concept_small.png",300,0,152,150)); 
 			m_ButtonStart.SetPosition(500,350);
 		}
-		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2)
+		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2 && (m_ButtonClick == 0 || m_ButtonClick == 2))
 		{
+			m_ButtonClick = 2;
 			m_ButtonQuit.SetSprite(m_SpriteManager->Load("exit_concept.png",307,10,108,140));
 			m_ButtonQuit.SetPosition(1200,650);
 		}
+		//else
+			//m_ButtonClick = -1;
 
 
 
 	}else if (m_pInputManager->IsReleased(MB_LEFT))
 	{
-		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1)
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1 && m_ButtonClick == 1)
 		{
 			m_pCore->m_StateManager.SetState("GameState");
 		}
-		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2)
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2 && m_ButtonClick == 2)
 		{
 			std::exit(0);
 		}
-
+		m_ButtonClick = 0;
 	}
 
 
