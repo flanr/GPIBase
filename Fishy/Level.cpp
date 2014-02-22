@@ -24,7 +24,7 @@ Level::~Level()
 }
 
 
-bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider)
+bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, int setLayer)
 {
 	int count = 0;
 	ifstream stream(p_sFileName);
@@ -96,6 +96,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
 					Player->AddAnimation("Player", pxAnimSprite);
 					Player->SetPosition(sf::Vector2f(iX, iY) );
+					Player->SetLevelLayer(1);
 					m_pxGameObjMgr->AttachPlayer(Player);
 					m_CollisionMgr->AttachCollider(Player->GetCollider() );
 
@@ -126,6 +127,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					tempEnemy->setPosition(iX, iY);
 					EnemyFishObject *enemy = new EnemyFishObject(tempEnemy->getPosition(),tempEnemy,collider);
 					enemy->SetPosition(sf::Vector2f(iX, iY) );
+					enemy->SetLevelLayer(setLayer);
 					m_pxGameObjMgr->Attach(enemy);
 					m_CollisionMgr->AttachCollider(collider);
 
@@ -134,6 +136,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				{
 					GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
 					go->SetPosition(sf::Vector2f(iX,iY));
+					go->SetLevelLayer(setLayer);
 					m_pxGameObjMgr->Attach(go);
 				}
 
@@ -141,6 +144,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			{
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
 				go->SetPosition(sf::Vector2f(iX,iY));
+				go->SetLevelLayer(setLayer);
 				m_pxGameObjMgr->Attach(go);
 			}
 
@@ -154,11 +158,25 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 void Level::Draw(DrawManager *p_draw_manager)
 {
-	for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
-	{		
-		p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
+	for (int n = 0; n < 3; n++)
+	{
+		for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
+		{		
+			if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == n)
+			{
+				p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
+			}
+
+		}
+		if (m_pxGameObjMgr->m_pxPlayer->GetLevelLayer() == n)
+		{
+			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+		}
+
 	}
-	p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+
+
+	//
 }
 
 

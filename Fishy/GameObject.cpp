@@ -24,6 +24,17 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 GameObject::~GameObject()
 {
 }
+void GameObject::SetLevelLayer(int x)
+{
+	m_LevelLayer = x ;
+}
+
+int GameObject::GetLevelLayer()
+{
+	return m_LevelLayer;
+}
+
+
 
 sf::Vector2f GameObject::GetPosition()
 {

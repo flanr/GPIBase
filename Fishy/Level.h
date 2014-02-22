@@ -20,7 +20,7 @@ public:
 	Level(GameObjectManager *p_pxGameObjMgr = nullptr, CollisionManager * p_CollisionMgr = nullptr);
 	~Level();
 	/* If bool value = true create level with colliders, If False no colliders */
-	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider);
+	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, int setLayer);
 	void Draw(DrawManager *p_pDrawManager);
 
 protected:

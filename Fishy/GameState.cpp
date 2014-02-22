@@ -57,11 +57,11 @@ bool GameState::EnterState()
 	if (m_LevelLayerBackground == nullptr)
 	{
 		m_LevelLayerBackground = new Level(m_GameObjMgr);
-		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_SpriteManager, false);
+		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_SpriteManager, false, 0);
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
-		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true);
+		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true, 1);
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
-		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false);
+		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, 2);
 	} 
 	
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
@@ -163,8 +163,6 @@ void GameState::Draw()
 {
 	m_DrawManager->ClearWindow();
 	m_window->setView(m_GameObjMgr->m_pxPlayer->GetPlayerView() );
-	m_LevelLayerBackground->Draw(m_DrawManager);
-	m_LevelLayerMidleGround->Draw(m_DrawManager);
 	m_LevelLayerForGround->Draw(m_DrawManager);
 	 
 	m_DrawManager->Draw(Gui);

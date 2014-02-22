@@ -35,7 +35,8 @@ public:
 
 	void FlipXLeft(float scale);
 	void FlipXRight(float scale);
-
+	void SetLevelLayer(int x);
+	int GetLevelLayer();
 	virtual void Update(float deltatime);
 
 //protected:
@@ -46,4 +47,5 @@ protected:
 	Collider *m_pxCollider;
 	sf::Vector2f m_xPosition;
 	bool m_bDestroyed;
+	int m_LevelLayer;
 };
