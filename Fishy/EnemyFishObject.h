@@ -4,7 +4,7 @@
 #include "GameObject.h"
 
 class Collider;
-
+class CollisionManager;
 class EnemyFishObject : public FishObject
 {
 public:
@@ -26,4 +26,5 @@ private:
 	sf::Vector2f m_xSpawnPosition;
 	int m_iStateTimer;
 	sf::RectangleShape testcolliderbox;
+	CollisionManager* m_collisionManager;
 };

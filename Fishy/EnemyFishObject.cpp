@@ -12,6 +12,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	SetSpeed(50);
 	SetState(Moving);
 	m_iStateTimer = 0;
+	m_collisionManager = new CollisionManager;
 	//SetScale(0.2f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 }
@@ -23,6 +24,11 @@ EnemyFishObject::~EnemyFishObject()
 		delete  GetSprite();
 	}
 	
+	if (m_collisionManager != nullptr)
+	{
+		delete m_collisionManager;
+		m_collisionManager = nullptr;
+	}
 	////Delete Collider
 	//if(GetCollider() != nullptr)
 	//{
@@ -60,8 +66,12 @@ void EnemyFishObject::Update(float deltatime)
 	}
 
 	SetPosition( GetPosition() + GetVelocity() );
-
-	if(HasCollider() )
+	if (m_collisionManager->b_playerVsenemy)
+	{
+		m_pxCollider = nullptr;
+		m_collisionManager->SetPlayerVsEnemy(false);
+	}
+	if(m_pxCollider != nullptr )
 	{
 		m_pxCollider->SetPosition(GetPosition() );
 	}

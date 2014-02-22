@@ -6,6 +6,7 @@ class Collider;
 
 class CollisionManager
 {
+	friend class EnemyFishObject;
 public:
 	CollisionManager();
 	
@@ -26,4 +27,5 @@ private:
 	std::vector<Collider*> m_axRectColliders;
 	bool b_playerVsenemy;
 	bool b_enemyVsLight;
+	int m_enemynr;
 };
