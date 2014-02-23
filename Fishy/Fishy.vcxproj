@@ -91,6 +91,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="LightSource.h" />
     <ClInclude Include="PowerupObject.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -119,6 +120,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="PowerupObject.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Core.cpp" />

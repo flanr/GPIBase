@@ -73,6 +73,7 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="LightSource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -150,6 +151,7 @@
     <ClInclude Include="Button.h">
       <Filter>Header Files\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="LightSource.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
