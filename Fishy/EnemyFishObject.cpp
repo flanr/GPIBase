@@ -103,7 +103,3 @@ void EnemyFishObject::SetAttractRadius(float p_fAttractRadius)
 {
 	m_pxCollider->SetRadius(p_fAttractRadius);
 }
-
-
-
-
