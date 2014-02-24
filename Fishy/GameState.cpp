@@ -8,6 +8,7 @@
 #include "DrawManager.h"
 #include "Level.h"
 #include "GameObjectManager.h"
+#include "Camera.h"
 
 using namespace std;
 GameState::GameState(Core* p_pCore)
@@ -27,6 +28,7 @@ GameState::GameState(Core* p_pCore)
 	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerForGround = nullptr;
 
+	m_Camera = nullptr;
 
 	bStateRunning = false;
 
@@ -63,11 +65,13 @@ bool GameState::EnterState()
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, 2);
 	} 
-	
+	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
-		//Måste anropas efter spelare är inladdad
-		m_GameObjMgr->m_pxPlayer->InitPlayerView(sf::Vector2f(m_window->getSize() ) );
+		//Must be called after Player is created
+		m_Camera = new Camera(sf::Vector2f(m_window->getSize() ) );
+		m_Camera->SetCameraPosition(m_GameObjMgr->m_pxPlayer->GetPosition() );
+		m_Camera->AddLayer();
 	}
 
 	return false;
@@ -83,11 +87,10 @@ bool GameState::Update(float p_DeltaTime)
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 
-
-	
-	
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	m_Camera->Update(m_GameObjMgr->m_pxPlayer->GetPosition(), m_GameObjMgr->m_pxPlayer->GetLightSource() );
+
 	if (mgr->GetPlayerVsEnemy())
 	{
 		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
@@ -99,7 +102,6 @@ bool GameState::Update(float p_DeltaTime)
 	{
 		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}
-	///
 	
 	UpdateGUI();
 	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
@@ -150,6 +152,17 @@ void GameState::HandleInput()
 	{
 		m_pCore->m_StateManager.SetState("OptionState");
 	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num0))
+	{
+		if(m_Camera->GetFilterStatus() == true )
+		{
+			m_Camera->ToggleFilterOn(false);
+		}
+		else
+		{
+			m_Camera->ToggleFilterOn(true);
+		}
+	}
 	//Not working correctly
 	//if (m_pInputManager->IsDownOnceK(sf::Keyboard::R))
 	//{
@@ -169,13 +182,19 @@ void GameState::HandleInput()
 void GameState::Draw()
 {
 	m_DrawManager->ClearWindow();
-	m_window->setView(m_GameObjMgr->m_pxPlayer->GetPlayerView() );
+
+	m_window->setView(m_Camera->GetCameraView() );
 	m_LevelLayerForGround->Draw(m_DrawManager);
-	 
+
+	//Draw if filter is toggled On
+	if(m_Camera->GetFilterStatus() == true )
+	{
+		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
+	}
+
 	m_DrawManager->Draw(Gui);
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
-	
 
 	m_DrawManager->DisplayWindow();
 

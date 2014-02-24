@@ -16,15 +16,6 @@ public:
 	void Update(InputManager *p_pxInputManager, float p_Deltatime);
 	void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
 
-	/*	void SetActiveAnimation(const std::string &p_sName);
-	AnimatedSprite* GetAnimation(const std::string &p_sName);*/
-
-	void InitPlayerView(sf::Vector2f p_Size);
-	sf::View GetPlayerView();
-
-	void SetPlayerViewport(sf::FloatRect p_NewViewPort);
-	sf::FloatRect GetPlayerViewport();
-
 	void SetHealth(int p_Health);
 	int GetHealth();
 
@@ -32,14 +23,7 @@ public:
 	int GetEnergy();
 	void ExperienceGain(int x);
 	int GetExperience();
-private:
-
-	/*bool m_Direction[DirectionCount];
-	bool m_CurrentState[StateCount];
-	float m_fPlayerSpeed;
-	float m_fDash;*/
-
-	sf::Vector2f m_fVelocity;
+	
 private:
 
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
@@ -50,6 +34,7 @@ private:
 	void UpdateChewing(float p_Deltatime);
 	void UpdateHealth();
 private:
+	sf::Vector2f m_fVelocity;
 	int m_Health;
 	int m_Energy;
 	int m_Experience;
@@ -58,7 +43,6 @@ private:
 	int m_Healthtimer;
 	int m_iAttacktimer;
 
-	sf::View m_PlayerView;
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
 

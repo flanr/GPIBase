@@ -8,6 +8,7 @@
 #include "PlayerFishObject.h"
 #include "EnemyFishObject.h"
 #include "GameObjectManager.h"
+#include "LightSource.h"
 
 
 Level::Level(GameObjectManager *p_pxGameObjMgr, CollisionManager * p_CollisionMgr)
@@ -97,9 +98,9 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					Player->AddAnimation("Player", pxAnimSprite);
 					Player->SetPosition(sf::Vector2f(iX, iY) );
 					Player->SetLevelLayer(1);
+					Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 					m_pxGameObjMgr->AttachPlayer(Player);
 					m_CollisionMgr->AttachCollider(Player->GetCollider() );
-
 					iX += m_iWidth;
 					continue;
 				}
@@ -189,6 +190,13 @@ void Level::Draw(DrawManager *p_draw_manager)
 		{
 			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 		}
+			
+		/*if (m_pxGameObjMgr->m_pxPlayer != nullptr)
+		{
+			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle() );
+		}*/
+
+		
 
 	}
 

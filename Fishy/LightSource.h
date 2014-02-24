@@ -2,7 +2,30 @@
 class LightSource
 {
 public:
-	LightSource(void);
-	~LightSource(void);
+	LightSource();
+	LightSource(sf::Vector2f p_Position, float p_Radius);
+	~LightSource();
+
+	void CreateCircle();
+	void SetStrength();
+	void SetRadius();
+
+	void ToggleLightOn(bool p_LightOn);
+	bool GetLightStatus();
+
+	void SetPosition(sf::Vector2f p_Position);
+	sf::Vector2f GetPosition();
+	void SetOrigin(const sf::Vector2f &p_Origin);
+	void Move(const sf::Vector2f &p_Position);
+	void Move(float p_OffsetX, float p_OffsetY);
+	sf::Sprite* GetLightCircle();
+
+private:
+    sf::RenderTexture *m_LightTexture;
+	sf::Sprite *m_LightCircle;
+
+    sf::Vector2f m_Position;
+	float m_LightRadius;
+	bool m_LightOn;
 };
 
