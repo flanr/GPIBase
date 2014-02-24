@@ -12,6 +12,8 @@ class Level;
 class PlayerFishObject;
 class DrawManager;
 class GameObjectManager;
+class Camera;
+
 class GameState : public State
 {
 public:
@@ -50,6 +52,7 @@ private:
 	SpriteManager * m_SpriteManager;
 	DrawManager * m_DrawManager;
 	GameObjectManager *m_GameObjMgr;
+	Camera* m_Camera;
 
 	Slider m_HealthSlider;
 	Slider m_EnergySlider;

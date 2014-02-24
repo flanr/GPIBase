@@ -2,23 +2,15 @@
 #include "stdafx.h"
 
 #include "GameObject.h"
+#include "LightSource.h"
 
 //#include "Collider.h"
-
-//GameObject::GameObject()
-//{
-//}
-//
-//GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite)
-//: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite)
-//{
-//	m_bDestroyed = false;
-//}
 
 GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collider * p_pxCollider)
 	: m_xPosition(p_xPosition), m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider)
 {
 	m_bDestroyed = false;
+	m_light = nullptr;
 }
 
 GameObject::~GameObject()
@@ -43,6 +35,15 @@ sf::Vector2f GameObject::GetPosition()
 void GameObject::SetPosition(const sf::Vector2f &p_xPosition)
 {
 	m_pxSprite->setPosition(p_xPosition);
+}
+
+sf::Vector2f GameObject::GetLightPosition()
+{
+		return m_light->GetPosition();
+}
+void GameObject::SetLightPosition(const sf::Vector2f &p_xPosition)
+{
+		m_light->SetPosition(p_xPosition);
 }
 
 bool GameObject::HasSprite() const
@@ -93,4 +94,14 @@ void GameObject::FlipXRight(float scale)
 void GameObject::Update(float deltatime)
 {
 	//Uppdatera spelobjekt
+}
+
+void GameObject::AddLightSource(LightSource *p_light)
+{
+	m_light = p_light;
+}
+
+LightSource* GameObject::GetLightSource()
+{
+	return m_light;
 }

@@ -6,6 +6,7 @@
 
 class Collider;
 class Sprite;
+class LightSource;
 
 class GameObject
 {
@@ -21,6 +22,9 @@ public:
 
 	sf::Vector2f GetPosition();
 	void SetPosition(const sf::Vector2f &p_xPosition);
+
+	sf::Vector2f GetLightPosition();
+	void SetLightPosition(const sf::Vector2f &p_xPosition);
 
 	bool HasSprite() const;
 	sf::Sprite * GetSprite();
@@ -38,11 +42,14 @@ public:
 	void SetLevelLayer(int x);
 	int GetLevelLayer();
 	virtual void Update(float deltatime);
-
+	void AddLightSource(LightSource *p_light);
+	LightSource* GetLightSource();
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;
 	sf::Vector2f m_xPosition;
 	bool m_bDestroyed;
 	int m_LevelLayer;
+
+	LightSource *m_light;
 };

@@ -8,18 +8,12 @@
 #include "InputManager.h"
 #include "GameObject.h"
 #include "AnimatedSprite.h"
+#include "LightSource.h"
 
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
 {
 
-	//m_fPlayerSpeed = 80.0f;
-	//m_fDash = 30.0f;
-	//for(int i = 0; i < StateCount; i++)
-	//{
-	//	m_CurrentState[i] = false;
-	//}
-	//m_CurrentState[Idle] = true;
 	m_Health = 90;
 	m_Energy = 90;
 
@@ -48,7 +42,7 @@ void PlayerFishObject::SetPlayerScale(float x)
 	{
 		m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 	}
-   	
+
 
 }
 
@@ -105,10 +99,14 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 		m_Health ++;
 	}
 
-	SetPosition( GetPosition() + GetVelocity() );
-	//m_PlayerView.move(GetVelocity() );
-	m_PlayerView.setCenter(GetPosition() );
 
+	SetPosition( GetPosition() + GetVelocity() );
+	if(m_light != nullptr)
+	{
+		
+		m_light->SetPosition( m_light->GetPosition() + GetVelocity() );
+		//m_light->GetLightCircle()->setPosition(GetPosition() );
+	}
 
 	if(m_pxCurrentAnimation != nullptr) 
 	{
@@ -132,29 +130,6 @@ void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *
 		m_pxCurrentAnimation = p_pxAnimSprite;
 	}
 	SetPlayerScale(GetScale());
-}
-
-
-void PlayerFishObject::InitPlayerView(sf::Vector2f p_Size)
-{
-
-	m_PlayerView.setCenter(GetPosition() );
-	m_PlayerView.setSize(p_Size);
-}
-
-sf::View PlayerFishObject::GetPlayerView()
-{
-	return m_PlayerView;
-}
-
-void PlayerFishObject::SetPlayerViewport(sf::FloatRect p_NewViewPort)
-{
-	m_PlayerView.setViewport(p_NewViewPort);
-}
-
-sf::FloatRect PlayerFishObject::GetPlayerViewport()
-{
-	return m_PlayerView.getViewport();
 }
 
 void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Deltatime)
@@ -236,6 +211,17 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		|| p_pxInputManager->IsDownK(sf::Keyboard::RControl))
 	{
 		SetState(Sneak);
+	}
+	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
+	{
+		if(m_light->GetLightStatus())
+		{
+			m_light->ToggleLightOn(false);
+		}
+		else
+		{
+			m_light->ToggleLightOn(true);
+		}
 	}
 
 	//std::cout << GetState();

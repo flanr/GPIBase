@@ -3,7 +3,6 @@
 #include "SpriteManager.h"
 #include "GameObject.h"
 #include "PlayerFishObject.h"
-#include "LightSource.h"
 
 class GameObjectManager;
 class CollisionManager;
@@ -37,7 +36,5 @@ protected:
 	//vector<GameObject*> m_GameObjects;
 	GameObjectManager *m_pxGameObjMgr;
 	CollisionManager * m_CollisionMgr;
-
-	LightSource *m_light;
 };
 

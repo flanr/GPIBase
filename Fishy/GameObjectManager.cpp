@@ -20,7 +20,6 @@ GameObjectManager::GameObjectManager(InputManager *p_pxInputManager)
 {
 	m_pxInputManager = p_pxInputManager;
 	m_pxPlayer = nullptr;
-	//m_pxLight = nullptr;
 }
 GameObjectManager::~GameObjectManager()
 {
@@ -79,10 +78,10 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 	m_pxPlayer = p_pxPlayer;
 }
 
-void GameObjectManager::AttachLight(LightSource *p_pxLight)
-{
-	m_pxLight = p_pxLight;
-}
+//void GameObjectManager::AttachLight(LightSource *p_pxLight)
+//{
+//	m_pxLight = p_pxLight;
+//}
 
 //void GameObjectManager::AttachTerrain(TerrainObject *p_pxTerrain)
 //{
