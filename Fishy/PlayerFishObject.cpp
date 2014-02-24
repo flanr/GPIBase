@@ -28,13 +28,14 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_iAttacktimer = 15;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
-	SetPlayerScale(0.5f);
+	SetPlayerScale(0.2f);
 	m_Experience = 0;
 
 };
 void PlayerFishObject::ExperienceGain(int x)
 {
 	m_Experience += x;
+	cout << "Experience :: " << GetExperience() << endl;
 }
 
 int PlayerFishObject::GetExperience()
@@ -58,7 +59,7 @@ void PlayerFishObject::SetPlayerScale(float x)
 	{
 		m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 	}
-   	
+   
 
 }
 

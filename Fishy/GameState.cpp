@@ -94,12 +94,12 @@ bool GameState::Update(float p_DeltaTime)
 		mgr->RemoveEnemyCollider();
 		mgr->SetPlayerVsEnemy(false);
 	}
-
+	/// Player Experience Stuff
 	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
 	{
-		m_GameObjMgr->m_pxPlayer->SetScale(1.0f);
+		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}
-	
+	///
 	
 	UpdateGUI();
 	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
