@@ -1,6 +1,7 @@
 // EnemyFishObject.cpp
 #include "stdafx.h"
 #include "EnemyFishObject.h"
+#include "PlayerFishObject.h"
 //
 //EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite)
 //	: GameObject(p_xPosition, p_pxSprite) 
@@ -41,14 +42,31 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
 
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
+
+	float delta_x = m_xPosition.x - player->GetPosition().x;
+	float delta_y = m_xPosition.y - player->GetPosition().y;
+	sf::Vector2f distance_to_light;
+	distance_to_light.x = delta_x;
+	distance_to_light.y = delta_y;
+
+
 	m_iStateTimer++;
-	if(m_iStateTimer >= 500)
-	{
-		ChangeState();
+	if(m_iStateTimer >= 400)
+	{		
 		m_iStateTimer = 0;
 	}
-	if(GetState() == Moving)
+	if ((player->GetPosition().x > m_xPosition.x) && (player->GetDirection() == FacingRight))
 	{
+		SetState(Attack);
+	}
+	else if ((player->GetPosition().x > m_xPosition.x) && (player->GetDirection() == FacingRight))
+	{
+		SetState(Fleeing);
+	}
+
+	if(GetState() == Idle)
+	{
+
 		if(m_iStateTimer > 250)
 		{
 			SetVelocity(sf::Vector2f(deltatime * -GetSpeed(), 0.0f) );
@@ -65,6 +83,33 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 		}
 	}
 
+	if(GetState() == Fleeing)
+	{
+
+		//	if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x > m_xPosition.x) && (player->GetDirection() == FacingRight))
+		//{
+		//	//distace to player
+		//	m_velocity += distance_to_light * GetSpeed();
+
+		//	m_xPosition += m_velocity * deltatime;
+		//}
+
+		//if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x < m_xPosition.x) && (player->GetDirection() == FacingLeft))
+		//{
+		//	//distace to player
+		//	m_velocity += distance_to_light * GetSpeed();
+
+		//	m_xPosition += m_velocity * deltatime;
+		//}
+
+		SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
+	};
+
+	if(GetState() == Attack)
+	{
+		SetVelocity(sf::Vector2f(0.0f, deltatime * -GetSpeed()) );
+	};
+
 	SetPosition( GetPosition() + GetVelocity() );
 	if (m_collisionManager->b_playerVsenemy)
 	{
@@ -75,19 +120,22 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{
 		m_pxCollider->SetPosition(GetPosition() );
 	}
+
 }
 
 void EnemyFishObject::ChangeState()
 {
-	if(GetState() == Idle)
+
+	if(GetState() == Moving)
+	{
+		SetState(Fleeing);
+	}
+	else if(GetState() == Fleeing)
 	{
 		SetState(Moving);
 	}
-	else
-	{
-		SetState(Idle);
-	}
 }
+
 
 void EnemyFishObject::SetSpawnPosition(sf::Vector2f p_xSpawnPosition)
 {
