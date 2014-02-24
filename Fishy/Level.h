@@ -22,7 +22,7 @@ public:
 	/* If bool value = true create level with colliders, If False no colliders */
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, int setLayer);
 	void Draw(DrawManager *p_pDrawManager);
-
+	void UpdateParallax();
 protected:
 	string m_SpriteMapFileName;
 

@@ -93,11 +93,16 @@ bool GameState::Update(float p_DeltaTime)
 
 	if (mgr->GetPlayerVsEnemy())
 	{
+		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
 		mgr->RemoveEnemyCollider();
 		mgr->SetPlayerVsEnemy(false);
 	}
 
-
+	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
+	{
+		m_GameObjMgr->m_pxPlayer->SetScale(1.0f);
+	}
+	
 	UpdateGUI();
 	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
 	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
