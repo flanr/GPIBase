@@ -27,6 +27,7 @@ StartState::StartState(Core* p_pCore)
 	m_ButtonStart.SetPosition(500,350);
 	m_ButtonQuit.SetSprite(m_SpriteManager->Load("exit_concept.png",21,10,108,140));
 	m_ButtonQuit.SetPosition(1200,650);
+	m_ButtonClick = 0;
 
 
 }
