@@ -90,8 +90,14 @@ bool GameState::Update(float p_DeltaTime)
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	if (mgr->GetPlayerVsEnemy())
 	{
+		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
 		mgr->RemoveEnemyCollider();
 		mgr->SetPlayerVsEnemy(false);
+	}
+
+	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
+	{
+		m_GameObjMgr->m_pxPlayer->SetScale(1.0f);
 	}
 	
 	
