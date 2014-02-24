@@ -10,6 +10,7 @@ enum eState
 	Moving,
 	Attack,
 	Sneak,
+	Fleeing,
 	Chewing,
 	Death,
 	StateCount

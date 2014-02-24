@@ -240,7 +240,7 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	{
 		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 		{
-			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime);
+			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, m_pxPlayer);
 		}
 		else
 		{

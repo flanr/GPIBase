@@ -37,7 +37,7 @@ EnemyFishObject::~EnemyFishObject()
 	//
 }
 
-void EnemyFishObject::Update(float deltatime)
+void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
 
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
