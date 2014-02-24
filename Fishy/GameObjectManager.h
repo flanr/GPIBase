@@ -5,7 +5,7 @@ class InputManager;
 
 class GameObject;
 class PlayerFishObject;
-//class LightObject;
+class LightSource;
 class PowerupObject;
 
 //class TerrainObject;
@@ -29,7 +29,7 @@ public:
 	void Attach(GameObject *p_pxGameObject);
 	void AttachPlayer(PlayerFishObject *p_pxPlayer);
 	//bool LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager);
-	//void AttachLight(LightObject *p_pxLight);
+	void AttachLight(LightSource *p_pxLight);
 	//void AttachTerrain(TerrainObject *p_pxTerrain);
 	//void AttachEnemy(EnemyFishObject *p_pxEnemy);
 	//void AttachPowerup(PowerupObject *p_pxPowerup);
@@ -71,9 +71,9 @@ private:
 
 	std::vector<GameObject*> m_apxGameObject;
 	PlayerFishObject *m_pxPlayer;
-
+	LightSource *m_pxLight;
 	//PlayerFishObject *m_pxPlayer;
-	//LightObject *m_pxLight;
+	
 	/*std::vector<TerrainObject*> m_apxTerrain;
 	std::vector<EnemyFishObject*>  m_apxEnemy;
 	std::vector<PowerupObject*>  m_apxPowerup;

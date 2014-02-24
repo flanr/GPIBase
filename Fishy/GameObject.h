@@ -39,9 +39,6 @@ public:
 	int GetLevelLayer();
 	virtual void Update(float deltatime);
 
-//protected:
-//	void SetNewSprite(sf::Sprite* p_pxNewSprite);
-
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;

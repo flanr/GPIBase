@@ -42,7 +42,6 @@ bool Core::Initialize()
 	window->setVerticalSyncEnabled(true);
 	//This sets framerate to your chosen limit, (DON'T use together with vertical sync above)
 	//window->setFramerateLimit(30);
-
 	if (m_pInputManager == nullptr)
 	{
 		m_pInputManager = new InputManager();

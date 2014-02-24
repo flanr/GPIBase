@@ -134,20 +134,6 @@ void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *
 	SetPlayerScale(GetScale());
 }
 
-//void PlayerFishObject::SetActiveAnimation(const std::string &p_sName)
-//{
-//	SetNewSprite(GetAnimation(p_sName) );
-//}
-//AnimatedSprite* PlayerFishObject::GetAnimation(const std::string &p_sName)
-//{
-//	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.find(p_sName);
-//
-//	if(it == m_mpAnimations.end()) 
-//	{
-//		it = m_mpAnimations.find(p_sName);
-//	}
-//	return it->second;
-//}
 
 void PlayerFishObject::InitPlayerView(sf::Vector2f p_Size)
 {

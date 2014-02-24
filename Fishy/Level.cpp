@@ -99,7 +99,12 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					Player->SetLevelLayer(1);
 					m_pxGameObjMgr->AttachPlayer(Player);
 					m_CollisionMgr->AttachCollider(Player->GetCollider() );
-
+					m_light = new LightSource(sf::Vector2f(iX, iY), Player->GetPlayerView().getSize(), 240);
+					m_light->SetOrigin(sf::Vector2f(iX, iY) );
+					m_light->SetPosition( sf::Vector2f(iX, iY) );
+					m_light->CreateCircle();
+					m_light->CutOutCircle();
+					m_pxGameObjMgr->AttachLight(m_light);
 					iX += m_iWidth;
 					continue;
 				}
@@ -172,6 +177,13 @@ void Level::Draw(DrawManager *p_draw_manager)
 		{
 			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 		}
+			
+		if (m_pxGameObjMgr->m_pxPlayer != nullptr)
+		{
+			p_draw_manager->Draw(m_pxGameObjMgr->m_pxLight->GetBlackLayerSprite() );
+		}
+
+		
 
 	}
 

@@ -26,6 +26,7 @@ void DrawManager::Draw(sf::Sprite *p_sprite)
 {
 	m_pWindow->draw(*p_sprite);
 }
+
 void DrawManager::DrawRect(sf::RectangleShape rect)
 {
 	m_pWindow->draw(rect);

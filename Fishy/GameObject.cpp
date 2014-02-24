@@ -53,15 +53,6 @@ sf::Sprite* GameObject::GetSprite()
 {
 	return m_pxSprite;
 }
-/*WARNING! Only use with animated sprites. otherwise you will have a huge memory leak*/
-//void GameObject::SetNewSprite(sf::Sprite* p_pxNewSprite)
-//{
-//	if(m_pxSprite != nullptr)
-//	{
-//		m_pxSprite = nullptr;
-//		m_pxSprite = p_pxNewSprite;
-//	}
-//}
 
 bool GameObject::HasCollider() const
 {

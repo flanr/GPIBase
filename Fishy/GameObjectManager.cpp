@@ -79,22 +79,11 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 	m_pxPlayer = p_pxPlayer;
 }
 
-/*Test function, to load player*/
-//bool GameObjectManager::LoadFish(const string &p_sFileName, SpriteManager *p_pSpriteManager)
-//{
-//	/*Collider *collider = new Collider(sf::Vector2f(0.f, 0.f),sf::Vector2f(352.f, 287.f) );
-//
-//	PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(0.f, 0.f ), nullptr, collider);
-//	AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim(p_sFileName);	
-//	Player->AddAnimation("Idle", pxAnimSprite);
-//	AttachPlayer(Player);*/
-//	return true;
-//}
+void GameObjectManager::AttachLight(LightSource *p_pxLight)
+{
+	m_pxLight = p_pxLight;
+}
 
-//void GameObjectManager::AttachLight(LightObject *p_pxLight)
-//{
-//	m_pxLight = p_pxLight;
-//}
 //void GameObjectManager::AttachTerrain(TerrainObject *p_pxTerrain)
 //{
 //	m_apxTerrain.push_back(p_pxTerrain);
