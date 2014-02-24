@@ -74,6 +74,7 @@
       <Filter>Source Files\Drawable</Filter>
     </ClCompile>
     <ClCompile Include="LightSource.cpp" />
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -152,6 +153,7 @@
       <Filter>Header Files\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="LightSource.h" />
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

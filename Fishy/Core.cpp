@@ -34,7 +34,7 @@ Core::~Core()
 
 bool Core::Initialize()
 {
-
+	
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
 	window = new sf::RenderWindow(sf::VideoMode(1280,720), "MEGA FUCKING AWESOME SUPER GAME");
 
