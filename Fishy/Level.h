@@ -36,6 +36,5 @@ protected:
 	//vector<GameObject*> m_GameObjects;
 	GameObjectManager *m_pxGameObjMgr;
 	CollisionManager * m_CollisionMgr;
-
 };
 
