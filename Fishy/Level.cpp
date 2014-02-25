@@ -97,7 +97,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
 					Player->AddAnimation("Player", pxAnimSprite);
 					Player->SetPosition(sf::Vector2f(iX, iY) );
-					Player->SetLevelLayer(1);
+					Player->SetLevelLayer(3);
 					Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 					m_pxGameObjMgr->AttachPlayer(Player);
 					m_CollisionMgr->AttachCollider(Player->GetCollider() );
@@ -109,13 +109,13 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 			/*if (row[i] == 'B')
 			{
-				sprite->setPosition(0,0);
-				GameObject *go = new GameObject(sprite->getPosition(),sprite);
-				go->SetPosition(sf::Vector2f(iX,iY));
-				go->SetLevelLayer(setLayer);
-				m_pxGameObjMgr->Attach(go);
+			sprite->setPosition(0,0);
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX,iY));
+			go->SetLevelLayer(setLayer);
+			m_pxGameObjMgr->Attach(go);
 
-				continue;
+			continue;
 			}*/
 
 
@@ -175,7 +175,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 void Level::Draw(DrawManager *p_draw_manager)
 {
 	UpdateParallax();
-	for (int n = 0; n < 3; n++)
+	for (int n = 0; n < 5; n++)
 	{
 		for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 		{	
@@ -190,13 +190,13 @@ void Level::Draw(DrawManager *p_draw_manager)
 		{
 			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
 		}
-			
+
 		/*if (m_pxGameObjMgr->m_pxPlayer != nullptr)
 		{
-			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle() );
+		p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle() );
 		}*/
 
-		
+
 
 	}
 
@@ -213,16 +213,19 @@ void Level::UpdateParallax()
 
 	for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 	{
-
 		if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 0)
 		{
 
 			if (oldX < m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
 			{
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(((m_pxGameObjMgr->m_pxPlayer->GetPosition().x*-0.3)+(x*500)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-				
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),((m_pxGameObjMgr->m_pxPlayer->GetPosition().y*-0.3)+(y*500))));
+
+				// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(m_pxGameObjMgr->m_pxPlayer->GetPosition().x,(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+
+				// Y Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y));
+
 				x++;
 
 			}
@@ -231,17 +234,81 @@ void Level::UpdateParallax()
 				x = 0;
 				y++;
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(((m_pxGameObjMgr->m_pxPlayer->GetPosition().x*-0.3)+(x*500)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-				
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),((m_pxGameObjMgr->m_pxPlayer->GetPosition().y*-0.3)+(y*500))));
+
+				// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(m_pxGameObjMgr->m_pxPlayer->GetPosition().x,(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+
+				// Y Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y));
 				x++;
 			}
-			
-			
+
+
+		} else if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 1)
+		{
+
+			if (oldX < m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
+			{
+				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
+
+				// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x*406-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+
+				// Y Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) + 300 ));
+
+				x++;
+
+			}
+			else
+			{
+				x = 0;
+				y++;
+				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
+
+				// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x*406-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+
+				// Y Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) +300 ));
+				x++;
+			}
+
+
+		} else if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 2)
+		{
+
+			if (oldX < m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
+			{
+				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
+
+					// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x*812-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+
+				// Y Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
+				x++;
+
+			}
+			else
+			{
+				x = 0;
+				y++;
+				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
+
+					// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x*812-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+
+				// Y Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
+				x++;
+			}
+
+
 		}
 
 	}
-	
+
 	/*x = 0;
 	y = 0;
 	int oldX = 0;
@@ -249,24 +316,24 @@ void Level::UpdateParallax()
 	for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 	{
 
-		if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 0)
-		{
+	if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 0)
+	{
 
-			if (oldX == m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
-			{
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),((m_pxGameObjMgr->m_pxPlayer->GetPosition().y*-0.3)+(y*500))));
-				y++;
-			}
-			else
-			{
-				y = 0;
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),((m_pxGameObjMgr->m_pxPlayer->GetPosition().y*-0.3)+(y*500))));
-				y++;
-			}
-			
-			oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
-		}
+	if (oldX == m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
+	{
+	m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),((m_pxGameObjMgr->m_pxPlayer->GetPosition().y*-0.3)+(y*500))));
+	y++;
+	}
+	else
+	{
+	y = 0;
+	m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),((m_pxGameObjMgr->m_pxPlayer->GetPosition().y*-0.3)+(y*500))));
+	y++;
+	}
+
+	oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
+	}
 
 	}
-*/
+	*/
 }

@@ -24,7 +24,12 @@ GameState::GameState(Core* p_pCore)
 
 	m_DrawManager = p_pCore->m_DrawManager;
 	m_player = p_pCore->m_player;
-	m_LevelLayerBackground = nullptr;
+
+	// Layers
+	m_LevelLayerBackgroundLowest = nullptr;
+	m_LevelLayerBackgroundSecondLowest = nullptr;
+	m_LevelLayerBackgroundSecondHighest = nullptr;
+
 	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerForGround = nullptr;
 
@@ -56,14 +61,23 @@ bool GameState::EnterState()
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
-	if (m_LevelLayerBackground == nullptr)
+	if (m_LevelLayerBackgroundSecondLowest == nullptr)
 	{
-		m_LevelLayerBackground = new Level(m_GameObjMgr);
-		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_SpriteManager, false, 0);
+		// Lowest
+		m_LevelLayerBackgroundLowest = new Level(m_GameObjMgr);
+		m_LevelLayerBackgroundLowest->Load("../data/levels/level_backgroundlowest.txt",m_SpriteManager,false, 0);
+		// Second Lowest
+		m_LevelLayerBackgroundSecondLowest = new Level(m_GameObjMgr);
+		m_LevelLayerBackgroundSecondLowest->Load("../data/levels/level_backgroundsecondlowest.txt", m_SpriteManager, false, 1);
+		// Background
+		m_LevelLayerBackgroundSecondHighest = new Level(m_GameObjMgr);
+		m_LevelLayerBackgroundSecondHighest->Load("../data/levels/level_backgroundsecondhighest.txt",m_SpriteManager,false, 2);
+		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
-		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true, 1);
+		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true, 3);
+		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
-		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, 2);
+		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, 4);
 	} 
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
@@ -102,26 +116,26 @@ bool GameState::Update(float p_DeltaTime)
 	{
 		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}
-	
+
 	UpdateGUI();
-	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
+	/*int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
 	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
 	if (x > 2390)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2390,m_GameObjMgr->m_pxPlayer->GetPosition().y));
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2390,m_GameObjMgr->m_pxPlayer->GetPosition().y));
 	}
 	if (x < 35)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(35,m_GameObjMgr->m_pxPlayer->GetPosition().y));
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(35,m_GameObjMgr->m_pxPlayer->GetPosition().y));
 	}
 	if (y > 1270)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,1270));
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,1270));
 	}
 	if (y < 50)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
-	}
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
+	}*/
 
 	return true;
 }
