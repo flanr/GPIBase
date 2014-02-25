@@ -27,6 +27,3 @@ protected:
 	std::string m_sCurrentState;
 
 };
-
-
-

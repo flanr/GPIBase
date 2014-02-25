@@ -4,7 +4,6 @@
 #include "stdafx.h"
 
 using namespace sf;
-//using namespace sf;
 
 int _tmain(int argc, _TCHAR* argv[])
 {

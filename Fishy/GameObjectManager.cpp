@@ -232,20 +232,20 @@ m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
 */
 
 
-////Update functions
+//Update functions
 void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 {
 
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
-		/*if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
+		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 		{
-			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, din kod);
+			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, m_pxPlayer);
 		}
 		else
-		{*/
+		{
 			m_apxGameObject[i]->Update(p_fDeltatime);
-		/*}*/
+		}
 
 		if(m_apxGameObject[i]->HasCollider() )
 		{
