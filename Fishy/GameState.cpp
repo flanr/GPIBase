@@ -65,19 +65,19 @@ bool GameState::EnterState()
 	{
 		// Lowest
 		m_LevelLayerBackgroundLowest = new Level(m_GameObjMgr);
-		m_LevelLayerBackgroundLowest->Load("../data/levels/level_backgroundlowest.txt",m_SpriteManager,false, 0);
+		m_LevelLayerBackgroundLowest->Load("../data/levels/level_backgroundlowest.txt",m_SpriteManager,false, ELayer::LOWESTBG);
 		// Second Lowest
 		m_LevelLayerBackgroundSecondLowest = new Level(m_GameObjMgr);
-		m_LevelLayerBackgroundSecondLowest->Load("../data/levels/level_backgroundsecondlowest.txt", m_SpriteManager, false, 1);
+		m_LevelLayerBackgroundSecondLowest->Load("../data/levels/level_backgroundsecondlowest.txt", m_SpriteManager, false,ELayer::SECONDLOWESTBG);
 		// Background
 		m_LevelLayerBackgroundSecondHighest = new Level(m_GameObjMgr);
-		m_LevelLayerBackgroundSecondHighest->Load("../data/levels/level_backgroundsecondhighest.txt",m_SpriteManager,false, 2);
+		m_LevelLayerBackgroundSecondHighest->Load("../data/levels/level_backgroundsecondhighest.txt",m_SpriteManager,false, ELayer::HIGHESTBG);
 		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
-		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true, 3);
+		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
 		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
-		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, 4);
+		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 	} 
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)

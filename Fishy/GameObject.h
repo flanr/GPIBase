@@ -1,24 +1,25 @@
 //GameObject.h
 
 #pragma once
-
+#include "Level.h"
 #include <string>
 
 class Collider;
 class Sprite;
 class LightSource;
-
+enum ELayer;
+	
 class GameObject
 {
 public:
-	
+
 	//GameObject();
 	/*För GameObject utan collider*/
 	/*GameObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite);*/
 	/*För GameObject med Collider*/
 	GameObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite = nullptr, Collider *p_pxCollider = nullptr);
 	~GameObject();
-	
+
 
 	sf::Vector2f GetPosition();
 	void SetPosition(const sf::Vector2f &p_xPosition);
@@ -36,11 +37,11 @@ public:
 
 	void SetDestroyed(bool p_bDestroyed);
 	bool GetDestroyed();
-
+	
 	void FlipXLeft(float scale);
 	void FlipXRight(float scale);
-	void SetLevelLayer(int x);
-	int GetLevelLayer();
+	void SetLevelLayer(ELayer); 
+	ELayer GetLevelLayer();
 	virtual void Update(float deltatime);
 	void AddLightSource(LightSource *p_light);
 	LightSource* GetLightSource();
@@ -49,7 +50,7 @@ protected:
 	Collider *m_pxCollider;
 	sf::Vector2f m_xPosition;
 	bool m_bDestroyed;
-	int m_LevelLayer;
+	ELayer m_LevelLayer;
 
 	LightSource *m_light;
 };

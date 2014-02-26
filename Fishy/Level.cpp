@@ -25,7 +25,7 @@ Level::~Level()
 }
 
 
-bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, int setLayer)
+bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, ELayer layer)
 {
 	int count = 0;
 	ifstream stream(p_sFileName);
@@ -97,7 +97,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
 					Player->AddAnimation("Player", pxAnimSprite);
 					Player->SetPosition(sf::Vector2f(iX, iY) );
-					Player->SetLevelLayer(setLayer);
+					Player->SetLevelLayer(layer);
 					Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 					m_pxGameObjMgr->AttachPlayer(Player);
 					m_CollisionMgr->AttachCollider(Player->GetCollider() );
@@ -143,7 +143,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					tempEnemy->setPosition(iX, iY);
 					EnemyFishObject *enemy = new EnemyFishObject(tempEnemy->getPosition(),tempEnemy,collider);
 					enemy->SetPosition(sf::Vector2f(iX, iY) );
-					enemy->SetLevelLayer(setLayer);
+					enemy->SetLevelLayer(layer);
 					m_pxGameObjMgr->Attach(enemy);
 					m_CollisionMgr->AttachCollider(collider);
 
@@ -152,7 +152,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				{
 					GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
 					go->SetPosition(sf::Vector2f(iX,iY));
-					go->SetLevelLayer(setLayer);
+					go->SetLevelLayer(layer);
 					m_pxGameObjMgr->Attach(go);
 				}
 
@@ -160,7 +160,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			{
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
 				go->SetPosition(sf::Vector2f(iX,iY));
-				go->SetLevelLayer(setLayer);
+				go->SetLevelLayer(layer);
 				m_pxGameObjMgr->Attach(go);
 			}
 

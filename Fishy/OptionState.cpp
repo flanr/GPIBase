@@ -10,6 +10,13 @@ OptionState::OptionState(Core* p_pCore)
 	m_window = p_pCore->window;
 	m_pInputManager = p_pCore->m_pInputManager;
 	m_DrawManager = p_pCore->m_DrawManager;
+	m_SpriteManager = p_pCore->m_SpriteManager;
+	////////////////
+	// Background //
+	////////////////
+	m_BackGroundImg = m_SpriteManager->Load("background2.jpg",0,0,1280,720);
+	m_BackGroundImg->setPosition(0,0);
+
 }
 
 string OptionState::GetCurrentState()
@@ -63,9 +70,10 @@ void OptionState::HandleInput()
 
 void OptionState::Draw()
 {
-	sf::CircleShape shape(45.0f);
-
 	m_DrawManager->ClearWindow();
+	
+	m_DrawManager->Draw(m_BackGroundImg);
+	
 	//m_level->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();
 }
