@@ -24,6 +24,7 @@ public:
 	void ExperienceGain(int x);
 	int GetExperience();
 	
+	void OnCollision(GameObject* other);
 private:
 
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);

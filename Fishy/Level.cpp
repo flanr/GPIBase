@@ -91,7 +91,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				{
 					//352.f, 287.f
 					Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
-					collider->SetId(Identity::EPLAYER);
 					//PlayerObject måste laddas in som nullptr,
 					PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
 					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
@@ -134,10 +133,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
 				if (row[i] == 'E')
 				{
-					++count;
 					collider->SetExtention(sf::Vector2f(265*0.2f, 100*0.2f));
-					collider->SetId(Identity::EENEMY);
-					collider->SetNr(count);
 					sf::Sprite* tempEnemy = p_pSpriteManager->Load("alpha_enemy_picture_2.png", 0,0, 265*0.2f, 100*0.2f);
 					tempEnemy->setOrigin((265*0.2f)/2, (100*0.2f)/2);
 					tempEnemy->setPosition(iX, iY);
@@ -153,7 +149,9 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
 					go->SetPosition(sf::Vector2f(iX,iY));
 					go->SetLevelLayer(setLayer);
+					go->SetType("Brown Brick");
 					m_pxGameObjMgr->Attach(go);
+					/*m_CollisionMgr->AttachCollider(collider);*/
 				}
 
 			}else

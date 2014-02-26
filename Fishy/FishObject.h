@@ -59,6 +59,8 @@ public:
 	float GetScale();
 	void SetScale(float x);
 
+	void OnCollision(GameObject* p_other){ };
+
 private:
 
 	bool m_Direction[DirectionCount];

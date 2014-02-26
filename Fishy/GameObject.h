@@ -44,12 +44,16 @@ public:
 	virtual void Update(float deltatime);
 	void AddLightSource(LightSource *p_light);
 	LightSource* GetLightSource();
+	std::string GetType(){ return m_sType;};
+	void SetType(std::string p_sType){m_sType = p_sType;};
+	virtual void OnCollision(GameObject* p_xOther);
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;
 	sf::Vector2f m_xPosition;
 	bool m_bDestroyed;
 	int m_LevelLayer;
+	std::string m_sType;
 
 	LightSource *m_light;
 };

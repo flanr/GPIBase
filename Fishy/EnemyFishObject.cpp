@@ -16,20 +16,22 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	m_collisionManager = new CollisionManager;
 	//SetScale(0.2f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
+	SetType("Enemy");
 }
 EnemyFishObject::~EnemyFishObject()
 {
 	//Delete Sprite
+	
 	if(GetSprite() != nullptr)
 	{
 		delete  GetSprite();
 	}
 	
-	if (m_collisionManager != nullptr)
+	/*if (m_collisionManager != nullptr)
 	{
 		delete m_collisionManager;
 		m_collisionManager = nullptr;
-	}
+	}*/
 	////Delete Collider
 	//if(GetCollider() != nullptr)
 	//{
@@ -150,4 +152,15 @@ sf::Vector2f EnemyFishObject::GetSpawnPosition(sf::Vector2f p_xSpawnPosition)
 void EnemyFishObject::SetAttractRadius(float p_fAttractRadius)
 {
 	m_pxCollider->SetRadius(p_fAttractRadius);
+}
+void EnemyFishObject::OnCollision(GameObject* p_other)
+{
+	//std::cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << std::endl;
+	if (p_other->GetType() == "Player")
+	{
+		this->m_pxCollider = nullptr;
+		this->~EnemyFishObject();
+	}
+	
+
 }

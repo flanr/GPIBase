@@ -24,6 +24,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	SetDirection(FacingRight);
 	SetPlayerScale(0.2f);
 	m_Experience = 0;
+	SetType("Player");
 
 };
 void PlayerFishObject::ExperienceGain(int x)
@@ -368,5 +369,23 @@ void PlayerFishObject::UpdateHealth()
 		{
 			m_Healthtimer--;
 		}
+	}
+}
+
+// överlarga oncollision
+// du kommer få in en fisk som p_xOther
+// if p_xOther.getTypy() == fisk
+//		etc etc
+//
+// Player* p = nullptr;
+// GameObject* g = new Player();
+// p = static_cast<Player*>(g);
+
+void PlayerFishObject::OnCollision(GameObject* p_other)
+{
+	if (p_other->GetType() == "Enemy")
+	{
+		ExperienceGain(1);
+		std::cout << GetExperience() << std::endl;
 	}
 }

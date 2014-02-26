@@ -91,12 +91,13 @@ bool GameState::Update(float p_DeltaTime)
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	m_Camera->Update(m_GameObjMgr->m_pxPlayer->GetPosition(), m_GameObjMgr->m_pxPlayer->GetLightSource() );
 
-	if (mgr->GetPlayerVsEnemy())
+	mgr->RemoveEnemyCollider();
+	/*if (mgr->GetPlayerVsEnemy())
 	{
 		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
 		mgr->RemoveEnemyCollider();
 		mgr->SetPlayerVsEnemy(false);
-	}
+	}*/
 	/// Player Experience Stuff
 	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
 	{

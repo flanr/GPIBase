@@ -10,6 +10,8 @@ enum Identity
 	ELIGHT
 };
 
+class GameObject;
+
 class Collider
 {
 public:
@@ -32,23 +34,20 @@ public:
 	float GetRadius();
 
 
-	void SetId(Identity id) { m_eID = id; }
-	Identity GetId()		{return m_eID; }
-	int GetNr() {return m_nr;}
-	void SetNr(int nr) {m_nr = nr;}
+	
 	////Temporary for testing
 	void SetStatus(bool p_Collision);
 	bool GetStatus();
-	sf::Vector2f GetExtension(){return m_extention;}
+	sf::Vector2f GetExtension(){return m_extention;};
+	void OnCollision(Collider* p_xOther);
+	GameObject* GetParent(){return m_xParent;};
+	void SetParent(GameObject* p_xParent){m_xParent = p_xParent;};
 
 private:
 	sf::Vector2f m_position;
 	sf::Vector2f m_extention;
 	float m_radius;
-	Identity m_eID;
-	int m_nr;
-
+	GameObject* m_xParent;
 	//Temporary for testing
-	bool m_bCollisionStatus;
 
 };
