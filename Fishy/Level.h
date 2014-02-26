@@ -4,11 +4,19 @@
 #include "GameObject.h"
 #include "PlayerFishObject.h"
 
+
 class GameObjectManager;
 class CollisionManager;
 
 using namespace std;
-
+enum ELayer
+	{
+		LOWESTBG,
+		SECONDLOWESTBG,
+		HIGHESTBG,
+		MIDDLEGROUND,
+		FOREGROUND
+	};
 class Level
 {
 	struct Coords
@@ -17,10 +25,13 @@ class Level
 	};
 
 public:
+	
+
+public:
 	Level(GameObjectManager *p_pxGameObjMgr = nullptr, CollisionManager * p_CollisionMgr = nullptr);
 	~Level();
 	/* If bool value = true create level with colliders, If False no colliders */
-	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, int setLayer);
+	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, ELayer layer);
 	void Draw(DrawManager *p_pDrawManager);
 	void UpdateParallax();
 protected:

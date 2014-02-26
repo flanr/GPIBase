@@ -1,5 +1,6 @@
 // FishObject
 #include "stdafx.h"
+#include "GameObject.h"
 
 
 FishObject::FishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )

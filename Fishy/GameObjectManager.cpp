@@ -247,7 +247,7 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		{
 			m_apxGameObject[i]->Update(p_fDeltatime);
 		}
-		if (m_apxGameObject[i]->GetCollider() == nullptr && m_apxGameObject[i]->GetLevelLayer() == 1)
+		if (m_apxGameObject[i]->GetCollider() == nullptr && m_apxGameObject[i]->GetLevelLayer() == ELayer::MIDDLEGROUND)
 		{
 			m_apxGameObject.erase(m_apxGameObject.begin() +i);
 		}

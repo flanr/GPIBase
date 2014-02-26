@@ -18,12 +18,12 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 GameObject::~GameObject()
 {
 }
-void GameObject::SetLevelLayer(int x)
+void GameObject::SetLevelLayer(ELayer layer)
 {
-	m_LevelLayer = x ;
+	m_LevelLayer = layer ;
 }
 
-int GameObject::GetLevelLayer()
+ELayer GameObject::GetLevelLayer()
 {
 	return m_LevelLayer;
 }
@@ -110,5 +110,5 @@ LightSource* GameObject::GetLightSource()
 
 void GameObject::OnCollision(GameObject* p_xOther)
 {
-	std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;
+	/*std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;*/
 }

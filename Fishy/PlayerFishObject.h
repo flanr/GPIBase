@@ -2,10 +2,8 @@
 #pragma once
 
 #include "FishObject.h"
-
 class AnimatedSprite;
 class Collider;
-
 
 class PlayerFishObject : public FishObject {
 public:
