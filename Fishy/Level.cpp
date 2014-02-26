@@ -97,7 +97,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
 					Player->AddAnimation("Player", pxAnimSprite);
 					Player->SetPosition(sf::Vector2f(iX, iY) );
-					Player->SetLevelLayer(3);
+					Player->SetLevelLayer(setLayer);
 					Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 					m_pxGameObjMgr->AttachPlayer(Player);
 					m_CollisionMgr->AttachCollider(Player->GetCollider() );
@@ -209,11 +209,11 @@ void Level::UpdateParallax()
 {
 	int x = 0;
 	int y = 0;
-	int oldX = -100000;
+	int oldX = -10000000;
 
 	for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 	{
-		if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 0)
+		if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 0  ) // Background Fixed
 		{
 
 			if (oldX < m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
@@ -244,7 +244,7 @@ void Level::UpdateParallax()
 			}
 
 
-		} else if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 1)
+		} else if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 1) // SecondLowestLayer
 		{
 
 			if (oldX < m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
@@ -252,7 +252,7 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x*406-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width -1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
 
 				// Y Axis
 				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) + 300 ));
@@ -267,7 +267,7 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x*406-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x * m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
 
 				// Y Axis
 				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) +300 ));
@@ -275,15 +275,15 @@ void Level::UpdateParallax()
 			}
 
 
-		} else if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 2)
+		} else if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == 2) // HighestLayer
 		{
 
 			if (oldX < m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x)
 			{
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
-					// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x*812-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
 
 				// Y Axis
 				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
@@ -296,17 +296,15 @@ void Level::UpdateParallax()
 				y++;
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
-					// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x*812-1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				// X Axis
+				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
 
 				// Y Axis
 				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
 				x++;
-			}
-
+			} 
 
 		}
-
 	}
 
 	/*x = 0;

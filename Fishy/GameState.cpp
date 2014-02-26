@@ -26,12 +26,12 @@ GameState::GameState(Core* p_pCore)
 	m_player = p_pCore->m_player;
 
 	// Layers
-	m_LevelLayerBackgroundLowest = nullptr;
+	m_LevelLayerForGround = nullptr;
+	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerBackgroundSecondLowest = nullptr;
 	m_LevelLayerBackgroundSecondHighest = nullptr;
-
-	m_LevelLayerMidleGround = nullptr;
-	m_LevelLayerForGround = nullptr;
+	m_LevelLayerGradient = nullptr;
+	m_LevelLayerBackgroundLowest = nullptr;
 
 	m_Camera = nullptr;
 
