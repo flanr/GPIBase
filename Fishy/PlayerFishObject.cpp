@@ -9,6 +9,7 @@
 #include "GameObject.h"
 #include "AnimatedSprite.h"
 #include "LightSource.h"
+#include "Camera.h"
 
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
@@ -66,16 +67,16 @@ PlayerFishObject::~PlayerFishObject()
 		it++;
 	}
 	m_mpAnimations.clear();
-	//Delete Collider
-	/*if(GetCollider() != nullptr)
+
+	if(GetLightSource() != nullptr)
 	{
-	delete  GetCollider();
-	}*/
+		delete GetLightSource();
+	}
+
 }
 
-void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
+void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, float p_Deltatime)
 {
-	//Note to myself try std::map<std::string, vector<sf::Intrect>> m_Rects so you load a big sprite and cut rects depending on animations
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
 	if(GetState() == Death)
@@ -109,14 +110,16 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, float p_Deltatime)
 		m_Health ++;
 	}
 
-
-	SetPosition( GetPosition() + GetVelocity() );
-	if(m_light != nullptr)
+	Move(GetVelocity() );
+	if(GetPosition() != m_light->GetPosition() )
 	{
-		
-		m_light->SetPosition( m_light->GetPosition() + GetVelocity() );
-		//m_light->GetLightCircle()->setPosition(GetPosition() );
+		m_light->SetPosition(GetPosition() );
 	}
+
+	//cout <<"PlayerPos" << GetPosition().x << " " <<  GetPosition().y <<endl;
+	//cout <<"lightPos" << m_light->GetPosition().x << " " <<  m_light->GetPosition().y <<endl;
+	//cout <<"FilterPos" << p_Camera->GetFilterSprite()->getPosition().x << " " << p_Camera->GetFilterSprite()->getPosition().y <<endl;
+	//cout <<"Velocity " << GetVelocity().x << " " <<  GetVelocity().y <<endl;
 
 	if(m_pxCurrentAnimation != nullptr) 
 	{

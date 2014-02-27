@@ -144,6 +144,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					EnemyFishObject *enemy = new EnemyFishObject(tempEnemy->getPosition(),tempEnemy,collider);
 					enemy->SetPosition(sf::Vector2f(iX, iY) );
 					enemy->SetLevelLayer(setLayer);
+					enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 					m_pxGameObjMgr->Attach(enemy);
 					m_CollisionMgr->AttachCollider(collider);
 

@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "Camera.h"
 #include "LightSource.h"
+#include "GameObjectManager.h"
+#include "PlayerFishObject.h"
 
 
 Camera::Camera(sf::Vector2f p_Size)
 {
 	m_CameraView.setSize(p_Size);
 	m_FilterOn = false;
+	m_FilterSprite = nullptr;
+	m_FilterTexture = nullptr;
 
 }
 
@@ -23,20 +27,105 @@ Camera::~Camera()
 	}
 }
 
-void Camera::Update(sf::Vector2f p_position, LightSource *light)
+void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 {
-	//Move is better to use if there is a limit to where the camera can move.
-	//Move(m_GameObjMgr->m_pxPlayer->GetVelocity() );
-
-	SetCameraPosition(p_position);
-	if(m_FilterOn)
-	{
-		m_FilterSprite->setPosition(p_position);
-		CutOutFilter(light);
-	}
+	SetCenterCamera(p_window->getView().getCenter() );
+	AddLayer();
+	Move(p_Position - GetCameraView().getCenter() );
+	//m_FilterSprite->move( p_Position - GetCameraView().getCenter() /*+ sf::Vector2f(210, 210)*/ );
 }
 
-void Camera::SetCameraPosition(sf::Vector2f p_position)
+void Camera::Update(GameObjectManager *p_GameObjMgr)
+{
+
+	if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
+		&&  ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
+	{
+		Move(0.0f, 0.0f);
+		m_FilterSprite->move(0.0f, 0.0f );
+	}
+	else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+		&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340) )
+	{
+		Move(0.0f, 0.0f);
+		m_FilterSprite->move(0.0f, 0.0f );
+	}
+	else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+		&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
+	{
+		Move(0.0f, 0.0f);
+		m_FilterSprite->move(0.0f, 0.0f );
+	}
+	else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) ) <= -35)
+		&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340) )
+	{
+		Move(0.0f, 0.0f);
+		m_FilterSprite->move(0.0f, 0.0f );
+	}
+	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
+	{
+		Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+		m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+	}
+	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) 
+	{
+		Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+		m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+	}
+	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+	{
+		Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+		m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+	}
+	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340)
+	{
+		Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+		m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+	}
+	else
+	{
+		Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+		m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+	}
+
+	UpdateFilter(p_GameObjMgr);
+}
+
+void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr)
+{
+	m_FilterTexture->setView(m_CameraView);
+
+	GetFilterTexture()->clear();
+	for( int i = 0; i < p_GameObjMgr->m_apxGameObject.size(); i++)
+	{
+		if(p_GameObjMgr->m_apxGameObject[i]->HasLight() )
+		{
+			/*if(fabs(p_GameObjMgr->m_apxGameObject[i]->GetPosition().x - GetCameraView().getCenter().x) 
+				< (GetCameraView().getSize().x / 2.0f + p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle()->getRadius() ) 
+				&&
+				fabs(p_GameObjMgr->m_apxGameObject[i]->GetPosition().y - GetCameraView().getCenter().y) 
+				< (GetCameraView().getSize().y / 2.0f + p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle()->getRadius()))*/
+			{
+
+				if(p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus() == true)
+				{
+					//checka om cirklar överlappar om dom gör det ta BlendAlpha??
+					GetFilterTexture()->draw(*p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle(), sf::BlendNone );
+				}
+
+			}
+		}
+	}
+	if(p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() == true )
+	{
+		GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendNone );
+	}
+	GetFilterTexture()->display();
+	
+
+}
+/* Do when you want to change the center/origin of the camera*/
+void Camera::SetCenterCamera(sf::Vector2f p_position)
 {
 	m_CameraView.setCenter(p_position);
 }
@@ -71,7 +160,14 @@ void Camera::AddLayer()
 	m_FilterTexture->create(m_CameraView.getSize().x, m_CameraView.getSize().y);
 	m_FilterSprite = new sf::Sprite();
 	m_FilterSprite->setTexture(m_FilterTexture->getTexture() );
+	//m_FilterSprite->setOrigin(m_CameraView.getCenter() );
 	m_FilterSprite->setOrigin(m_FilterTexture->getTexture().getSize().x / 2.0f, m_FilterTexture->getTexture().getSize().y / 2.0f  );
+	m_FilterSprite->setPosition(m_CameraView.getCenter() + sf::Vector2f(200, 60) );
+}
+
+sf::RenderTexture* Camera::GetFilterTexture()
+{
+	return m_FilterTexture;
 }
 
 //to toggle the effect on and off for testing.
@@ -88,14 +184,4 @@ bool Camera::GetFilterStatus()
 sf::Sprite* Camera::GetFilterSprite()
 {
 	return m_FilterSprite;
-}
-
-void Camera::CutOutFilter(LightSource *light)
-{
-	m_FilterTexture->clear();
-	if(light->GetLightStatus() )
-	{
-		m_FilterTexture->draw(*light->GetLightCircle(), sf::BlendNone);
-	}
-	m_FilterTexture->display();
 }

@@ -1,6 +1,7 @@
 // EnemyFishObject.cpp
 #include "stdafx.h"
 #include "EnemyFishObject.h"
+#include "LightSource.h"
 //
 //EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite)
 //	: GameObject(p_xPosition, p_pxSprite) 
@@ -28,6 +29,11 @@ EnemyFishObject::~EnemyFishObject()
 	{
 		delete m_collisionManager;
 		m_collisionManager = nullptr;
+	}
+
+	if(GetLightSource() != nullptr)
+	{
+		delete GetLightSource();
 	}
 	////Delete Collider
 	//if(GetCollider() != nullptr)
@@ -66,6 +72,12 @@ void EnemyFishObject::Update(float deltatime)
 	}
 
 	SetPosition( GetPosition() + GetVelocity() );
+
+	if(m_light != nullptr)
+	{
+		m_light->SetPosition( GetPosition() );
+	}
+
 	if (m_collisionManager->b_playerVsenemy)
 	{
 		m_pxCollider = nullptr;
