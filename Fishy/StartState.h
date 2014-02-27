@@ -37,9 +37,17 @@ private:
 	InputManager * m_pInputManager;
 	DrawManager * m_DrawManager;
 	SpriteManager *m_SpriteManager;
-	Button m_ButtonStart;
 	sf::Sprite *m_BackGroundImg;
+	// Start
+	Button m_ButtonStart;
+	sf::Vector2f m_ButtonStartPos;
+	// Quit
 	Button m_ButtonQuit;
+	sf::Vector2f m_ButtonQuitPos;
+	// Option
+	Button m_ButtonOptions;
+	sf::Vector2f m_ButtonOptionPos;
+
 	int m_ButtonClick;
 
 };

@@ -7,22 +7,24 @@
 //#include "Collider.h"
 
 GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collider * p_pxCollider)
-	:  m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider)
+	: m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider), m_sType("GameObject")
 {
 	SetPosition(p_xPosition);
 	m_bDestroyed = false;
 	m_light = nullptr;
+	if(m_pxCollider != nullptr)
+		m_pxCollider->SetParent(this);
 }
 
 GameObject::~GameObject()
 {
 }
-void GameObject::SetLevelLayer(int x)
+void GameObject::SetLevelLayer(ELayer layer)
 {
-	m_LevelLayer = x ;
+	m_LevelLayer = layer ;
 }
 
-int GameObject::GetLevelLayer()
+ELayer GameObject::GetLevelLayer()
 {
 	return m_LevelLayer;
 }
@@ -136,4 +138,9 @@ bool GameObject::HasLight() const
 LightSource* GameObject::GetLightSource()
 {
 	return m_light;
+}
+
+void GameObject::OnCollision(GameObject* p_xOther)
+{
+	/*std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;*/
 }

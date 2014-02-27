@@ -26,10 +26,16 @@ public:
 	bool GetFilterStatus();
 	sf::Sprite* GetFilterSprite();
 
+	bool IsMovementXAxis();
+	bool IsMovementYAxis();
+
 private:
 	sf::View m_CameraView;
 	sf::RenderTexture *m_FilterTexture;
     sf::Sprite *m_FilterSprite;
 	bool m_FilterOn;
+
+	bool m_MovingXAxis;
+	bool m_MovingYAxis;
 };
 

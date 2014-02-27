@@ -1,13 +1,14 @@
 //GameObject.h
 
 #pragma once
-
+#include "Level.h"
 #include <string>
 
 class Collider;
 class Sprite;
 class LightSource;
-
+enum ELayer;
+	
 class GameObject
 {
 public:
@@ -40,21 +41,25 @@ public:
 
 	void SetDestroyed(bool p_bDestroyed);
 	bool GetDestroyed();
-
+	
 	void FlipXLeft(float scale);
 	void FlipXRight(float scale);
-	void SetLevelLayer(int x);
-	int GetLevelLayer();
+	void SetLevelLayer(ELayer); 
+	ELayer GetLevelLayer();
 	virtual void Update(float deltatime);
 	void AddLightSource(LightSource *p_light);
 	bool GameObject::HasLight() const;
 	LightSource* GetLightSource();
+	std::string GetType(){ return m_sType;};
+	void SetType(std::string p_sType){m_sType = p_sType;};
+	virtual void OnCollision(GameObject* p_xOther);
 
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;
 	bool m_bDestroyed;
-	int m_LevelLayer;
+	std::string m_sType;
+	ELayer m_LevelLayer;
 
 	LightSource *m_light;
 };

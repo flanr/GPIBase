@@ -12,7 +12,7 @@ public:
 	EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite, Collider* p_xCollider = nullptr);
 	~EnemyFishObject();
 
-	void Update(float deltatime);
+	void Update(float deltatime, PlayerFishObject *player);
 
 	void ChangeState();
 
@@ -20,7 +20,7 @@ public:
 	sf::Vector2f GetSpawnPosition(sf::Vector2f p_xSpawnPosition);
 	void SetAttractRadius(float p_fAttractRadius);
 
-	
+	void OnCollision(GameObject* p_other);
 	
 private:
 	sf::Vector2f m_xSpawnPosition;

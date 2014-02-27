@@ -46,11 +46,14 @@ private:
 	sf::RenderWindow *m_window;
 	PlayerFishObject *m_player;
 
-	Level * m_LevelLayerForGround;
-	Level * m_LevelLayerMidleGround;
-	Level * m_LevelLayerBackground;
-	SpriteManager * m_SpriteManager;
-	DrawManager * m_DrawManager;
+	Level* m_LevelLayerForGround;
+	Level* m_LevelLayerMidleGround;
+	Level* m_LevelLayerBackgroundSecondLowest;
+	Level* m_LevelLayerBackgroundSecondHighest;
+	Level* m_LevelLayerGradient;
+	Level* m_LevelLayerBackgroundLowest;
+	SpriteManager* m_SpriteManager;
+	DrawManager* m_DrawManager;
 	GameObjectManager *m_GameObjMgr;
 	Camera* m_Camera;
 

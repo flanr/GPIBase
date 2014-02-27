@@ -10,6 +10,7 @@ enum eState
 	Moving,
 	Attack,
 	Sneak,
+	Fleeing,
 	Chewing,
 	Death,
 	StateCount
@@ -57,6 +58,8 @@ public:
 
 	float GetScale();
 	void SetScale(float x);
+
+	void OnCollision(GameObject* p_other){ };
 
 private:
 

@@ -232,37 +232,42 @@ m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
 */
 
 
-////Update functions
+//Update functions
 void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 {
 
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
-		/*if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
+
+		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 		{
-			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, din kod);
+			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, m_pxPlayer);
 		}
 		else
-		{*/
-			m_apxGameObject[i]->Update(p_fDeltatime);
-		/*}*/
-
-		if(m_apxGameObject[i]->HasCollider() )
 		{
-			if( m_apxGameObject[i]->GetCollider()->GetStatus() == true )
-			{
-				m_apxGameObject[i]->SetDestroyed(true);
-			}
-
-			if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
-			{
-
-				DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
-				//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
-				m_apxGameObject.erase(m_apxGameObject.begin() + i);
-				m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
-			}
+			m_apxGameObject[i]->Update(p_fDeltatime);
 		}
+		if (m_apxGameObject[i]->GetCollider() == nullptr && m_apxGameObject[i]->GetLevelLayer() == ELayer::MIDDLEGROUND)
+		{
+			m_apxGameObject.erase(m_apxGameObject.begin() +i);
+		}
+		//if(m_apxGameObject[i]->HasCollider() )
+		//{
+		//	if( m_apxGameObject[i]->GetCollider() )
+		//	{
+		//		std::cout << "Destroying: " << m_apxGameObject[i]->GetType() << std::endl;
+		//		m_apxGameObject[i]->SetDestroyed(true);
+		//	}
+
+		//	if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
+		//	{
+
+		//		DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
+		//		//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
+		//		m_apxGameObject.erase(m_apxGameObject.begin() + i);
+		//		m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
+		//	}
+		//}
 	}
 	//if(m_pxPlayer != nullptr)
 	//{
@@ -273,6 +278,7 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	//		m_pxPlayer->SetDestroyed(false);
 	//	}
 	//}
+
 
 	/*for ( auto element : m_apxGameObject )
 	{

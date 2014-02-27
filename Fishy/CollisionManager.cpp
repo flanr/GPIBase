@@ -28,33 +28,13 @@ void CollisionManager::CheckCollisionRectVsRect()
 	{
 		for (int j = i+1; j < m_axRectColliders.size(); j++)
 		{
+			
 			if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
 			{
-				std::cout << "Collision!\n";
-
-				if (m_axRectColliders[i]->GetId() == EPLAYER)
-				{
-					std::cout << "Player" << std::endl;
-					if (m_axRectColliders[j]->GetId()== EENEMY)
-					{
-						m_enemynr = m_axRectColliders[j]->GetNr();
-						std::cout << "player vs enemy" << std::endl;
-						b_playerVsenemy = true;	
-					}
-				}
-				////Temporary for testing
-				if(m_axRectColliders[i] != nullptr)
-				{
-					m_axRectColliders[i]->SetStatus(true);
-				}
-				//Temporary for testing
-				if(m_axRectColliders[j] != nullptr)
-				{
-					m_axRectColliders[j]->SetStatus(true);
-				}
-
-				/*m_axRectColliders[i]->SetPosition(m_axRectColliders[i]->GetPosition() += offset);
-				m_axRectColliders[j]->SetPosition(m_axRectColliders[j]->GetPosition() += -offset);*/
+				m_axRectColliders[i]->OnCollision(m_axRectColliders[j]);
+				m_axRectColliders[j]->OnCollision(m_axRectColliders[i]);
+				
+				
 
 			}
 		}
@@ -117,17 +97,14 @@ void CollisionManager::RemoveEnemyCollider()
 {
 	for (size_t it = m_axRectColliders.size()-1; it > 0; it--)
 	{
-		if (m_axRectColliders[it]->GetId() == EENEMY)
+		if(m_axRectColliders[it]->GetParent() == nullptr)
 		{
-			if(m_enemynr == m_axRectColliders[it]->GetNr())
-			{
-				delete m_axRectColliders[it];
-				m_axRectColliders[it] = nullptr;
-				m_axRectColliders.erase(m_axRectColliders.begin()+ it);
-			}
-
+			delete m_axRectColliders[it];
+			m_axRectColliders[it] = nullptr;
+			m_axRectColliders.erase(m_axRectColliders.begin()+ it);
 		}
 	}
-	
 }
+	
+
 

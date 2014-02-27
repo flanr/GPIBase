@@ -25,9 +25,14 @@ GameState::GameState(Core* p_pCore)
 
 	m_DrawManager = p_pCore->m_DrawManager;
 	m_player = p_pCore->m_player;
-	m_LevelLayerBackground = nullptr;
-	m_LevelLayerMidleGround = nullptr;
+
+	// Layers
 	m_LevelLayerForGround = nullptr;
+	m_LevelLayerMidleGround = nullptr;
+	m_LevelLayerBackgroundSecondLowest = nullptr;
+	m_LevelLayerBackgroundSecondHighest = nullptr;
+	m_LevelLayerGradient = nullptr;
+	m_LevelLayerBackgroundLowest = nullptr;
 
 	m_Camera = nullptr;
 
@@ -57,14 +62,23 @@ bool GameState::EnterState()
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
-	if (m_LevelLayerBackground == nullptr)
+	if (m_LevelLayerBackgroundSecondLowest == nullptr)
 	{
-		m_LevelLayerBackground = new Level(m_GameObjMgr);
-		m_LevelLayerBackground->Load("../data/levels/level_background.txt", m_SpriteManager, false, 0);
+		// Lowest
+		m_LevelLayerBackgroundLowest = new Level(m_GameObjMgr);
+		m_LevelLayerBackgroundLowest->Load("../data/levels/level_backgroundlowest.txt",m_SpriteManager,false, ELayer::LOWESTBG);
+		// Second Lowest
+		m_LevelLayerBackgroundSecondLowest = new Level(m_GameObjMgr);
+		m_LevelLayerBackgroundSecondLowest->Load("../data/levels/level_backgroundsecondlowest.txt", m_SpriteManager, false,ELayer::SECONDLOWESTBG);
+		// Background
+		m_LevelLayerBackgroundSecondHighest = new Level(m_GameObjMgr);
+		m_LevelLayerBackgroundSecondHighest->Load("../data/levels/level_backgroundsecondhighest.txt",m_SpriteManager,false, ELayer::HIGHESTBG);
+		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
-		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true, 1);
+		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
+		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
-		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, 2);
+		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 	} 
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
@@ -93,47 +107,43 @@ bool GameState::Update(float p_DeltaTime)
 	{
 
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_Camera, p_DeltaTime);
-		if(m_GameObjMgr->m_pxPlayer->GetCollider()->GetStatus() == true)
+		/*if(m_GameObjMgr->m_pxPlayer->GetCollider()->GetStatus() == true)
 		{
 			m_GameObjMgr->m_pxPlayer->SetDestroyed(false);
-		}
+		}*/
 	}
 
-	if (mgr->GetPlayerVsEnemy())
+	mgr->RemoveEnemyCollider();
+	/*if (mgr->GetPlayerVsEnemy())
 	{
 		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
 		mgr->RemoveEnemyCollider();
 		mgr->SetPlayerVsEnemy(false);
-	}
-
+	}*/
+	/// Player Experience Stuff
 	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
 	{
-		m_GameObjMgr->m_pxPlayer->SetScale(1.0f);
+		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}
 
-
-	int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
+	/*int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
 	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
 	if (x > 2390)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2390,m_GameObjMgr->m_pxPlayer->GetPosition().y));
-		m_GameObjMgr->m_pxPlayer->SetVelocity(sf::Vector2f(0.0f, m_GameObjMgr->m_pxPlayer->GetVelocity().y));
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2390,m_GameObjMgr->m_pxPlayer->GetPosition().y));
 	}
 	if (x < 35)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(35,m_GameObjMgr->m_pxPlayer->GetPosition().y));
-		m_GameObjMgr->m_pxPlayer->SetVelocity(sf::Vector2f(0.0f, m_GameObjMgr->m_pxPlayer->GetVelocity().y));
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(35,m_GameObjMgr->m_pxPlayer->GetPosition().y));
 	}
 	if (y > 1270)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,1270));
-		m_GameObjMgr->m_pxPlayer->SetVelocity(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f));
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,1270));
 	}
 	if (y < 50)
 	{
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
-		m_GameObjMgr->m_pxPlayer->SetVelocity(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f));
-	}
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
+	}*/
 
 	m_Camera->Update(m_GameObjMgr );
 	UpdateGUI();
@@ -186,7 +196,7 @@ void GameState::Draw()
 	m_DrawManager->ClearWindow();
 
 	m_window->setView(m_Camera->GetCameraView() );
-	m_LevelLayerForGround->Draw(m_DrawManager);
+	m_LevelLayerForGround->Draw(m_DrawManager, m_Camera);
 
 	//Draw if filter is toggled On
 	if(m_Camera->GetFilterStatus()  )

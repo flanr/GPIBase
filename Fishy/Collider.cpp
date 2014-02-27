@@ -8,7 +8,7 @@ Collider::Collider()
 	, m_extention(0.f,0.f)
 {
 	m_radius = 0.f;
-	m_nr = 0;
+	m_xParent = nullptr;
 }
 Collider::Collider(sf::Vector2f p_position, sf::Vector2f p_extension)
 	: m_position(p_position)
@@ -16,15 +16,12 @@ Collider::Collider(sf::Vector2f p_position, sf::Vector2f p_extension)
 {
 
 	////Temporary for testing
-	m_bCollisionStatus = false;
-	m_nr = 0;
 }
 
 Collider::Collider(sf::Vector2f p_position, float p_radius)
 	: m_radius(p_radius)
 	, m_position(p_position)
 {
-	m_nr = 0;
 }
 
 sf::Vector2f Collider::GetPosition()
@@ -204,11 +201,43 @@ void Collider::SetExtention(const sf::Vector2f p_ext)
 	m_extention = p_ext;
 }
 
-void Collider::SetStatus(bool p_Collision)
+
+void Collider::OnCollision(Collider* p_xOther)
 {
-	m_bCollisionStatus = p_Collision;
+	std::cout << "Collider::OnCollision: Collider A: "  << m_xParent->GetType() << " Collider B: " << p_xOther->m_xParent->GetType() << std::endl;
+	/*if(m_xParent != nullptr)
+	m_xParent->OnCollision(p_xOther->GetParent());*/
+	if (m_xParent->GetType() == "Player")
+	{
+		if (p_xOther->m_xParent->GetType() == "Enemy")
+		{
+			m_xParent->OnCollision(p_xOther->GetParent());
+		}
+	}
+	if(m_xParent->GetType() == "Enemy")
+	{
+		if(p_xOther->m_xParent->GetType() == "Player")
+		{
+			m_xParent->OnCollision(p_xOther->GetParent());
+			m_xParent = nullptr;
+		}
+	}
 }
-bool Collider::GetStatus()
-{
-	return m_bCollisionStatus;
-}
+
+
+	//           | 1 Player  |  2 Enemy  | 3 PowerUp
+	//    -------------------------------------------
+	// 1 Player  |    ---    |    xxx    |    xxx
+	//    -------------------------------------------
+	// 2 Enemy   |           |    ---    |    xxx
+	//    -------------------------------------------
+	// 3 powerup |           |           |    ---
+	//
+	// Collider.m_iLayer = ?
+	//
+	// CollisionManager har en vector med två intar det vill säga collisionpar.
+	// om någon av elementen i vectorerna har samma intar som collider A och B (tvärt om)
+	// TEX A = 1 (Player) B = 2 (Enemy), Bör pair<int,int>(1,2) finnas i vectorn (svar ja)
+	// 
+
+

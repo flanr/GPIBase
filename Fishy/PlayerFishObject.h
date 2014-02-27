@@ -2,11 +2,9 @@
 #pragma once
 
 #include "FishObject.h"
-
 class AnimatedSprite;
 class Collider;
 class Camera;
-
 
 class PlayerFishObject : public FishObject {
 public:
@@ -25,6 +23,7 @@ public:
 	void ExperienceGain(int x);
 	int GetExperience();
 	
+	void OnCollision(GameObject* other);
 private:
 
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
