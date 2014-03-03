@@ -4,6 +4,7 @@
 #include "FishObject.h"
 class AnimatedSprite;
 class Collider;
+class Camera;
 
 class PlayerFishObject : public FishObject {
 public:
@@ -11,7 +12,7 @@ public:
 	~PlayerFishObject();
 
 	void SetPlayerScale(float x);
-	void Update(InputManager *p_pxInputManager, float p_Deltatime);
+	void Update(InputManager *p_pxInputManager,Camera *p_Camera ,float p_Deltatime);
 	void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
 
 	void SetHealth(int p_Health);
@@ -44,6 +45,5 @@ private:
 
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
-
 
 };
