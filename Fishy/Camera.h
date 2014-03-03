@@ -17,6 +17,10 @@ public:
 	void Move(const sf::Vector2f &p_Offset);
 	void Move(float p_OffsetX, float p_OffsetY);
 
+	void SetPosition(const sf::Vector2f &p_Position);
+	void SetPositionY(float p_OffsetY);
+	void SetPositionX(float p_OffsetX);
+
 	void SetCameraViewport(sf::FloatRect p_NewViewPort);
 	sf::FloatRect GetCameraViewport();
 

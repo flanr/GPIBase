@@ -98,11 +98,14 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
+	
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 
 	mgr->CheckCollisionRectVsRect();
+	
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
 
@@ -112,6 +115,9 @@ bool GameState::Update(float p_DeltaTime)
 			m_GameObjMgr->m_pxPlayer->SetDestroyed(false);
 		}*/
 	}
+	m_Camera->Update(m_GameObjMgr );
+	UpdateGUI();
+	
 
 	mgr->RemoveEnemyCollider();
 	/*if (mgr->GetPlayerVsEnemy())
@@ -145,8 +151,7 @@ bool GameState::Update(float p_DeltaTime)
 	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
 	}*/
 
-	m_Camera->Update(m_GameObjMgr );
-	UpdateGUI();
+	
 
 	return true;
 }

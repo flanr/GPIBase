@@ -34,11 +34,13 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 	AddLayer();
 	Move(p_Position - GetCameraView().getCenter() );
 	//m_FilterSprite->move( p_Position - GetCameraView().getCenter() /*+ sf::Vector2f(210, 210)*/ );
+	m_FilterSprite->setPosition(p_Position );
 }
 
 void Camera::Update(GameObjectManager *p_GameObjMgr)
 {
-
+	m_MovingXAxis = false;
+	m_MovingYAxis = false;
 	if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
 		&&  ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
 	{
@@ -71,40 +73,53 @@ void Camera::Update(GameObjectManager *p_GameObjMgr)
 		m_MovingXAxis = false;
 		m_MovingYAxis = false;
 	}
-	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
-	{
-		Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-		m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-		m_MovingXAxis = false;
-		m_MovingYAxis = true;
-	}
-	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) 
-	{
-		Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-		m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-		m_MovingXAxis = true;
-		m_MovingYAxis = false;
-	}
-	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
-	{
-		Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-		m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-		m_MovingXAxis = false;
-		m_MovingYAxis = true;
-	}
-	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340)
-	{
-		Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-		m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-		m_MovingXAxis = true;
-		m_MovingYAxis = false;
-	}
 	else
 	{
-		Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
-		m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
-		m_MovingXAxis = true;
-		m_MovingYAxis = true;
+		if( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
+		{
+			SetPositionY(p_GameObjMgr->m_pxPlayer->GetPosition().y );
+			//Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+			m_FilterSprite->setPosition(m_FilterSprite->getPosition().x, p_GameObjMgr->m_pxPlayer->GetPosition().y );
+			//m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+			m_MovingXAxis = false;
+			m_MovingYAxis = true;
+		}
+		else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) 
+		{
+			SetPositionX(p_GameObjMgr->m_pxPlayer->GetPosition().x );
+			//Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+			m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition().x, m_FilterSprite->getPosition().y );
+			//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+			m_MovingXAxis = true;
+			m_MovingYAxis = false;
+		}
+		else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+		{
+			SetPositionY(p_GameObjMgr->m_pxPlayer->GetPosition().y );
+			//Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+			m_FilterSprite->setPosition(m_FilterSprite->getPosition().x, p_GameObjMgr->m_pxPlayer->GetPosition().y );
+			//m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+			m_MovingXAxis = false;
+			m_MovingYAxis = true;
+		}
+		else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340)
+		{
+			SetPositionX(p_GameObjMgr->m_pxPlayer->GetPosition().x );
+			//Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+			m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition().x, m_FilterSprite->getPosition().y );
+			//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+			m_MovingXAxis = true;
+			m_MovingYAxis = false;
+		}
+		else
+		{
+			SetPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
+			//Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+			m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
+			//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+			m_MovingXAxis = true;
+			m_MovingYAxis = true;
+		}
 	}
 
 	UpdateFilter(p_GameObjMgr);
@@ -129,7 +144,7 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr)
 				if(p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus() == true)
 				{
 					//checka om cirklar överlappar om dom gör det ta BlendAlpha??
-					GetFilterTexture()->draw(*p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle(), sf::BlendNone );
+					GetFilterTexture()->draw(*p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle(), sf::BlendMultiply );
 				}
 
 			}
@@ -137,7 +152,7 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr)
 	}
 	if(p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() == true )
 	{
-		GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendNone );
+		GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendMultiply );
 	}
 	GetFilterTexture()->display();
 
@@ -163,6 +178,21 @@ void Camera::Move(float p_OffsetX, float p_OffsetY)
 	m_CameraView.move(p_OffsetX, p_OffsetY);
 }
 
+void Camera::SetPosition(const sf::Vector2f &p_Position)
+{
+	m_CameraView.setCenter(p_Position);
+}
+
+void Camera::SetPositionY(float p_OffsetY)
+{
+	m_CameraView.setCenter(m_CameraView.getCenter().x, p_OffsetY);
+}
+
+void Camera::SetPositionX(float p_OffsetX)
+{
+	m_CameraView.setCenter(p_OffsetX, m_CameraView.getCenter().y);
+}
+
 void Camera::SetCameraViewport(sf::FloatRect p_NewViewPort)
 {
 	m_CameraView.setViewport(p_NewViewPort);
@@ -181,7 +211,7 @@ void Camera::AddLayer()
 	m_FilterSprite->setTexture(m_FilterTexture->getTexture() );
 	//m_FilterSprite->setOrigin(m_CameraView.getCenter() );
 	m_FilterSprite->setOrigin(m_FilterTexture->getTexture().getSize().x / 2.0f, m_FilterTexture->getTexture().getSize().y / 2.0f  );
-	m_FilterSprite->setPosition(m_CameraView.getCenter() - sf::Vector2f(80, 10) );
+	//m_FilterSprite->setPosition(m_CameraView.getCenter() - sf::Vector2f(80, 10) );
 }
 
 sf::RenderTexture* Camera::GetFilterTexture()
