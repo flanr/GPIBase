@@ -40,7 +40,6 @@ StartState::StartState(Core* p_pCore)
 
 	m_ButtonClick = 0;
 
-
 }
 
 string StartState::GetCurrentState()
@@ -113,6 +112,8 @@ int StartState::MouseOver(int x, int y)
 		m_pCore->m_StateManager.SetState("GameState");
 		}*/
 		//
+		//m_pCore->m_SoundManager->PlayMusic("vandalism.flac");
+
 		return 1;
 	} else
 	{
@@ -211,7 +212,7 @@ void StartState::HandleInput()
 			m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
-		m_ButtonClick = -1;
+			m_ButtonClick = -1;
 
 
 

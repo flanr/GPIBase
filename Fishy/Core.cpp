@@ -18,6 +18,7 @@ Core::Core()
 	m_SpriteManager = nullptr;
 	m_DrawManager = nullptr;
 	m_GameObjectManager = nullptr;
+	m_SoundManager = nullptr,
 
 	playerSprite = nullptr;
 
@@ -59,6 +60,16 @@ bool Core::Initialize()
 		{
 			return false;
 		}
+	}
+	
+	if (m_SoundManager == nullptr)
+	{
+		m_SoundManager = new SoundManager();
+		if(!m_SoundManager->Initialize("../data/sound/"))
+		{
+			return false;
+		}
+
 	}
 
 	if(m_GameObjectManager == nullptr)

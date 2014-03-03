@@ -18,7 +18,7 @@ OptionState::OptionState(Core* p_pCore)
 	m_BackGroundImg->setPosition(0,0);
 	// OptionBackground
 	m_OptionBackground = m_SpriteManager->Load("optionsbg.png",0,0,851,518);
-	m_OptionBackground->setPosition(0,0);
+	m_OptionBackground->setPosition(200,100);
 	
 	////////////////
 	//  Buttons   //

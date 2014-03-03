@@ -33,6 +33,7 @@ public:
 	DrawManager *m_DrawManager;
 	SpriteManager *m_SpriteManager;
 	GameObjectManager *m_GameObjectManager;
+	SoundManager *m_SoundManager;
 	sf::RenderWindow  *window;
 
 	PlayerFishObject *m_player;
