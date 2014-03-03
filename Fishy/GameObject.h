@@ -47,7 +47,7 @@ public:
 	LightSource* GetLightSource();
 	std::string GetType(){ return m_sType;};
 	void SetType(std::string p_sType){m_sType = p_sType;};
-	virtual void OnCollision(GameObject* p_xOther);
+	virtual void OnCollision(GameObject* p_xOther, sf::Vector2f& offset);
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;

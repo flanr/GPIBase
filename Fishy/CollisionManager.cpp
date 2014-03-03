@@ -23,7 +23,8 @@ void CollisionManager::AttachCollider(Collider* p_collider)
 
 void CollisionManager::CheckCollisionRectVsRect()
 {
-	sf::Vector2f offset;
+	int count = 0;
+	sf::Vector2f offset = sf::Vector2f(0.f,0.f);
 	for (int i = 0; i < m_axRectColliders.size()-1; i++)
 	{
 		for (int j = i+1; j < m_axRectColliders.size(); j++)
@@ -31,8 +32,10 @@ void CollisionManager::CheckCollisionRectVsRect()
 			
 			if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
 			{
-				m_axRectColliders[i]->OnCollision(m_axRectColliders[j]);
-				m_axRectColliders[j]->OnCollision(m_axRectColliders[i]);
+				/*++count;
+				if (count > 0){offset /= (float)count;}*/
+				m_axRectColliders[i]->OnCollision(m_axRectColliders[j], offset);
+				m_axRectColliders[j]->OnCollision(m_axRectColliders[i], offset);
 				
 				
 

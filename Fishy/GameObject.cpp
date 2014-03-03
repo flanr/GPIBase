@@ -95,7 +95,10 @@ void GameObject::FlipXRight(float scale)
 
 void GameObject::Update(float deltatime)
 {
-	//Uppdatera spelobjekt
+	if (GetCollider() != nullptr)
+	{
+		GetCollider()->SetPosition(GetPosition());
+	}
 }
 
 void GameObject::AddLightSource(LightSource *p_light)
@@ -108,7 +111,7 @@ LightSource* GameObject::GetLightSource()
 	return m_light;
 }
 
-void GameObject::OnCollision(GameObject* p_xOther)
+void GameObject::OnCollision(GameObject* p_xOther, sf::Vector2f& p_Offset)
 {
 	/*std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;*/
 }

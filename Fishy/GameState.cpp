@@ -100,9 +100,10 @@ bool GameState::Update(float p_DeltaTime)
 {
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
-
+	
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	
 	m_Camera->Update(m_GameObjMgr->m_pxPlayer->GetPosition(), m_GameObjMgr->m_pxPlayer->GetLightSource() );
 
 	mgr->RemoveEnemyCollider();

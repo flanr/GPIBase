@@ -130,7 +130,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				// Collider
 				Collider *collider = new Collider;
 				collider->SetPosition(sf::Vector2f(iX,iY) );
-				collider->SetExtention(sf::Vector2f(c.w-1, c.h-1));
+				collider->SetExtention(sf::Vector2f(c.w, c.h));
 				if (row[i] == 'E')
 				{
 					collider->SetExtention(sf::Vector2f(265*0.2f, 100*0.2f));
