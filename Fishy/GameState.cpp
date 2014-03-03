@@ -59,6 +59,7 @@ string GameState::Next()
 
 bool GameState::EnterState() 
 {
+
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
@@ -80,6 +81,8 @@ bool GameState::EnterState()
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 	} 
+	//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(140.f, 140.f));
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
@@ -101,11 +104,14 @@ bool GameState::Update(float p_DeltaTime)
 	
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
-
+	
 	mgr->CheckCollisionRectVsRect();
 	
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	
+
+	
+
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
 
@@ -118,6 +124,7 @@ bool GameState::Update(float p_DeltaTime)
 	m_Camera->Update(m_GameObjMgr );
 	UpdateGUI();
 	
+
 
 	mgr->RemoveEnemyCollider();
 	/*if (mgr->GetPlayerVsEnemy())

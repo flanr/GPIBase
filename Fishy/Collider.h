@@ -39,7 +39,7 @@ public:
 	void SetStatus(bool p_Collision);
 	bool GetStatus();
 	sf::Vector2f GetExtension(){return m_extention;};
-	void OnCollision(Collider* p_xOther);
+	void OnCollision(Collider* p_xOther, sf::Vector2f& offset);
 	GameObject* GetParent(){return m_xParent;};
 	void SetParent(GameObject* p_xParent){m_xParent = p_xParent;};
 

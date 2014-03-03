@@ -20,7 +20,7 @@ public:
 	sf::Vector2f GetSpawnPosition(sf::Vector2f p_xSpawnPosition);
 	void SetAttractRadius(float p_fAttractRadius);
 
-	void OnCollision(GameObject* p_other);
+	void OnCollision(GameObject* p_other, sf::Vector2f& p_Offset);
 	
 private:
 	sf::Vector2f m_xSpawnPosition;

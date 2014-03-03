@@ -134,7 +134,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, 
 		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
 	}
 
-	if(HasCollider() ) 
+	if(GetCollider() != nullptr ) 
 	{
 		m_pxCollider->SetPosition(GetPosition() );
 	}
@@ -390,8 +390,12 @@ void PlayerFishObject::UpdateHealth()
 // GameObject* g = new Player();
 // p = static_cast<Player*>(g);
 
-void PlayerFishObject::OnCollision(GameObject* p_other)
+void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
+	if (p_other->GetType() == "BrownBrick")
+	{
+		SetPosition(GetPosition() + p_Offset);
+	}
 	if (p_other->GetType() == "Enemy")
 	{
 		ExperienceGain(1);

@@ -54,23 +54,23 @@ bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 			float deltaY = fabs(Z) - (P + Q);
 			if (deltaX > deltaY)
 			{
-				if (m_position.x > other->m_position.x)
+				if (m_position.x >= other->m_position.x)
 				{
 					deltaX = -deltaX;
 				}
 				offset.x = deltaX;
-				/*other->m_position.x += deltaX/2.f;
-				m_position.x += deltaX/2.f;*/
+				other->m_position.x += deltaX/2.f;
+				m_position.x += deltaX/2.f;
 			}
 			if (deltaY > deltaX)
 			{
-				if (m_position.y > other->m_position.y)
+				if (m_position.y >= other->m_position.y)
 				{
 					deltaY = -deltaY;
 				}
 				offset.y = deltaY;
-				/*other->m_position.y += deltaY/2.f;
-				m_position.y += deltaY/2.f;*/
+				other->m_position.y -= deltaY/2.f;
+				m_position.y += deltaY/2.f;
 			}
 			return true;
 		}
@@ -202,42 +202,52 @@ void Collider::SetExtention(const sf::Vector2f p_ext)
 }
 
 
-void Collider::OnCollision(Collider* p_xOther)
+void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 {
-	std::cout << "Collider::OnCollision: Collider A: "  << m_xParent->GetType() << " Collider B: " << p_xOther->m_xParent->GetType() << std::endl;
+	//std::cout << "Collider::OnCollision: Collider A: "  << m_xParent->GetType() << " Collider B: " << p_xOther->m_xParent->GetType() << std::endl;
 	/*if(m_xParent != nullptr)
 	m_xParent->OnCollision(p_xOther->GetParent());*/
-	if (m_xParent->GetType() == "Player")
+	if(m_xParent != nullptr)
 	{
-		if (p_xOther->m_xParent->GetType() == "Enemy")
+		if (m_xParent->GetType() == "Player")
 		{
-			m_xParent->OnCollision(p_xOther->GetParent());
+			if (p_xOther->m_xParent->GetType() == "BrownBrick")
+			{
+				m_xParent->OnCollision(p_xOther->m_xParent, p_Offset);
+			}
 		}
-	}
-	if(m_xParent->GetType() == "Enemy")
-	{
-		if(p_xOther->m_xParent->GetType() == "Player")
+		if (m_xParent->GetType() == "Player")
 		{
-			m_xParent->OnCollision(p_xOther->GetParent());
-			m_xParent = nullptr;
+			if (p_xOther->m_xParent->GetType() == "Enemy")
+			{
+				m_xParent->OnCollision(p_xOther->GetParent(), p_Offset);
+			}
+		}
+		if(m_xParent->GetType() == "Enemy")
+		{
+			if(p_xOther->m_xParent->GetType() == "Player")
+			{
+				m_xParent->OnCollision(p_xOther->GetParent(), p_Offset);
+				m_xParent = nullptr;
+			}
 		}
 	}
 }
 
 
-	//           | 1 Player  |  2 Enemy  | 3 PowerUp
-	//    -------------------------------------------
-	// 1 Player  |    ---    |    xxx    |    xxx
-	//    -------------------------------------------
-	// 2 Enemy   |           |    ---    |    xxx
-	//    -------------------------------------------
-	// 3 powerup |           |           |    ---
-	//
-	// Collider.m_iLayer = ?
-	//
-	// CollisionManager har en vector med två intar det vill säga collisionpar.
-	// om någon av elementen i vectorerna har samma intar som collider A och B (tvärt om)
-	// TEX A = 1 (Player) B = 2 (Enemy), Bör pair<int,int>(1,2) finnas i vectorn (svar ja)
-	// 
+//           | 1 Player  |  2 Enemy  | 3 PowerUp
+//    -------------------------------------------
+// 1 Player  |    ---    |    xxx    |    xxx
+//    -------------------------------------------
+// 2 Enemy   |           |    ---    |    xxx
+//    -------------------------------------------
+// 3 powerup |           |           |    ---
+//
+// Collider.m_iLayer = ?
+//
+// CollisionManager har en vector med två intar det vill säga collisionpar.
+// om någon av elementen i vectorerna har samma intar som collider A och B (tvärt om)
+// TEX A = 1 (Player) B = 2 (Enemy), Bör pair<int,int>(1,2) finnas i vectorn (svar ja)
+// 
 
 
