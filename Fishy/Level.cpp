@@ -140,7 +140,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					tempEnemy->setPosition(iX, iY);
 					EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
 					enemy->SetLevelLayer(layer);
-					enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+					//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 
 					m_pxGameObjMgr->Attach(enemy);
 					m_CollisionMgr->AttachCollider(collider);

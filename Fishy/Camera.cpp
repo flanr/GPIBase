@@ -39,88 +39,95 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 
 void Camera::Update(GameObjectManager *p_GameObjMgr)
 {
-	m_MovingXAxis = false;
-	m_MovingYAxis = false;
-	if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
-		&&  ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
-	{
-		Move(0.0f, 0.0f);
-		m_FilterSprite->move(0.0f, 0.0f );
-		m_MovingXAxis = false;
-		m_MovingYAxis = false;
-	}
-	else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
-		&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340) )
-	{
-		Move(0.0f, 0.0f);
-		m_FilterSprite->move(0.0f, 0.0f );
-		m_MovingXAxis = false;
-		m_MovingYAxis = false;
-	}
-	else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
-		&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
-	{
-		Move(0.0f, 0.0f);
-		m_FilterSprite->move(0.0f, 0.0f );
-		m_MovingXAxis = false;
-		m_MovingYAxis = false;
-	}
-	else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) ) <= -35)
-		&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340) )
-	{
-		Move(0.0f, 0.0f);
-		m_FilterSprite->move(0.0f, 0.0f );
-		m_MovingXAxis = false;
-		m_MovingYAxis = false;
-	}
-	else
-	{
-		if( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
-		{
-			SetPositionY(p_GameObjMgr->m_pxPlayer->GetPosition().y );
-			//Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-			m_FilterSprite->setPosition(m_FilterSprite->getPosition().x, p_GameObjMgr->m_pxPlayer->GetPosition().y );
-			//m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-			m_MovingXAxis = false;
-			m_MovingYAxis = true;
-		}
-		else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) 
-		{
-			SetPositionX(p_GameObjMgr->m_pxPlayer->GetPosition().x );
-			//Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-			m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition().x, m_FilterSprite->getPosition().y );
-			//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-			m_MovingXAxis = true;
-			m_MovingYAxis = false;
-		}
-		else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
-		{
-			SetPositionY(p_GameObjMgr->m_pxPlayer->GetPosition().y );
-			//Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-			m_FilterSprite->setPosition(m_FilterSprite->getPosition().x, p_GameObjMgr->m_pxPlayer->GetPosition().y );
-			//m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
-			m_MovingXAxis = false;
-			m_MovingYAxis = true;
-		}
-		else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340)
-		{
-			SetPositionX(p_GameObjMgr->m_pxPlayer->GetPosition().x );
-			//Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-			m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition().x, m_FilterSprite->getPosition().y );
-			//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
-			m_MovingXAxis = true;
-			m_MovingYAxis = false;
-		}
-		else
-		{
-			SetPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
-			//Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
-			m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
-			//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
-			m_MovingXAxis = true;
-			m_MovingYAxis = true;
-		}
-	}
+	//m_MovingXAxis = false;
+	//m_MovingYAxis = false;
+	//if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
+	//	&&  ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
+	//{
+	//	Move(0.0f, 0.0f);
+	//	m_FilterSprite->move(0.0f, 0.0f );
+	//	m_MovingXAxis = false;
+	//	m_MovingYAxis = false;
+	//}
+	//else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+	//	&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340) )
+	//{
+	//	Move(0.0f, 0.0f);
+	//	m_FilterSprite->move(0.0f, 0.0f );
+	//	m_MovingXAxis = false;
+	//	m_MovingYAxis = false;
+	//}
+	//else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+	//	&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) )
+	//{
+	//	Move(0.0f, 0.0f);
+	//	m_FilterSprite->move(0.0f, 0.0f );
+	//	m_MovingXAxis = false;
+	//	m_MovingYAxis = false;
+	//}
+	//else if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) ) <= -35)
+	//	&& ( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340) )
+	//{
+	//	Move(0.0f, 0.0f);
+	//	m_FilterSprite->move(0.0f, 0.0f );
+	//	m_MovingXAxis = false;
+	//	m_MovingYAxis = false;
+	//}
+	//else
+	//{
+	//	if( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
+	//	{
+	//		SetPositionY(p_GameObjMgr->m_pxPlayer->GetPosition().y );
+	//		//Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+	//		m_FilterSprite->setPosition(m_FilterSprite->getPosition().x, p_GameObjMgr->m_pxPlayer->GetPosition().y );
+	//		//m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+	//		m_MovingXAxis = false;
+	//		m_MovingYAxis = true;
+	//	}
+	//	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y - (GetCameraView().getSize().y / 2.0f) ) <= -20) 
+	//	{
+	//		SetPositionX(p_GameObjMgr->m_pxPlayer->GetPosition().x );
+	//		//Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+	//		m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition().x, m_FilterSprite->getPosition().y );
+	//		//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+	//		m_MovingXAxis = true;
+	//		m_MovingYAxis = false;
+	//	}
+	//	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().x + (GetCameraView().getSize().x / 2.0f) ) >= 2460)
+	//	{
+	//		SetPositionY(p_GameObjMgr->m_pxPlayer->GetPosition().y );
+	//		//Move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+	//		m_FilterSprite->setPosition(m_FilterSprite->getPosition().x, p_GameObjMgr->m_pxPlayer->GetPosition().y );
+	//		//m_FilterSprite->move(0.0f, p_GameObjMgr->m_pxPlayer->GetVelocity().y );
+	//		m_MovingXAxis = false;
+	//		m_MovingYAxis = true;
+	//	}
+	//	else if( (p_GameObjMgr->m_pxPlayer->GetPosition().y + (GetCameraView().getSize().y / 2.0f) ) >= 1340)
+	//	{
+	//		SetPositionX(p_GameObjMgr->m_pxPlayer->GetPosition().x );
+	//		//Move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+	//		m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition().x, m_FilterSprite->getPosition().y );
+	//		//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity().x, 0.0f );
+	//		m_MovingXAxis = true;
+	//		m_MovingYAxis = false;
+	//	}
+	//	else
+	//	{
+	//		SetPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
+	//		//Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+	//		m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
+	//		//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+	//		m_MovingXAxis = true;
+	//		m_MovingYAxis = true;
+	//	}
+	//}
+
+	SetPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
+	//Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+	m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
+	//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+	m_MovingXAxis = true;
+	m_MovingYAxis = true;
 
 	UpdateFilter(p_GameObjMgr);
 }
