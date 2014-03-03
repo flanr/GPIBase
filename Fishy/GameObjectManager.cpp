@@ -269,15 +269,16 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		//	}
 		//}
 	}
-	if(m_pxPlayer != nullptr)
-	{
+	//if(m_pxPlayer != nullptr)
+	//{
 
-		m_pxPlayer->Update(m_pxInputManager, p_fDeltatime);
-		if(m_pxPlayer->GetCollider())
-		{
-			m_pxPlayer->SetDestroyed(false);
-		}
-	}
+	//	m_pxPlayer->Update(m_pxInputManager, Camera, p_fDeltatime);
+	//	if(m_pxPlayer->GetCollider()->GetStatus() == true)
+	//	{
+	//		m_pxPlayer->SetDestroyed(false);
+	//	}
+	//}
+
 
 	/*for ( auto element : m_apxGameObject )
 	{

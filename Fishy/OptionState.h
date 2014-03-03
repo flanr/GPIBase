@@ -34,20 +34,20 @@ private:
 	DrawManager * m_DrawManager;
 	SpriteManager * m_SpriteManager;
 	sf::Sprite *m_BackGroundImg;
-	//
+
+	sf::Sprite *m_OptionBackground;
+	
+	// Buttons 
 	Button m_ButtonMusicMute;
-	sf::Vector2f m_ButtonPosMusicMute;
-	//
 	Button m_ButtonSoundMute;
-	sf::Vector2f m_ButtonPosSoundMute;
-	//
 	Button m_ButtonFullScreen;
-	sf::Vector2f m_ButtonPosFullScreen;
-	//
 	Button m_ButtonWindowed;
-	sf::Vector2f m_ButtonPosWindowed;
-	//
 	Button m_ButtonReturn;
-	sf::Vector2f m_ButtonPosReturn;
+
+	// Sliders
+	Slider m_SliderMusicVol;
+	Slider m_SliderSoundVol;
+
+
 
 };

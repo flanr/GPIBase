@@ -64,12 +64,12 @@ bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 			}
 			if (deltaY > deltaX)
 			{
-				if (m_position.y <= other->m_position.y)
+				if (m_position.y >= other->m_position.y)
 				{
 					deltaY = -deltaY;
 				}
 				offset.y = deltaY;
-				other->m_position.y += deltaY/2.f;
+				other->m_position.y -= deltaY/2.f;
 				m_position.y += deltaY/2.f;
 			}
 			return true;

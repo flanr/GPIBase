@@ -7,6 +7,7 @@
 
 class GameObjectManager;
 class CollisionManager;
+class Camera;
 
 using namespace std;
 enum ELayer
@@ -32,8 +33,8 @@ public:
 	~Level();
 	/* If bool value = true create level with colliders, If False no colliders */
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, ELayer layer);
-	void Draw(DrawManager *p_pDrawManager);
-	void UpdateParallax();
+	void Draw(DrawManager *p_pDrawManager, Camera *p_Camera);
+	void UpdateParallax(Camera *p_Camera);
 protected:
 	string m_SpriteMapFileName;
 

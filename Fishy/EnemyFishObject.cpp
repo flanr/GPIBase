@@ -1,6 +1,7 @@
 // EnemyFishObject.cpp
 #include "stdafx.h"
 #include "EnemyFishObject.h"
+#include "LightSource.h"
 #include "PlayerFishObject.h"
 //
 //EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite)
@@ -25,8 +26,11 @@ EnemyFishObject::~EnemyFishObject()
 	{
 		delete  GetSprite();
 	}
-	
-	
+
+	if(GetLightSource() != nullptr)
+	{
+		delete GetLightSource();
+	}
 }
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
@@ -34,8 +38,8 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 
-	float delta_x = m_xPosition.x - player->GetPosition().x;
-	float delta_y = m_xPosition.y - player->GetPosition().y;
+	float delta_x = GetPosition().x - player->GetPosition().x;
+	float delta_y = GetPosition().y - player->GetPosition().y;
 	sf::Vector2f distance_to_light;
 	distance_to_light.x = delta_x;
 	distance_to_light.y = delta_y;
@@ -46,11 +50,11 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{		
 		m_iStateTimer = 0;
 	}
-	if ((player->GetPosition().x > m_xPosition.x) && (player->GetDirection() == FacingRight))
+	if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
 	{
 		SetState(Attack);
 	}
-	else if ((player->GetPosition().x > m_xPosition.x) && (player->GetDirection() == FacingRight))
+	else if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
 	{
 		SetState(Fleeing);
 	}
@@ -102,6 +106,11 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	};
 
 	SetPosition( GetPosition() + GetVelocity() );
+
+	if(m_light != nullptr)
+	{
+		m_light->SetPosition( GetPosition() );
+	}
 	
 	if(m_pxCollider != nullptr )
 	{

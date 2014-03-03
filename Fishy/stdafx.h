@@ -29,7 +29,7 @@
 #include <SFML\System.hpp>
 #include <SFML\Audio.hpp>
 
-
+using namespace std;
 #include <stdio.h>
 #include <tchar.h>
 #include <iostream>
@@ -37,29 +37,25 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include <string>
 
 
 //
 
+#include "SoundManager.h"
 #include "Button.h"
 #include "InputManager.h"
 #include "DrawManager.h"
-#include <iostream>
 #include "GameState.h"
 #include "StartState.h"
 #include "OptionState.h"
-
 #include "Geographics.h"
 #include "Collider.h"
 #include "Level.h"
 #include "CollisionManager.h"
 #include "FishObject.h"
-
-
 #include "GameObject.h"
-
 #include "StateManager.h"
-
 #include "Core.h"
 
 

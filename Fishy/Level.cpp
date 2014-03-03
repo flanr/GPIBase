@@ -9,6 +9,7 @@
 #include "EnemyFishObject.h"
 #include "GameObjectManager.h"
 #include "LightSource.h"
+#include "Camera.h"
 
 
 Level::Level(GameObjectManager *p_pxGameObjMgr, CollisionManager * p_CollisionMgr)
@@ -137,29 +138,26 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					sf::Sprite* tempEnemy = p_pSpriteManager->Load("alpha_enemy_picture_2.png", 0,0, 265*0.2f, 100*0.2f);
 					tempEnemy->setOrigin((265*0.2f)/2, (100*0.2f)/2);
 					tempEnemy->setPosition(iX, iY);
-					EnemyFishObject *enemy = new EnemyFishObject(tempEnemy->getPosition(),tempEnemy,collider);
-					enemy->SetPosition(sf::Vector2f(iX, iY) );
+					EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
 					enemy->SetLevelLayer(layer);
+					//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+
 					m_pxGameObjMgr->Attach(enemy);
 					m_CollisionMgr->AttachCollider(collider);
 
 				}
 				else
 				{
-					GameObject *go = new GameObject(sprite->getPosition(),sprite,collider);
-					go->SetPosition(sf::Vector2f(iX,iY));
-					
+					GameObject *go = new GameObject(sf::Vector2f(iX, iY),sprite,collider);
 					go->SetType("BrownBrick");
 					go->SetLevelLayer(layer);
-
 					m_pxGameObjMgr->Attach(go);
 					m_CollisionMgr->AttachCollider(collider);
 				}
 
 			}else
 			{
-				GameObject *go = new GameObject(sprite->getPosition(),sprite);
-				go->SetPosition(sf::Vector2f(iX,iY));
+				GameObject *go = new GameObject(sf::Vector2f(iX,iY), sprite);
 				go->SetLevelLayer(layer);
 				m_pxGameObjMgr->Attach(go);
 			}
@@ -172,9 +170,9 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 	return true;
 }
 
-void Level::Draw(DrawManager *p_draw_manager)
+void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 {
-	UpdateParallax();
+	UpdateParallax(p_Camera);
 	for (int n = 0; n < 5; n++)
 	{
 		for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
@@ -205,7 +203,7 @@ void Level::Draw(DrawManager *p_draw_manager)
 }
 
 
-void Level::UpdateParallax()
+void Level::UpdateParallax(Camera *p_Camera)
 {
 	int x = 0;
 	int y = 0;
@@ -221,11 +219,15 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(m_pxGameObjMgr->m_pxPlayer->GetPosition().x,(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-
+				if(p_Camera->IsMovementXAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(m_pxGameObjMgr->m_pxPlayer->GetPosition().x,(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				}
 				// Y Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y));
-
+				if(p_Camera->IsMovementYAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y));
+				}
 				x++;
 
 			}
@@ -236,10 +238,15 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(m_pxGameObjMgr->m_pxPlayer->GetPosition().x,(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-
+				if(p_Camera->IsMovementXAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f(m_pxGameObjMgr->m_pxPlayer->GetPosition().x,(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				}
 				// Y Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y));
+				if(p_Camera->IsMovementYAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y));
+				}
 				x++;
 			}
 
@@ -252,11 +259,15 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width -1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-
+				if(p_Camera->IsMovementXAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width -1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				}
 				// Y Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) + 300 ));
-
+				if(p_Camera->IsMovementYAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) + 300 ));
+				}
 				x++;
 
 			}
@@ -267,10 +278,15 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x * m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-
+				if(p_Camera->IsMovementXAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 5 ) + (x * m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				}
 				// Y Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) +300 ));
+				if(p_Camera->IsMovementYAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 10 ) +300 ));
+				}
 				x++;
 			}
 
@@ -283,10 +299,15 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-
+				if(p_Camera->IsMovementXAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				}
 				// Y Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
+				if(p_Camera->IsMovementYAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
+				}
 				x++;
 
 			}
@@ -297,10 +318,15 @@ void Level::UpdateParallax()
 				oldX = m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x;
 
 				// X Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
-
+				if(p_Camera->IsMovementXAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_pxPlayer->GetPosition().x + ((-1 *m_pxGameObjMgr->m_pxPlayer->GetPosition().x) / 3 ) + (x* m_pxGameObjMgr->m_apxGameObject[i]->GetSprite()->getGlobalBounds().width - 1000)),(m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().y)));
+				}
 				// Y Axis
-				m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
+				if(p_Camera->IsMovementYAxis() )
+				{
+					m_pxGameObjMgr->m_apxGameObject[i]->SetPosition(sf::Vector2f((m_pxGameObjMgr->m_apxGameObject[i]->GetPosition().x),m_pxGameObjMgr->m_pxPlayer->GetPosition().y + ((-1 * m_pxGameObjMgr->m_pxPlayer->GetPosition().y) / 6 ) +500 ));
+				}
 				x++;
 			} 
 

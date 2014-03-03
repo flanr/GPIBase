@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "GameObjectManager.h"
 #include "Camera.h"
+#include "LightSource.h"
 
 using namespace std;
 GameState::GameState(Core* p_pCore)
@@ -58,6 +59,7 @@ string GameState::Next()
 
 bool GameState::EnterState() 
 {
+
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
 
@@ -79,13 +81,14 @@ bool GameState::EnterState()
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 	} 
+	//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
+	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(140.f, 140.f));
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
 		//Must be called after Player is created
 		m_Camera = new Camera(sf::Vector2f(m_window->getSize() ) );
-		m_Camera->SetCameraPosition(m_GameObjMgr->m_pxPlayer->GetPosition() );
-		m_Camera->AddLayer();
+		m_Camera->Initialize(m_window, m_GameObjMgr->m_pxPlayer->GetPosition());
 	}
 
 	return false;
@@ -98,13 +101,30 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
+	
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 	
 	mgr->CheckCollisionRectVsRect();
+	
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	
-	m_Camera->Update(m_GameObjMgr->m_pxPlayer->GetPosition(), m_GameObjMgr->m_pxPlayer->GetLightSource() );
+
+	
+
+	if(m_GameObjMgr->m_pxPlayer != nullptr)
+	{
+
+		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_Camera, p_DeltaTime);
+		/*if(m_GameObjMgr->m_pxPlayer->GetCollider()->GetStatus() == true)
+		{
+			m_GameObjMgr->m_pxPlayer->SetDestroyed(false);
+		}*/
+	}
+	m_Camera->Update(m_GameObjMgr );
+	UpdateGUI();
+	
+
 
 	mgr->RemoveEnemyCollider();
 	/*if (mgr->GetPlayerVsEnemy())
@@ -119,7 +139,6 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}
 
-	UpdateGUI();
 	/*int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
 	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
 	if (x > 2390)
@@ -139,12 +158,15 @@ bool GameState::Update(float p_DeltaTime)
 	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
 	}*/
 
+	
+
 	return true;
 }
 
 void GameState::UpdateGUI()
 {
-	Gui->setPosition(m_GameObjMgr->m_pxPlayer->GetPosition().x - 500 ,m_GameObjMgr->m_pxPlayer->GetPosition().y - 310 );
+	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310); 
+	//Gui->setPosition(m_GameObjMgr->m_pxPlayer->GetPosition().x - 500 ,m_GameObjMgr->m_pxPlayer->GetPosition().y - 310 );
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
@@ -179,20 +201,6 @@ void GameState::HandleInput()
 			m_Camera->ToggleFilterOn(true);
 		}
 	}
-	//Not working correctly
-	//if (m_pInputManager->IsDownOnceK(sf::Keyboard::R))
-	//{
-	//	m_GameObjMgr->Cleanup();
-	//	delete m_LevelLayerBackground;
-	//	m_LevelLayerBackground = nullptr;
-	//	
-	//	delete m_LevelLayerMidleGround; 
-	//	m_LevelLayerMidleGround = nullptr;
-	//	
-	//	delete m_LevelLayerForGround;
-	//	m_LevelLayerForGround = nullptr;
-	//	m_pCore->m_StateManager.SetState("StartState");
-	//}
 }
 
 void GameState::Draw()
@@ -200,10 +208,10 @@ void GameState::Draw()
 	m_DrawManager->ClearWindow();
 
 	m_window->setView(m_Camera->GetCameraView() );
-	m_LevelLayerForGround->Draw(m_DrawManager);
+	m_LevelLayerForGround->Draw(m_DrawManager, m_Camera);
 
 	//Draw if filter is toggled On
-	if(m_Camera->GetFilterStatus() == true )
+	if(m_Camera->GetFilterStatus()  )
 	{
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}

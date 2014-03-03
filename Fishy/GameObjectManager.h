@@ -19,6 +19,7 @@ class GameObjectManager
 {
 	friend class Level;
 	friend class GameState;
+	friend class Camera;
 public:
 	GameObjectManager(InputManager *p_pxInputManager);
 	~GameObjectManager();
