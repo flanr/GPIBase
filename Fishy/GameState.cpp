@@ -105,28 +105,16 @@ bool GameState::Update(float p_DeltaTime)
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 	
-	mgr->CheckCollisionRectVsRect();
-	
-	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
-	
-
-	
-
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
-
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_Camera, p_DeltaTime);
-		/*if(m_GameObjMgr->m_pxPlayer->GetCollider()->GetStatus() == true)
-		{
-			m_GameObjMgr->m_pxPlayer->SetDestroyed(false);
-		}*/
 	}
+	mgr->CheckCollisionRectVsRect();
+	mgr->RemoveEnemyCollider();
+	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	m_Camera->Update(m_GameObjMgr );
 	UpdateGUI();
 	
-
-
-	mgr->RemoveEnemyCollider();
 	/*if (mgr->GetPlayerVsEnemy())
 	{
 		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
@@ -138,28 +126,6 @@ bool GameState::Update(float p_DeltaTime)
 	{
 		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}
-
-	/*int x = m_GameObjMgr->m_pxPlayer->GetPosition().x;
-	int y = m_GameObjMgr->m_pxPlayer->GetPosition().y;
-	if (x > 2390)
-	{
-	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(2390,m_GameObjMgr->m_pxPlayer->GetPosition().y));
-	}
-	if (x < 35)
-	{
-	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(35,m_GameObjMgr->m_pxPlayer->GetPosition().y));
-	}
-	if (y > 1270)
-	{
-	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,1270));
-	}
-	if (y < 50)
-	{
-	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(m_GameObjMgr->m_pxPlayer->GetPosition().x,50));
-	}*/
-
-	
-
 	return true;
 }
 
