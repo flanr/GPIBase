@@ -75,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="IdleState.cpp">
+      <Filter>Source Files\AI FSM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -154,6 +157,15 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="AIState.h">
+      <Filter>Header Files\AI FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="IdleState.h">
+      <Filter>Header Files\AI FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="AIStateMachine.h">
+      <Filter>Header Files\AI FSM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -194,6 +206,12 @@
     </Filter>
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{ca146c5a-277c-4302-bc20-16e51c50bd88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI FSM">
+      <UniqueIdentifier>{74486788-5914-44ad-a72f-faa0d0b34ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI FSM">
+      <UniqueIdentifier>{88865b27-3ce4-4d63-a675-0eea178c7139}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

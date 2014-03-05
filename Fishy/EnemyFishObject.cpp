@@ -44,7 +44,6 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	distance_to_light.x = delta_x;
 	distance_to_light.y = delta_y;
 
-
 	m_iStateTimer++;
 	if(m_iStateTimer >= 400)
 	{		
@@ -81,10 +80,10 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	if(GetState() == Fleeing)
 	{
 
-		//	if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x > m_xPosition.x) && (player->GetDirection() == FacingRight))
+		//if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
 		//{
 		//	//distace to player
-		//	m_velocity += distance_to_light * GetSpeed();
+		//	SetVelocity(GetVelocity() + distance_to_light * GetSpeed());
 
 		//	m_xPosition += m_velocity * deltatime;
 		//}
