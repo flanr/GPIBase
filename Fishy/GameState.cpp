@@ -80,9 +80,10 @@ bool GameState::EnterState()
 		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
+		//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
+		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(140.f, 140.f));
 	} 
-	//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
-	m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(140.f, 140.f));
+	
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{

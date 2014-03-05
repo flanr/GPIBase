@@ -2,9 +2,11 @@
 #pragma once
 
 #include "GameObject.h"
+#include "AIState.h"
 
 class Collider;
 class CollisionManager;
+
 class EnemyFishObject : public FishObject
 {
 public:
