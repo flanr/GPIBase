@@ -90,9 +90,6 @@ bool Core::Initialize()
 	}
 
 
-	collider = new Collider;
-
-
 	return true;
 }
 
@@ -146,11 +143,11 @@ void Core::Cleanup()
 
 void Core::UpdateDeltatime()
 {
-	sf::Time m_TimeSinceLastUpdate = sf::Time::Zero;
-	m_TimeSinceLastUpdate += m_Clock.restart();
+	//sf::Time m_TimeSinceLastUpdate = sf::Time::Zero;
+	m_TimeSinceLastUpdate = m_Clock.restart();
 
 	m_fDeltaTime = m_TimeSinceLastUpdate.asSeconds();
-
+	cout << m_fDeltaTime << endl;
 	if(m_fDeltaTime > 0.1f)
 	{
 		m_fDeltaTime = 0.1f;

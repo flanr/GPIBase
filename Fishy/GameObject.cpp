@@ -145,5 +145,5 @@ LightSource* GameObject::GetLightSource()
 
 void GameObject::OnCollision(GameObject* p_xOther, sf::Vector2f& p_Offset)
 {
-	/*std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;*/
+	std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;
 }

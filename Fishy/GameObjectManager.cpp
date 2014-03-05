@@ -238,6 +238,9 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
+		//if (m_apxGameObject[i]->GetType() != "GameObject")
+
+
 
 		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 		{
@@ -251,24 +254,25 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		{
 			m_apxGameObject.erase(m_apxGameObject.begin() +i);
 		}
-		//if(m_apxGameObject[i]->HasCollider() )
-		//{
-		//	if( m_apxGameObject[i]->GetCollider() )
-		//	{
-		//		std::cout << "Destroying: " << m_apxGameObject[i]->GetType() << std::endl;
-		//		m_apxGameObject[i]->SetDestroyed(true);
-		//	}
-
-		//	if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
-		//	{
-
-		//		DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
-		//		//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
-		//		m_apxGameObject.erase(m_apxGameObject.begin() + i);
-		//		m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
-		//	}
-		//}
 	}
+	//if(m_apxGameObject[i]->HasCollider() )
+	//{
+	//	if( m_apxGameObject[i]->GetCollider() )
+	//	{
+	//		std::cout << "Destroying: " << m_apxGameObject[i]->GetType() << std::endl;
+	//		m_apxGameObject[i]->SetDestroyed(true);
+	//	}
+
+	//	if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
+	//	{
+
+	//		DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
+	//		//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
+	//		m_apxGameObject.erase(m_apxGameObject.begin() + i);
+	//		m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
+	//	}
+	//}
+
 	//if(m_pxPlayer != nullptr)
 	//{
 

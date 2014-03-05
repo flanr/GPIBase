@@ -90,17 +90,21 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				//måste ligga före ny sprite skapas. annars blir det minneslekage
 				if (row[i] == 'S')
 				{
-					//352.f, 287.f
-					Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
-					//PlayerObject måste laddas in som nullptr,
-					PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
-					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
-					Player->AddAnimation("Player", pxAnimSprite);
-					Player->SetPosition(sf::Vector2f(iX, iY) );
-					Player->SetLevelLayer(layer);
-					Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-					m_pxGameObjMgr->AttachPlayer(Player);
-					m_CollisionMgr->AttachCollider(Player->GetCollider() );
+					////352.f, 287.f
+					//Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
+					////PlayerObject måste laddas in som nullptr,
+					//PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
+					//AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
+					//Player->AddAnimation("Player", pxAnimSprite);
+					//Player->SetPosition(sf::Vector2f(iX, iY) );
+					//Player->SetLevelLayer(layer);
+					//Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+					//m_pxGameObjMgr->AttachPlayer(Player);
+					//m_CollisionMgr->AttachCollider(Player->GetCollider() );
+
+					m_pxGameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(iX,iY));
+					
+
 					iX += m_iWidth;
 					continue;
 				}

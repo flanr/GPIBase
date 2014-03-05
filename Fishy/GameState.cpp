@@ -74,6 +74,20 @@ bool GameState::EnterState()
 		// Background
 		m_LevelLayerBackgroundSecondHighest = new Level(m_GameObjMgr);
 		m_LevelLayerBackgroundSecondHighest->Load("../data/levels/level_backgroundsecondhighest.txt",m_SpriteManager,false, ELayer::HIGHESTBG);
+
+		int posx = 2000;
+		int posy = 2000;
+		Collider *collider = new Collider(sf::Vector2f(posx, posy),sf::Vector2f(70, 70) );
+		//PlayerObject måste laddas in som nullptr,
+		PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(posx, posy ), nullptr, collider);
+		AnimatedSprite *pxAnimSprite = m_SpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
+		Player->AddAnimation("Player", pxAnimSprite);
+		Player->SetPosition(sf::Vector2f(posx, posy) );
+		Player->SetLevelLayer(MIDDLEGROUND);
+		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
+		m_GameObjMgr->AttachPlayer(Player);
+		mgr->AttachCollider(Player->GetCollider() );
+
 		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
 		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
@@ -81,9 +95,8 @@ bool GameState::EnterState()
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 		//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(140.f, 140.f));
 	} 
-	
+
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
@@ -102,10 +115,10 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-	
+
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
-	
+
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_Camera, p_DeltaTime);
@@ -115,12 +128,12 @@ bool GameState::Update(float p_DeltaTime)
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	m_Camera->Update(m_GameObjMgr );
 	UpdateGUI();
-	
+
 	/*if (mgr->GetPlayerVsEnemy())
 	{
-		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
-		mgr->RemoveEnemyCollider();
-		mgr->SetPlayerVsEnemy(false);
+	m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
+	mgr->RemoveEnemyCollider();
+	mgr->SetPlayerVsEnemy(false);
 	}*/
 	/// Player Experience Stuff
 	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)

@@ -24,17 +24,17 @@ StartState::StartState(Core* p_pCore)
 	m_BackGroundImg = m_SpriteManager->Load("background2.jpg",0,0,1280,720);
 	m_BackGroundImg->setPosition(0,0);
 	// Start
-	m_ButtonStartPos = sf::Vector2f(600,550);
+	m_ButtonStartPos = sf::Vector2f(150,600);
 	m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("Button_concept_small.png",0,0,150,150));
 	m_ButtonStart.SetPosition(m_ButtonStartPos.x,m_ButtonStartPos.y);
 
 	// Quit
-	m_ButtonQuitPos = sf::Vector2f(1100,600);
+	m_ButtonQuitPos = sf::Vector2f(550,600);
 	m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_concept.png",21,10,108,140));
 	m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 
 	// Options
-	m_ButtonOptionPos = sf::Vector2f(1100,100);
+	m_ButtonOptionPos = sf::Vector2f(350,600);
 	m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("options_concept2.png",0,0,150,150));
 	m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 
