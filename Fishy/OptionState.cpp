@@ -18,7 +18,7 @@ OptionState::OptionState(Core* p_pCore)
 	m_BackGroundImg->setPosition(0,0);
 	// OptionBackground
 	m_OptionBackground = m_SpriteManager->Load("optionsbg.png",0,0,851,518);
-	m_OptionBackground->setPosition(0,0);
+	m_OptionBackground->setPosition(200,100);
 
 	////////////////
 	//  Buttons   //
@@ -30,7 +30,7 @@ OptionState::OptionState(Core* p_pCore)
 	m_ButtonMusicMute.SetPosition(m_ButtonMusicMutePos.x, m_ButtonMusicMutePos.y);
 	// Mute Sound  
 	m_ButtonSoundMute.SetSpriteRect(m_SpriteManager->Load("mute.png",0,0,85,57));
-	m_ButtonSoundMutePos = sf::Vector2f(m_OptionBackground->getPosition().x + 701,m_OptionBackground->getPosition().y + 282);
+	m_ButtonSoundMutePos = sf::Vector2f(m_OptionBackground->getPosition().x + 701,m_OptionBackground->getPosition().y + 283);
 	m_ButtonSoundMute.SetPosition(m_ButtonSoundMutePos.x,m_ButtonSoundMutePos.y);
 	// Fullscreen
 	m_ButtonFullScreen.SetSpriteRect(m_SpriteManager->Load("fullscreen.png",0,0,244,57));
@@ -158,13 +158,13 @@ void OptionState::HandleInput()
 		{
 
 		}
-		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 3 && m_ButtonClick == 4) // Sound
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 4 && m_ButtonClick == 4) // Sound
 		{
 
 		}
-		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 3 && m_ButtonClick == 5) // Back
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 5 && m_ButtonClick == 5) // Back
 		{
-
+			m_pCore->m_StateManager.SetState("StartState");
 		}
 		m_ButtonClick = 0;
 	}
