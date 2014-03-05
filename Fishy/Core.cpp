@@ -38,7 +38,8 @@ bool Core::Initialize()
 	
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
 	window = new sf::RenderWindow(sf::VideoMode(1280,720), "SUPER MEGA AWESOME GAME");
-
+	
+//	
 	//This sets framerate to the monitors framerate (like 60FPS), if this is commented out the loop will run faster
 	window->setVerticalSyncEnabled(true);
 	//This sets framerate to your chosen limit, (DON'T use together with vertical sync above)
@@ -69,6 +70,7 @@ bool Core::Initialize()
 		{
 			return false;
 		}
+		m_SoundManager->PlayMusic("atmosphere4.wav");
 
 	}
 
@@ -115,6 +117,7 @@ void Core::Run()
 		//Must have postupdates for isdownonce to function properly.
 		m_pInputManager->PostUpdateKeyboard();
 		m_pInputManager->PostUpdateMouse();
+		
 	}
 }
 

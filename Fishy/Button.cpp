@@ -21,11 +21,17 @@ void Button::SetCircle(float radius)
 {
 	m_circle.setRadius(radius);
 }
-void Button::SetSprite(sf::Sprite *sprite)
+void Button::SetSpriteCircle(sf::Sprite *sprite)
 {
 	m_sprite = sprite;
 	SetButtonOrigin();
 }
+void Button::SetSpriteRect(sf::Sprite *sprite)
+{
+	m_sprite = sprite;
+
+}
+
 void Button::SetPosition(float x, float y)
 {
 	m_sprite->setPosition(x,y);
