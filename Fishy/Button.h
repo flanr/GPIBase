@@ -8,7 +8,8 @@ public:
 
 	void SetButtonOrigin();
 	void SetCircle(float radius);
-	void SetSprite(sf::Sprite*);
+	void SetSpriteCircle(sf::Sprite*);
+	void SetSpriteRect(sf::Sprite*);
 	void SetPosition(float x, float y);
 
 	void MouseMove(int x, int y);

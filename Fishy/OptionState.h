@@ -22,6 +22,9 @@ public:
 	/* Handle Input in OptionState */
 	void HandleInput();
 
+	void MouseDown(int x, int y);
+	int MouseOver(int x, int y);
+
 	/* Returns default Next State */
 	string Next();
 	/*Returns Current State */
@@ -36,13 +39,20 @@ private:
 	sf::Sprite *m_BackGroundImg;
 
 	sf::Sprite *m_OptionBackground;
+
+	int m_ButtonClick;
 	
 	// Buttons 
 	Button m_ButtonMusicMute;
+	sf::Vector2f m_ButtonMusicMutePos;
 	Button m_ButtonSoundMute;
+	sf::Vector2f m_ButtonSoundMutePos;
 	Button m_ButtonFullScreen;
+	sf::Vector2f m_ButtonFullScreenPos;
 	Button m_ButtonWindowed;
+	sf::Vector2f m_ButtonWindowedPos;
 	Button m_ButtonReturn;
+	sf::Vector2f m_ButtonReturnPos;
 
 	// Sliders
 	Slider m_SliderMusicVol;
