@@ -112,10 +112,16 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, 
 	}
 
 	Move(GetVelocity() );
-	if(GetPosition() != m_light->GetPosition() )
-	{
-		m_light->SetPosition(GetPosition() );
-	}
+	SetLightPosition(sf::Vector2f(GetPosition().x + 100, GetPosition().y ) );
+	//m_light->SetPosition(GetLightbulbPosition() );
+
+	//if(GetLightbulbPosition() != m_light->GetPosition() )
+	//{
+	//	
+	//	SetLightPosition(GetLightbulbPosition() );
+	//	//m_light->SetPosition(GetLightbulbPosition() );
+	//	//m_light->SetPosition(GetPosition() );
+	//}
 
 	//cout <<"PlayerPos" << GetPosition().x << " " <<  GetPosition().y <<endl;
 	//cout <<"lightPos" << m_light->GetPosition().x << " " <<  m_light->GetPosition().y <<endl;
