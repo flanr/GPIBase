@@ -33,7 +33,6 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 	SetCenterCamera(p_window->getView().getCenter() );
 	AddLayer();
 	Move(p_Position - GetCameraView().getCenter() );
-	//m_FilterSprite->move( p_Position - GetCameraView().getCenter() /*+ sf::Vector2f(210, 210)*/ );
 	m_FilterSprite->setPosition(p_Position );
 }
 

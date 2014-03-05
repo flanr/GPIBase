@@ -21,7 +21,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 EnemyFishObject::~EnemyFishObject()
 {
 	//Delete Sprite
-	
+
 	if(GetSprite() != nullptr)
 	{
 		delete  GetSprite();
@@ -66,14 +66,14 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 			SetVelocity(sf::Vector2f(deltatime * -GetSpeed(), 0.0f) );
 			//SetScale(GetScale());
 			FlipXLeft(1.0f);
-			
+
 		}
 		else
 		{
 			SetVelocity(sf::Vector2f(deltatime * GetSpeed(), 0.0f) );
 			//SetScale(GetScale());
 			FlipXRight(1.f);
-			
+
 		}
 	}
 
@@ -110,7 +110,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{
 		m_light->SetPosition( GetPosition() );
 	}
-	
+
 	if(m_pxCollider != nullptr )
 	{
 		m_pxCollider->SetPosition(GetPosition() );
@@ -146,14 +146,20 @@ void EnemyFishObject::SetAttractRadius(float p_fAttractRadius)
 {
 	m_pxCollider->SetRadius(p_fAttractRadius);
 }
+
 void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
 	//std::cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << std::endl;
 	if (p_other->GetType() == "Player")
 	{
-		this->m_pxCollider = nullptr;
-		this->~EnemyFishObject();
+		PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
+		if(player->GetState() == Chewing)
+		{
+			this->m_pxCollider = nullptr;
+			this->~EnemyFishObject();
+			m_isDestroyed = true;
+		}
+		player = nullptr;
 	}
 	
-
 }

@@ -21,7 +21,7 @@ public:
 	void SetSpawnPosition(sf::Vector2f p_xSpawnPosition);
 	sf::Vector2f GetSpawnPosition(sf::Vector2f p_xSpawnPosition);
 	void SetAttractRadius(float p_fAttractRadius);
-
+	/* use for collision with EnemyFish vs Wall*/
 	void OnCollision(GameObject* p_other, sf::Vector2f& p_Offset);
 	
 private:
