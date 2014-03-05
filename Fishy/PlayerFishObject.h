@@ -42,6 +42,7 @@ private:
 	bool m_SlowingDown;
 	int m_Healthtimer;
 	int m_iAttacktimer;
+	int m_ChewTimer;
 
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;

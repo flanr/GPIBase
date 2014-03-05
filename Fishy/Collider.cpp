@@ -228,7 +228,10 @@ void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 			if(p_xOther->m_xParent->GetType() == "Player")
 			{
 				m_xParent->OnCollision(p_xOther->GetParent(), p_Offset);
-				m_xParent = nullptr;
+				if(m_xParent->GetDestroyed() )
+				{
+					m_xParent = nullptr;
+				}
 			}
 		}
 	}

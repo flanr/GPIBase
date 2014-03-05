@@ -58,7 +58,7 @@ public:
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;
-	bool m_bDestroyed;
+	bool m_isDestroyed;
 	std::string m_sType;
 	ELayer m_LevelLayer;
 
