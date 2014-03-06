@@ -87,7 +87,7 @@ bool GameState::EnterState()
 		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
 		m_GameObjMgr->AttachPlayer(Player);
 		mgr->AttachCollider(Player->GetCollider() );
-
+		//m_GameObjMgr->m_pxPlayer->SetPlayerScale(m_GameObjMgr->m_pxPlayer->GetScale());
 		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
 		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
@@ -137,7 +137,7 @@ bool GameState::Update(float p_DeltaTime)
 	/// Player Experience Stuff
 	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
 	{
-		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
+		m_GameObjMgr->m_pxPlayer->SetScale(0.8f);
 	}
 	return true;
 }
