@@ -234,11 +234,14 @@ m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
 
 
 //Update functions
-void GameObjectManager::UpdateAllObjects(float p_fDeltatime, Camera * p_Camera)
+void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 {
 
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
+		//if (m_apxGameObject[i]->GetType() != "GameObject")
+
+
 
 		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 		{

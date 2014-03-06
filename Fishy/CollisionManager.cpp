@@ -27,6 +27,10 @@ void CollisionManager::CheckCollisionRectVsRect()
 	sf::Vector2f offset = sf::Vector2f(0.f,0.f);
 	for (int i = 0; i < m_axRectColliders.size()-1; i++)
 	{
+		if (m_axRectColliders[i]->GetParent()->GetType() == "BrownBrick")
+		{
+			continue;
+		}
 		for (int j = i+1; j < m_axRectColliders.size(); j++)
 		{
 			
@@ -36,7 +40,7 @@ void CollisionManager::CheckCollisionRectVsRect()
 				if (count > 0){offset /= (float)count;}*/
 				m_axRectColliders[i]->OnCollision(m_axRectColliders[j], offset);
 				m_axRectColliders[j]->OnCollision(m_axRectColliders[i], offset);
-				
+				RemoveEnemyCollider();
 				
 
 			}
@@ -100,6 +104,7 @@ void CollisionManager::RemoveEnemyCollider()
 {
 	for (size_t it = m_axRectColliders.size()-1; it > 0; it--)
 	{
+
 		if(m_axRectColliders[it]->GetParent() == nullptr)
 		{
 			delete m_axRectColliders[it];
