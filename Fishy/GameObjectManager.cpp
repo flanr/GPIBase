@@ -6,6 +6,7 @@
 
 
 #include "InputManager.h"
+#include "Camera.h"
 
 //#include "TerrainObject.h"
 #include "PlayerFishObject.h"
@@ -233,7 +234,7 @@ m_apxParticles.erase(m_apxParticles.begin() + iVectorPosition);
 
 
 //Update functions
-void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
+void GameObjectManager::UpdateAllObjects(float p_fDeltatime, Camera * p_Camera)
 {
 
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
@@ -251,6 +252,9 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		{
 			m_apxGameObject.erase(m_apxGameObject.begin() +i);
 		}
+
+	}
+}
 		//if(m_apxGameObject[i]->HasCollider() )
 		//{
 		//	if( m_apxGameObject[i]->GetCollider() )
@@ -268,7 +272,6 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		//		m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
 		//	}
 		//}
-	}
 	//if(m_pxPlayer != nullptr)
 	//{
 
@@ -284,5 +287,3 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	{
 	element->Update(p_fDeltatime);
 	}*/
-
-}

@@ -58,7 +58,7 @@ public:
 	//void DestroyParticle(ParticleObject * p_pxParticle);
 
 	////Update functions
-	void UpdateAllObjects(float p_fDeltatime);
+	void UpdateAllObjects(float p_fDeltatime, Camera * p_Camera);
 
 	/*void UpdatePlayer(float p_fDeltatime);*/
 	//void UpdateTerrain(float p_fDeltatime);
