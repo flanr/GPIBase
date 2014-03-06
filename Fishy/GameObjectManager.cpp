@@ -252,7 +252,11 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		}
 		if (m_apxGameObject[i]->GetCollider() == nullptr && m_apxGameObject[i]->GetLevelLayer() == ELayer::MIDDLEGROUND)
 		{
-			m_apxGameObject.erase(m_apxGameObject.begin() +i);
+			if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
+			{
+				DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
+				m_apxGameObject.erase(m_apxGameObject.begin() +i);
+			}
 		}
 	}
 	//if(m_apxGameObject[i]->HasCollider() )
@@ -263,14 +267,13 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	//		m_apxGameObject[i]->SetDestroyed(true);
 	//	}
 
-	//	if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
-	//	{
 
-	//		DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
-	//		//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
-	//		m_apxGameObject.erase(m_apxGameObject.begin() + i);
-	//		m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
-	//	}
+
+
+	//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
+	//m_apxGameObject.erase(m_apxGameObject.begin() + i);
+	//m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
+}
 	//}
 
 	//if(m_pxPlayer != nullptr)
@@ -289,4 +292,4 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	element->Update(p_fDeltatime);
 	}*/
 
-}
+//}

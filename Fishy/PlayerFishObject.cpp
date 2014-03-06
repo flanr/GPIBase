@@ -18,6 +18,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_Health = 90;
 	m_Energy = 90;
 
+
 	SetSpeed(250.0f);
 	m_Healthtimer = 10;
 	m_iAttacktimer = 15;
@@ -48,6 +49,7 @@ void PlayerFishObject::SetSoundManager(SoundManager *p_SoundManager)
 
 void PlayerFishObject::SetPlayerScale(float x)
 {
+
 	SetScale(x);
 
 	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
@@ -58,12 +60,22 @@ void PlayerFishObject::SetPlayerScale(float x)
 	}
 
 	//->scale(Scale,Scale);
-	if (m_pxCollider->GetExtension().x >= 237 && m_pxCollider->GetExtension().y >= 195)
-	{
-		m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
-	}
+
 
 }
+void PlayerFishObject::UpdateCollider()
+{
+	sf::IntRect rect;
+	if(GetType() == "Player")
+	{
+		rect = m_pxCurrentAnimation->getTextureRect();
+	}
+	if(GetType() == "Player")
+	{
+		m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale(), rect.height * GetScale()));
+	}
+}
+
 
 PlayerFishObject::~PlayerFishObject()
 {
@@ -84,7 +96,9 @@ PlayerFishObject::~PlayerFishObject()
 }
 
 void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, float p_Deltatime)
-{
+{ 
+	UpdateCollider();
+
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
 	if(GetState() == Death)
@@ -141,6 +155,8 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, 
 	{
 		m_pxCurrentAnimation->Update(p_Deltatime);
 		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+
+
 	}
 
 	if(GetCollider() != nullptr ) 

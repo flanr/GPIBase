@@ -35,7 +35,7 @@ private:
 	void UpdateSneak(float p_Deltatime);
 	void UpdateChewing(float p_Deltatime);
 	void UpdateHealth();
-
+	void UpdateCollider();
 private:
 	sf::Vector2f m_fVelocity;
 	int m_Health;
@@ -52,4 +52,5 @@ private:
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
 
+	int m_iWidth, m_iHeight;
 };

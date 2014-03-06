@@ -3,10 +3,11 @@
 
 #include "GameObject.h"
 #include "AIState.h"
+#include "AIStateMachine.h"
+#include "IdleState.h"
 
 class Collider;
-class CollisionManager;
-
+template class AIStateMachine<EnemyFishObject>;
 class EnemyFishObject : public FishObject
 {
 public:
@@ -27,6 +28,6 @@ public:
 private:
 	sf::Vector2f m_xSpawnPosition;
 	int m_iStateTimer;
-	sf::RectangleShape testcolliderbox;
-	CollisionManager* m_collisionManager;
+	AIStateMachine<EnemyFishObject>* m_pAIStateMachine;
+
 };

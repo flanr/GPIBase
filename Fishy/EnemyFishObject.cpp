@@ -3,6 +3,8 @@
 #include "EnemyFishObject.h"
 #include "LightSource.h"
 #include "PlayerFishObject.h"
+#include "AIState.h"
+#include "AIGlobalState.h"
 //
 //EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite)
 //	: GameObject(p_xPosition, p_pxSprite) 
@@ -17,6 +19,10 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	//SetScale(0.2f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 	SetType("Enemy");
+	m_pAIStateMachine = new AIStateMachine<EnemyFishObject>(this);
+
+	m_pAIStateMachine->SetCurrentState(IdleState::Instance());
+	m_pAIStateMachine->SetGlobalState(AIGlobalState::Instance());
 }
 EnemyFishObject::~EnemyFishObject()
 {
@@ -31,12 +37,19 @@ EnemyFishObject::~EnemyFishObject()
 	{
 		delete GetLightSource();
 	}
+	if (m_pAIStateMachine != nullptr)
+	{
+		delete m_pAIStateMachine;
+		m_pAIStateMachine = nullptr;
+	}
 }
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
-
+	//m_pAIStateMachine->Update();
+	ChangeState();
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
+	SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
 
 	float delta_x = GetPosition().x - player->GetPosition().x;
 	float delta_y = GetPosition().y - player->GetPosition().y;
@@ -77,32 +90,32 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 		}
 	}
 
-	if(GetState() == Fleeing)
-	{
+	//if(GetState() == Fleeing)
+	//{
 
-		//if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
-		//{
-		//	//distace to player
-		//	SetVelocity(GetVelocity() + distance_to_light * GetSpeed());
+	//	if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
+	//	{
+	//		//distace to player
+	//		SetVelocity(GetVelocity() + distance_to_light * GetSpeed());
 
-		//	m_xPosition += m_velocity * deltatime;
-		//}
+	//		m_xPosition += m_velocity * deltatime;
+	//	}
 
-		//if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x < m_xPosition.x) && (player->GetDirection() == FacingLeft))
-		//{
-		//	//distace to player
-		//	m_velocity += distance_to_light * GetSpeed();
+	//	if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x < m_xPosition.x) && (player->GetDirection() == FacingLeft))
+	//	{
+	//		//distace to player
+	//		m_velocity += distance_to_light * GetSpeed();
 
-		//	m_xPosition += m_velocity * deltatime;
-		//}
+	//		m_xPosition += m_velocity * deltatime;
+	//	}
 
-		SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
-	};
+	
+	/*};
 
 	if(GetState() == Attack)
 	{
-		SetVelocity(sf::Vector2f(0.0f, deltatime * -GetSpeed()) );
-	};
+	SetVelocity(sf::Vector2f(0.0f, deltatime * -GetSpeed()) );
+	};*/
 
 	SetPosition( GetPosition() + GetVelocity() );
 
@@ -120,15 +133,15 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 
 void EnemyFishObject::ChangeState()
 {
-
-	if(GetState() == Moving)
+	SetState(Idle);
+	/*if(GetState() == Moving)
 	{
 		SetState(Fleeing);
 	}
 	else if(GetState() == Fleeing)
 	{
 		SetState(Moving);
-	}
+	}*/
 }
 
 
@@ -149,17 +162,27 @@ void EnemyFishObject::SetAttractRadius(float p_fAttractRadius)
 
 void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
-	//std::cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << std::endl;
-	if (p_other->GetType() == "Player")
+	if (GetCollider() != nullptr)
 	{
-		PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
-		if(player->GetState() == Chewing)
+
+
+		//std::cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << std::endl;
+		if (p_other->GetType() == "Player")
 		{
-			this->m_pxCollider = nullptr;
-			this->~EnemyFishObject();
-			m_isDestroyed = true;
+			PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
+			if(player->GetState() == Chewing)
+			{
+				this->m_pxCollider = nullptr;
+				this->~EnemyFishObject();
+				m_isDestroyed = true;
+			}
+			player = nullptr;
 		}
-		player = nullptr;
+		if (p_other->GetType() == "BrownBrick")
+		{
+			SetPosition(GetPosition() + p_Offset);
+			
+			SetVelocity(sf::Vector2f(GetVelocity().x * (-1), GetVelocity().y * (-1)));
+		}
 	}
-	
 }
