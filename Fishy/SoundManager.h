@@ -28,7 +28,7 @@ public:
 	int GetMusicVolume();
 	int GetSoundVolume();
 	void PauseSound();
-
+	vector<SoundsStruct> ReturnSound();
 	
 
 private:

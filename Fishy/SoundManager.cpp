@@ -53,10 +53,16 @@ void SoundManager::PlayMusic(string path)
 	}
 
 
-	cout << "[" << __FILE__ << ":" << __LINE__ << "]Music not found, adding sound : " << path << endl;
+	cout << "[" << __FILE__ << ":" << __LINE__ << "] Music not found, adding sound : " << path << endl;
 	AddMusic(path);
 	PlayMusic(path);
 }
+
+vector<SoundsStruct> SoundManager::ReturnSound()
+{
+	return m_SoundBank;
+}
+
 
 
 void SoundManager::StopSound()

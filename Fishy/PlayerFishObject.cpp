@@ -24,7 +24,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_ChewTimer = 64;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
-	SetPlayerScale(0.2f);
+	SetPlayerScale(0.6f);
 	m_Experience = 0;
 	SetType("Player");
 
@@ -39,6 +39,12 @@ int PlayerFishObject::GetExperience()
 {
 	return m_Experience;
 }
+
+void PlayerFishObject::SetSoundManager(SoundManager *p_SoundManager)
+{
+	m_SoundManager=p_SoundManager;
+}
+
 
 void PlayerFishObject::SetPlayerScale(float x)
 {
@@ -496,6 +502,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		{
 			ExperienceGain(1);
 			SetState(Chewing);
+			m_SoundManager->PlaySound("chew_sound2.wav");
 			std::cout << GetExperience() << std::endl;
 		}
 	}

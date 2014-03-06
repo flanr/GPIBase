@@ -20,23 +20,27 @@ StartState::StartState(Core* p_pCore)
 	m_SpriteManager = p_pCore->m_SpriteManager;
 
 	//m_BackGroundImg->setPosition(1.0f,1.0f);
+	m_TitleImg = m_SpriteManager->Load("Title_final_smaller.png",0,0,924,216);
+	m_TitleImg->setPosition(160,50);
 
 	m_BackGroundImg = m_SpriteManager->Load("background2.jpg",0,0,1280,720);
 	m_BackGroundImg->setPosition(0,0);
 	// Start
-	m_ButtonStartPos = sf::Vector2f(150,600);
-	m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("Button_concept_small.png",0,0,150,150));
+	m_ButtonStartPos = sf::Vector2f(m_TitleImg->getPosition().x + 125 , m_TitleImg->getPosition().y + 350 );
+	m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("play_final_1.png",0,0,264,274));
 	m_ButtonStart.SetPosition(m_ButtonStartPos.x,m_ButtonStartPos.y);
 
+	// Options
+	m_ButtonOptionPos = sf::Vector2f(m_TitleImg->getPosition().x + 485 , m_TitleImg->getPosition().y + 350);
+	m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1.png",0,0,264,274));
+	m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
+
 	// Quit
-	m_ButtonQuitPos = sf::Vector2f(550,600);
-	m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_concept.png",21,10,108,140));
+	m_ButtonQuitPos = sf::Vector2f(m_TitleImg->getPosition().x + 845 , m_TitleImg->getPosition().y + 350);
+	m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("Exit_final_1.png",0,0,264,274));
 	m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 
-	// Options
-	m_ButtonOptionPos = sf::Vector2f(350,600);
-	m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("options_concept2.png",0,0,150,150));
-	m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
+	
 
 	m_ButtonClick = 0;
 
@@ -105,7 +109,7 @@ int StartState::MouseOver(int x, int y)
 	if(distancestuff < m_ButtonStart.GetCircle().getRadius())
 	{ 
 		//cout << "Its alive  x:" << x << "  y: " << y << endl;
-		m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("Button_concept_small.png",150,0,150,150)); 
+		m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("play_final_1.png",264,0,264,274)); 
 		m_ButtonStart.SetPosition(m_ButtonStartPos.x,m_ButtonStartPos.y);
 		/*if (m_pInputManager->IsReleased(MB_LEFT))
 		{
@@ -118,7 +122,7 @@ int StartState::MouseOver(int x, int y)
 	} else
 	{
 
-		m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("Button_concept_small.png",0,0,150,150)); 
+		m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("play_final_1.png",0,0,264,274)); 
 		m_ButtonStart.SetPosition(m_ButtonStartPos.x,m_ButtonStartPos.y);
 	}
 
@@ -130,12 +134,12 @@ int StartState::MouseOver(int x, int y)
 	int quitY = m_ButtonQuit.GetCircle().getGlobalBounds().top;
 	if ((x > quitX - m_ButtonQuit.GetCircle().getRadius() & x < quitX + m_ButtonQuit.GetCircle().getRadius() ) && (y > quitY - m_ButtonQuit.GetCircle().getRadius()  && y < quitY + m_ButtonQuit.GetCircle().getRadius() ) ) 
 	{
-		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_concept.png",173,10,108,140));
+		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("Exit_final_1.png",264,0,264,274));
 		m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 		return 2;
 	}else
 	{
-		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_concept.png",21,10,108,140));
+		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("Exit_final_1.png",0,0,264,274));
 		m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 	}
 
@@ -157,7 +161,7 @@ int StartState::MouseOver(int x, int y)
 	if(distancestuff < m_ButtonOptions.GetCircle().getRadius())
 	{ 
 		//cout << "Its alive  x:" << x << "  y: " << y << endl;
-		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("options_concept2.png",150,0,150,150)); 
+		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1.png",264,0,264,274)); 
 		m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 		/*if (m_pInputManager->IsReleased(MB_LEFT))
 		{
@@ -168,7 +172,7 @@ int StartState::MouseOver(int x, int y)
 	} else
 	{
 
-		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("options_concept2.png",0,0,150,150)); 
+		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1.png",0,0,264,274)); 
 		m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 	}
 
@@ -197,18 +201,18 @@ void StartState::HandleInput()
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1 && (m_ButtonClick == 0 || m_ButtonClick == 1))
 		{
 			m_ButtonClick = 1;
-			m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("Button_concept_small.png",300,0,152,150)); 
+			m_ButtonStart.SetSpriteCircle(m_SpriteManager->Load("play_final_1.png",528,0,264,274)); 
 			m_ButtonStart.SetPosition(m_ButtonStartPos.x,m_ButtonStartPos.y);
 		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2 && (m_ButtonClick == 0 || m_ButtonClick == 2))
 		{
 			m_ButtonClick = 2;
-			m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_concept.png",307,10,108,140));
+			m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("Exit_final_1.png",528,0,264,274));
 			m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 		}else if (MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 3 && (m_ButtonClick == 0 || m_ButtonClick == 3))
 		{
 			m_ButtonClick = 3;
-			m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("options_concept2.png",300,0,150,150));
+			m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1.png",528,0,264,274));
 			m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
@@ -242,6 +246,7 @@ void StartState::Draw()
 {
 	m_DrawManager->ClearWindow();
 	m_DrawManager->Draw(m_BackGroundImg);
+	m_DrawManager->Draw(m_TitleImg);
 	//m_pWindow->clear(_sf::Color(0x44,0x55,0x22,0xff));
 
 	m_DrawManager->Draw(m_ButtonStart.GetSprite());

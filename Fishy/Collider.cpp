@@ -38,6 +38,7 @@ void Collider::SetPositionY(float y)
 }
 bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 {
+	
 	float A = m_extention.x *0.5f;
 	float B = other->m_extention.x *0.5f;
 	float C = m_position.x - other->m_position.x;
