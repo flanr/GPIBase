@@ -38,6 +38,7 @@ void Collider::SetPositionY(float y)
 }
 bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 {
+	
 	float A = m_extention.x *0.5f;
 	float B = other->m_extention.x *0.5f;
 	float C = m_position.x - other->m_position.x;
@@ -207,7 +208,7 @@ void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 	//std::cout << "Collider::OnCollision: Collider A: "  << m_xParent->GetType() << " Collider B: " << p_xOther->m_xParent->GetType() << std::endl;
 	/*if(m_xParent != nullptr)
 	m_xParent->OnCollision(p_xOther->GetParent());*/
-	if(m_xParent != nullptr)
+	if(m_xParent != nullptr && p_xOther != nullptr)
 	{
 		if (m_xParent->GetType() == "Player")
 		{
@@ -232,6 +233,10 @@ void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 				{
 					m_xParent = nullptr;
 				}
+			}
+			else if (p_xOther->m_xParent->GetType() == "BrownBrick")
+			{
+				m_xParent->OnCollision(p_xOther->m_xParent, p_Offset);
 			}
 		}
 	}

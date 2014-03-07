@@ -18,6 +18,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_Health = 90;
 	m_Energy = 90;
 
+
 	SetSpeed(250.0f);
 	m_Healthtimer = 10;
 	m_iAttacktimer = 15;
@@ -25,13 +26,14 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_GrowTimer = 64;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
-	SetPlayerScale(0.2f);
+	SetPlayerScale(0.6f);
 	SetCurrentLevel(1);
 	m_HasGrown = false;
 	m_Experience = 0;
 	SetType("Player");
 
 };
+
 PlayerFishObject::~PlayerFishObject()
 {
 	//delete all Animated sprites
@@ -60,16 +62,24 @@ void PlayerFishObject::SetPlayerScale(float x)
 		it->second->setScale(GetScale(),GetScale());
 		it++;
 	}
+}
 
-	//->scale(Scale,Scale);
-	if (m_pxCollider->GetExtension().x >= 237 && m_pxCollider->GetExtension().y >= 195)
+void PlayerFishObject::UpdateCollider()
+{
+	sf::IntRect rect;
+	if(GetType() == "Player")
 	{
-		m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
+		rect = m_pxCurrentAnimation->getTextureRect();
+	}
+	if(GetType() == "Player")
+	{
+		m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale(), rect.height * GetScale()));
 	}
 }
 
 void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_SpriteManager, Camera *p_Camera, float p_Deltatime)
 {
+	UpdateCollider();
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
 	if(GetState() == Death)
@@ -130,6 +140,8 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	{
 		m_pxCurrentAnimation->Update(p_Deltatime);
 		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+
+
 	}
 
 	if(GetCollider() != nullptr ) 
@@ -272,7 +284,10 @@ bool PlayerFishObject::UpdateLevel()
 // Player* p = nullptr;
 // GameObject* g = new Player();
 // p = static_cast<Player*>(g);
-
+void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
+{
+	m_SoundManager = p_soundmanager;
+}
 void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
 	if (p_other->GetType() == "BrownBrick")
@@ -289,6 +304,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				m_HasGrown = true;
 			}
 			SetState(Chewing);
+			m_SoundManager->PlaySound("chew_sound2.wav");
 			std::cout << GetExperience() << std::endl;
 			cout << GetCurrentLevel() << endl;
 		}
@@ -566,6 +582,10 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Del
 		{
 			m_pxCurrentAnimation->SetActiveAnimation("GrowingStage");
 		}
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.8f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.8f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.4f); }
 	}
 	else if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)
 	{
@@ -575,7 +595,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Del
 		}
 		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.6f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.9f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.7f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.8f); }
 
 	}
@@ -587,7 +607,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Del
 		}
 		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.8f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(1.1f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.9f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(1.0f); }
 	}
 
@@ -611,6 +631,12 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Del
 			SetPlayerScale(0.6f);
 		}
 	}
+	if(GetDirection() == FacingLeft || GetDirection() == FacingUpLeft || GetDirection() == FacingDownLeft ) 
+	{
+		FlipXLeft(GetScale() );
+	}
+	else
+		FlipXRight(GetScale() );
 }
 
 void PlayerFishObject::UpdateHealth()

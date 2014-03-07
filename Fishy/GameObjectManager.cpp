@@ -202,8 +202,8 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 //	}
 //}
 
-
 /*for ( auto element : m_apxGameObject )
 {
 element->Update(p_fDeltatime);
 }*/
+

@@ -87,6 +87,7 @@ bool GameState::EnterState()
 		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
 		m_GameObjMgr->AttachPlayer(Player);
 		mgr->AttachCollider(Player->GetCollider() );
+		m_GameObjMgr->m_pxPlayer->SetSoundManager(m_pCore->m_SoundManager);
 
 		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
@@ -124,8 +125,6 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 	mgr->CheckCollisionRectVsRect();
-
-	//mgr->RemoveEnemyCollider();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	m_Camera->Update(m_GameObjMgr );
 	UpdateGUI();
@@ -135,11 +134,6 @@ bool GameState::Update(float p_DeltaTime)
 	m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
 	mgr->RemoveEnemyCollider();
 	mgr->SetPlayerVsEnemy(false);
-	}*/
-	/// Player Experience Stuff
-	/*if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
-	{
-		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
 	}*/
 	return true;
 }

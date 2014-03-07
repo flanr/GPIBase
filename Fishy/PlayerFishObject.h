@@ -6,6 +6,7 @@ class AnimatedSprite;
 class Collider;
 class Camera;
 class SpriteManager;
+class SoundManager;
 
 class PlayerFishObject : public FishObject {
 public:
@@ -25,7 +26,7 @@ public:
 	void ExperienceGain(int x);
 	int GetExperience();
 	bool UpdateLevel();
-
+	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 private:
 	
@@ -36,12 +37,13 @@ private:
 	void UpdateChewing(float p_Deltatime);
 	void UpdateGrowing(SpriteManager *p_SpriteManager, float p_Deltatime);
 	void UpdateHealth();
-	
+	void UpdateCollider();
 private:
 	sf::Vector2f m_fVelocity;
 	int m_Health;
 	int m_Energy;
 	int m_Experience;
+
 
 	bool m_SlowingDown;
 	int m_Healthtimer;
@@ -50,7 +52,9 @@ private:
 	int m_GrowTimer;
 	bool m_HasGrown;
 
+	SoundManager* m_SoundManager;
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
 
+	int m_iWidth, m_iHeight;
 };
