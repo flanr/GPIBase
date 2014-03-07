@@ -4,16 +4,12 @@
 
 //include all objects in stdafx.h eller här?
 
-
 #include "InputManager.h"
+#include "Camera.h"
 
-//#include "TerrainObject.h"
 #include "PlayerFishObject.h"
-//#include "LightObject.h"
 #include "EnemyFishObject.h"
 //#include "PowerupObject.h"
-//#include "InfoObject.h"
-//#include "TrapObject.h"
 //#include "ParticleObject.h"
 
 GameObjectManager::GameObjectManager(InputManager *p_pxInputManager)
@@ -32,40 +28,11 @@ void GameObjectManager::Cleanup()
 		auto it = m_apxGameObject.begin();
 		while(it != m_apxGameObject.end() )
 		{
-			/*if((*it)->HasAnimSprite()
-			{
-			delete (*it->GetAnimatedSprite();
-			}
-			else
-			{
-			delete (*it)->GetSprite();
-			}*/
-			delete (*it)->GetSprite();
-			//delete (*it)->GetCollider();
 			delete (*it);
 			it++;
 		}
 		m_apxGameObject.clear();
 	}
-	//Delete Player Fish
-	//if(m_pxPlayer != nullptr) 
-	//{
-	//	/*delete m_pxPlayer->GetSprite();
-	//	or delete (*it->GetAnimatedSprite();
-	//	delete m_pxPlayer->GetCollider();*/
-	//	delete m_pxPlayer;
-	//	m_pxPlayer = nullptr;
-	//}
-
-	//Delete Player Light
-	//if(m_pxLight != nullptr) 
-	//{
-	//	/*delete m_pxLight->GetSprite();
-	//	delete m_pxLight->GetCollider();
-	//	delete m_pxLight->GetCircleCollider();*/
-	//	delete m_pxLight;
-	//	m_pxLight = nullptr;
-	//}
 }
 
 //attach objects
@@ -78,30 +45,6 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 	m_pxPlayer = p_pxPlayer;
 }
 
-//void GameObjectManager::AttachLight(LightSource *p_pxLight)
-//{
-//	m_pxLight = p_pxLight;
-//}
-
-//void GameObjectManager::AttachTerrain(TerrainObject *p_pxTerrain)
-//{
-//	m_apxTerrain.push_back(p_pxTerrain);
-//}
-//void GameObjectManager::AttachEnemy(EnemyFishObject *p_pxEnemy)
-//{
-//	m_apxEnemy.push_back(p_pxEnemy);
-//}
-//void GameObjectManager::AttachPowerup(PowerupObject *p_pxPowerup)
-//{
-//	m_apxPowerup.push_back(p_pxPowerup);
-//}
-//void GameObjectManager::AttachInfo(InfoObject *p_pxInfoObject)
-//{
-//	m_apxInfoObject.push_back(p_pxInfoObject);
-//}
-//void GameObjectManager::AttachTrap(TrapObject *p_pxTrapObject)
-//{
-//	m_apxTrapObject.push_back(p_pxTrapObject);
 //}
 ///*void GameObjectManager::AttachParticle(ParticleObject * p_pxParticle)
 //{
@@ -121,16 +64,7 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 
 
 //Add Animations to objects or maybe load/add them some other place?
-//void GameObjectManager::AddPlayerAnimation(PlayerFishObject *p_pxPlayer)
-//{
-//		/*AnimatedSprite *p_pxPlayer = m_pxSpriteManager->LoadAnim("..filename");		
-//		p_pxPlayer->AddAnimation("Move",p_pxPlayer);*/
-//}
-//void GameObjectManager::AddEnemyAnimation(EnemyFishObject *p_pxEnemy)
-//{
-//	/*AnimatedSprite *p_pxEnemy = m_pxSpriteManager->LoadAnim("..filename");		
-//	p_pxEnemy->AddAnimation("Move",p_pxEnemy);*/
-//}
+
 //void GameObjectManager::AddParticleAnimation(ParticleObject * p_pxParticle)
 //{
 //}
@@ -165,8 +99,6 @@ void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index)
 		delete p_pxEnemy;
 		p_pxEnemy = nullptr;
 	}
-
-	//m_apxGameObject.erase(m_apxGameObject.begin() + p_Index);
 }
 
 //void GameObjectManager::DestroyPowerup(PowerupObject *p_pxPowerup)
@@ -188,25 +120,7 @@ void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index)
 //		m_apxPowerup.erase(m_apxPowerup.begin() + iVectorPosition);
 //	}
 //}
-//void GameObjectManager::DestroyInfoObject(InfoObject *p_pxInfoObject)
-//{
-//	if(p_pxInfoObject != nullptr)
-//	{
-//		int iVectorPosition;
-//		for(int i = 0; i < m_apxInfoObject.size(); i ++)
-//		{
-//			if(m_apxInfoObject[i] == p_pxInfoObject)
-//			{
-//				iVectorPosition = i;
-//				/*delete p_pxInfoObject->GetSprite();
-//				delete p_pxInfoObject->GetCollider();*/
-//				delete p_pxInfoObject;
-//				p_pxInfoObject = nullptr;
-//			}
-//		}
-//		m_apxInfoObject.erase(m_apxInfoObject.begin() + iVectorPosition);
-//	}
-//}
+
 
 /*
 void GameObjectManager::DestroyParticle(ParticleObject * p_pxParticle)
@@ -258,38 +172,38 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 				m_apxGameObject.erase(m_apxGameObject.begin() +i);
 			}
 		}
+
 	}
-	//if(m_apxGameObject[i]->HasCollider() )
-	//{
-	//	if( m_apxGameObject[i]->GetCollider() )
-	//	{
-	//		std::cout << "Destroying: " << m_apxGameObject[i]->GetType() << std::endl;
-	//		m_apxGameObject[i]->SetDestroyed(true);
-	//	}
-
-
-
-
-	//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
-	//m_apxGameObject.erase(m_apxGameObject.begin() + i);
-	//m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
 }
-	//}
+//if(m_apxGameObject[i]->HasCollider() )
+//{
+//	if( m_apxGameObject[i]->GetCollider() )
+//	{
+//		std::cout << "Destroying: " << m_apxGameObject[i]->GetType() << std::endl;
+//		m_apxGameObject[i]->SetDestroyed(true);
+//	}
 
-	//if(m_pxPlayer != nullptr)
-	//{
+//	if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
+//	{
 
-	//	m_pxPlayer->Update(m_pxInputManager, Camera, p_fDeltatime);
-	//	if(m_pxPlayer->GetCollider()->GetStatus() == true)
-	//	{
-	//		m_pxPlayer->SetDestroyed(false);
-	//	}
-	//}
-
-
-	/*for ( auto element : m_apxGameObject )
-	{
-	element->Update(p_fDeltatime);
-	}*/
-
+//		
+//		//DestroyEnemy( (EnemyFishObject*) m_apxGameObject[i], i);
+//		m_apxGameObject.erase(m_apxGameObject.begin() + i);
+//		m_pxPlayer->SetHealth(m_pxPlayer->GetHealth() + 10);
+//	}
 //}
+//if(m_pxPlayer != nullptr)
+//{
+
+//	m_pxPlayer->Update(m_pxInputManager, Camera, p_fDeltatime);
+//	if(m_pxPlayer->GetCollider()->GetStatus() == true)
+//	{
+//		m_pxPlayer->SetDestroyed(false);
+//	}
+//}
+
+/*for ( auto element : m_apxGameObject )
+{
+element->Update(p_fDeltatime);
+}*/
+

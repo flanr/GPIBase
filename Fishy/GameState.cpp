@@ -80,8 +80,8 @@ bool GameState::EnterState()
 		Collider *collider = new Collider(sf::Vector2f(posx, posy),sf::Vector2f(70, 70) );
 		//PlayerObject måste laddas in som nullptr,
 		PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(posx, posy ), nullptr, collider);
-		AnimatedSprite *pxAnimSprite = m_SpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
-		Player->AddAnimation("Player", pxAnimSprite);
+		AnimatedSprite *pxAnimSprite = m_SpriteManager->LoadAnim("../data/anim/PlayerAnimStage1.txt");	
+		Player->AddAnimation("PlayerStage1", pxAnimSprite);
 		Player->SetPosition(sf::Vector2f(posx, posy) );
 		Player->SetLevelLayer(MIDDLEGROUND);
 		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
@@ -122,7 +122,7 @@ bool GameState::Update(float p_DeltaTime)
 
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
-		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_Camera, p_DeltaTime);
+		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 	mgr->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
@@ -135,23 +135,12 @@ bool GameState::Update(float p_DeltaTime)
 	mgr->RemoveEnemyCollider();
 	mgr->SetPlayerVsEnemy(false);
 	}*/
-	/// Player Experience Stuff
-	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
-	{
-
-		m_GameObjMgr->m_pxPlayer->SetScale(1.0f);
-	}else if (m_GameObjMgr->m_pxPlayer->GetExperience() > 2)
-	{
-
-		m_GameObjMgr->m_pxPlayer->SetScale(0.8f);
-	}
 	return true;
 }
 
 void GameState::UpdateGUI()
 {
 	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310); 
-	//Gui->setPosition(m_GameObjMgr->m_pxPlayer->GetPosition().x - 500 ,m_GameObjMgr->m_pxPlayer->GetPosition().y - 310 );
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());

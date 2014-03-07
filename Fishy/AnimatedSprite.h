@@ -18,8 +18,10 @@ public:
 	
 	void Update(float p_fDeltatime);
 	void SetActiveAnimation(const std::string AnimName);
+	const std::string GetActiveAnimation();
 	void Stop();
 	void StoreAnim(const std::string AnimName, Anim p_Anim);
+	int GetCurrentFrame();
 
 private:
 	float m_fTime;

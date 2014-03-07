@@ -23,33 +23,37 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_Healthtimer = 10;
 	m_iAttacktimer = 15;
 	m_ChewTimer = 64;
+	m_GrowTimer = 64;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
 	SetPlayerScale(0.6f);
+	SetCurrentLevel(1);
+	m_HasGrown = false;
 	m_Experience = 0;
 	SetType("Player");
 
 };
-void PlayerFishObject::ExperienceGain(int x)
-{
-	m_Experience += x;
-	cout << "Experience :: " << GetExperience() << endl;
-}
 
-int PlayerFishObject::GetExperience()
+PlayerFishObject::~PlayerFishObject()
 {
-	return m_Experience;
-}
+	//delete all Animated sprites
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		delete it->second;
+		it++;
+	}
+	m_mpAnimations.clear();
 
-void PlayerFishObject::SetSoundManager(SoundManager *p_SoundManager)
-{
-	m_SoundManager=p_SoundManager;
+	if( m_pxCurrentAnimation != nullptr)
+	{
+		delete m_pxCurrentAnimation;
+		m_pxCurrentAnimation = nullptr;
+	}
 }
-
 
 void PlayerFishObject::SetPlayerScale(float x)
 {
-
 	SetScale(x);
 
 	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
@@ -58,11 +62,8 @@ void PlayerFishObject::SetPlayerScale(float x)
 		it->second->setScale(GetScale(),GetScale());
 		it++;
 	}
-
-	//->scale(Scale,Scale);
-
-
 }
+
 void PlayerFishObject::UpdateCollider()
 {
 	sf::IntRect rect;
@@ -76,29 +77,9 @@ void PlayerFishObject::UpdateCollider()
 	}
 }
 
-
-PlayerFishObject::~PlayerFishObject()
+void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_SpriteManager, Camera *p_Camera, float p_Deltatime)
 {
-	//delete all Animated sprites
-	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
-	while(it != m_mpAnimations.end() )
-	{
-		delete it->second;
-		it++;
-	}
-	m_mpAnimations.clear();
-
-	if(GetLightSource() != nullptr)
-	{
-		delete GetLightSource();
-	}
-
-}
-
-void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, float p_Deltatime)
-{ 
 	UpdateCollider();
-
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
 	if(GetState() == Death)
@@ -115,6 +96,10 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, Camera *p_Camera, 
 	{
 		m_pxCurrentAnimation->SetActiveAnimation("Chew");
 		UpdateChewing(p_Deltatime);
+	}
+	else if(GetState() == Growing)
+	{
+		UpdateGrowing(p_SpriteManager, p_Deltatime);
 	}
 	else 
 	{
@@ -175,6 +160,155 @@ void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *
 		m_pxCurrentAnimation = p_pxAnimSprite;
 	}
 	SetPlayerScale(GetScale());
+}
+
+void PlayerFishObject::ChangeStageAnimation(const std::string &p_sName, SpriteManager *p_pxSpriteManager)
+{
+	sf::Vector2f tempPos = GetPosition();
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		delete it->second;
+		it->second = nullptr;
+		it++;
+	}
+	m_mpAnimations.clear();
+
+	if(m_pxSprite != nullptr)
+	{
+		//delete m_pxSprite;
+		m_pxSprite = nullptr;
+		m_pxCurrentAnimation = nullptr;
+	}
+
+	//ska inte avbryta chewing
+	if(p_sName == "Stage2")
+	{
+		
+		AnimatedSprite *NewAnimSprite = p_pxSpriteManager->LoadAnim("../data/anim/PlayerAnimStage2.txt");		
+		AddAnimation(p_sName, NewAnimSprite);
+		SetPosition(tempPos);
+	}
+	else if(p_sName == "Stage3")
+	{
+		AnimatedSprite *NewAnimSprite = p_pxSpriteManager->LoadAnim("../data/anim/PlayerAnimStage3.txt");		
+		AddAnimation(p_sName, NewAnimSprite);
+	}
+}
+
+void PlayerFishObject::SetHealth(int p_Health)
+{
+	if(p_Health <= 100)
+	{
+		m_Health = p_Health;
+	}
+}
+
+int PlayerFishObject::GetHealth()
+{
+	return m_Health;
+}
+
+void PlayerFishObject::SetEnergy(int p_Energy)
+{
+	m_Energy = p_Energy;
+}
+
+int PlayerFishObject::GetEnergy()
+{
+	return m_Energy;
+}
+
+void PlayerFishObject::ExperienceGain(int x)
+{
+	m_Experience += x;
+	cout << "Experience :: " << GetExperience() << endl;
+}
+
+int PlayerFishObject::GetExperience()
+{
+	return m_Experience;
+}
+
+bool PlayerFishObject::UpdateLevel()
+{
+	if(GetExperience() == 1)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 2)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 3)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 4)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 5)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 6)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 7)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+	else if(GetExperience() == 8)
+	{
+		SetCurrentLevel(GetCurrentLevel() + 1);
+		return true;
+	}
+
+	return false;
+}
+
+// överlarga oncollision
+// du kommer få in en fisk som p_xOther
+// if p_xOther.getTypy() == fisk
+//		etc etc
+//
+// Player* p = nullptr;
+// GameObject* g = new Player();
+// p = static_cast<Player*>(g);
+void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
+{
+	m_SoundManager = p_soundmanager;
+}
+void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
+{
+	if (p_other->GetType() == "BrownBrick")
+	{
+		SetPosition(GetPosition() + p_Offset);
+	}
+	if (p_other->GetType() == "Enemy")
+	{
+		if(GetState() == Attack)
+		{
+			ExperienceGain(1);
+			if(UpdateLevel() )
+			{
+				m_HasGrown = true;
+			}
+			SetState(Chewing);
+			m_SoundManager->PlaySound("chew_sound2.wav");
+			std::cout << GetExperience() << std::endl;
+			cout << GetCurrentLevel() << endl;
+		}
+	}
 }
 
 void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Deltatime)
@@ -359,27 +493,8 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 
 void PlayerFishObject::UpdateIdle(float p_Deltatime)
 {
-
+	//ADD slow movement
 }
-//void PlayerFishObject::UpdateMovement(float p_Deltatime)
-//{
-//	if( GetDirection() == FacingLeft )
-//	{
-//		SetVelocityX(p_Deltatime * -GetSpeed() );
-//	}
-//	if( GetDirection() == FacingRight )
-//	{
-//		SetVelocityX(p_Deltatime * GetSpeed() );
-//	}
-//	if( GetDirection() == FacingUp )
-//	{
-//		SetVelocityY(p_Deltatime * -GetSpeed() );
-//	}
-//	if( GetDirection() == FacingDown )
-//	{
-//		SetVelocityY(p_Deltatime * GetSpeed() );
-//	}
-//}
 
 void PlayerFishObject::UpdateAttack(float p_Deltatime)
 {
@@ -448,33 +563,80 @@ void PlayerFishObject::UpdateChewing(float p_Deltatime)
 	m_ChewTimer--;
 	if(m_ChewTimer == 0)
 	{
-		SetState(Idle);
+		if(m_HasGrown)
+		{
+			SetState(Growing);
+		}
+		else
+		{
+			SetState(Idle);
+		}
 		m_ChewTimer = 64;
 	}
-	//return m_PlayerView.getViewport();
 }
-
-void PlayerFishObject::SetHealth(int p_Health)
+void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Deltatime)
 {
-	if(p_Health <= 100)
+	if(GetCurrentLevel() == 4 || GetCurrentLevel() == 7)
 	{
-		m_Health = p_Health;
+		if(m_pxCurrentAnimation->GetActiveAnimation() != "GrowingStage" )
+		{
+			m_pxCurrentAnimation->SetActiveAnimation("GrowingStage");
+		}
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.8f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.8f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.4f); }
 	}
-}
+	else if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)
+	{
+		if(m_pxCurrentAnimation->GetActiveAnimation() != "GrowingLevel" )
+		{
+			m_pxCurrentAnimation->SetActiveAnimation("GrowingLevel");
+		}
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.6f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.7f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.8f); }
 
-int PlayerFishObject::GetHealth()
-{
-	return m_Health;
-}
+	}
+	else if(GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9)
+	{
+		if(m_pxCurrentAnimation->GetActiveAnimation() != "GrowingLevel" )
+		{
+			m_pxCurrentAnimation->SetActiveAnimation("GrowingLevel");
+		}
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.8f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.9f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(1.0f); }
+	}
 
-void PlayerFishObject::SetEnergy(int p_Energy)
-{
-	m_Energy = p_Energy;
-}
+	m_GrowTimer--;
+	if(m_GrowTimer == 0)
+	{
+		SetState(Idle);
+		m_GrowTimer = 64;
+		m_HasGrown = false;
+		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  { SetPlayerScale(0.8f); }
+		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) { SetPlayerScale(1.0f); }
 
-int PlayerFishObject::GetEnergy()
-{
-	return m_Energy;
+		if(GetCurrentLevel() == 4) 
+		{ 
+			ChangeStageAnimation("Stage2", p_SpriteManager); 
+			SetPlayerScale(0.6f);
+		}
+		else if( GetCurrentLevel() == 7)  
+		{ 
+			//ChangeStageAnimation("Stage3", p_SpriteManager); 
+			SetPlayerScale(0.6f);
+		}
+	}
+	if(GetDirection() == FacingLeft || GetDirection() == FacingUpLeft || GetDirection() == FacingDownLeft ) 
+	{
+		FlipXLeft(GetScale() );
+	}
+	else
+		FlipXRight(GetScale() );
 }
 
 void PlayerFishObject::UpdateHealth()
@@ -493,33 +655,6 @@ void PlayerFishObject::UpdateHealth()
 		else
 		{
 			m_Healthtimer--;
-		}
-	}
-}
-
-// överlarga oncollision
-// du kommer få in en fisk som p_xOther
-// if p_xOther.getTypy() == fisk
-//		etc etc
-//
-// Player* p = nullptr;
-// GameObject* g = new Player();
-// p = static_cast<Player*>(g);
-
-void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
-{
-	if (p_other->GetType() == "BrownBrick")
-	{
-		SetPosition(GetPosition() + p_Offset);
-	}
-	if (p_other->GetType() == "Enemy")
-	{
-		if(GetState() == Attack)
-		{
-			ExperienceGain(1);
-			SetState(Chewing);
-			m_SoundManager->PlaySound("chew_sound2.wav");
-			std::cout << GetExperience() << std::endl;
 		}
 	}
 }

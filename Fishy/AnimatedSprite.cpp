@@ -36,7 +36,17 @@ void AnimatedSprite::SetActiveAnimation(const std::string AnimName)
 	m_AnimType = AnimName;
 }
 
+const std::string AnimatedSprite::GetActiveAnimation()
+{
+	return m_AnimType;
+}
+
 void AnimatedSprite::StoreAnim(const std::string AnimName, Anim p_Anim)
 {
 	m_mAllAnimations.insert(std::pair<std::string, Anim>(AnimName, p_Anim) );
+}
+
+int AnimatedSprite::GetCurrentFrame()
+{
+	return m_iCurrentFrame;
 }

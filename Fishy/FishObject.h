@@ -12,6 +12,7 @@ enum eState
 	Sneak,
 	Fleeing,
 	Chewing,
+	Growing,
 	Death,
 	StateCount
 };
@@ -59,6 +60,9 @@ public:
 	float GetScale();
 	void SetScale(float x);
 
+	int GetCurrentLevel();
+	void SetCurrentLevel(int i);
+
 	void OnCollision(GameObject* p_other){ };
 
 private:
@@ -70,5 +74,6 @@ private:
 	float m_fAttackpower;
 	sf::Vector2f m_Velocity;
 	float m_scale;
+	int m_CurrentLevel;
 
 };

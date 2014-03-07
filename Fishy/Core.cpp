@@ -152,6 +152,5 @@ void Core::UpdateDeltatime()
 	{
 		m_fDeltaTime = 0.1f;
 	}
-	// cout << m_fDeltaTime << endl;
 }
 
