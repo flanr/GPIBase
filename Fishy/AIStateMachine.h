@@ -19,7 +19,7 @@ public:
 
 	void Update() const
 	{
-		if (m_pGlobalState) m_pGlobalState->Execute(m_pOwner);
+		//if (m_pGlobalState) m_pGlobalState->Execute(m_pOwner);
 
 		if (m_pCurrentState) m_pCurrentState->Execute(m_pOwner);
 	}

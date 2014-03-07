@@ -15,7 +15,7 @@ void IdleState::Exitstate(EnemyFishObject* p_pEnemy)
 }
 IdleState* IdleState::Instance()
 {
-	IdleState Instance;
+	static IdleState Instance;
 
 	return &Instance;
 }

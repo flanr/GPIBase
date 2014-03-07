@@ -4,7 +4,7 @@
 
 AIGlobalState* AIGlobalState::Instance()
 {
-	AIGlobalState Instance;
+	static AIGlobalState Instance;
 
 	return &Instance;
 

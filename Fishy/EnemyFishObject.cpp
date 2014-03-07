@@ -14,7 +14,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	: FishObject(p_xPosition, p_pxSprite,  p_pxCollider) 
 {
 	SetSpeed(50);
-	SetState(Moving);
+	//SetState(Moving);
 	m_iStateTimer = 0;
 	//SetScale(0.2f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
@@ -46,49 +46,49 @@ EnemyFishObject::~EnemyFishObject()
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
-	//m_pAIStateMachine->Update();
-	ChangeState();
-	SetVelocity(sf::Vector2f(0.0f, 0.0f));
-	SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
+	m_pAIStateMachine->Update();
+	//ChangeState();
+	//SetVelocity(sf::Vector2f(0.0f, 0.0f));
+	//SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
 
-	float delta_x = GetPosition().x - player->GetPosition().x;
-	float delta_y = GetPosition().y - player->GetPosition().y;
-	sf::Vector2f distance_to_light;
-	distance_to_light.x = delta_x;
-	distance_to_light.y = delta_y;
+	//float delta_x = GetPosition().x - player->GetPosition().x;
+	//float delta_y = GetPosition().y - player->GetPosition().y;
+	//sf::Vector2f distance_to_light;
+	//distance_to_light.x = delta_x;
+	//distance_to_light.y = delta_y;
 
-	m_iStateTimer++;
-	if(m_iStateTimer >= 400)
-	{		
-		m_iStateTimer = 0;
-	}
-	if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
-	{
-		SetState(Attack);
-	}
-	else if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
-	{
-		SetState(Fleeing);
-	}
+	//m_iStateTimer++;
+	//if(m_iStateTimer >= 400)
+	//{		
+	//	m_iStateTimer = 0;
+	//}
+	//if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
+	//{
+	//	SetState(Attack);
+	//}
+	//else if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
+	//{
+	//	SetState(Fleeing);
+	//}
 
-	if(GetState() == Idle)
-	{
+	//if(GetState() == Idle)
+	//{
 
-		if(m_iStateTimer > 250)
-		{
-			SetVelocity(sf::Vector2f(deltatime * -GetSpeed(), 0.0f) );
-			//SetScale(GetScale());
-			FlipXLeft(1.0f);
+	//	if(m_iStateTimer > 250)
+	//	{
+	//		SetVelocity(sf::Vector2f(deltatime * -GetSpeed(), 0.0f) );
+	//		//SetScale(GetScale());
+	//		FlipXLeft(1.0f);
 
-		}
-		else
-		{
-			SetVelocity(sf::Vector2f(deltatime * GetSpeed(), 0.0f) );
-			//SetScale(GetScale());
-			FlipXRight(1.f);
+	//	}
+	//	else
+	//	{
+	//		SetVelocity(sf::Vector2f(deltatime * GetSpeed(), 0.0f) );
+	//		//SetScale(GetScale());
+	//		FlipXRight(1.f);
 
-		}
-	}
+	//	}
+	//}
 
 	//if(GetState() == Fleeing)
 	//{
