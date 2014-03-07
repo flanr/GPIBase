@@ -18,6 +18,14 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 
 GameObject::~GameObject()
 {
+	if(GetSprite() != nullptr)
+	{
+		delete  GetSprite();
+	}
+	if(GetLightSource() != nullptr)
+	{
+		delete GetLightSource();
+	}
 }
 void GameObject::SetLevelLayer(ELayer layer)
 {

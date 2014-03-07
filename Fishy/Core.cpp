@@ -148,7 +148,7 @@ void Core::UpdateDeltatime()
 
 	m_fDeltaTime = m_TimeSinceLastUpdate.asSeconds();
 
-	cout << m_fDeltaTime << endl;
+	//cout << m_fDeltaTime << endl;
 
 	if(m_fDeltaTime > 0.1f)
 	{

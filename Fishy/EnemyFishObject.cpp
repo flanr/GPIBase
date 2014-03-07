@@ -14,6 +14,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	SetSpeed(50);
 	SetState(Moving);
 	m_iStateTimer = 0;
+	SetCurrentLevel(0);
 	//SetScale(0.2f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 	SetType("Enemy");
@@ -22,7 +23,7 @@ EnemyFishObject::~EnemyFishObject()
 {
 	//Delete Sprite
 
-	if(GetSprite() != nullptr)
+	/*if(GetSprite() != nullptr)
 	{
 		delete  GetSprite();
 	}
@@ -30,7 +31,7 @@ EnemyFishObject::~EnemyFishObject()
 	if(GetLightSource() != nullptr)
 	{
 		delete GetLightSource();
-	}
+	}*/
 }
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)

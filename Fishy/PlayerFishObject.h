@@ -5,6 +5,7 @@
 class AnimatedSprite;
 class Collider;
 class Camera;
+class SpriteManager;
 
 class PlayerFishObject : public FishObject {
 public:
@@ -12,8 +13,9 @@ public:
 	~PlayerFishObject();
 
 	void SetPlayerScale(float x);
-	void Update(InputManager *p_pxInputManager,Camera *p_Camera ,float p_Deltatime);
+	void Update(InputManager *p_pxInputManager,SpriteManager *p_SpriteManager ,Camera *p_Camera ,float p_Deltatime);
 	void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
+	void ChangeStageAnimation(const std::string &p_sName, SpriteManager *p_pxSpriteManager);
 
 	void SetHealth(int p_Health);
 	int GetHealth();
@@ -22,17 +24,19 @@ public:
 	int GetEnergy();
 	void ExperienceGain(int x);
 	int GetExperience();
-	
+	bool UpdateLevel();
+
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 private:
-
+	
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
 	void UpdateIdle(float p_Deltatime);
-	void UpdateMovement(float p_Deltatime);
 	void UpdateAttack(float p_Deltatime);
 	void UpdateSneak(float p_Deltatime);
 	void UpdateChewing(float p_Deltatime);
+	void UpdateGrowing(SpriteManager *p_SpriteManager, float p_Deltatime);
 	void UpdateHealth();
+	
 private:
 	sf::Vector2f m_fVelocity;
 	int m_Health;
@@ -43,6 +47,8 @@ private:
 	int m_Healthtimer;
 	int m_iAttacktimer;
 	int m_ChewTimer;
+	int m_GrowTimer;
+	bool m_HasGrown;
 
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
