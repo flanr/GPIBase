@@ -7,6 +7,7 @@ class IdleState : public AIState<EnemyFishObject>
 {
 private:
 	IdleState(){}
+	
 public:
 	static IdleState* Instance();
 
