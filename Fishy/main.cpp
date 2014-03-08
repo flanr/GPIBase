@@ -2,11 +2,13 @@
 // Git
 
 #include "stdafx.h"
-
+#include <random>
 using namespace sf;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	srand((int)time(nullptr));
+	srand(time(nullptr));
 	Core core;
 	if (core.Initialize())
 	{

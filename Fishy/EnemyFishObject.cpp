@@ -5,6 +5,7 @@
 #include "PlayerFishObject.h"
 #include "AIState.h"
 #include "AIGlobalState.h"
+#include <random>
 //
 //EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite)
 //	: GameObject(p_xPosition, p_pxSprite) 
@@ -17,7 +18,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	//SetState(Moving);
 	m_iStateTimer = 0;
 	SetCurrentLevel(0);
-	//SetScale(0.2f);
+	SetScale(1.f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 	SetType("Enemy");
 	m_pAIStateMachine = new AIStateMachine<EnemyFishObject>(this);
@@ -31,12 +32,12 @@ EnemyFishObject::~EnemyFishObject()
 
 	/*if(GetSprite() != nullptr)
 	{
-		delete  GetSprite();
+	delete  GetSprite();
 	}
 
 	if(GetLightSource() != nullptr)
 	{
-		delete GetLightSource();
+	delete GetLightSource();
 	}*/
 	if (m_pAIStateMachine != nullptr)
 	{
@@ -47,7 +48,9 @@ EnemyFishObject::~EnemyFishObject()
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
+	++m_iStateTimer;
 	m_pAIStateMachine->Update();
+
 	//ChangeState();
 	//SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	//SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
@@ -110,7 +113,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	//		m_xPosition += m_velocity * deltatime;
 	//	}
 
-	
+
 	/*};
 
 	if(GetState() == Attack)
@@ -118,7 +121,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	SetVelocity(sf::Vector2f(0.0f, deltatime * -GetSpeed()) );
 	};*/
 
-	SetPosition( GetPosition() + GetVelocity() );
+	SetPosition( GetPosition() + GetVelocity()*deltatime );
 
 	if(m_light != nullptr)
 	{
@@ -132,16 +135,23 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 
 }
 
+int EnemyFishObject::random(int min, int max)
+{
+	int slump;
+	slump=rand()%max+(min);
+	return slump;
+}
+
 void EnemyFishObject::ChangeState()
 {
 	SetState(Idle);
 	/*if(GetState() == Moving)
 	{
-		SetState(Fleeing);
+	SetState(Fleeing);
 	}
 	else if(GetState() == Fleeing)
 	{
-		SetState(Moving);
+	SetState(Moving);
 	}*/
 }
 
@@ -182,7 +192,7 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		if (p_other->GetType() == "BrownBrick")
 		{
 			SetPosition(GetPosition() + p_Offset);
-			
+
 			SetVelocity(sf::Vector2f(GetVelocity().x * (-1), GetVelocity().y * (-1)));
 		}
 	}

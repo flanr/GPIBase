@@ -24,7 +24,12 @@ public:
 	void SetAttractRadius(float p_fAttractRadius);
 	/* use for collision with EnemyFish vs Wall*/
 	void OnCollision(GameObject* p_other, sf::Vector2f& p_Offset);
+
+	void AddTimer(const int nr)				{m_iStateTimer+= nr;};
+	int GetTimer()							{return m_iStateTimer;};
+	void ResetTimer()						{m_iStateTimer = 0;};
 	
+	int random(int min, int max);
 private:
 	sf::Vector2f m_xSpawnPosition;
 	int m_iStateTimer;
