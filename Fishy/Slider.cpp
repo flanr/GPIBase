@@ -56,6 +56,7 @@ void Slider::SetValue(int v)
 	
 	value = v % 101;				// emptySlider.w = sw*value/100;
 	m_EmptySlider.setSize(sf::Vector2f((m_sw*v)/100,m_h));
+	cout << "Slider Value : " << value << endl;
 	//printf("SliderValue changed to: %d \r\n", value);
 }
 
@@ -92,7 +93,7 @@ void Slider::MoveMouse(int x, int y)
 
 	if (selected)
 	{
-		int offsetX = m_x - m_FullSlider.getPosition().x;
+		int offsetX = x - m_FullSlider.getPosition().x;
 		if (offsetX <= 0)
 		{
 			SetValue(0);
