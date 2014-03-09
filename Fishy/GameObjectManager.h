@@ -48,6 +48,7 @@ public:
 
 	/*void UpdatePlayer(float p_fDeltatime);*/
 	//void UpdateParticles(float p_fDeltatime); // Uppdaterar position, velocity // opacity?
+	int GetEnemyCounter()					{return m_iEnenmyCounter;}
 private:
 	InputManager *m_pxInputManager;
 
@@ -55,6 +56,6 @@ private:
 	PlayerFishObject *m_pxPlayer;
 
 	std::vector<PowerupObject*>  m_apxPowerup;
-
+	int m_iEnenmyCounter;
 	//std::vector<ParticleObject*> m_apxParticles;
 };

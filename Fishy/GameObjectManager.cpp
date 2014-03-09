@@ -14,6 +14,7 @@
 
 GameObjectManager::GameObjectManager(InputManager *p_pxInputManager)
 {
+	m_iEnenmyCounter = 0;
 	m_pxInputManager = p_pxInputManager;
 	m_pxPlayer = nullptr;
 }
@@ -39,6 +40,10 @@ void GameObjectManager::Cleanup()
 void GameObjectManager::Attach(GameObject *p_pxGameObject)
 {
 	m_apxGameObject.push_back(p_pxGameObject);
+	if (dynamic_cast<EnemyFishObject*>(p_pxGameObject))
+	{
+		m_iEnenmyCounter++;
+	}
 }
 void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 {
@@ -99,6 +104,7 @@ void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index)
 		delete p_pxEnemy;
 		p_pxEnemy = nullptr;
 	}
+	--m_iEnenmyCounter;
 }
 
 //void GameObjectManager::DestroyPowerup(PowerupObject *p_pxPowerup)

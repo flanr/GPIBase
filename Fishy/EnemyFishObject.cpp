@@ -14,6 +14,7 @@
 EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprite, Collider* p_pxCollider)
 	: FishObject(p_xPosition, p_pxSprite,  p_pxCollider) 
 {
+	isSafe = false;
 	SetSpeed(50);
 	//SetState(Moving);
 	m_iStateTimer = 0;
@@ -48,6 +49,9 @@ EnemyFishObject::~EnemyFishObject()
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
+	m_xPlayerPosition = player->GetPosition();
+	//2=left 3= right
+	m_iPlayerDirection = player->GetDirection();
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
@@ -195,5 +199,17 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 
 			SetVelocity(sf::Vector2f(GetVelocity().x * (-1), GetVelocity().y * (-1)));
 		}
+	}
+}
+
+void EnemyFishObject::Scared()
+{
+	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
+	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
+	DistanceVector/=sqrtf(DistanceNumber);
+	SetVelocity(-DistanceVector * GetSpeed());
+	if (sqrtf(DistanceNumber) >= 500.f)
+	{
+		isSafe = true;
 	}
 }

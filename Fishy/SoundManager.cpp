@@ -24,11 +24,11 @@ void SoundManager::PlaySound(string path)
 		if (sound.path == path)
 		{
 			sound.soundData->play();
-			cout << "Sound was found, playing : " << path << endl;
+			//cout << "Sound was found, playing : " << path << endl;
 			return;
 		}
 	}
-	cout << "Sound not found, adding sound : " << path << endl;
+	//cout << "Sound not found, adding sound : " << path << endl;
 	AddSound(path);
 	PlaySound(path);
 }
@@ -44,7 +44,7 @@ void SoundManager::PlayMusic(string path)
 			{
 
 				music.soundHandle->play();
-				cout << "Music was found, playing : " << path << endl;
+				//cout << "Music was found, playing : " << path << endl;
 				return;
 			}
 

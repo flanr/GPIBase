@@ -62,7 +62,6 @@ private:
 	sf::Sprite *Gui;
 
 	
-	CollisionManager* mgr;
+	CollisionManager* m_pxCollisionManager;
 
-	sf::FloatRect m_floatrect;
 };
