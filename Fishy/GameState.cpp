@@ -148,7 +148,7 @@ bool GameState::Update(float p_DeltaTime)
 
 void GameState::UpdateGUI()
 {
-	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310); 
+	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 600, m_Camera->GetCameraView().getCenter().y - 350); 
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());

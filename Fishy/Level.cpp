@@ -153,7 +153,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 
 			}
-			if (row[i] == 'c')
+			if (row[i] == 'v')
 			{
 				 sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
 				sprite->setPosition(iX,iY);
