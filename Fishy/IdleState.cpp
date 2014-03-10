@@ -54,7 +54,7 @@ void IdleState::Execute(EnemyFishObject* p_pEnemy)
 	}
 	sf::Vector2f DistanceVector = p_pEnemy->GetPlayerPosition() - p_pEnemy->GetPosition();
 	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
-	if (sqrtf(DistanceNumber) <= 100.f)
+	if (sqrtf(DistanceNumber) <= 300.f)
 	{
 		if (p_pEnemy->GetPlayerDirection() == 3 && p_pEnemy->GetPlayerPosition().x < p_pEnemy->GetPosition().x)
 		{
