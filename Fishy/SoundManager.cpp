@@ -24,6 +24,7 @@ void SoundManager::PlaySound(string path)
 		if (sound.path == path)
 		{
 			sound.soundData->play();
+			sound.soundData->setVolume(100);
 			cout << "Sound was found, playing : " << path << endl;
 			return;
 		}
@@ -44,6 +45,7 @@ void SoundManager::PlayMusic(string path)
 			{
 
 				music.soundHandle->play();
+				music.soundHandle->setVolume(0);
 				cout << "Music was found, playing : " << path << endl;
 				return;
 			}
