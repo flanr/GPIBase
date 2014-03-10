@@ -16,7 +16,9 @@ enum ELayer
 		SECONDLOWESTBG,
 		HIGHESTBG,
 		MIDDLEGROUND,
+		MIDDLEFROUNT,
 		FOREGROUND
+		
 	};
 class Level
 {

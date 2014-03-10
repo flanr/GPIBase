@@ -110,6 +110,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				}
 			}
 
+			
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 			/*if (row[i] == 'B')
 			{
@@ -121,7 +122,53 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			continue;
 			}*/
+			if (row[i] == 'z')
+			{
+				 sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
+				sprite->setPosition(iX,iY);
 
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX-350,iY-260));
+			go->SetLevelLayer(layer);
+			m_pxGameObjMgr->Attach(go);
+			
+					iX += m_iWidth;
+					continue;
+
+
+			}
+			if (row[i] == 'x')
+			{
+				 sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
+				sprite->setPosition(iX,iY);
+
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX-300,iY-530));
+			go->SetLevelLayer(layer);
+			m_pxGameObjMgr->Attach(go);
+
+			
+					iX += m_iWidth;
+					continue;
+
+
+			}
+			if (row[i] == 'c')
+			{
+				 sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
+				sprite->setPosition(iX,iY);
+
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX-200,iY-200));
+			go->SetLevelLayer(layer);
+			m_pxGameObjMgr->Attach(go);
+
+			
+					iX += m_iWidth;
+					continue;
+
+
+			}
 
 
 			sprite->setOrigin(sprite->getTextureRect().width / 2.0f, sprite->getTextureRect().height / 2.0f);
@@ -177,7 +224,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 {
 	UpdateParallax(p_Camera);
-	for (int n = 0; n < 5; n++)
+	for (int n = 0; n < 6; n++)
 	{
 		for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 		{	
