@@ -222,7 +222,7 @@ int PlayerFishObject::GetEnergy()
 void PlayerFishObject::ExperienceGain(int x)
 {
 	m_Experience += x;
-	cout << "Experience :: " << GetExperience() << endl;
+	//cout << "Experience :: " << GetExperience() << endl;
 }
 
 int PlayerFishObject::GetExperience()
@@ -299,14 +299,15 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		if(GetState() == Attack)
 		{
 			ExperienceGain(1);
+			SetHealth(GetHealth() + 10);
 			if(UpdateLevel() )
 			{
 				m_HasGrown = true;
 			}
 			SetState(Chewing);
 			m_SoundManager->PlaySound("chew_sound2.wav");
-			std::cout << GetExperience() << std::endl;
-			cout << GetCurrentLevel() << endl;
+			//std::cout << GetExperience() << std::endl;
+			//cout << GetCurrentLevel() << endl;
 		}
 	}
 }
@@ -646,7 +647,7 @@ void PlayerFishObject::UpdateHealth()
 		if(m_Healthtimer == 0)
 		{
 			m_Health--;
-			m_Healthtimer = 100;
+			m_Healthtimer = 50;
 			if(GetHealth() == 0)
 			{
 				SetState(Death);

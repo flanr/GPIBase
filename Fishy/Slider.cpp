@@ -56,7 +56,7 @@ void Slider::SetValue(int v)
 	
 	value = v % 101;				// emptySlider.w = sw*value/100;
 	m_EmptySlider.setSize(sf::Vector2f((m_sw*v)/100,m_h));
-	cout << "Slider Value : " << value << endl;
+	//cout << "Slider Value : " << value << endl;
 	//printf("SliderValue changed to: %d \r\n", value);
 }
 

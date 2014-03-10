@@ -1,16 +1,14 @@
-//IdleState
-//#include "AISTate.h"
+//ScaredState
 #pragma once
-#include "stdafx.h"
 #include "EnemyFishObject.h"
 
-class IdleState : public AIState<EnemyFishObject>
+class ScaredState : public AIState<EnemyFishObject>
 {
 private:
-	IdleState(){}
+	ScaredState(){}
 	
 public:
-	static IdleState* Instance();
+	static ScaredState* Instance();
 
 	void Enterstate(EnemyFishObject* p_pEnemy);
 	void Execute(EnemyFishObject* p_pEnemy);

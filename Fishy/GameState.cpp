@@ -20,7 +20,7 @@ GameState::GameState(Core* p_pCore)
 	m_SpriteManager = p_pCore->m_SpriteManager;
 	m_GameObjMgr = p_pCore->m_GameObjectManager;
 
-	mgr = new CollisionManager;
+	m_pxCollisionManager = new CollisionManager;
 
 
 	m_DrawManager = p_pCore->m_DrawManager;
@@ -86,11 +86,11 @@ bool GameState::EnterState()
 		Player->SetLevelLayer(MIDDLEGROUND);
 		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
 		m_GameObjMgr->AttachPlayer(Player);
-		mgr->AttachCollider(Player->GetCollider() );
+		m_pxCollisionManager->AttachCollider(Player->GetCollider() );
 		m_GameObjMgr->m_pxPlayer->SetSoundManager(m_pCore->m_SoundManager);
 
 		// MiddleGround
-		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
+		m_LevelLayerMidleGround = new Level(m_GameObjMgr, m_pxCollisionManager);
 		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
 		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
@@ -116,7 +116,10 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-
+	if (m_GameObjMgr->GetEnemyCounter() == 0)
+	{
+		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+	}
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 
@@ -124,7 +127,7 @@ bool GameState::Update(float p_DeltaTime)
 	{
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
-	mgr->CheckCollisionRectVsRect();
+	m_pxCollisionManager->CheckCollisionRectVsRect();
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	m_Camera->Update(m_GameObjMgr );
 	UpdateGUI();
