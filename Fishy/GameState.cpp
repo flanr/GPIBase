@@ -31,7 +31,7 @@ GameState::GameState(Core* p_pCore)
 	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerBackgroundSecondLowest = nullptr;
 	m_LevelLayerBackgroundSecondHighest = nullptr;
-	m_LevelLayerGradient = nullptr;
+	m_LevelLayerMiddleFront = nullptr;
 	m_LevelLayerBackgroundLowest = nullptr;
 
 	m_Camera = nullptr;
@@ -92,6 +92,11 @@ bool GameState::EnterState()
 		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, m_pxCollisionManager);
 		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
+
+		// Middlefront
+		m_LevelLayerMiddleFront = new Level(m_GameObjMgr);
+		m_LevelLayerMiddleFront->Load("../data/levels/level_middlefront.txt", m_SpriteManager, false,ELayer::MIDDLEFROUNT);
+
 		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
