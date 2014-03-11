@@ -121,6 +121,7 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
+	
 	if (m_GameObjMgr->GetEnemyCounter() == 0)
 	{
 		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
@@ -201,6 +202,7 @@ void GameState::Draw()
 	m_DrawManager->Draw(Gui);
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
+	m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 
 	m_DrawManager->DisplayWindow();
 
