@@ -35,7 +35,7 @@ private:
 	void UpdateAttack(float p_Deltatime);
 	void UpdateSneak(float p_Deltatime);
 	void UpdateChewing(float p_Deltatime);
-	void UpdateGrowing(SpriteManager *p_SpriteManager, float p_Deltatime);
+	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
 	void UpdateHealth();
 	void UpdateCollider();
 private:
@@ -51,7 +51,6 @@ private:
 	int m_ChewTimer;
 	int m_GrowTimer;
 	bool m_HasGrown;
-
 	SoundManager* m_SoundManager;
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;

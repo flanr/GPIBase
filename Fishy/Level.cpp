@@ -16,6 +16,8 @@ Level::Level(GameObjectManager *p_pxGameObjMgr, CollisionManager * p_CollisionMg
 {
 	m_iHeight = 0;
 	m_iWidth = 0;
+	m_LevelWidth = 0;
+	m_LevelHeight = 0;
 	m_PlayerStartPosition = sf::Vector2f(0.0f, 0.0f);
 	m_pxGameObjMgr = p_pxGameObjMgr;
 	m_CollisionMgr = p_CollisionMgr;
@@ -167,10 +169,21 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 
 			iX += m_iWidth;
+			
+
 		}
 		iY += m_iHeight;
+		if(m_LevelWidth <= iX)
+		{
+			m_LevelWidth = iX;
+		}
+		if(m_LevelHeight <= iY)
+		{
+			m_LevelHeight = iY;
+		}
 	}
 	stream.close();
+	//m_LevelWidth += m_iWidth;
 	return true;
 }
 
@@ -364,4 +377,14 @@ void Level::UpdateParallax(Camera *p_Camera)
 
 	}
 	*/
+}
+
+unsigned int Level::GetWidth()
+{
+	return m_LevelWidth;
+}
+
+unsigned int Level::GetHeight()
+{
+	return m_LevelHeight;
 }
