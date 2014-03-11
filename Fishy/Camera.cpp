@@ -147,25 +147,40 @@ void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
 void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 {
 	m_FilterTexture->setView(m_CameraView);
+	//Opacity = 0.
+	GetFilterTexture()->clear(sf::Color(0,0,0,0) );
 
-	int OpacityLevel = (static_cast<int>(p_Level->GetHeight() / 2.0f) ) / 256;
-	int OpacityCounter = 0;
-	while(OpacityLevel < p_GameObjMgr->m_pxPlayer->GetPosition().y) // && OpacityLevel < (p_Level->GetHeight() / 2.0f) )
+	//Opacity starts at this position
+	const int OPACITYSTART = 1000; //p_Level->GetHeight() / 3.0f;
+	//OpacityDepth == how fast the opacity change 
+	const int OPACITYDEPTH = 3000;
+	//OPACITYMAX is the opacity of the darkest part
+	const int OPACITYMAX = 245;
+	if(p_GameObjMgr->m_pxPlayer->GetPosition().y > OPACITYSTART )
 	{
-		OpacityLevel += OpacityLevel;
-		OpacityCounter++;
-		//cout << "OpacityCounter: " << OpacityCounter << endl;
+		int OpacityLevel = 0;
+		int OpacityCounter = 0;
+		while(OpacityLevel < (p_GameObjMgr->m_pxPlayer->GetPosition().y - OPACITYSTART) )
+		{
+			//Divide OpacityDepth by 256 because opacity is 0 - 255, so we dived it in 256 parts.
+
+			OpacityLevel += (OPACITYDEPTH / 256);
+			OpacityCounter++;
+		}
+		cout << "OpacityCounter: " << OpacityCounter << endl;
+		//Maximum opacity
+		if(OpacityCounter >= OPACITYMAX)
+		{
+
+			GetFilterTexture()->clear(sf::Color(0,0,0, OPACITYMAX) );
+		}
+		//All other opacities
+		else
+		{
+			GetFilterTexture()->clear(sf::Color(0,0,0, OpacityCounter) );
+		}
 	}
-	
-	//if(p_GameObjMgr->m_pxPlayer->GetPosition().y > p_Level->GetHeight() / 2.0f - 2000)
-	if(OpacityCounter <= 255)
-	{
-		GetFilterTexture()->clear(sf::Color(0,0,0,OpacityCounter * 30) );
-	}
-	else
-	{
-		GetFilterTexture()->clear(sf::Color(0,0,0,255) );
-	}
+
 	for( int i = 0; i < p_GameObjMgr->m_apxGameObject.size(); i++)
 	{
 		if(p_GameObjMgr->m_apxGameObject[i]->HasLight() )
