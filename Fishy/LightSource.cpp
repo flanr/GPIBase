@@ -51,6 +51,7 @@ void LightSource::CreateCircle()
 	}
 	m_LightTexture->display();
 	m_Circle->setTexture(&m_LightTexture->getTexture() );
+	m_Circle->setPointCount(240);
 	SetOrigin(sf::Vector2f(m_Circle->getTextureRect().width / 2.0f, m_Circle->getTextureRect().height / 2.0f) );
 }
 void LightSource::SetStrength()

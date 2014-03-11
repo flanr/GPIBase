@@ -1,0 +1,29 @@
+SPRITE BOX SIZE: 674x405 pixels
+Size 1: 60% size
+Size 2: 80% size
+Size 3: 100% size
+
+row 1: idle
+row 2: move (can also be used for dash, sped up?)
+row 3: attack (when no target)
+row 4: attack with chew (when a target is hit)
+row 5: death (hold frame 6 for a longer time, then play the rest)                                       
+row 6: growth 
+
+GROWTH ANIMATION SIZE 1->SIZE 2
+frame 1: 60%
+frame 2: 50%
+frame 3: 90%
+frame 4: 80%
+
+GROWTH ANIMATION SIZE 2->SIZE 3
+frame 1: 80%
+frame 2: 70%
+frame 3: 110%
+frame 4: 100%
+
+
+
+(((old box sizes:
+player_sheet.png: 704x573 pixels
+player_sheet_small.png: 352x287 pixels)))

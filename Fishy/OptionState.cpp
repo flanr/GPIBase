@@ -48,6 +48,7 @@ OptionState::OptionState(Core* p_pCore)
 	/////////////
 	// Sliders //
 	/////////////
+
 	m_SliderMusicVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+205,600,25);
 	m_SliderMusicVol.SetColor(sf::Color::White);
 
@@ -104,6 +105,8 @@ void OptionState::HandleInput()
 		//m_pCore->m_StateManager.SetState("OptionState");
 	}
 	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
+	m_SliderMusicVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+	m_SliderSoundVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
 
 	if (m_pInputManager->IsDown(MB_LEFT))
 	{
@@ -142,6 +145,8 @@ void OptionState::HandleInput()
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
 			m_ButtonClick = -1;
 
+
+
 		//m_pCore->window->create(sf::VideoMode(1280,720), "SUPER MEGA AWESOME GAME", sf::Style::Fullscreen);
 	}
 	else if (m_pInputManager->IsReleased(MB_LEFT))
@@ -167,6 +172,8 @@ void OptionState::HandleInput()
 			m_pCore->m_StateManager.SetState("StartState");
 		}
 		m_ButtonClick = 0;
+		m_SliderMusicVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		m_SliderSoundVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
 	}
 }
 

@@ -10,7 +10,7 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 	: m_pxSprite(p_pxSprite), m_pxCollider(p_pxCollider), m_sType("GameObject")
 {
 	SetPosition(p_xPosition);
-	m_bDestroyed = false;
+	m_isDestroyed = false;
 	m_light = nullptr;
 	if(m_pxCollider != nullptr)
 		m_pxCollider->SetParent(this);
@@ -18,6 +18,14 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 
 GameObject::~GameObject()
 {
+	if(GetSprite() != nullptr)
+	{
+		delete  GetSprite();
+	}
+	if(GetLightSource() != nullptr)
+	{
+		delete GetLightSource();
+	}
 }
 void GameObject::SetLevelLayer(ELayer layer)
 {
@@ -95,12 +103,12 @@ Collider* GameObject::GetCollider()
 
 void GameObject::SetDestroyed(bool p_bDestroyed)
 {
-	m_bDestroyed = p_bDestroyed;
+	m_isDestroyed = p_bDestroyed;
 }
 
 bool GameObject::GetDestroyed()
 {
-	return m_bDestroyed;
+	return m_isDestroyed;
 }
 
 void GameObject::FlipXLeft(float scale)
@@ -145,5 +153,5 @@ LightSource* GameObject::GetLightSource()
 
 void GameObject::OnCollision(GameObject* p_xOther, sf::Vector2f& p_Offset)
 {
-	/*std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;*/
+	std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;
 }

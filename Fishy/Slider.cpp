@@ -21,7 +21,7 @@ void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 	selected = true;
 
 	m_sw = p_Width/* - p_Width/5*/;
-
+	m_SliderBox.setSize(sf::Vector2f(p_Width + 20,p_Height + 20));
 
 	m_EmptySlider.setSize(sf::Vector2f(p_Width,p_Height));
 	m_EmptySlider.setPosition(p_X,p_Y);
@@ -45,7 +45,7 @@ Slider::~Slider()
 
 bool Slider::MouseOver(int x, int y)
 {
-	return (x > m_x && x <m_x + m_w) && (y > m_y && y < m_y + m_h);
+	return (x > m_x -20   && x <m_x +20  + m_w) && (y > m_y - 20 && y < m_y + 20 + m_h);
 }
 
 
@@ -56,6 +56,7 @@ void Slider::SetValue(int v)
 	
 	value = v % 101;				// emptySlider.w = sw*value/100;
 	m_EmptySlider.setSize(sf::Vector2f((m_sw*v)/100,m_h));
+	//cout << "Slider Value : " << value << endl;
 	//printf("SliderValue changed to: %d \r\n", value);
 }
 
@@ -92,7 +93,7 @@ void Slider::MoveMouse(int x, int y)
 
 	if (selected)
 	{
-		int offsetX = m_x - m_FullSlider.getPosition().x;
+		int offsetX = x - m_FullSlider.getPosition().x;
 		if (offsetX <= 0)
 		{
 			SetValue(0);

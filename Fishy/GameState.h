@@ -50,7 +50,7 @@ private:
 	Level* m_LevelLayerMidleGround;
 	Level* m_LevelLayerBackgroundSecondLowest;
 	Level* m_LevelLayerBackgroundSecondHighest;
-	Level* m_LevelLayerGradient;
+	Level* m_LevelLayerMiddleFront;
 	Level* m_LevelLayerBackgroundLowest;
 	SpriteManager* m_SpriteManager;
 	DrawManager* m_DrawManager;
@@ -62,7 +62,6 @@ private:
 	sf::Sprite *Gui;
 
 	
-	CollisionManager* mgr;
+	CollisionManager* m_pxCollisionManager;
 
-	sf::FloatRect m_floatrect;
 };

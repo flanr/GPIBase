@@ -20,7 +20,7 @@ public:
 	void SetColor(sf::Color);
 
 	
-	sf::RectangleShape m_EmptySlider, m_FullSlider;
+	sf::RectangleShape m_EmptySlider, m_FullSlider, m_SliderBox;
 private:
 	bool MouseOver(int x, int y);
 	int m_x,m_y,m_w,m_h, m_sw;

@@ -8,11 +8,13 @@
 Camera::Camera(sf::Vector2f p_Size)
 {
 	m_CameraView.setSize(p_Size);
-	m_FilterOn = false;
+	m_FilterOn = true;
 	m_FilterSprite = nullptr;
 	m_FilterTexture = nullptr;
 	m_MovingXAxis = false;
 	m_MovingYAxis = false;
+	m_IsZoomingOut = false;
+	m_ZoomStrength = 0.0;
 }
 
 
@@ -33,11 +35,10 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 	SetCenterCamera(p_window->getView().getCenter() );
 	AddLayer();
 	Move(p_Position - GetCameraView().getCenter() );
-	//m_FilterSprite->move( p_Position - GetCameraView().getCenter() /*+ sf::Vector2f(210, 210)*/ );
 	m_FilterSprite->setPosition(p_Position );
 }
 
-void Camera::Update(GameObjectManager *p_GameObjMgr)
+void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
 {
 	//m_MovingXAxis = false;
 	//m_MovingYAxis = false;
@@ -121,22 +122,65 @@ void Camera::Update(GameObjectManager *p_GameObjMgr)
 	//		m_MovingYAxis = true;
 	//	}
 	//}
-
+	if(IsZoomingOut() )
+	{
+		for(int i = 0UL; i < p_GameObjMgr->m_apxGameObject.size(); i++)
+		{
+			if( !(p_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == MIDDLEGROUND || p_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == FOREGROUND) )
+			{
+				p_GameObjMgr->m_apxGameObject[i]->GetSprite()->setScale(p_GameObjMgr->m_apxGameObject[i]->GetSprite()->getScale() * GetZoomStrength());
+			}
+		}
+		m_FilterSprite->setScale(m_FilterSprite->getScale() * GetZoomStrength() );
+	}
 	SetPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
 	//Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
+	//m_FilterSprite->setPosition(p_Level->GetWidth() / 2.0f, p_Level->GetHeight() / 2.0f );
 	m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
 	//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
 	m_MovingXAxis = true;
 	m_MovingYAxis = true;
 
-	UpdateFilter(p_GameObjMgr);
+	UpdateFilter(p_GameObjMgr, p_Level);
 }
 
-void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr)
+void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 {
 	m_FilterTexture->setView(m_CameraView);
+	//Opacity = 0.
+	GetFilterTexture()->clear(sf::Color(0,0,0,0) );
 
-	GetFilterTexture()->clear();
+	//Opacity starts at this position
+	const int OPACITYSTART = 1000; //p_Level->GetHeight() / 3.0f;
+	//OpacityDepth == how fast the opacity change 
+	const int OPACITYDEPTH = 3000;
+	//OPACITYMAX is the opacity of the darkest part
+	const int OPACITYMAX = 245;
+	if(p_GameObjMgr->m_pxPlayer->GetPosition().y > OPACITYSTART )
+	{
+		int OpacityLevel = 0;
+		int OpacityCounter = 0;
+		while(OpacityLevel < (p_GameObjMgr->m_pxPlayer->GetPosition().y - OPACITYSTART) )
+		{
+			//Divide OpacityDepth by 256 because opacity is 0 - 255, so we dived it in 256 parts.
+
+			OpacityLevel += (OPACITYDEPTH / 256);
+			OpacityCounter++;
+		}
+		cout << "OpacityCounter: " << OpacityCounter << endl;
+		//Maximum opacity
+		if(OpacityCounter >= OPACITYMAX)
+		{
+
+			GetFilterTexture()->clear(sf::Color(0,0,0, OPACITYMAX) );
+		}
+		//All other opacities
+		else
+		{
+			GetFilterTexture()->clear(sf::Color(0,0,0, OpacityCounter) );
+		}
+	}
+
 	for( int i = 0; i < p_GameObjMgr->m_apxGameObject.size(); i++)
 	{
 		if(p_GameObjMgr->m_apxGameObject[i]->HasLight() )
@@ -249,4 +293,36 @@ bool Camera::IsMovementXAxis()
 bool Camera::IsMovementYAxis()
 {
 	return m_MovingYAxis;
+}
+
+void Camera::ZoomIn(float p_ZoomValue)
+{
+	m_CameraView.zoom(p_ZoomValue);
+}
+void Camera::ZoomOut(float p_ZoomValue)
+{
+	m_CameraView.zoom(p_ZoomValue);
+}
+void Camera::ZoomStart(sf::View p_StartView)
+{
+	m_CameraView = p_StartView;
+}
+
+bool Camera::IsZoomingOut()
+{
+	return m_IsZoomingOut;
+}
+
+void Camera::SetZoomingOut(bool p_zoom)
+{
+	m_IsZoomingOut = p_zoom;
+}
+
+void Camera::SetZoomStrength(float p_zoom)
+{
+	m_ZoomStrength = p_zoom;
+}
+float Camera::GetZoomStrength()
+{
+	return m_ZoomStrength;
 }

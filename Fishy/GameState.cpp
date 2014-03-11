@@ -20,7 +20,7 @@ GameState::GameState(Core* p_pCore)
 	m_SpriteManager = p_pCore->m_SpriteManager;
 	m_GameObjMgr = p_pCore->m_GameObjectManager;
 
-	mgr = new CollisionManager;
+	m_pxCollisionManager = new CollisionManager;
 
 
 	m_DrawManager = p_pCore->m_DrawManager;
@@ -31,7 +31,7 @@ GameState::GameState(Core* p_pCore)
 	m_LevelLayerMidleGround = nullptr;
 	m_LevelLayerBackgroundSecondLowest = nullptr;
 	m_LevelLayerBackgroundSecondHighest = nullptr;
-	m_LevelLayerGradient = nullptr;
+	m_LevelLayerMiddleFront = nullptr;
 	m_LevelLayerBackgroundLowest = nullptr;
 
 	m_Camera = nullptr;
@@ -74,22 +74,41 @@ bool GameState::EnterState()
 		// Background
 		m_LevelLayerBackgroundSecondHighest = new Level(m_GameObjMgr);
 		m_LevelLayerBackgroundSecondHighest->Load("../data/levels/level_backgroundsecondhighest.txt",m_SpriteManager,false, ELayer::HIGHESTBG);
+
+		int posx = 2000;
+		int posy = 2000;
+		Collider *collider = new Collider(sf::Vector2f(posx, posy),sf::Vector2f(70, 70) );
+		//PlayerObject måste laddas in som nullptr,
+		PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(posx, posy ), nullptr, collider);
+		AnimatedSprite *pxAnimSprite = m_SpriteManager->LoadAnim("../data/anim/PlayerAnimStage1.txt");	
+		Player->AddAnimation("PlayerStage1", pxAnimSprite);
+		Player->SetPosition(sf::Vector2f(posx, posy) );
+		Player->SetLevelLayer(MIDDLEGROUND);
+		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
+		m_GameObjMgr->AttachPlayer(Player);
+		m_pxCollisionManager->AttachCollider(Player->GetCollider() );
+		m_GameObjMgr->m_pxPlayer->SetSoundManager(m_pCore->m_SoundManager);
+
 		// MiddleGround
-		m_LevelLayerMidleGround = new Level(m_GameObjMgr, mgr);
+		m_LevelLayerMidleGround = new Level(m_GameObjMgr, m_pxCollisionManager);
 		m_LevelLayerMidleGround->Load("../data/levels/level_middleground.txt", m_SpriteManager, true,ELayer::MIDDLEGROUND);
+
+		// Middlefront
+		m_LevelLayerMiddleFront = new Level(m_GameObjMgr);
+		m_LevelLayerMiddleFront->Load("../data/levels/level_middlefront.txt", m_SpriteManager, false,ELayer::MIDDLEFROUNT);
+
 		// ForGround
 		m_LevelLayerForGround = new Level(m_GameObjMgr);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 		//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
-		m_GameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(140.f, 140.f));
 	} 
-	
+
 	//Create Camera
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
 		//Must be called after Player is created
 		m_Camera = new Camera(sf::Vector2f(m_window->getSize() ) );
-		m_Camera->Initialize(m_window, m_GameObjMgr->m_pxPlayer->GetPosition());
+		m_Camera->Initialize(m_window, m_GameObjMgr->m_pxPlayer->GetPosition() );
 	}
 
 	return false;
@@ -103,37 +122,51 @@ void GameState::ExitState()
 bool GameState::Update(float p_DeltaTime)
 {
 	
+	if (m_GameObjMgr->GetEnemyCounter() == 0)
+	{
+		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+	}
 	HandleInput();
 	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
-	
+
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
-		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_Camera, p_DeltaTime);
+		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
-	//mgr->CheckCollisionRectVsRect();
-	mgr->RemoveEnemyCollider();
+
+	m_pxCollisionManager->CheckCollisionRectVsRect();
+	//If the player is growing or eating the game won't update
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
-	m_Camera->Update(m_GameObjMgr );
+	/*if( !(m_GameObjMgr->m_pxPlayer->GetState() == Growing || m_GameObjMgr->m_pxPlayer->GetState() == Chewing) )
+	{*/
+	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
-	
+	/*}*/
+
 	/*if (mgr->GetPlayerVsEnemy())
 	{
-		m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
-		mgr->RemoveEnemyCollider();
-		mgr->SetPlayerVsEnemy(false);
+	m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
+	mgr->RemoveEnemyCollider();
+	mgr->SetPlayerVsEnemy(false);
 	}*/
-	/// Player Experience Stuff
-	if (m_GameObjMgr->m_pxPlayer->GetExperience() > 5)
-	{
-		m_GameObjMgr->m_pxPlayer->SetScale(0.5f);
-	}
 	return true;
 }
 
 void GameState::UpdateGUI()
 {
-	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310); 
-	//Gui->setPosition(m_GameObjMgr->m_pxPlayer->GetPosition().x - 500 ,m_GameObjMgr->m_pxPlayer->GetPosition().y - 310 );
+	if(m_Camera->IsZoomingOut() )
+	{
+		Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+	}
+
+	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - (m_Camera->GetCameraView().getSize().x / 2.0f) + 50.f, m_Camera->GetCameraView().getCenter().y - (m_Camera->GetCameraView().getSize().y / 2.0f) + 50.f );
+	//Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310 ); 
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
@@ -168,6 +201,17 @@ void GameState::HandleInput()
 			m_Camera->ToggleFilterOn(true);
 		}
 	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num9))
+	{
+		m_Camera->ZoomStart(m_window->getDefaultView() );
+	}
+	if (m_pInputManager->IsDownK(sf::Keyboard::Num8))
+	{
+
+		m_Camera->SetZoomStrength(1.005f);
+		m_Camera->ZoomOut(m_Camera->GetZoomStrength() );
+	}
+
 }
 
 void GameState::Draw()
@@ -186,6 +230,7 @@ void GameState::Draw()
 	m_DrawManager->Draw(Gui);
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
+	m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 
 	m_DrawManager->DisplayWindow();
 

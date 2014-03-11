@@ -109,8 +109,17 @@ void FishObject::SetScale(float x)
 	/*std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
 	while(it != m_mpAnimations.end() )
 	{
-		it->second->setScale(m_scale,m_scale);
-		it++;
+	it->second->setScale(m_scale,m_scale);
+	it++;
 	}*/
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension() * x);
+}
+
+int FishObject::GetCurrentLevel()
+{
+	return m_CurrentLevel;
+}
+void FishObject::SetCurrentLevel(int i)
+{
+	m_CurrentLevel = i;
 }

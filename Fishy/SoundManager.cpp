@@ -24,11 +24,13 @@ void SoundManager::PlaySound(string path)
 		if (sound.path == path)
 		{
 			sound.soundData->play();
-			cout << "Sound was found, playing : " << path << endl;
+			sound.soundData->setVolume(100);
+//			cout << "Sound was found, playing : " << path << endl;
+
 			return;
 		}
 	}
-	cout << "Sound not found, adding sound : " << path << endl;
+	//cout << "Sound not found, adding sound : " << path << endl;
 	AddSound(path);
 	PlaySound(path);
 }
@@ -44,7 +46,8 @@ void SoundManager::PlayMusic(string path)
 			{
 
 				music.soundHandle->play();
-				cout << "Music was found, playing : " << path << endl;
+				music.soundHandle->setVolume(0);
+				//cout << "Music was found, playing : " << path << endl;
 				return;
 			}
 
@@ -53,10 +56,16 @@ void SoundManager::PlayMusic(string path)
 	}
 
 
-	cout << "[" << __FILE__ << ":" << __LINE__ << "]Music not found, adding sound : " << path << endl;
+	cout << "[" << __FILE__ << ":" << __LINE__ << "] Music not found, adding sound : " << path << endl;
 	AddMusic(path);
 	PlayMusic(path);
 }
+
+vector<SoundsStruct> SoundManager::ReturnSound()
+{
+	return m_SoundBank;
+}
+
 
 
 void SoundManager::StopSound()

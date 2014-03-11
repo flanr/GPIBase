@@ -16,6 +16,8 @@ Level::Level(GameObjectManager *p_pxGameObjMgr, CollisionManager * p_CollisionMg
 {
 	m_iHeight = 0;
 	m_iWidth = 0;
+	m_LevelWidth = 0;
+	m_LevelHeight = 0;
 	m_PlayerStartPosition = sf::Vector2f(0.0f, 0.0f);
 	m_pxGameObjMgr = p_pxGameObjMgr;
 	m_CollisionMgr = p_CollisionMgr;
@@ -90,22 +92,27 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				//måste ligga före ny sprite skapas. annars blir det minneslekage
 				if (row[i] == 'S')
 				{
-					//352.f, 287.f
-					Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
-					//PlayerObject måste laddas in som nullptr,
-					PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
-					AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
-					Player->AddAnimation("Player", pxAnimSprite);
-					Player->SetPosition(sf::Vector2f(iX, iY) );
-					Player->SetLevelLayer(layer);
-					Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-					m_pxGameObjMgr->AttachPlayer(Player);
-					m_CollisionMgr->AttachCollider(Player->GetCollider() );
+					////352.f, 287.f
+					//Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
+					////PlayerObject måste laddas in som nullptr,
+					//PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
+					//AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
+					//Player->AddAnimation("Player", pxAnimSprite);
+					//Player->SetPosition(sf::Vector2f(iX, iY) );
+					//Player->SetLevelLayer(layer);
+					//Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+					//m_pxGameObjMgr->AttachPlayer(Player);
+					//m_CollisionMgr->AttachCollider(Player->GetCollider() );
+
+					m_pxGameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(iX,iY));
+					
+
 					iX += m_iWidth;
 					continue;
 				}
 			}
 
+			
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 			/*if (row[i] == 'B')
 			{
@@ -117,7 +124,53 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			continue;
 			}*/
+			if (row[i] == 'z')
+			{
+				 sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
+				sprite->setPosition(iX,iY);
 
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX-350,iY-260));
+			go->SetLevelLayer(layer);
+			m_pxGameObjMgr->Attach(go);
+			
+					iX += m_iWidth;
+					continue;
+
+
+			}
+			if (row[i] == 'x')
+			{
+				 sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
+				sprite->setPosition(iX,iY);
+
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX-300,iY-530));
+			go->SetLevelLayer(layer);
+			m_pxGameObjMgr->Attach(go);
+
+			
+					iX += m_iWidth;
+					continue;
+
+
+			}
+			if (row[i] == 'v')
+			{
+				 sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
+				sprite->setPosition(iX,iY);
+
+			GameObject *go = new GameObject(sprite->getPosition(),sprite);
+			go->SetPosition(sf::Vector2f(iX-200,iY-200));
+			go->SetLevelLayer(layer);
+			m_pxGameObjMgr->Attach(go);
+
+			
+					iX += m_iWidth;
+					continue;
+
+
+			}
 
 
 			sprite->setOrigin(sprite->getTextureRect().width / 2.0f, sprite->getTextureRect().height / 2.0f);
@@ -163,17 +216,28 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 
 			iX += m_iWidth;
+			
+
 		}
 		iY += m_iHeight;
+		if(m_LevelWidth <= iX)
+		{
+			m_LevelWidth = iX;
+		}
+		if(m_LevelHeight <= iY)
+		{
+			m_LevelHeight = iY;
+		}
 	}
 	stream.close();
+	//m_LevelWidth += m_iWidth;
 	return true;
 }
 
 void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 {
 	UpdateParallax(p_Camera);
-	for (int n = 0; n < 5; n++)
+	for (int n = 0; n < 6; n++)
 	{
 		for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 		{	
@@ -360,4 +424,14 @@ void Level::UpdateParallax(Camera *p_Camera)
 
 	}
 	*/
+}
+
+unsigned int Level::GetWidth()
+{
+	return m_LevelWidth;
+}
+
+unsigned int Level::GetHeight()
+{
+	return m_LevelHeight;
 }
