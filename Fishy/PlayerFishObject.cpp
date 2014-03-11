@@ -19,7 +19,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_Energy = 90;
 
 
-	SetSpeed(250.0f);
+	SetSpeed(500.0f);
 	m_Healthtimer = 10;
 	m_iAttacktimer = 15;
 	m_ChewTimer = 64;
@@ -130,7 +130,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	}
 	else if(GetState() == Growing)
 	{
-		UpdateGrowing(p_SpriteManager, p_Deltatime);
+		UpdateGrowing(p_SpriteManager, p_Camera , p_Deltatime);
 	}
 	else 
 	{
@@ -159,7 +159,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	//	
 	//	SetLightPosition(GetLightbulbPosition() );
 	//	//m_light->SetPosition(GetLightbulbPosition() );
-	//	//m_light->SetPosition(GetPosition() );
+	//  //m_light->SetPosition(GetPosition() );
 	//}
 
 	//cout <<"PlayerPos" << GetPosition().x << " " <<  GetPosition().y <<endl;
@@ -231,7 +231,7 @@ void PlayerFishObject::ChangeStageAnimation(const std::string &p_sName, SpriteMa
 	//ska inte avbryta chewing
 	if(p_sName == "Stage2")
 	{
-		
+
 		AnimatedSprite *NewAnimSprite = p_pxSpriteManager->LoadAnim("../data/anim/PlayerAnimStage2.txt");		
 		AddAnimation(p_sName, NewAnimSprite);
 		SetPosition(tempPos);
@@ -323,6 +323,11 @@ bool PlayerFishObject::UpdateLevel()
 	return false;
 }
 
+void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
+{
+	m_SoundManager = p_soundmanager;
+}
+
 // överlarga oncollision
 // du kommer få in en fisk som p_xOther
 // if p_xOther.getTypy() == fisk
@@ -331,10 +336,7 @@ bool PlayerFishObject::UpdateLevel()
 // Player* p = nullptr;
 // GameObject* g = new Player();
 // p = static_cast<Player*>(g);
-void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
-{
-	m_SoundManager = p_soundmanager;
-}
+
 void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
 	if (p_other->GetType() == "BrownBrick")
@@ -622,7 +624,7 @@ void PlayerFishObject::UpdateChewing(float p_Deltatime)
 		m_ChewTimer = 64;
 	}
 }
-void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Deltatime)
+void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera, float p_Deltatime)
 {
 	if(GetCurrentLevel() == 4 || GetCurrentLevel() == 7)
 	{
@@ -634,6 +636,9 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Del
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.8f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.4f); }
+		p_Camera->SetZoomStrength(1.005f);
+		p_Camera->ZoomOut(p_Camera->GetZoomStrength() );
+		p_Camera->SetZoomingOut(true);
 	}
 	else if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)
 	{
@@ -662,9 +667,11 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, float p_Del
 	m_GrowTimer--;
 	if(m_GrowTimer == 0)
 	{
+
 		SetState(Idle);
 		m_GrowTimer = 64;
 		m_HasGrown = false;
+		p_Camera->SetZoomingOut(false);
 		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  { SetPlayerScale(0.8f); }
 		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) { SetPlayerScale(1.0f); }
 

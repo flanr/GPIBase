@@ -108,7 +108,7 @@ bool GameState::EnterState()
 	{
 		//Must be called after Player is created
 		m_Camera = new Camera(sf::Vector2f(m_window->getSize() ) );
-		m_Camera->Initialize(m_window, m_GameObjMgr->m_pxPlayer->GetPosition());
+		m_Camera->Initialize(m_window, m_GameObjMgr->m_pxPlayer->GetPosition() );
 	}
 
 	return false;
@@ -134,9 +134,13 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 	m_pxCollisionManager->CheckCollisionRectVsRect();
+	//If the player is growing or eating the game won't update
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
-	m_Camera->Update(m_GameObjMgr );
+	/*if( !(m_GameObjMgr->m_pxPlayer->GetState() == Growing || m_GameObjMgr->m_pxPlayer->GetState() == Chewing) )
+	{*/
+	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
+	/*}*/
 
 	/*if (mgr->GetPlayerVsEnemy())
 	{
@@ -149,7 +153,19 @@ bool GameState::Update(float p_DeltaTime)
 
 void GameState::UpdateGUI()
 {
-	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 600, m_Camera->GetCameraView().getCenter().y - 350); 
+	if(m_Camera->IsZoomingOut() )
+	{
+		Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+	}
+
+	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - (m_Camera->GetCameraView().getSize().x / 2.0f) + 50.f, m_Camera->GetCameraView().getCenter().y - (m_Camera->GetCameraView().getSize().y / 2.0f) + 50.f );
+	//Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310 ); 
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
@@ -184,6 +200,17 @@ void GameState::HandleInput()
 			m_Camera->ToggleFilterOn(true);
 		}
 	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num9))
+	{
+		m_Camera->ZoomStart(m_window->getDefaultView() );
+	}
+	if (m_pInputManager->IsDownK(sf::Keyboard::Num8))
+	{
+
+		m_Camera->SetZoomStrength(1.005f);
+		m_Camera->ZoomOut(m_Camera->GetZoomStrength() );
+	}
+
 }
 
 void GameState::Draw()

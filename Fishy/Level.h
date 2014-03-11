@@ -37,12 +37,18 @@ public:
 	bool Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, ELayer layer);
 	void Draw(DrawManager *p_pDrawManager, Camera *p_Camera);
 	void UpdateParallax(Camera *p_Camera);
+
+	unsigned int GetWidth();
+	unsigned int GetHeight();
+
 protected:
 	string m_SpriteMapFileName;
 
 
 	unsigned int m_iWidth;
 	unsigned int m_iHeight;
+	unsigned int m_LevelWidth;
+	unsigned int m_LevelHeight;
 
 	sf::Vector2f m_PlayerStartPosition; 
 
