@@ -6,10 +6,12 @@
 
 SoundManager::SoundManager()
 {
-	int m_SoundVolume = 50;
-	int m_MusicVolume = 50;
+	int m_SoundVolume = 100;
+	int m_MusicVolume = 100;
 	m_SoundBank.reserve(2);
 	m_MusicBank.reserve(2);
+	b_MuteM = false;
+	b_MuteS = false;
 }
 
 SoundManager::~SoundManager()
@@ -24,8 +26,8 @@ void SoundManager::PlaySound(string path)
 		if (sound.path == path)
 		{
 			sound.soundData->play();
-			sound.soundData->setVolume(100);
-//			cout << "Sound was found, playing : " << path << endl;
+			sound.soundData->setVolume(m_SoundVolume);
+			//			cout << "Sound was found, playing : " << path << endl;
 
 			return;
 		}
@@ -46,7 +48,7 @@ void SoundManager::PlayMusic(string path)
 			{
 
 				music.soundHandle->play();
-				music.soundHandle->setVolume(0);
+				music.soundHandle->setVolume(m_MusicVolume);
 				//cout << "Music was found, playing : " << path << endl;
 				return;
 			}
@@ -83,11 +85,20 @@ bool SoundManager::Initialize(string directory)
 void SoundManager::SetMusicVolume(int value)
 {
 	m_SoundVolume = value;
+	for (MusicStruct music : m_MusicBank)
+	{
+		music.soundHandle->setVolume(value);
+	}
 }
 
 void SoundManager::SetSoundVolume(int value)
 {
 	m_MusicVolume = value;
+	m_SoundVolume = value;
+	for (SoundsStruct sound : m_SoundBank)
+	{
+		sound.soundData->setVolume(value);
+	}
 }
 
 
@@ -139,3 +150,36 @@ void SoundManager::AddMusic(string path)
 	m_MusicBank.push_back(musicstruct);
 
 }
+void SoundManager::MuteMusic()
+{
+	if (b_MuteM)
+	{
+		SetMusicVolume(OldVolMusic);
+
+		b_MuteM = false;
+	}else
+	{
+		OldVolMusic = GetMusicVolume();
+
+		SetMusicVolume(0);
+		b_MuteM = true;
+	}
+
+
+
+}
+void SoundManager::MuteSound()
+{
+	if (b_MuteS)
+	{
+
+
+
+	}else
+	{
+
+	}
+	SetSoundVolume(0);
+}
+
+

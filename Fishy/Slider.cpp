@@ -21,7 +21,7 @@ void Slider::SetSlider(int p_X, int p_Y, int p_Width, int p_Height)
 	selected = true;
 
 	m_sw = p_Width/* - p_Width/5*/;
-	m_SliderBox.setSize(sf::Vector2f(p_Width + 20,p_Height + 20));
+	m_SliderBox.setSize(sf::Vector2f(p_Width ,p_Height));
 
 	m_EmptySlider.setSize(sf::Vector2f(p_Width,p_Height));
 	m_EmptySlider.setPosition(p_X,p_Y);
@@ -91,7 +91,7 @@ void Slider::MoveMouse(int x, int y)
 		selected = false;
 	}
 
-	if (selected)
+	if (selected && hovered)
 	{
 		int offsetX = x - m_FullSlider.getPosition().x;
 		if (offsetX <= 0)

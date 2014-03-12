@@ -84,6 +84,7 @@
     <ClCompile Include="ScaredState.cpp">
       <Filter>Source Files\AI FSM</Filter>
     </ClCompile>
+    <ClCompile Include="EndState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -178,6 +179,7 @@
     <ClInclude Include="ScaredState.h">
       <Filter>Header Files\AI FSM</Filter>
     </ClInclude>
+    <ClInclude Include="EndState.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

@@ -36,12 +36,13 @@ private:
 	InputManager * m_pInputManager;
 	DrawManager * m_DrawManager;
 	SpriteManager * m_SpriteManager;
+	SoundManager * m_SoundManager;
 	sf::Sprite *m_BackGroundImg;
 
 	sf::Sprite *m_OptionBackground;
 
 	int m_ButtonClick;
-	
+
 	// Buttons 
 	Button m_ButtonMusicMute;
 	sf::Vector2f m_ButtonMusicMutePos;
@@ -57,7 +58,6 @@ private:
 	// Sliders
 	Slider m_SliderMusicVol;
 	Slider m_SliderSoundVol;
-
 
 
 };

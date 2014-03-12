@@ -7,6 +7,7 @@
 #include "StateManager.h"
 #include "DrawManager.h"
 
+
 #include "Core.h"
 //using namespace sf;
 
@@ -37,7 +38,7 @@ bool Core::Initialize()
 {
 	
 	//window (VideoMode(1024,640), "MEGA FUCKING AWESOME SUPER GAME");
-	window = new sf::RenderWindow(sf::VideoMode(1280,720), "SUPER MEGA AWESOME GAME");
+	window = new sf::RenderWindow(sf::VideoMode(1280,720), "Tale of the Deep");
 	
 //	
 	//This sets framerate to the monitors framerate (like 60FPS), if this is commented out the loop will run faster
@@ -85,7 +86,7 @@ bool Core::Initialize()
 		m_StateManager.Attach(new GameState(this));
 		m_StateManager.Attach(new OptionState(this));
 		m_StateManager.Attach(new StartState(this));
-
+		m_StateManager.Attach(new EndState(this));
 		m_StateManager.SetState("StartState");
 	}
 
@@ -147,7 +148,7 @@ void Core::UpdateDeltatime()
 	m_TimeSinceLastUpdate = m_Clock.restart();
 
 	m_fDeltaTime = m_TimeSinceLastUpdate.asSeconds();
-    //cout << m_fDeltaTime << endl;
+   // cout << m_fDeltaTime << endl;
 	if(m_fDeltaTime > 0.1f)
 	{
 		m_fDeltaTime = 0.1f;
