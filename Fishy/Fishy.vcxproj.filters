@@ -84,6 +84,9 @@
     <ClCompile Include="ScaredState.cpp">
       <Filter>Source Files\AI FSM</Filter>
     </ClCompile>
+    <ClCompile Include="HuntingState.cpp">
+      <Filter>Source Files\AI FSM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -176,6 +179,9 @@
       <Filter>Header Files\AI FSM</Filter>
     </ClInclude>
     <ClInclude Include="ScaredState.h">
+      <Filter>Header Files\AI FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="HuntingState.h">
       <Filter>Header Files\AI FSM</Filter>
     </ClInclude>
   </ItemGroup>

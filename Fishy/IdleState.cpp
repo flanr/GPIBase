@@ -16,6 +16,7 @@ void IdleState::Enterstate(EnemyFishObject* p_pEnemy)
 }
 void IdleState::Execute(EnemyFishObject* p_pEnemy)
 {
+	//Städa!! Behöver vara en funktion i EnemyFishObject
 	if (p_pEnemy->GetSafe())
 	{
 		p_pEnemy->SetSafe(false);
