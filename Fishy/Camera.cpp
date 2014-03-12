@@ -15,6 +15,7 @@ Camera::Camera(sf::Vector2f p_Size)
 	m_MovingYAxis = false;
 	m_IsZoomingOut = false;
 	m_ZoomStrength = 0.0;
+	m_TotalZoom = 1.0f;
 }
 
 
@@ -132,12 +133,15 @@ void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
 			}
 		}
 		m_FilterSprite->setScale(m_FilterSprite->getScale() * GetZoomStrength() );
+		m_TotalZoom *= GetZoomStrength();
+		//cout << "TotalZoom: " << m_TotalZoom << endl;
+		if(p_GameObjMgr->m_pxPlayer->HasGrown() == false)
+		{
+			SetZoomingOut(false);
+		}
 	}
 	SetPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
-	//Move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
-	//m_FilterSprite->setPosition(p_Level->GetWidth() / 2.0f, p_Level->GetHeight() / 2.0f );
 	m_FilterSprite->setPosition(p_GameObjMgr->m_pxPlayer->GetPosition() );
-	//m_FilterSprite->move(p_GameObjMgr->m_pxPlayer->GetVelocity() );
 	m_MovingXAxis = true;
 	m_MovingYAxis = true;
 
@@ -149,66 +153,50 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 	m_FilterTexture->setView(m_CameraView);
 	//Opacity = 0.
 	GetFilterTexture()->clear(sf::Color(0,0,0,0) );
-
 	//Opacity starts at this position
 	const int OPACITYSTART = 1000; //p_Level->GetHeight() / 3.0f;
 	//OpacityDepth == how fast the opacity change 
-	const int OPACITYDEPTH = 3000;
+	const int OPACITYDEPTH = 1000;
 	//OPACITYMAX is the opacity of the darkest part
 	const int OPACITYMAX = 245;
+
 	if(p_GameObjMgr->m_pxPlayer->GetPosition().y > OPACITYSTART )
 	{
 		int OpacityLevel = 0;
 		int OpacityCounter = 0;
-		while(OpacityLevel < (p_GameObjMgr->m_pxPlayer->GetPosition().y - OPACITYSTART) )
+		while( (OpacityLevel < (p_GameObjMgr->m_pxPlayer->GetPosition().y - OPACITYSTART) ) && OpacityCounter < OPACITYMAX )
 		{
 			//Divide OpacityDepth by 256 because opacity is 0 - 255, so we dived it in 256 parts.
-
 			OpacityLevel += (OPACITYDEPTH / 256);
 			OpacityCounter++;
 		}
-		cout << "OpacityCounter: " << OpacityCounter << endl;
-		//Maximum opacity
-		if(OpacityCounter >= OPACITYMAX)
-		{
 
-			GetFilterTexture()->clear(sf::Color(0,0,0, OPACITYMAX) );
-		}
-		//All other opacities
-		else
-		{
-			GetFilterTexture()->clear(sf::Color(0,0,0, OpacityCounter) );
-		}
+		//cout << "OpacityCounter: " << OpacityCounter << endl;
+
+		//Clear the screen with OpacityCounter.
+		GetFilterTexture()->clear(sf::Color(0,0,0, OpacityCounter) );
 	}
 
 	for( int i = 0; i < p_GameObjMgr->m_apxGameObject.size(); i++)
 	{
 		if(p_GameObjMgr->m_apxGameObject[i]->HasLight() )
 		{
-			/*if(fabs(p_GameObjMgr->m_apxGameObject[i]->GetPosition().x - GetCameraView().getCenter().x) 
-			< (GetCameraView().getSize().x / 2.0f + p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle()->getRadius() ) 
-			&&
-			fabs(p_GameObjMgr->m_apxGameObject[i]->GetPosition().y - GetCameraView().getCenter().y) 
-			< (GetCameraView().getSize().y / 2.0f + p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle()->getRadius()))*/
 			{
-
 				if(p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus() == true)
 				{
 					//checka om cirklar överlappar om dom gör det ta BlendAlpha??
 					GetFilterTexture()->draw(*p_GameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightCircle(), sf::BlendMultiply );
 				}
-
 			}
 		}
 	}
 	if(p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() == true )
 	{
-		GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendMultiply );
+		GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendMultiply);
 	}
 	GetFilterTexture()->display();
-
-
 }
+
 /* Do when you want to change the center/origin of the camera*/
 void Camera::SetCenterCamera(sf::Vector2f p_position)
 {
@@ -260,9 +248,7 @@ void Camera::AddLayer()
 	m_FilterTexture->create(m_CameraView.getSize().x, m_CameraView.getSize().y);
 	m_FilterSprite = new sf::Sprite();
 	m_FilterSprite->setTexture(m_FilterTexture->getTexture() );
-	//m_FilterSprite->setOrigin(m_CameraView.getCenter() );
 	m_FilterSprite->setOrigin(m_FilterTexture->getTexture().getSize().x / 2.0f, m_FilterTexture->getTexture().getSize().y / 2.0f  );
-	//m_FilterSprite->setPosition(m_CameraView.getCenter() - sf::Vector2f(80, 10) );
 }
 
 sf::RenderTexture* Camera::GetFilterTexture()
@@ -325,4 +311,14 @@ void Camera::SetZoomStrength(float p_zoom)
 float Camera::GetZoomStrength()
 {
 	return m_ZoomStrength;
+}
+
+void Camera::SetTotalZoom(float p_TotalZoom)
+{
+	m_TotalZoom = p_TotalZoom;
+}
+
+float Camera::GetTotalZoom()
+{
+	return m_TotalZoom;
 }

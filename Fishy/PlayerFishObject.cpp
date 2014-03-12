@@ -323,6 +323,11 @@ bool PlayerFishObject::UpdateLevel()
 	return false;
 }
 
+bool PlayerFishObject::HasGrown()
+{
+	return m_HasGrown;
+}
+
 void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
 {
 	m_SoundManager = p_soundmanager;
@@ -671,7 +676,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		SetState(Idle);
 		m_GrowTimer = 64;
 		m_HasGrown = false;
-		p_Camera->SetZoomingOut(false);
+		//p_Camera->SetZoomingOut(false);
 		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  { SetPlayerScale(0.8f); }
 		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) { SetPlayerScale(1.0f); }
 

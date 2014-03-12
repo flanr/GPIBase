@@ -26,6 +26,7 @@ public:
 	void ExperienceGain(int x);
 	int GetExperience();
 	bool UpdateLevel();
+	bool HasGrown();
 	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 private:
