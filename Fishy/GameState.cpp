@@ -109,6 +109,25 @@ bool GameState::EnterState()
 		//Must be called after Player is created
 		m_Camera = new Camera(sf::Vector2f(m_window->getSize() ) );
 		m_Camera->Initialize(m_window, m_GameObjMgr->m_pxPlayer->GetPosition() );
+		m_Camera->SetZoomStrength(2.0f);
+		m_Camera->ZoomOut(m_Camera->GetZoomStrength() );
+		m_Camera->SetTotalZoom(m_Camera->GetTotalZoom() * m_Camera->GetZoomStrength() );
+		for(int i = 0UL; i < m_GameObjMgr->m_apxGameObject.size(); i++)
+		{
+			if( !(m_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == MIDDLEGROUND || m_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == FOREGROUND) )
+			{
+				m_GameObjMgr->m_apxGameObject[i]->GetSprite()->setScale(m_GameObjMgr->m_apxGameObject[i]->GetSprite()->getScale() * m_Camera->GetZoomStrength());
+			}
+		}
+		m_Camera->GetFilterSprite()->setScale(m_Camera->GetFilterSprite()->getScale() * m_Camera->GetZoomStrength() );
+
+		m_EnergySlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );	
+		Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 	}
 
 	return false;
@@ -160,16 +179,20 @@ void GameState::UpdateGUI()
 		m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );		
 	}
 
-	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - (m_Camera->GetCameraView().getSize().x / 2.0f) + 50.f, m_Camera->GetCameraView().getCenter().y - (m_Camera->GetCameraView().getSize().y / 2.0f) + 50.f );
-	//Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 500, m_Camera->GetCameraView().getCenter().y - 310 ); 
+	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 
+		(m_Camera->GetCameraView().getSize().x / 2.0f) + 
+		(50.f * m_Camera->GetTotalZoom() ), m_Camera->GetCameraView().getCenter().y - 
+		(m_Camera->GetCameraView().getSize().y / 2.0f) + 
+		(50.f * m_Camera->GetTotalZoom() ) );
+
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
-	m_EnergySlider.SetPosition(GUI_pos.x + 96 ,GUI_pos.y +29);
-	m_HealthSlider.SetPosition(GUI_pos.x + 96 ,GUI_pos.y +60);
+	m_EnergySlider.SetPosition(GUI_pos.x + (96 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (29 * m_Camera->GetTotalZoom() ) );
+	m_HealthSlider.SetPosition(GUI_pos.x + (96 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (60 * m_Camera->GetTotalZoom() ) );
 }
 
 
@@ -225,10 +248,10 @@ void GameState::Draw()
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}
 
-	m_DrawManager->Draw(Gui);
+	
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
-
+	m_DrawManager->Draw(Gui);
 	m_DrawManager->DisplayWindow();
 
 }
