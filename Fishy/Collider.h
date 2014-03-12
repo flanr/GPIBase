@@ -33,7 +33,7 @@ public:
 	void SetRadius(float p_radius);
 	float GetRadius();
 
-
+	sf::RectangleShape PlayerRect();
 	
 	////Temporary for testing
 	void SetStatus(bool p_Collision);

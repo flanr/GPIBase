@@ -207,7 +207,15 @@ void EnemyFishObject::Scared()
 	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
 	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
 	DistanceVector/=sqrtf(DistanceNumber);
-	SetVelocity(-DistanceVector * GetSpeed()*2.f);
+	SetVelocity(-DistanceVector * GetSpeed()*3.f);
+	if (GetPosition().x > GetPlayerPosition().x)
+	{
+		FlipXRight(GetScale());
+	}
+	if (GetPosition().x < GetPlayerPosition().x)
+	{
+		FlipXLeft(GetScale());
+	}
 	if (sqrtf(DistanceNumber) >= 500.f)
 	{
 		isSafe = true;

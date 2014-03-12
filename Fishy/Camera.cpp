@@ -134,7 +134,7 @@ void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
 		}
 		m_FilterSprite->setScale(m_FilterSprite->getScale() * GetZoomStrength() );
 		m_TotalZoom *= GetZoomStrength();
-		cout << "TotalZoom: " << m_TotalZoom << endl;
+		//cout << "TotalZoom: " << m_TotalZoom << endl;
 		if(p_GameObjMgr->m_pxPlayer->HasGrown() == false)
 		{
 			SetZoomingOut(false);

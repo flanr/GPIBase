@@ -242,6 +242,19 @@ void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 	}
 }
 
+sf::RectangleShape Collider::PlayerRect()
+{
+	sf::RectangleShape playerrect;
+	
+	if (m_xParent->GetType() == "Player")
+	{
+		playerrect.setSize(m_xParent->GetCollider()->m_extention);
+		playerrect.setOrigin(m_xParent->GetCollider()->m_extention.x/2, m_xParent->GetCollider()->m_extention.y/2);
+		playerrect.setPosition(GetPosition().x, GetPosition().y);
+		
+	}
+	return playerrect;
+}
 
 //           | 1 Player  |  2 Enemy  | 3 PowerUp
 //    -------------------------------------------

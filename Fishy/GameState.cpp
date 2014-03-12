@@ -140,6 +140,7 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
+	
 	if (m_GameObjMgr->GetEnemyCounter() == 0)
 	{
 		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
@@ -151,6 +152,7 @@ bool GameState::Update(float p_DeltaTime)
 	{
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
+
 	m_pxCollisionManager->CheckCollisionRectVsRect();
 	//If the player is growing or eating the game won't update
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
@@ -252,6 +254,7 @@ void GameState::Draw()
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
 	m_DrawManager->Draw(Gui);
+	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 
 }
