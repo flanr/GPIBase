@@ -30,6 +30,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	SetPlayerScale(0.6f);
 	SetCurrentLevel(1);
 	m_HasGrown = false;
+	m_HasFishingRod = false;
 	m_Experience = 0;
 	SetType("Player");
 
@@ -136,7 +137,6 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	}
 	else 
 	{
-
 		UpdateInput(p_pxInputManager, p_Deltatime);
 	}
 
@@ -150,20 +150,21 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	}
 
 	Move(GetVelocity() );
-	//m_light->SetPosition(GetLightbulbPosition() );
+	if(m_HasFishingRod)
+	{
+		if(m_light != nullptr)
+		{
+			UpdateLightPosition();
+		}
+	}
 
-	//if(GetLightbulbPosition() != m_light->GetPosition() )
-	//{
-	//	
-	//	SetLightPosition(GetLightbulbPosition() );
-	//	//m_light->SetPosition(GetLightbulbPosition() );
-	//  //m_light->SetPosition(GetPosition() );
-	//}
 
 	//cout <<"PlayerPos" << GetPosition().x << " " <<  GetPosition().y <<endl;
 	//cout <<"lightPos" << m_light->GetPosition().x << " " <<  m_light->GetPosition().y <<endl;
 	//cout <<"FilterPos" << p_Camera->GetFilterSprite()->getPosition().x << " " << p_Camera->GetFilterSprite()->getPosition().y <<endl;
 	//cout <<"Velocity " << GetVelocity().x << " " <<  GetVelocity().y <<endl;
+
+
 
 	if(m_pxCurrentAnimation != nullptr) 
 	{
@@ -557,28 +558,22 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		SetState(Idle);
 		m_pxCurrentAnimation->SetActiveAnimation("Idle");
 	}
-	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
-	{
-		if(m_light->GetLightStatus())
-		{
-			m_light->ToggleLightOn(false);
-		}
-		else
-		{
-			m_light->ToggleLightOn(true);
-		}
-	}
-	if(GetDirection() == FacingDownLeft || GetDirection() == FacingLeft || GetDirection() == FacingUpLeft)
-	{
 
-		SetLightPosition(sf::Vector2f(GetPosition().x - m_LightbulbPosRelativeToPlayer.x, GetPosition().y + m_LightbulbPosRelativeToPlayer.y  ) );
-		//SetLightPosition(sf::Vector2f(GetPosition().x - 100, GetPosition().y ) );
-	}
-	else if(GetDirection() == FacingDownRight || GetDirection() == FacingRight || GetDirection() == FacingUpRight)
+	if(m_HasFishingRod)
 	{
-		SetLightPosition(sf::Vector2f(GetPosition() + m_LightbulbPosRelativeToPlayer ) );
-		//SetLightPosition(sf::Vector2f(GetPosition().x + 100, GetPosition().y ) );
+		if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
+		{
+			if(m_light->GetLightStatus())
+			{
+				m_light->ToggleLightOn(false);
+			}
+			else
+			{
+				m_light->ToggleLightOn(true);
+			}
+		}
 	}
+
 }
 
 void PlayerFishObject::UpdateIdle(float p_Deltatime)
@@ -712,7 +707,6 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.7f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.8f); }
-
 	}
 	else if(GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9)
 	{
@@ -735,18 +729,40 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		m_GrowTimer = 64;
 		m_HasGrown = false;
 		//p_Camera->SetZoomingOut(false);
-		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  { SetPlayerScale(0.8f); }
-		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) { SetPlayerScale(1.0f); }
+		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  
+		{ 
+			SetPlayerScale(0.8f); 
+			if(GetCurrentLevel() == 5)
+			{
+				m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
+				m_LightbulbPosRelativeToPlayer *= GetScale();
+			}
+		}
+		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) 
+		{ 
+			SetPlayerScale(1.0f); 
+			if(GetCurrentLevel() == 6)
+			{
+				m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
+			}
+		}
 
 		if(GetCurrentLevel() == 4) 
 		{ 
 			ChangeStageAnimation("Stage2", p_SpriteManager); 
 			SetPlayerScale(0.6f);
+			m_light->SetRadius(m_light->GetRadius() * 3.0f );
+			m_LightbulbPosRelativeToPlayer *= GetScale();
+			//m_HasFishingRod = true;
+			
+
 		}
 		else if( GetCurrentLevel() == 7)  
 		{ 
 			//ChangeStageAnimation("Stage3", p_SpriteManager); 
 			SetPlayerScale(0.6f);
+			m_light->SetRadius(m_light->GetRadius() * 1.2f );
+			m_LightbulbPosRelativeToPlayer *= GetScale();
 		}
 	}
 	if(GetDirection() == FacingLeft || GetDirection() == FacingUpLeft || GetDirection() == FacingDownLeft ) 
@@ -776,4 +792,22 @@ void PlayerFishObject::UpdateHealth()
 			m_Healthtimer--;
 		}
 	}
+}
+
+void PlayerFishObject::UpdateLightPosition()
+{
+
+	{
+		if(GetDirection() == FacingDownLeft || GetDirection() == FacingLeft || GetDirection() == FacingUpLeft)
+		{
+			SetLightPosition(sf::Vector2f(GetPosition().x - m_LightbulbPosRelativeToPlayer.x, GetPosition().y + m_LightbulbPosRelativeToPlayer.y  ) );
+			//SetLightPosition(sf::Vector2f(GetPosition().x - 100, GetPosition().y ) );
+		}
+		else if(GetDirection() == FacingDownRight || GetDirection() == FacingRight || GetDirection() == FacingUpRight)
+		{
+			SetLightPosition(sf::Vector2f(GetPosition() + m_LightbulbPosRelativeToPlayer ) );
+			//SetLightPosition(sf::Vector2f(GetPosition().x + 100, GetPosition().y ) );
+		}
+	}
+
 }

@@ -8,7 +8,8 @@ public:
 
 	void CreateCircle();
 	void SetStrength();
-	void SetRadius();
+	void SetRadius(float p_NewRadius);
+	float GetRadius();
 
 	void ToggleLightOn(bool p_LightOn);
 	bool GetLightStatus();
@@ -16,6 +17,7 @@ public:
 	void SetPosition(sf::Vector2f p_Position);
 	sf::Vector2f GetPosition();
 	void SetOrigin(const sf::Vector2f &p_Origin);
+	sf::Vector2f GetOrigin();
 	void Move(const sf::Vector2f &p_Position);
 	void Move(float p_OffsetX, float p_OffsetY);
 	sf::CircleShape* GetLightCircle();

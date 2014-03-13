@@ -190,9 +190,12 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 			}
 		}
 	}
-	if(p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() == true )
+	if(p_GameObjMgr->m_pxPlayer->HasLight() )
 	{
-		GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendMultiply);
+		if(p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() == true )
+		{
+			GetFilterTexture()->draw(*p_GameObjMgr->m_pxPlayer->GetLightSource()->GetLightCircle(), sf::BlendMultiply);
+		}
 	}
 	GetFilterTexture()->display();
 }

@@ -39,6 +39,7 @@ private:
 	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
 	void UpdateHealth();
 	void UpdateCollider();
+	void UpdateLightPosition();
 private:
 	sf::Vector2f m_fVelocity;
 	sf::Vector2f m_LightbulbPosRelativeToPlayer;
@@ -54,6 +55,7 @@ private:
 	int m_ChewTimer;
 	int m_GrowTimer;
 	bool m_HasGrown;
+	bool m_HasFishingRod;
 	SoundManager* m_SoundManager;
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
