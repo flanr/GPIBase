@@ -42,6 +42,9 @@ public:
 	void SetZoomingOut(bool p_zoom);
 	void SetZoomStrength(float p_zoom);
 	float GetZoomStrength();
+	/*Used for updating GUI size*/
+	void SetTotalZoom(float p_TotalZoom);
+	float GetTotalZoom();
 
 private:
 	sf::View m_CameraView;
@@ -50,6 +53,7 @@ private:
 	bool m_FilterOn;
 	bool m_IsZoomingOut;
 	float m_ZoomStrength;
+	float m_TotalZoom;
 	bool m_MovingXAxis;
 	bool m_MovingYAxis;
 };

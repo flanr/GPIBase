@@ -16,8 +16,6 @@ d 1024 0 256 256
 S 0 0 0 0
 E 504 0 70 70
 
-
-
 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 ddb333333333333cdddb333333333333333333cdb3333333333333333cddddddddddb33333333333333cdd
@@ -42,13 +40,5 @@ ddddddddddddddddddddddd00E000ddddddddddddddddddddddddddddddddddddddddddddddddddd
 ddddddddddddddddddddddd000000ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 ddddddddddddddddddddddd000000ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
-
-
-
-
-
-
-
 
 

@@ -73,7 +73,38 @@ void PlayerFishObject::UpdateCollider()
 	}
 	if(GetType() == "Player")
 	{
-		m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale(), rect.height * GetScale()));
+		m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.5f, rect.height * GetScale()*0.5f));
+		PlayerFishObject* player = static_cast<PlayerFishObject*>(m_pxCollider->GetParent());
+		if (player->GetCurrentLevel() >= 4 && player->GetCurrentLevel() < 7)
+		{
+			m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.4f, rect.height * GetScale()*0.4f));
+			if ((GetDirection() == FacingLeft || GetDirection() == FacingDownLeft || GetDirection() == FacingUpLeft))
+			{
+				
+				//m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.5f + (-50), rect.height * GetScale()*0.5f));
+				m_pxCollider->SetPositionX(GetPosition().x + 100.f);
+				m_pxCollider->SetPositionY(GetPosition().y);
+
+			}
+			if (GetDirection() == FacingRight || GetDirection() == FacingDownRight || GetDirection() == FacingUpRight )
+			{
+				//m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.5f + (-50), rect.height * GetScale()*0.5f));
+				m_pxCollider->SetPositionX(GetPosition().x - 100.f);
+				m_pxCollider->SetPositionY(GetPosition().y);
+			}
+			if (GetDirection() == FacingUp)
+			{
+				m_pxCollider->SetPositionY(GetPosition().y);
+			}
+			if (GetDirection() == FacingDown)
+			{
+				m_pxCollider->SetPositionY(GetPosition().y);
+			}
+		}
+		else
+		{
+			m_pxCollider->SetPosition(GetPosition() );
+		}
 	}
 }
 
@@ -146,8 +177,24 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 
 	if(GetCollider() != nullptr ) 
 	{
-		m_pxCollider->SetPosition(GetPosition() );
+		UpdateCollider();
 	}
+	//	/*if (GetCurrentLevel() > 3 && GetCurrentLevel() < 7)
+	//	{
+	//		if (GetDirection() == FacingLeft || GetDirection() == FacingDownLeft || GetDirection() == FacingUpLeft)
+	//		{
+	//			m_pxCollider->SetPosition(GetPosition() += sf::Vector2f(100.f, 0.0f));
+	//		}
+	//		if (GetDirection() == FacingRight || GetDirection() == FacingDownRight || GetDirection() == FacingUpRight)
+	//		{
+	//			m_pxCollider->SetPosition(GetPosition() -= sf::Vector2f(100.f, 0.0f));
+	//		}
+	//	}
+	//	else
+	//	{*/
+	//		m_pxCollider->SetPosition(GetPosition() );
+	//	//}
+	//}
 
 };
 
@@ -274,6 +321,11 @@ bool PlayerFishObject::UpdateLevel()
 	}
 
 	return false;
+}
+
+bool PlayerFishObject::HasGrown()
+{
+	return m_HasGrown;
 }
 
 void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
@@ -624,7 +676,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		SetState(Idle);
 		m_GrowTimer = 64;
 		m_HasGrown = false;
-		p_Camera->SetZoomingOut(false);
+		//p_Camera->SetZoomingOut(false);
 		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  { SetPlayerScale(0.8f); }
 		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) { SetPlayerScale(1.0f); }
 

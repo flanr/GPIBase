@@ -96,6 +96,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="EndState.h" />
+    <ClInclude Include="HuntingState.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="PowerupObject.h" />
@@ -130,6 +131,7 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="EndState.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HuntingState.cpp" />
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="LightSource.cpp" />
     <ClCompile Include="PowerupObject.cpp" />

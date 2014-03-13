@@ -41,6 +41,7 @@ public:
 	unsigned int GetWidth();
 	unsigned int GetHeight();
 
+	float Random(float min, float max);
 protected:
 	string m_SpriteMapFileName;
 

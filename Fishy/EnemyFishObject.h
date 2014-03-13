@@ -38,6 +38,8 @@ public:
 	void Scared();
 	bool GetSafe()											{return isSafe;}
 	void SetSafe(bool val)									{isSafe = val;}
+	//Hunting
+	void Hunting();
 	sf::Vector2f GetPlayerPosition()						{return m_xPlayerPosition; }
 	int GetPlayerDirection()								{return m_iPlayerDirection;}
 private:

@@ -105,14 +105,14 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					//m_CollisionMgr->AttachCollider(Player->GetCollider() );
 
 					m_pxGameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(iX,iY));
-					
+
 
 					iX += m_iWidth;
 					continue;
 				}
 			}
 
-			
+
 			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
 			/*if (row[i] == 'B')
 			{
@@ -126,48 +126,48 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}*/
 			if (row[i] == 'z')
 			{
-				 sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
+				sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
 				sprite->setPosition(iX,iY);
 
-			GameObject *go = new GameObject(sprite->getPosition(),sprite);
-			go->SetPosition(sf::Vector2f(iX-350,iY-260));
-			go->SetLevelLayer(layer);
-			m_pxGameObjMgr->Attach(go);
-			
-					iX += m_iWidth;
-					continue;
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-350,iY-260));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+				iX += m_iWidth;
+				continue;
 
 
 			}
 			if (row[i] == 'x')
 			{
-				 sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
+				sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
 				sprite->setPosition(iX,iY);
 
-			GameObject *go = new GameObject(sprite->getPosition(),sprite);
-			go->SetPosition(sf::Vector2f(iX-300,iY-530));
-			go->SetLevelLayer(layer);
-			m_pxGameObjMgr->Attach(go);
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-300,iY-530));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
 
-			
-					iX += m_iWidth;
-					continue;
+
+				iX += m_iWidth;
+				continue;
 
 
 			}
 			if (row[i] == 'v')
 			{
-				 sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
+				sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
 				sprite->setPosition(iX,iY);
 
-			GameObject *go = new GameObject(sprite->getPosition(),sprite);
-			go->SetPosition(sf::Vector2f(iX-200,iY-200));
-			go->SetLevelLayer(layer);
-			m_pxGameObjMgr->Attach(go);
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-200,iY-200));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
 
-			
-					iX += m_iWidth;
-					continue;
+
+				iX += m_iWidth;
+				continue;
 
 
 			}
@@ -187,16 +187,54 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
 				if (row[i] == 'E')
 				{
-					collider->SetExtention(sf::Vector2f(265*0.2f, 100*0.2f));
-					sf::Sprite* tempEnemy = p_pSpriteManager->Load("alpha_enemy_picture_2.png", 0,0, 265*0.2f, 100*0.2f);
-					tempEnemy->setOrigin((265*0.2f)/2, (100*0.2f)/2);
-					tempEnemy->setPosition(iX, iY);
-					EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
-					enemy->SetLevelLayer(layer);
-					//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+					float Random_Size;
+					if (Random(1, 10) < 3)
+					{
+						if (iY > 0 && iY < 4600/2)
+						{
+							Random_Size = Random(.1 , .4);
+						}
+						if (iY > 4600/2 && iY < 11500/2)
+						{
+							Random_Size = Random(.5, .8);
+						}
+						collider->SetExtention(sf::Vector2f(301, 142));
+						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_spritesheet2.png", 76,38, 301, 142);
+						tempEnemy->setOrigin((301)/2, (142)/2);
+						tempEnemy->setPosition(iX, iY);
+						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+						enemy->SetLevelLayer(layer);
+						enemy->SetScale(Random_Size);
+						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 
-					m_pxGameObjMgr->Attach(enemy);
-					m_CollisionMgr->AttachCollider(collider);
+						m_pxGameObjMgr->Attach(enemy);
+						m_CollisionMgr->AttachCollider(collider);
+					}
+					else
+					{
+
+						if (iY > 0 && iY < 4600/2)
+						{
+							Random_Size = Random(.1 , .4);
+						}
+						if (iY > 4600/2 && iY < 11500/2)
+						{
+							Random_Size = Random(.5, .8);
+						}
+
+
+						collider->SetExtention(sf::Vector2f(265, 100));
+						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_tmp.png", 0,0, 265, 100);
+						tempEnemy->setOrigin((265)/2, (100)/2);
+						tempEnemy->setPosition(iX, iY);
+						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+						enemy->SetLevelLayer(layer);
+						enemy->SetScale(Random_Size);
+						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+
+						m_pxGameObjMgr->Attach(enemy);
+						m_CollisionMgr->AttachCollider(collider);
+					}
 
 				}
 				else
@@ -216,7 +254,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 
 			iX += m_iWidth;
-			
+
 
 		}
 		iY += m_iHeight;
@@ -434,4 +472,11 @@ unsigned int Level::GetWidth()
 unsigned int Level::GetHeight()
 {
 	return m_LevelHeight;
+}
+float Level::Random(float min, float max)
+{
+	/*float slump;
+	slump=rand()%(int)max+(min);
+	return slump;*/
+	return((max-min)*((float)rand()/RAND_MAX))+min;
 }
