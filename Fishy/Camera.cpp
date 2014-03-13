@@ -156,7 +156,7 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 	//Opacity starts at this position
 	const int OPACITYSTART = 1000; //p_Level->GetHeight() / 3.0f;
 	//OpacityDepth == how fast the opacity change 
-	const int OPACITYDEPTH = 1000;
+	const int OPACITYDEPTH = 2000;
 	//OPACITYMAX is the opacity of the darkest part
 	const int OPACITYMAX = 245;
 

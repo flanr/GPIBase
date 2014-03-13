@@ -34,13 +34,14 @@ private:
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
 	void UpdateIdle(float p_Deltatime);
 	void UpdateAttack(float p_Deltatime);
-	void UpdateSneak(float p_Deltatime);
 	void UpdateChewing(float p_Deltatime);
 	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
 	void UpdateHealth();
 	void UpdateCollider();
 private:
 	sf::Vector2f m_fVelocity;
+	sf::Vector2f m_LightbulbPosRelativeToPlayer;
+
 	int m_Health;
 	int m_Energy;
 	int m_Experience;
