@@ -95,6 +95,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="EndState.h" />
     <ClInclude Include="HuntingState.h" />
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="LightSource.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="EndState.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HuntingState.cpp" />
     <ClCompile Include="IdleState.cpp" />

@@ -51,14 +51,21 @@ void LightSource::CreateCircle()
 	}
 	m_LightTexture->display();
 	m_Circle->setTexture(&m_LightTexture->getTexture() );
-	m_Circle->setPointCount(240);
+	m_Circle->setPointCount(m_LightRadius);
 	SetOrigin(sf::Vector2f(m_Circle->getTextureRect().width / 2.0f, m_Circle->getTextureRect().height / 2.0f) );
 }
 void LightSource::SetStrength()
 {
 }
-void LightSource::SetRadius()
+void LightSource::SetRadius(float p_NewRadius)
 {
+	m_Circle->setRadius(p_NewRadius);
+	SetOrigin(sf::Vector2f(p_NewRadius, p_NewRadius) );
+}
+
+float LightSource::GetRadius()
+{
+	return m_Circle->getRadius();
 }
 
 void LightSource::ToggleLightOn(bool p_LightOn)
@@ -83,6 +90,11 @@ sf::Vector2f LightSource::GetPosition()
 void LightSource::SetOrigin(const sf::Vector2f &p_Origin)
 {
 	m_Circle->setOrigin(p_Origin);
+}
+
+sf::Vector2f LightSource::GetOrigin()
+{
+	return m_Circle->getOrigin();
 }
 
 void LightSource::Move(const sf::Vector2f &p_Offset)

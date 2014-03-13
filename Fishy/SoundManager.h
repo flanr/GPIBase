@@ -29,7 +29,8 @@ public:
 	int GetSoundVolume();
 	void PauseSound();
 	vector<SoundsStruct> ReturnSound();
-	
+	void MuteSound();
+	void MuteMusic();
 
 private:
 	vector<SoundsStruct> m_SoundBank;
@@ -39,6 +40,8 @@ private:
 	string m_directory;
 	void AddSound(string path);
 	void AddMusic(string path);
+	int OldVolMusic, OldVolSound;
+	bool b_MuteM, b_MuteS;
 
 };
 

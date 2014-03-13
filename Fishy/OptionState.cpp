@@ -11,6 +11,7 @@ OptionState::OptionState(Core* p_pCore)
 	m_pInputManager = p_pCore->m_pInputManager;
 	m_DrawManager = p_pCore->m_DrawManager;
 	m_SpriteManager = p_pCore->m_SpriteManager;
+	m_SoundManager = p_pCore->m_SoundManager;
 	////////////////
 	// Background //
 	////////////////
@@ -51,11 +52,13 @@ OptionState::OptionState(Core* p_pCore)
 
 	m_SliderMusicVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+205,600,25);
 	m_SliderMusicVol.SetColor(sf::Color::White);
+	m_SliderMusicVol.SetValue(50);
 
 	m_SliderSoundVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+314,600,25);
 	m_SliderSoundVol.SetColor(sf::Color::White);
+	m_SliderSoundVol.SetValue(50);
 
-	m_ButtonClick = 0;
+	m_ButtonClick = -1;
 }
 
 string OptionState::GetCurrentState()
@@ -71,10 +74,11 @@ string OptionState::Next()
 
 bool OptionState::EnterState()
 {
+	m_SliderMusicVol.SetValue(m_SliderMusicVol.GetValue());
+	m_SliderSoundVol.SetValue(m_SliderSoundVol.GetValue());
 	m_window->setView(m_window->getDefaultView());
 	m_sCurrentState = "OptionState";
 	cout << "OptionState::EnterState" << endl;
-
 	return false;
 }
 
@@ -85,7 +89,10 @@ void OptionState::ExitState()
 
 bool OptionState::Update(float p_fDeltaTime)
 {
+
 	HandleInput();
+	//m_SoundManager->SetSoundVolume(m_SliderSoundVol.GetValue());
+	//m_SoundManager->SetMusicVolume(m_SliderMusicVol.GetValue());
 	return true;
 }
 
@@ -104,9 +111,12 @@ void OptionState::HandleInput()
 		cout << " You are already in OptionState" << endl;
 		//m_pCore->m_StateManager.SetState("OptionState");
 	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num4))
+	{
+		m_pCore->m_StateManager.SetState("EndState");
+	}
 	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
-	m_SliderMusicVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
-	m_SliderSoundVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+
 
 	if (m_pInputManager->IsDown(MB_LEFT))
 	{
@@ -143,37 +153,45 @@ void OptionState::HandleInput()
 			m_ButtonReturn.SetPosition(m_ButtonReturnPos.x,m_ButtonReturnPos.y);
 		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
-			m_ButtonClick = -1;
+		{m_ButtonClick = -1;}
 
+		m_SliderMusicVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		m_SoundManager->SetMusicVolume(m_SliderMusicVol.GetValue());
+		m_SliderSoundVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		m_SoundManager->SetSoundVolume(m_SliderSoundVol.GetValue());
+		m_SliderMusicVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		m_SliderSoundVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
 
-
-		//m_pCore->window->create(sf::VideoMode(1280,720), "SUPER MEGA AWESOME GAME", sf::Style::Fullscreen);
 	}
 	else if (m_pInputManager->IsReleased(MB_LEFT))
 	{
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1 && m_ButtonClick == 1) // Fullscreen
 		{
-			m_pCore->window->create(sf::VideoMode(1280,720), "SUPER MEGA AWESOME GAME", sf::Style::Fullscreen);
+			m_pCore->window->create(sf::VideoMode(1280,720), "Tale of the Deep", sf::Style::Fullscreen);
+			m_pCore->window->setVerticalSyncEnabled(true);
 		}
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2 && m_ButtonClick == 2) // Windowed
 		{
-			m_pCore->window->create(sf::VideoMode(1280,720), "SUPER MEGA AWESOME GAME");
+			m_pCore->window->create(sf::VideoMode(1280,720), "Tale of the Deep");
+			m_pCore->window->setVerticalSyncEnabled(true);
 		}
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 3 && m_ButtonClick == 3) // Music
 		{
-
+			m_SoundManager->SetMusicVolume(0);
+			m_SliderMusicVol.SetValue(m_SliderMusicVol.GetValue());
 		}
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 4 && m_ButtonClick == 4) // Sound
 		{
-
+			m_SoundManager->SetSoundVolume(0);
+			m_SliderSoundVol.SetValue(m_SliderSoundVol.GetValue());
 		}
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 5 && m_ButtonClick == 5) // Back
 		{
 			m_pCore->m_StateManager.SetState("StartState");
 		}
 		m_ButtonClick = 0;
-		m_SliderMusicVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
-		m_SliderSoundVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		m_SliderMusicVol.MouseUp();
+		m_SliderSoundVol.MouseUp();
 	}
 }
 

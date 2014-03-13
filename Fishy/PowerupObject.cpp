@@ -9,7 +9,7 @@ PowerupObject::PowerupObject(eType p_eUpgrade, sf::Vector2f p_xPosition, sf::Spr
 	m_xStartPos = p_xPosition;
 	bMovingUp = true;
 	m_fMovement = 0.1f;
-	m_eUpgrade = p_eUpgrade;
+	SetPowerUpType(p_eUpgrade);
 	
 }
 PowerupObject::~PowerupObject()
@@ -51,4 +51,44 @@ void PowerupObject::Update(float p_fDeltatime)
 			SetPosition(sf::Vector2f(GetPosition().x, GetPosition().y + m_fMovement * p_fDeltatime) );
 		}
 	}
+
+	if(m_pxCollider != nullptr )
+	{
+		m_pxCollider->SetPosition(GetPosition() );
+	}
+}
+
+void PowerupObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
+{
+	if (GetCollider() != nullptr)
+	{
+		//cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << endl;
+		printf("Collision TEST");
+		if (p_other->GetType() == "Player")
+		{
+			this->m_pxCollider = nullptr;
+			m_isDestroyed = true;
+		}
+	}
+}
+
+void PowerupObject::SetPowerUpType(eType p_powerup)
+{
+	for(int i = 0; i < TYPECOUNT; i++)
+	{
+		m_Type[i] = false;
+	}
+	m_Type[p_powerup] = true;
+}
+
+eType PowerupObject::GetPowerUpType()
+{
+	for(int i = 0; i < TYPECOUNT; i++)
+	{
+		if(m_Type[i] == true)
+		{
+			return (eType)i ;
+		}
+	}
+	return (eType)0;
 }

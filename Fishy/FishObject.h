@@ -19,8 +19,8 @@ enum eState
 
 enum eDirection
 {
-	FacingUp,
-	FacingDown,
+	//FacingUp,
+	//FacingDown,
 	FacingLeft,
 	FacingRight,
 	FacingUpRight,
