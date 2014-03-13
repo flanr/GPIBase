@@ -39,8 +39,8 @@ public:
 
 	////Destroy Functions for objects that can be destroyed in game
 	//void DestroyPlayer();
-	void DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index);
-	//void DestroyPowerup(PowerupObject *p_pxPowerup);
+	void DestroyEnemy(EnemyFishObject *p_pxEnemy);
+	void DestroyPowerup(PowerupObject *p_pxPowerup);
 	//void DestroyParticle(ParticleObject * p_pxParticle);
 
 	////Update functions

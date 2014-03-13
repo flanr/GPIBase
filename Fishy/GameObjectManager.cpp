@@ -9,7 +9,7 @@
 
 #include "PlayerFishObject.h"
 #include "EnemyFishObject.h"
-//#include "PowerupObject.h"
+#include "PowerupObject.h"
 //#include "ParticleObject.h"
 
 GameObjectManager::GameObjectManager(InputManager *p_pxInputManager)
@@ -96,9 +96,8 @@ void GameObjectManager::AttachPlayer(PlayerFishObject *p_pxPlayer)
 //		m_pxLight = nullptr;
 //	}
 //}
-void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index)
+void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy)
 {
-
 	if(p_pxEnemy != nullptr)
 	{
 		delete p_pxEnemy;
@@ -107,25 +106,14 @@ void GameObjectManager::DestroyEnemy(EnemyFishObject *p_pxEnemy, int p_Index)
 	--m_iEnenmyCounter;
 }
 
-//void GameObjectManager::DestroyPowerup(PowerupObject *p_pxPowerup)
-//{
-//	if(p_pxPowerup != nullptr)
-//	{
-//		int iVectorPosition;
-//		for(int i = 0; i < m_apxPowerup.size(); i ++)
-//		{
-//			if(m_apxPowerup[i] == p_pxPowerup)
-//			{
-//				iVectorPosition = i;
-//				/*delete p_pxPowerup->GetSprite();
-//				delete p_pxPowerup->GetCollider();*/
-//				delete p_pxPowerup;
-//				p_pxPowerup = nullptr;
-//			}
-//		}
-//		m_apxPowerup.erase(m_apxPowerup.begin() + iVectorPosition);
-//	}
-//}
+void GameObjectManager::DestroyPowerup(PowerupObject *p_pxPowerup)
+{
+	if(p_pxPowerup != nullptr)
+	{
+		delete p_pxPowerup;
+		p_pxPowerup = nullptr;
+	}
+}
 
 
 /*
@@ -159,12 +147,13 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
 		//if (m_apxGameObject[i]->GetType() != "GameObject")
-
-
-
 		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 		{
 			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, m_pxPlayer);
+		}
+		else if(dynamic_cast<PowerupObject*> (m_apxGameObject[i]) )
+		{
+			dynamic_cast<PowerupObject*> (m_apxGameObject[i])->Update(p_fDeltatime);
 		}
 		else
 		{
@@ -174,7 +163,12 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 		{
 			if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
 			{
-				DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]), i);
+				DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) );
+				m_apxGameObject.erase(m_apxGameObject.begin() +i);
+			}
+			else if( static_cast<PowerupObject*> (m_apxGameObject[i])->GetDestroyed() )
+			{
+				DestroyPowerup(dynamic_cast<PowerupObject*> (m_apxGameObject[i]) );
 				m_apxGameObject.erase(m_apxGameObject.begin() +i);
 			}
 		}
