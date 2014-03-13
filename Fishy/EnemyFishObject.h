@@ -31,21 +31,29 @@ public:
 	void AddTimer(const int nr)								{m_iStateTimer+= nr;};
 	int GetTimer()											{return m_iStateTimer;};
 	void ResetTimer()										{m_iStateTimer = 0;};
+	sf::Vector2f GetPlayerPosition()						{return m_xPlayerPosition; }
+	int GetPlayerDirection()								{return m_iPlayerDirection;}
 	
 	int random(int min, int max);
 	
+	std::string GetSubType()								{return m_SubType;}
+	void SetSubType(std::string p_type)						{m_SubType = p_type;}
+	float GetSubTypeSize()									{return m_SubTypeSize;}
+	void SetSubTypeSize(float p_size)						{m_SubTypeSize = p_size;}
+	//Idle
+	void Idle();
 	//Scared
 	void Scared();
 	bool GetSafe()											{return isSafe;}
 	void SetSafe(bool val)									{isSafe = val;}
 	//Hunting
 	void Hunting();
-	sf::Vector2f GetPlayerPosition()						{return m_xPlayerPosition; }
-	int GetPlayerDirection()								{return m_iPlayerDirection;}
+									
 private:
 	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition;
 	int m_iStateTimer, m_iPlayerDirection;
 	AIStateMachine<EnemyFishObject>* m_pAIStateMachine;
 	bool isSafe;
-
+	std::string m_SubType;
+	float m_SubTypeSize;
 };
