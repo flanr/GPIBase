@@ -29,6 +29,7 @@ public:
 	bool HasGrown();
 	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
+	
 private:
 	
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);

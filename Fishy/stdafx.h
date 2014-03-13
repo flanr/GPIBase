@@ -48,9 +48,11 @@ using namespace std;
 #include "Button.h"
 #include "InputManager.h"
 #include "DrawManager.h"
+
 #include "GameState.h"
 #include "StartState.h"
 #include "OptionState.h"
+#include "EndState.h"
 #include "Geographics.h"
 #include "Collider.h"
 #include "Level.h"

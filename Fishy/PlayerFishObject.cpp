@@ -10,6 +10,7 @@
 #include "AnimatedSprite.h"
 #include "LightSource.h"
 #include "Camera.h"
+#include "EnemyFishObject.h"
 
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
@@ -347,8 +348,17 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	}
 	if (p_other->GetType() == "Enemy")
 	{
+		EnemyFishObject* tempptr = dynamic_cast<EnemyFishObject*>(p_other);
+		if (tempptr->GetSubType() == "Stage2" )
+		{
+			if (GetCurrentLevel() <= 4 && tempptr->GetScale() >= 0.8)
+			{
+				SetHealth(GetHealth() -50);
+			}
+		}
 		if(GetState() == Attack)
 		{
+
 			ExperienceGain(1);
 			SetHealth(GetHealth() + 10);
 			if(UpdateLevel() )

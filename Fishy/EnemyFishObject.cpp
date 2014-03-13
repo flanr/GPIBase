@@ -148,7 +148,7 @@ int EnemyFishObject::random(int min, int max)
 
 void EnemyFishObject::ChangeState()
 {
-	SetState(Idle);
+//	SetState(Idle);
 	/*if(GetState() == Moving)
 	{
 	SetState(Fleeing);
@@ -202,12 +202,52 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	}
 }
 
+void EnemyFishObject::Idle()
+{
+	if (GetSafe())
+	{
+		SetSafe(false);
+	}
+	int iRandomX;
+	int iRandomY;
+	if(GetTimer() > 400)	{ResetTimer();}
+
+	if(GetTimer() == 50)
+	{
+		iRandomX = random(1, 2);
+		//std::cout << iRandomX << std::endl;
+		if(iRandomX == 1)
+		{
+			SetVelocity(sf::Vector2f(GetSpeed() * -1, 0.0f) );
+			FlipXLeft(GetScale());
+		}
+		else if (iRandomX == 2)
+		{
+			SetVelocity(sf::Vector2f(GetSpeed(), 0.0f));
+			FlipXRight(GetScale());
+		}
+	}
+	if(GetTimer() == 250)
+	{
+		iRandomY = random(1, 2);
+		if (iRandomY == 1)
+		{
+			SetVelocity(sf::Vector2f(0.0f, GetSpeed()));
+		}
+		else if (iRandomY == 2)
+		{
+			SetVelocity(sf::Vector2f(0.0f, GetSpeed()* -1));
+			
+		}
+	}
+}
+
 void EnemyFishObject::Scared()
 {
 	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
 	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
 	DistanceVector/=sqrtf(DistanceNumber);
-	SetVelocity(-DistanceVector * GetSpeed()*3.f);
+	SetVelocity(-DistanceVector * GetSpeed()*5.f);
 	if (GetPosition().x > GetPlayerPosition().x)
 	{
 		FlipXRight(GetScale());
@@ -219,5 +259,20 @@ void EnemyFishObject::Scared()
 	if (sqrtf(DistanceNumber) >= 500.f)
 	{
 		isSafe = true;
+	}
+}
+void EnemyFishObject::Hunting()
+{
+	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
+	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
+	DistanceVector/=sqrtf(DistanceNumber);
+	SetVelocity(DistanceVector * GetSpeed()*3.f);
+	if (GetPlayerPosition().x > GetPosition().x)
+	{
+		FlipXRight(GetScale());
+	}
+	if (GetPlayerPosition().x < GetPosition().x)
+	{
+		FlipXLeft(GetScale());
 	}
 }
