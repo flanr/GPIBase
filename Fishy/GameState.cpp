@@ -157,8 +157,10 @@ bool GameState::Update(float p_DeltaTime)
 
 	m_pxCollisionManager->CheckCollisionRectVsRect();
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
-	//If the player is growing or eating the game won't update
-	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing )
+	{
+		m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	}
 	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
 
