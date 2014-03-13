@@ -153,7 +153,7 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 	m_FilterTexture->setView(m_CameraView);
 	//Opacity = 0.
 	GetFilterTexture()->clear(sf::Color(0,0,0,0) );
-	//Opacity starts at this position
+	//Opacity starts at this positiondd
 	const int OPACITYSTART = 3000; //p_Level->GetHeight() / 3.0f;
 	//OpacityDepth == how fast the opacity change 
 	const int OPACITYDEPTH = 2000;
