@@ -31,6 +31,7 @@ public:
 	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 	
+	void DamageCooldown();
 private:
 	
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
@@ -64,4 +65,8 @@ private:
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
 
 	int m_iWidth, m_iHeight;
+
+	bool m_bCanTakeDamage;
+	sf::Clock m_Clock;
+	sf::Time m_Time;
 };

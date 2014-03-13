@@ -37,7 +37,8 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_PowerupEnergyCounter = 0;
 	m_Experience = 0;
 	SetType("Player");
-
+	m_Time = m_Clock.restart();
+	m_bCanTakeDamage = true;
 };
 
 PlayerFishObject::~PlayerFishObject()
@@ -84,18 +85,18 @@ void PlayerFishObject::UpdateCollider()
 		if (player->GetCurrentLevel() >= 4 && player->GetCurrentLevel() < 7)
 		{
 			m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.4f, rect.height * GetScale()*0.4f));
-			if ((GetDirection() == FacingLeft || GetDirection() == FacingDownLeft || GetDirection() == FacingUpLeft))
+			if ((GetDirection() == FacingLeft || GetDirection() == FacingDownLeft || GetDirection() == FacingUpLeft || GetState() == Sneak))
 			{
 
 				//m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.5f + (-50), rect.height * GetScale()*0.5f));
-				m_pxCollider->SetPositionX(GetPosition().x + 100.f);
+				m_pxCollider->SetPositionX(GetPosition().x + 80.f);
 				m_pxCollider->SetPositionY(GetPosition().y);
 
 			}
-			if (GetDirection() == FacingRight || GetDirection() == FacingDownRight || GetDirection() == FacingUpRight )
+			if (GetDirection() == FacingRight || GetDirection() == FacingDownRight || GetDirection() == FacingUpRight || GetState() == Sneak )
 			{
 				//m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.5f + (-50), rect.height * GetScale()*0.5f));
-				m_pxCollider->SetPositionX(GetPosition().x - 100.f);
+				m_pxCollider->SetPositionX(GetPosition().x - 80.f);
 				m_pxCollider->SetPositionY(GetPosition().y);
 			}
 			/*	if (GetDirection() == FacingUp)
@@ -116,7 +117,7 @@ void PlayerFishObject::UpdateCollider()
 
 void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_SpriteManager, Camera *p_Camera, float p_Deltatime)
 {
-	UpdateCollider();
+	//UpdateCollider();
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
 	if(GetState() == Death)
@@ -250,6 +251,7 @@ void PlayerFishObject::SetHealth(int p_Health)
 {
 	if(p_Health <= 100)
 	{
+	
 		m_Health = p_Health;
 	}
 }
@@ -404,11 +406,37 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		EnemyFishObject* tempptr = dynamic_cast<EnemyFishObject*>(p_other);
 		if (tempptr->GetSubType() == "Stage2" )
 		{
-			if (GetCurrentLevel() <= 4 && tempptr->GetScale() >= 0.8)
+			DamageCooldown();
+			if (m_bCanTakeDamage ==true)
 			{
-				SetHealth(GetHealth() -50);
+				SetHealth(GetHealth() - GetHealth()*.1 - 5);
+				//cout<<GetHealth() << endl;
+				m_bCanTakeDamage = false;
+				DamageCooldown();
+			}
+
+			if (GetCurrentLevel() <= 4 && tempptr->GetScale() >= 0.6 && tempptr->GetScale() <= 0.8)
+			{
+				if (m_bCanTakeDamage)
+				{
+					SetHealth(GetHealth() - GetHealth()*.33 - 5);
+					//cout<<GetHealth() << endl;
+					m_bCanTakeDamage = false;
+					DamageCooldown();
+				}
+			}
+			if (GetCurrentLevel() <= 4 && tempptr->GetScale() >= 0.8 && tempptr->GetScale() <= 1.0)
+			{
+				if (m_bCanTakeDamage)
+				{
+					SetHealth(GetHealth() - GetHealth()*.5 - 5);
+					//cout<<GetHealth() << endl;
+					m_bCanTakeDamage = false;
+					DamageCooldown();
+				}
 			}
 		}
+
 		if(GetState() == Attack)
 		{
 
@@ -836,6 +864,24 @@ void PlayerFishObject::UpdateHealth()
 	}
 }
 
+
+void PlayerFishObject::DamageCooldown()
+{
+	
+
+	if (!m_bCanTakeDamage)
+	{
+		sf::Time elapsed = m_Clock.getElapsedTime();
+		if (elapsed.asSeconds() > 2.f)
+		{
+			m_bCanTakeDamage = true;
+			//m_Time = sf::Time::Zero;
+			m_Time = m_Clock.restart();
+		}
+	}
+
+}
+
 void PlayerFishObject::UpdateLightPosition()
 {
 
@@ -853,3 +899,4 @@ void PlayerFishObject::UpdateLightPosition()
 	}
 
 }
+

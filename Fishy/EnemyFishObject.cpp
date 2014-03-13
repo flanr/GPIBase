@@ -19,7 +19,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	//SetState(Moving);
 	m_iStateTimer = 0;
 	SetCurrentLevel(0);
-	SetScale(1.f);
+	//SetScale(1.f);
 	//m_pxCollider->SetExtention(m_pxCollider->GetExtension()*GetScale());
 	SetType("Enemy");
 	m_pAIStateMachine = new AIStateMachine<EnemyFishObject>(this);
@@ -173,6 +173,7 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		//std::cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << std::endl;
 		if (p_other->GetType() == "Player")
 		{
+			//SetPosition(GetPosition() + p_Offset * 3.f);
 			PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
 			if(player->GetState() == Chewing)
 			{

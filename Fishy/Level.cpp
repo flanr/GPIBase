@@ -244,9 +244,11 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				collider->SetPosition(sf::Vector2f(iX,iY) );
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
 
+				float Random_Size = 0.0f;
+
 				if (row[i] == 'E')
 				{
-					float Random_Size;
+					
 					if (Random(1, 10) < 3)
 					{
 						if (iY > 0 && iY < 4600/2)
