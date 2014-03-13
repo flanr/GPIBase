@@ -62,8 +62,6 @@ void PowerupObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
 	if (GetCollider() != nullptr)
 	{
-		//cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << endl;
-		printf("Collision TEST");
 		if (p_other->GetType() == "Player")
 		{
 			this->m_pxCollider = nullptr;

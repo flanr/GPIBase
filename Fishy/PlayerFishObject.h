@@ -49,7 +49,9 @@ private:
 	int m_Energy;
 	int m_Experience;
 
-
+	int m_PowerupLightCounter;
+	int m_PowerupSpeedCounter;
+	int m_PowerupEnergyCounter;
 	bool m_SlowingDown;
 	int m_Healthtimer;
 	int m_iAttacktimer;

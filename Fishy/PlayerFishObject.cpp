@@ -32,6 +32,9 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	SetCurrentLevel(1);
 	m_HasGrown = false;
 	m_HasFishingRod = false;
+	m_PowerupLightCounter = 0;
+	m_PowerupSpeedCounter = 0;
+	m_PowerupEnergyCounter = 0;
 	m_Experience = 0;
 	SetType("Player");
 
@@ -366,6 +369,34 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				SetState(Growing);
 			}
 		}
+		else if(( powerup->GetPowerUpType() == LIGHT) )
+		{
+			if(m_PowerupLightCounter < 3)
+			{
+				m_light->SetRadius(m_light->GetRadius() * 1.1f);
+				cout << "LIGHT" << endl;
+				m_PowerupLightCounter++;
+			}
+		}
+		else if(( powerup->GetPowerUpType() == SPEED) )
+		{
+			if (m_PowerupSpeedCounter < 3)
+			{
+				SetSpeed(GetSpeed() * 1.1f);
+				cout << "SPEED" << endl;
+				m_PowerupSpeedCounter++;
+			}		
+		}
+		else if(( powerup->GetPowerUpType() == ENERGY) )
+		{
+			if (m_PowerupEnergyCounter < 3)
+			{
+				SetEnergy(GetEnergy() * 1.1f);
+				cout << "ENERGY" << endl;
+				cout << GetEnergy() << endl;
+				m_PowerupEnergyCounter++;
+			}
+		}
 		powerup = nullptr;
 	}
 	if (p_other->GetType() == "Enemy")
@@ -636,14 +667,6 @@ void PlayerFishObject::UpdateAttack(float p_Deltatime)
 	{
 		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetAttackPower(), 0.0f) );
 	}
-	/*else if(GetDirection() == FacingUp)
-	{
-	SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed() * GetAttackPower()) );
-	}
-	else if(GetDirection()  == FacingDown)
-	{
-	SetVelocity(sf::Vector2f( 0.0f, p_Deltatime * GetSpeed() * GetAttackPower() ) );
-	}*/
 	else if(GetDirection() == FacingUpRight )
 	{
 		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower(), p_Deltatime * -GetSpeed() * GetAttackPower() ) );

@@ -149,7 +149,6 @@ bool GameState::Update(float p_DeltaTime)
 		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
 	}
 	HandleInput();
-	/*m_GameObjMgr->m_pxPlayer->SetScale(0.2f);*/
 
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
 	{
@@ -160,18 +159,9 @@ bool GameState::Update(float p_DeltaTime)
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
 	//If the player is growing or eating the game won't update
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
-	/*if( !(m_GameObjMgr->m_pxPlayer->GetState() == Growing || m_GameObjMgr->m_pxPlayer->GetState() == Chewing) )
-	{*/
 	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
-	/*}*/
 
-	/*if (mgr->GetPlayerVsEnemy())
-	{
-	m_GameObjMgr->m_pxPlayer->ExperienceGain(1);
-	mgr->RemoveEnemyCollider();
-	mgr->SetPlayerVsEnemy(false);
-	}*/
 	return true;
 }
 
