@@ -254,7 +254,7 @@ void GameState::Draw()
 	m_DrawManager->DrawSlider(m_HealthSlider);
 	m_DrawManager->DrawSlider(m_EnergySlider);
 	m_DrawManager->Draw(Gui);
-	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
+	m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 
 }
