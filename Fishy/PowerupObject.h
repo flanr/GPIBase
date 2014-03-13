@@ -28,10 +28,14 @@ public:
 	/*void SetGlowEffect();*/
 
 	void Update(float p_fDeltatime);
+	void OnCollision(GameObject* p_other, sf::Vector2f& p_Offset);
+	void SetPowerUpType(eType p_powerup);
+	eType GetPowerUpType();
 
 protected:
+
+	bool m_Type[TYPECOUNT];
 	float m_fMovement;
-	eType m_eUpgrade;
 	sf::Vector2f m_xStartPos;
 	bool bMovingUp;
 

@@ -11,6 +11,7 @@
 #include "LightSource.h"
 #include "Camera.h"
 #include "EnemyFishObject.h"
+#include "PowerupObject.h"
 
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
@@ -271,6 +272,11 @@ void PlayerFishObject::ExperienceGain(int x)
 	//cout << "Experience :: " << GetExperience() << endl;
 }
 
+void PlayerFishObject::SetExperience(int p_experience)
+{
+	m_Experience = p_experience;
+}
+
 int PlayerFishObject::GetExperience()
 {
 	return m_Experience;
@@ -280,42 +286,42 @@ bool PlayerFishObject::UpdateLevel()
 {
 	if(GetExperience() == 1)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
-		return true;
-	}
-	else if(GetExperience() == 2)
-	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
-		return true;
-	}
-	else if(GetExperience() == 3)
-	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(2);
 		return true;
 	}
 	else if(GetExperience() == 4)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(3);
 		return true;
 	}
-	else if(GetExperience() == 5)
+	else if(GetExperience() == 1000)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(4);
 		return true;
 	}
-	else if(GetExperience() == 6)
+	else if(GetExperience() == 1001)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(5);
 		return true;
 	}
-	else if(GetExperience() == 7)
+	else if(GetExperience() == 1002)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(6);
 		return true;
 	}
-	else if(GetExperience() == 8)
+	else if(GetExperience() == 1203)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(7);
+		return true;
+	}
+	else if(GetExperience() == 1204)
+	{
+		SetCurrentLevel(8);
+		return true;
+	}
+	else if(GetExperience() == 1205)
+	{
+		SetCurrentLevel(9);
 		return true;
 	}
 
@@ -346,6 +352,21 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	if (p_other->GetType() == "BrownBrick")
 	{
 		SetPosition(GetPosition() + p_Offset);
+	}
+	if (p_other->GetType() == "Powerup")
+	{
+		PowerupObject* powerup = dynamic_cast<PowerupObject*>(p_other);
+
+		if(( powerup->GetPowerUpType() == ROD) )
+		{
+			SetExperience(1000);
+			if(UpdateLevel() )
+			{
+				m_HasGrown = true;
+				SetState(Growing);
+			}
+		}
+		powerup = nullptr;
 	}
 	if (p_other->GetType() == "Enemy")
 	{
@@ -753,9 +774,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 			SetPlayerScale(0.6f);
 			m_light->SetRadius(m_light->GetRadius() * 3.0f );
 			m_LightbulbPosRelativeToPlayer *= GetScale();
-			//m_HasFishingRod = true;
-			
-
+			m_HasFishingRod = true;
 		}
 		else if( GetCurrentLevel() == 7)  
 		{ 

@@ -24,6 +24,7 @@ public:
 	void SetEnergy(int p_Energy);
 	int GetEnergy();
 	void ExperienceGain(int x);
+	void SetExperience(int p_experience);
 	int GetExperience();
 	bool UpdateLevel();
 	bool HasGrown();

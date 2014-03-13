@@ -98,7 +98,7 @@ bool GameState::EnterState()
 		m_LevelLayerMiddleFront->Load("../data/levels/level_middlefront.txt", m_SpriteManager, false,ELayer::MIDDLEFROUNT);
 
 		// ForGround
-		m_LevelLayerForGround = new Level(m_GameObjMgr);
+		m_LevelLayerForGround = new Level(m_GameObjMgr, m_pxCollisionManager);
 		m_LevelLayerForGround->Load("../data/levels/level_forground.txt", m_SpriteManager, false, ELayer::FOREGROUND);
 		//Player loads outside of the frame, here it is set to inside of the frame. It fixed collisions somehow *_*
 	} 
@@ -157,6 +157,7 @@ bool GameState::Update(float p_DeltaTime)
 	}
 
 	m_pxCollisionManager->CheckCollisionRectVsRect();
+	//m_pxCollisionManager->CheckCollisionRectVsCircle();
 	//If the player is growing or eating the game won't update
 	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	/*if( !(m_GameObjMgr->m_pxPlayer->GetState() == Growing || m_GameObjMgr->m_pxPlayer->GetState() == Chewing) )
