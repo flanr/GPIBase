@@ -89,7 +89,10 @@ void OptionState::ExitState()
 
 bool OptionState::Update(float p_fDeltaTime)
 {
+
 	HandleInput();
+	//m_SoundManager->SetSoundVolume(m_SliderSoundVol.GetValue());
+	//m_SoundManager->SetMusicVolume(m_SliderMusicVol.GetValue());
 	return true;
 }
 
@@ -107,6 +110,10 @@ void OptionState::HandleInput()
 	{
 		cout << " You are already in OptionState" << endl;
 		//m_pCore->m_StateManager.SetState("OptionState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num4))
+	{
+		m_pCore->m_StateManager.SetState("EndState");
 	}
 	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
 

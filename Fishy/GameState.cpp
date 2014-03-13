@@ -38,9 +38,9 @@ GameState::GameState(Core* p_pCore)
 
 	bStateRunning = false;
 
-	Gui = m_SpriteManager->Load("gui.png",0,0,361,136);
-	m_EnergySlider.SetSlider(0,0,150,25);
-	m_HealthSlider.SetSlider(0,0,259,41);
+	Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
+	m_EnergySlider.SetSlider(0,0,154,17);
+	m_HealthSlider.SetSlider(0,0,190,28);
 	m_HealthSlider.SetColor(sf::Color::Red);
 	m_EnergySlider.SetColor(sf::Color::Yellow);
 
@@ -193,8 +193,8 @@ void GameState::UpdateGUI()
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
-	m_EnergySlider.SetPosition(GUI_pos.x + (96 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (29 * m_Camera->GetTotalZoom() ) );
-	m_HealthSlider.SetPosition(GUI_pos.x + (96 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (60 * m_Camera->GetTotalZoom() ) );
+	m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
+	m_HealthSlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (79 * m_Camera->GetTotalZoom() ) );
 }
 
 
@@ -212,6 +212,10 @@ void GameState::HandleInput()
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
 	{
 		m_pCore->m_StateManager.SetState("OptionState");
+	}
+	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num4))
+	{
+		m_pCore->m_StateManager.SetState("EndState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num0))
 	{

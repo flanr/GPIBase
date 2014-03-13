@@ -247,7 +247,7 @@ void PlayerFishObject::ChangeStageAnimation(const std::string &p_sName, SpriteMa
 void PlayerFishObject::SetHealth(int p_Health)
 {
 	if(p_Health <= 100)
-	{
+	
 		m_Health = p_Health;
 	}
 }
