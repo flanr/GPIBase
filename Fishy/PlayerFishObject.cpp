@@ -10,6 +10,7 @@
 #include "AnimatedSprite.h"
 #include "LightSource.h"
 #include "Camera.h"
+#include "EnemyFishObject.h"
 
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
@@ -80,7 +81,7 @@ void PlayerFishObject::UpdateCollider()
 			m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.4f, rect.height * GetScale()*0.4f));
 			if ((GetDirection() == FacingLeft || GetDirection() == FacingDownLeft || GetDirection() == FacingUpLeft))
 			{
-				
+
 				//m_pxCollider->SetExtention(sf::Vector2f(rect.width * GetScale()*0.5f + (-50), rect.height * GetScale()*0.5f));
 				m_pxCollider->SetPositionX(GetPosition().x + 100.f);
 				m_pxCollider->SetPositionY(GetPosition().y);
@@ -350,8 +351,17 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	}
 	if (p_other->GetType() == "Enemy")
 	{
+		EnemyFishObject* tempptr = dynamic_cast<EnemyFishObject*>(p_other);
+		if (tempptr->GetSubType() == "Stage2" )
+		{
+			if (GetCurrentLevel() <= 4 && tempptr->GetScale() >= 0.8)
+			{
+				SetHealth(GetHealth() -50);
+			}
+		}
 		if(GetState() == Attack)
 		{
+
 			ExperienceGain(1);
 			SetHealth(GetHealth() + 10);
 			if(UpdateLevel() )

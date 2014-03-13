@@ -192,11 +192,11 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					{
 						if (iY > 0 && iY < 4600/2)
 						{
-							Random_Size = Random(.1 , .4);
+							Random_Size = Random(.6 , .8);
 						}
 						if (iY > 4600/2 && iY < 11500/2)
 						{
-							Random_Size = Random(.5, .8);
+							Random_Size = Random(.8, 1.6f);
 						}
 						collider->SetExtention(sf::Vector2f(301, 142));
 						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_spritesheet2.png", 76,38, 301, 142);
@@ -206,7 +206,9 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						enemy->SetLevelLayer(layer);
 						enemy->SetScale(Random_Size);
 						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-
+						enemy->SetSubType("Stage2");
+						enemy->SetSpeed(100);
+						enemy->SetSubTypeSize(Random_Size);
 						m_pxGameObjMgr->Attach(enemy);
 						m_CollisionMgr->AttachCollider(collider);
 					}
@@ -231,7 +233,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						enemy->SetLevelLayer(layer);
 						enemy->SetScale(Random_Size);
 						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-
+						enemy->SetSubType("Stage1");
 						m_pxGameObjMgr->Attach(enemy);
 						m_CollisionMgr->AttachCollider(collider);
 					}
