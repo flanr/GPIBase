@@ -24,6 +24,7 @@ public:
 	void SetEnergy(int p_Energy);
 	int GetEnergy();
 	void ExperienceGain(int x);
+	void SetExperience(int p_experience);
 	int GetExperience();
 	bool UpdateLevel();
 	bool HasGrown();
@@ -35,13 +36,15 @@ private:
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
 	void UpdateIdle(float p_Deltatime);
 	void UpdateAttack(float p_Deltatime);
-	void UpdateSneak(float p_Deltatime);
 	void UpdateChewing(float p_Deltatime);
 	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
 	void UpdateHealth();
 	void UpdateCollider();
+	void UpdateLightPosition();
 private:
 	sf::Vector2f m_fVelocity;
+	sf::Vector2f m_LightbulbPosRelativeToPlayer;
+
 	int m_Health;
 	int m_Energy;
 	int m_Experience;
@@ -53,6 +56,7 @@ private:
 	int m_ChewTimer;
 	int m_GrowTimer;
 	bool m_HasGrown;
+	bool m_HasFishingRod;
 	SoundManager* m_SoundManager;
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;

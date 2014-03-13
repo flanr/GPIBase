@@ -11,6 +11,7 @@
 #include "LightSource.h"
 #include "Camera.h"
 #include "EnemyFishObject.h"
+#include "PowerupObject.h"
 
 PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite , Collider* p_Collider )
 	: FishObject(p_Position, p_Sprite, p_Collider)
@@ -19,17 +20,18 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_Health = 90;
 	m_Energy = 90;
 
-
+	m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
 	SetSpeed(500.0f);
 	m_Healthtimer = 10;
 	m_iAttacktimer = 15;
-	m_ChewTimer = 64;
+	m_ChewTimer = 32;
 	m_GrowTimer = 64;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
 	SetPlayerScale(0.6f);
 	SetCurrentLevel(1);
 	m_HasGrown = false;
+	m_HasFishingRod = false;
 	m_Experience = 0;
 	SetType("Player");
 
@@ -93,14 +95,14 @@ void PlayerFishObject::UpdateCollider()
 				m_pxCollider->SetPositionX(GetPosition().x - 100.f);
 				m_pxCollider->SetPositionY(GetPosition().y);
 			}
-			if (GetDirection() == FacingUp)
+			/*	if (GetDirection() == FacingUp)
 			{
-				m_pxCollider->SetPositionY(GetPosition().y);
+			m_pxCollider->SetPositionY(GetPosition().y);
 			}
 			if (GetDirection() == FacingDown)
 			{
-				m_pxCollider->SetPositionY(GetPosition().y);
-			}
+			m_pxCollider->SetPositionY(GetPosition().y);
+			}*/
 		}
 		else
 		{
@@ -116,33 +118,29 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	UpdateHealth();
 	if(GetState() == Death)
 	{
-		m_pxCurrentAnimation->SetActiveAnimation("Death");
 		cout << "DEAD!" << endl;
 	}
 	else if(GetState() == Attack )
 	{
-		m_pxCurrentAnimation->SetActiveAnimation("Dash");
 		UpdateAttack(p_Deltatime);
-	}
-	else if(GetState() == Chewing )
-	{
-		m_pxCurrentAnimation->SetActiveAnimation("Chew");
-		UpdateChewing(p_Deltatime);
 	}
 	else if(GetState() == Growing)
 	{
 		UpdateGrowing(p_SpriteManager, p_Camera , p_Deltatime);
+	}
+	else if(GetState() == Chewing )
+	{
+		UpdateChewing(p_Deltatime);
+		if(GetState() != Growing)
+		{
+			UpdateInput(p_pxInputManager, p_Deltatime);
+		}
 	}
 	else 
 	{
 		UpdateInput(p_pxInputManager, p_Deltatime);
 	}
 
-	if(GetState() == Sneak)
-	{
-		m_pxCurrentAnimation->SetActiveAnimation("Sneak");
-		UpdateSneak(p_Deltatime);
-	}
 	if (p_pxInputManager->IsDownK(sf::Keyboard::H))
 	{
 		if (m_Health >= 100)
@@ -153,20 +151,21 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	}
 
 	Move(GetVelocity() );
-	//m_light->SetPosition(GetLightbulbPosition() );
+	if(m_HasFishingRod)
+	{
+		if(m_light != nullptr)
+		{
+			UpdateLightPosition();
+		}
+	}
 
-	//if(GetLightbulbPosition() != m_light->GetPosition() )
-	//{
-	//	
-	//	SetLightPosition(GetLightbulbPosition() );
-	//	//m_light->SetPosition(GetLightbulbPosition() );
-	//  //m_light->SetPosition(GetPosition() );
-	//}
 
 	//cout <<"PlayerPos" << GetPosition().x << " " <<  GetPosition().y <<endl;
 	//cout <<"lightPos" << m_light->GetPosition().x << " " <<  m_light->GetPosition().y <<endl;
 	//cout <<"FilterPos" << p_Camera->GetFilterSprite()->getPosition().x << " " << p_Camera->GetFilterSprite()->getPosition().y <<endl;
 	//cout <<"Velocity " << GetVelocity().x << " " <<  GetVelocity().y <<endl;
+
+
 
 	if(m_pxCurrentAnimation != nullptr) 
 	{
@@ -247,6 +246,7 @@ void PlayerFishObject::ChangeStageAnimation(const std::string &p_sName, SpriteMa
 void PlayerFishObject::SetHealth(int p_Health)
 {
 	if(p_Health <= 100)
+	{
 	
 		m_Health = p_Health;
 	}
@@ -273,6 +273,11 @@ void PlayerFishObject::ExperienceGain(int x)
 	//cout << "Experience :: " << GetExperience() << endl;
 }
 
+void PlayerFishObject::SetExperience(int p_experience)
+{
+	m_Experience = p_experience;
+}
+
 int PlayerFishObject::GetExperience()
 {
 	return m_Experience;
@@ -282,42 +287,42 @@ bool PlayerFishObject::UpdateLevel()
 {
 	if(GetExperience() == 1)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
-		return true;
-	}
-	else if(GetExperience() == 2)
-	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
-		return true;
-	}
-	else if(GetExperience() == 3)
-	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(2);
 		return true;
 	}
 	else if(GetExperience() == 4)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(3);
 		return true;
 	}
-	else if(GetExperience() == 5)
+	else if(GetExperience() == 1000)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(4);
 		return true;
 	}
-	else if(GetExperience() == 6)
+	else if(GetExperience() == 1001)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(5);
 		return true;
 	}
-	else if(GetExperience() == 7)
+	else if(GetExperience() == 1002)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(6);
 		return true;
 	}
-	else if(GetExperience() == 8)
+	else if(GetExperience() == 1203)
 	{
-		SetCurrentLevel(GetCurrentLevel() + 1);
+		SetCurrentLevel(7);
+		return true;
+	}
+	else if(GetExperience() == 1204)
+	{
+		SetCurrentLevel(8);
+		return true;
+	}
+	else if(GetExperience() == 1205)
+	{
+		SetCurrentLevel(9);
 		return true;
 	}
 
@@ -349,6 +354,21 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	{
 		SetPosition(GetPosition() + p_Offset);
 	}
+	if (p_other->GetType() == "Powerup")
+	{
+		PowerupObject* powerup = dynamic_cast<PowerupObject*>(p_other);
+
+		if(( powerup->GetPowerUpType() == ROD) )
+		{
+			SetExperience(1000);
+			if(UpdateLevel() )
+			{
+				m_HasGrown = true;
+				SetState(Growing);
+			}
+		}
+		powerup = nullptr;
+	}
 	if (p_other->GetType() == "Enemy")
 	{
 		EnemyFishObject* tempptr = dynamic_cast<EnemyFishObject*>(p_other);
@@ -369,16 +389,18 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				m_HasGrown = true;
 			}
 			SetState(Chewing);
+			m_pxCurrentAnimation->SetActiveAnimation("Chew");
 			m_SoundManager->PlaySound("chew_sound2.wav");
+
 			//std::cout << GetExperience() << std::endl;
-			//cout << GetCurrentLevel() << endl;
+			cout << GetCurrentLevel() << endl;
 		}
 	}
 }
 
 void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Deltatime)
 {
-	if(GetState() != Sneak )
+	if( (GetState() != Sneak) && (GetState() != Chewing )  )
 	{
 		SetState(Idle);
 		m_pxCurrentAnimation->SetActiveAnimation("Idle");
@@ -394,8 +416,11 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		}
 		else
 		{
-			SetState(Moving);
-			m_pxCurrentAnimation->SetActiveAnimation("Move");
+			if(GetState() != Chewing )
+			{
+				SetState(Moving);
+				m_pxCurrentAnimation->SetActiveAnimation("Move");
+			}
 			SetDirection(FacingUpRight);
 			FlipXRight(GetScale());
 		}
@@ -410,8 +435,11 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		}
 		else
 		{
-			SetState(Moving);
-			m_pxCurrentAnimation->SetActiveAnimation("Move");
+			if(GetState() != Chewing )
+			{
+				SetState(Moving);
+				m_pxCurrentAnimation->SetActiveAnimation("Move");
+			}
 			SetDirection(FacingUpLeft);
 			FlipXLeft(GetScale());
 		}
@@ -426,8 +454,11 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		}
 		else
 		{
-			SetState(Moving);
-			m_pxCurrentAnimation->SetActiveAnimation("Move");
+			if(GetState() != Chewing )
+			{
+				SetState(Moving);
+				m_pxCurrentAnimation->SetActiveAnimation("Move");
+			}
 			SetDirection(FacingDownRight);
 			FlipXRight(GetScale());
 		}
@@ -442,8 +473,11 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		}
 		else
 		{
-			SetState(Moving);
-			m_pxCurrentAnimation->SetActiveAnimation("Move");
+			if(GetState() != Chewing )
+			{
+				SetState(Moving);
+				m_pxCurrentAnimation->SetActiveAnimation("Move");
+			}
 			SetDirection(FacingDownLeft);
 			FlipXLeft(GetScale());
 		}
@@ -459,8 +493,11 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 			}
 			else
 			{
-				SetState(Moving);
-				m_pxCurrentAnimation->SetActiveAnimation("Move");
+				if(GetState() != Chewing )
+				{
+					SetState(Moving);
+					m_pxCurrentAnimation->SetActiveAnimation("Move");
+				}
 				SetDirection(FacingRight);
 				FlipXRight(GetScale());
 			}
@@ -474,8 +511,11 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 			}
 			else
 			{
-				SetState(Moving);
-				m_pxCurrentAnimation->SetActiveAnimation("Move");
+				if(GetState() != Chewing )
+				{
+					SetState(Moving);
+					m_pxCurrentAnimation->SetActiveAnimation("Move");
+				}
 				SetDirection(FacingLeft);
 				FlipXLeft(GetScale());
 			}
@@ -489,9 +529,12 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 			}
 			else
 			{
-				SetState(Moving);
-				m_pxCurrentAnimation->SetActiveAnimation("Move");
-				SetDirection(FacingUp);
+				if(GetState() != Chewing )
+				{
+					SetState(Moving);
+					m_pxCurrentAnimation->SetActiveAnimation("Move");
+				}
+				//SetDirection(FacingUp);
 			}
 		}
 		else if(p_pxInputManager->IsDownK(sf::Keyboard::Down) || p_pxInputManager->IsDownK(sf::Keyboard::S) )
@@ -503,19 +546,23 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 			}
 			else
 			{
-				SetState(Moving);
-				m_pxCurrentAnimation->SetActiveAnimation("Move");
-				SetDirection(FacingDown);
+				if(GetState() != Chewing )
+				{
+					SetState(Moving);
+					m_pxCurrentAnimation->SetActiveAnimation("Move");
+				}
+				//SetDirection(FacingDown);
 			}
 		}
 	}
 
 	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::Space) )
 	{
-		if(!(GetDirection() == FacingDown || GetDirection() == FacingUp ) )
-		{
-			SetState(Attack);
-		}
+		/*if(!(GetDirection() == FacingDown || GetDirection() == FacingUp ) )
+		{*/
+		SetState(Attack);
+		m_pxCurrentAnimation->SetActiveAnimation("Dash");
+		/*}*/
 	}
 	else if(p_pxInputManager->IsDownK(sf::Keyboard::LShift)
 		|| p_pxInputManager->IsDownK(sf::Keyboard::RShift) 
@@ -523,6 +570,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		|| p_pxInputManager->IsDownK(sf::Keyboard::RControl))
 	{
 		SetState(Sneak);
+		m_pxCurrentAnimation->SetActiveAnimation("Sneak");
 	}
 	else if(p_pxInputManager->IsReleasedK(sf::Keyboard::LShift)
 		|| p_pxInputManager->IsReleasedK(sf::Keyboard::RShift) 
@@ -530,35 +578,53 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		|| p_pxInputManager->IsReleasedK(sf::Keyboard::RControl))
 	{
 		SetState(Idle);
+		m_pxCurrentAnimation->SetActiveAnimation("Idle");
 	}
-	if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
+
+	if(m_HasFishingRod)
 	{
-		if(m_light->GetLightStatus())
+		if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
 		{
-			m_light->ToggleLightOn(false);
+			if(m_light->GetLightStatus())
+			{
+				m_light->ToggleLightOn(false);
+			}
+			else
+			{
+				m_light->ToggleLightOn(true);
+			}
 		}
-		else
-		{
-			m_light->ToggleLightOn(true);
-		}
 	}
-	if(GetDirection() == FacingDownLeft || GetDirection() == FacingLeft || GetDirection() == FacingUpLeft)
-	{
-		SetLightPosition(sf::Vector2f(GetPosition().x - 100, GetPosition().y ) );
-	}
-	else if(GetDirection() == FacingDownRight || GetDirection() == FacingRight || GetDirection() == FacingUpRight)
-	{
-		SetLightPosition(sf::Vector2f(GetPosition().x + 100, GetPosition().y ) );
-	}
-	else
-	{
-		SetLightPosition(sf::Vector2f(GetLightPosition().x, GetPosition().y ) );
-	}
+
 }
 
 void PlayerFishObject::UpdateIdle(float p_Deltatime)
 {
 	//ADD slow movement
+	/*if(GetDirection() == FacingRight )
+	{
+	SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() / 3.0, 0.0f) );
+	}
+	else if(GetDirection()  == FacingLeft )
+	{
+	SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetAttackPower(), 0.0f) );
+	}
+	else if(GetDirection() == FacingUpRight )
+	{
+	SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower(), p_Deltatime * -GetSpeed() * GetAttackPower() ) );
+	}
+	else if(GetDirection()  == FacingUpLeft )
+	{
+	SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetAttackPower(), p_Deltatime * -GetSpeed() * GetAttackPower() ) );
+	}
+	else if(GetDirection() == FacingDownRight)
+	{
+	SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower(), p_Deltatime * GetSpeed() * GetAttackPower()) );
+	}
+	else if(GetDirection()  == FacingDownLeft)
+	{
+	SetVelocity(sf::Vector2f( p_Deltatime * -GetSpeed() * GetAttackPower(), p_Deltatime * GetSpeed() * GetAttackPower() ) );
+	}*/
 }
 
 void PlayerFishObject::UpdateAttack(float p_Deltatime)
@@ -571,14 +637,14 @@ void PlayerFishObject::UpdateAttack(float p_Deltatime)
 	{
 		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetAttackPower(), 0.0f) );
 	}
-	else if(GetDirection() == FacingUp)
+	/*else if(GetDirection() == FacingUp)
 	{
-		SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed() * GetAttackPower()) );
+	SetVelocity(sf::Vector2f(0.0f, p_Deltatime * -GetSpeed() * GetAttackPower()) );
 	}
 	else if(GetDirection()  == FacingDown)
 	{
-		SetVelocity(sf::Vector2f( 0.0f, p_Deltatime * GetSpeed() * GetAttackPower() ) );
-	}
+	SetVelocity(sf::Vector2f( 0.0f, p_Deltatime * GetSpeed() * GetAttackPower() ) );
+	}*/
 	else if(GetDirection() == FacingUpRight )
 	{
 		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower(), p_Deltatime * -GetSpeed() * GetAttackPower() ) );
@@ -613,16 +679,13 @@ void PlayerFishObject::UpdateAttack(float p_Deltatime)
 	if(m_iAttacktimer == 0)
 	{
 		SetState(Idle);
+		m_pxCurrentAnimation->SetActiveAnimation("Idle");
 		m_iAttacktimer = 15;
 		SetAttackPower(0.0f);
 		m_SlowingDown = false;
 	}
 }
 
-void PlayerFishObject::UpdateSneak(float p_Deltatime)
-{
-	//SetVelocity(GetVelocity() * 0.25f );
-}
 void PlayerFishObject::UpdateChewing(float p_Deltatime)
 {
 	m_ChewTimer--;
@@ -635,8 +698,9 @@ void PlayerFishObject::UpdateChewing(float p_Deltatime)
 		else
 		{
 			SetState(Idle);
+			m_pxCurrentAnimation->SetActiveAnimation("Idle");
 		}
-		m_ChewTimer = 64;
+		m_ChewTimer = 32;
 	}
 }
 void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera, float p_Deltatime)
@@ -665,7 +729,6 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.7f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.8f); }
-
 	}
 	else if(GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9)
 	{
@@ -684,21 +747,42 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 	{
 
 		SetState(Idle);
+		m_pxCurrentAnimation->SetActiveAnimation("Idle");
 		m_GrowTimer = 64;
 		m_HasGrown = false;
 		//p_Camera->SetZoomingOut(false);
-		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  { SetPlayerScale(0.8f); }
-		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) { SetPlayerScale(1.0f); }
+		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  
+		{ 
+			SetPlayerScale(0.8f); 
+			if(GetCurrentLevel() == 5)
+			{
+				m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
+				m_LightbulbPosRelativeToPlayer *= GetScale();
+			}
+		}
+		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) 
+		{ 
+			SetPlayerScale(1.0f); 
+			if(GetCurrentLevel() == 6)
+			{
+				m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
+			}
+		}
 
 		if(GetCurrentLevel() == 4) 
 		{ 
 			ChangeStageAnimation("Stage2", p_SpriteManager); 
 			SetPlayerScale(0.6f);
+			m_light->SetRadius(m_light->GetRadius() * 3.0f );
+			m_LightbulbPosRelativeToPlayer *= GetScale();
+			m_HasFishingRod = true;
 		}
 		else if( GetCurrentLevel() == 7)  
 		{ 
 			//ChangeStageAnimation("Stage3", p_SpriteManager); 
 			SetPlayerScale(0.6f);
+			m_light->SetRadius(m_light->GetRadius() * 1.2f );
+			m_LightbulbPosRelativeToPlayer *= GetScale();
 		}
 	}
 	if(GetDirection() == FacingLeft || GetDirection() == FacingUpLeft || GetDirection() == FacingDownLeft ) 
@@ -720,6 +804,7 @@ void PlayerFishObject::UpdateHealth()
 			if(GetHealth() == 0)
 			{
 				SetState(Death);
+				m_pxCurrentAnimation->SetActiveAnimation("Death");
 			}
 		}
 		else
@@ -727,4 +812,22 @@ void PlayerFishObject::UpdateHealth()
 			m_Healthtimer--;
 		}
 	}
+}
+
+void PlayerFishObject::UpdateLightPosition()
+{
+
+	{
+		if(GetDirection() == FacingDownLeft || GetDirection() == FacingLeft || GetDirection() == FacingUpLeft)
+		{
+			SetLightPosition(sf::Vector2f(GetPosition().x - m_LightbulbPosRelativeToPlayer.x, GetPosition().y + m_LightbulbPosRelativeToPlayer.y  ) );
+			//SetLightPosition(sf::Vector2f(GetPosition().x - 100, GetPosition().y ) );
+		}
+		else if(GetDirection() == FacingDownRight || GetDirection() == FacingRight || GetDirection() == FacingUpRight)
+		{
+			SetLightPosition(sf::Vector2f(GetPosition() + m_LightbulbPosRelativeToPlayer ) );
+			//SetLightPosition(sf::Vector2f(GetPosition().x + 100, GetPosition().y ) );
+		}
+	}
+
 }

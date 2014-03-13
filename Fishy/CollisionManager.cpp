@@ -81,6 +81,13 @@ void CollisionManager::CheckCollisionRectVsCircle()
 			if (m_axRectColliders[i]->OverlapRectVsCircle(m_axCircleColliders[j], offset))
 			{
 				std::cout << "Collision!\n";
+				/*if (m_axRectColliders[i]->GetParent() != nullptr && m_axCircleColliders[j]->GetParent() != nullptr)
+				{
+					m_axRectColliders[i]->OnCollision(m_axCircleColliders[j], offset);
+					m_axCircleColliders[j]->OnCollision(m_axRectColliders[i], offset);
+				}
+
+				RemoveEnemyCollider();*/
 			}
 		}
 	}
@@ -117,6 +124,16 @@ void CollisionManager::RemoveEnemyCollider()
 			m_axRectColliders.erase(m_axRectColliders.begin()+ it);
 		}
 	}
+	/*for (size_t it = m_axCircleColliders.size()-1; it > 0; it--)
+	{
+
+		if(m_axCircleColliders[it]->GetParent() == nullptr)
+		{
+			delete m_axCircleColliders[it];
+			m_axCircleColliders[it] = nullptr;
+			m_axCircleColliders.erase(m_axCircleColliders.begin()+ it);
+		}
+	}*/
 }
 
 

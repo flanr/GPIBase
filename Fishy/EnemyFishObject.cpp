@@ -29,17 +29,6 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 }
 EnemyFishObject::~EnemyFishObject()
 {
-	//Delete Sprite
-
-	/*if(GetSprite() != nullptr)
-	{
-	delete  GetSprite();
-	}
-
-	if(GetLightSource() != nullptr)
-	{
-	delete GetLightSource();
-	}*/
 	if (m_pAIStateMachine != nullptr)
 	{
 		delete m_pAIStateMachine;

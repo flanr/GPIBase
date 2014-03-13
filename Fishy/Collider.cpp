@@ -38,7 +38,7 @@ void Collider::SetPositionY(float y)
 }
 bool Collider::OverlapRectVsRect(Collider* other, sf::Vector2f& offset)
 {
-	
+
 	float A = m_extention.x *0.5f;
 	float B = other->m_extention.x *0.5f;
 	float C = m_position.x - other->m_position.x;
@@ -216,15 +216,16 @@ void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 			{
 				m_xParent->OnCollision(p_xOther->m_xParent, p_Offset);
 			}
-		}
-		if (m_xParent->GetType() == "Player")
-		{
-			if (p_xOther->m_xParent->GetType() == "Enemy")
+			else if (p_xOther->m_xParent->GetType() == "Powerup")
+			{
+				m_xParent->OnCollision(p_xOther->m_xParent, p_Offset);
+			}
+			else if (p_xOther->m_xParent->GetType() == "Enemy")
 			{
 				m_xParent->OnCollision(p_xOther->GetParent(), p_Offset);
 			}
 		}
-		if(m_xParent->GetType() == "Enemy")
+		else if(m_xParent->GetType() == "Enemy")
 		{
 			if(p_xOther->m_xParent->GetType() == "Player")
 			{
@@ -239,19 +240,30 @@ void Collider::OnCollision(Collider* p_xOther, sf::Vector2f& p_Offset)
 				m_xParent->OnCollision(p_xOther->m_xParent, p_Offset);
 			}
 		}
+		else if (m_xParent->GetType() == "Powerup")
+		{
+			if (p_xOther->m_xParent->GetType() == "Player")
+			{
+				m_xParent->OnCollision(p_xOther->GetParent(), p_Offset);
+				if(m_xParent->GetDestroyed() )
+				{
+					m_xParent = nullptr;
+				}
+			}
+		}
 	}
 }
 
 sf::RectangleShape Collider::PlayerRect()
 {
 	sf::RectangleShape playerrect;
-	
+
 	if (m_xParent->GetType() == "Player")
 	{
 		playerrect.setSize(m_xParent->GetCollider()->m_extention);
 		playerrect.setOrigin(m_xParent->GetCollider()->m_extention.x/2, m_xParent->GetCollider()->m_extention.y/2);
 		playerrect.setPosition(GetPosition().x, GetPosition().y);
-		
+
 	}
 	return playerrect;
 }

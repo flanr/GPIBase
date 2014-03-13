@@ -7,6 +7,7 @@
 #include "AnimatedSprite.h"
 #include "PlayerFishObject.h"
 #include "EnemyFishObject.h"
+#include "PowerupObject.h"
 #include "GameObjectManager.h"
 #include "LightSource.h"
 #include "Camera.h"
@@ -92,28 +93,14 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				//måste ligga före ny sprite skapas. annars blir det minneslekage
 				if (row[i] == 'S')
 				{
-					////352.f, 287.f
-					//Collider *collider = new Collider(sf::Vector2f(iX, iY),sf::Vector2f(c.w, c.h) );
-					////PlayerObject måste laddas in som nullptr,
-					//PlayerFishObject *Player = new PlayerFishObject(sf::Vector2f(iX, iY ), nullptr, collider);
-					//AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/PlayerAnim.txt");	
-					//Player->AddAnimation("Player", pxAnimSprite);
-					//Player->SetPosition(sf::Vector2f(iX, iY) );
-					//Player->SetLevelLayer(layer);
-					//Player->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-					//m_pxGameObjMgr->AttachPlayer(Player);
-					//m_CollisionMgr->AttachCollider(Player->GetCollider() );
-
 					m_pxGameObjMgr->m_pxPlayer->SetPosition(sf::Vector2f(iX,iY));
-
-
 					iX += m_iWidth;
 					continue;
 				}
 			}
 
 
-			sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
+
 			/*if (row[i] == 'B')
 			{
 			sprite->setPosition(0,0);
@@ -124,9 +111,30 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			continue;
 			}*/
+			
+			if (row[i] == 'r')
+			{
+				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(256, 256) );
+
+				sf::Sprite * sprite = p_pSpriteManager->Load("powerup_rod.png", 0,0, 256, 256);
+				sprite->setPosition(iX,iY);
+
+				PowerupObject *go = new PowerupObject( ROD,sprite->getPosition(),sprite ,collider);
+				go->SetType("Powerup");
+				go->SetPosition(sf::Vector2f(iX,iY));
+				go->SetLevelLayer(MIDDLEGROUND);
+				m_pxGameObjMgr->Attach(go);
+				m_CollisionMgr->AttachCollider(collider);
+
+				iX += m_iWidth;
+				continue;
+
+
+			}
+		
 			if (row[i] == 'z')
 			{
-				sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
+				sf::Sprite * sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
 				sprite->setPosition(iX,iY);
 
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
@@ -141,7 +149,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 			if (row[i] == 'x')
 			{
-				sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
+				sf::Sprite *sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
 				sprite->setPosition(iX,iY);
 
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
@@ -157,7 +165,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 			if (row[i] == 'v')
 			{
-				sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
+				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
 				sprite->setPosition(iX,iY);
 
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
@@ -173,10 +181,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 			}
 
 
-			sprite->setOrigin(sprite->getTextureRect().width / 2.0f, sprite->getTextureRect().height / 2.0f);
-			sprite->setPosition(iX,iY);
-
-
 
 			if (p_collider)
 			{
@@ -186,6 +190,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				collider->SetPosition(sf::Vector2f(iX,iY) );
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
 				float Random_Size = 0.0f;
+
 				if (row[i] == 'E')
 				{
 					
@@ -242,6 +247,10 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				}
 				else
 				{
+					sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
+					sprite->setOrigin(sprite->getTextureRect().width / 2.0f, sprite->getTextureRect().height / 2.0f);
+					sprite->setPosition(iX,iY);
+
 					GameObject *go = new GameObject(sf::Vector2f(iX, iY),sprite,collider);
 					go->SetType("BrownBrick");
 					go->SetLevelLayer(layer);
@@ -251,6 +260,10 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			}else
 			{
+				sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
+				sprite->setOrigin(sprite->getTextureRect().width / 2.0f, sprite->getTextureRect().height / 2.0f);
+				sprite->setPosition(iX,iY);
+
 				GameObject *go = new GameObject(sf::Vector2f(iX,iY), sprite);
 				go->SetLevelLayer(layer);
 				m_pxGameObjMgr->Attach(go);
