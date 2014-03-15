@@ -17,8 +17,8 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	: FishObject(p_Position, p_Sprite, p_Collider)
 {
 
-	m_Health = 90;
-	m_Energy = 90;
+	m_Health = 100;
+	m_Energy = 100;
 
 	m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
 	SetSpeed(500.0f);
@@ -116,6 +116,8 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	UpdateCollider();
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
+	UpdateEnergy();
+
 	if(GetState() == Death)
 	{
 		cout << "DEAD!" << endl;
@@ -247,7 +249,7 @@ void PlayerFishObject::SetHealth(int p_Health)
 {
 	if(p_Health <= 100)
 	{
-	
+
 		m_Health = p_Health;
 	}
 }
@@ -365,6 +367,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			{
 				m_HasGrown = true;
 				SetState(Growing);
+				m_StageTwo = true;
 			}
 		}
 		powerup = nullptr;
@@ -585,6 +588,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 	{
 		if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
 		{
+
 			if(m_light->GetLightStatus())
 			{
 				m_light->ToggleLightOn(false);
@@ -791,6 +795,28 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 	}
 	else
 		FlipXRight(GetScale() );
+}
+void PlayerFishObject::UpdateEnergy()
+{
+	if (m_StageTwo)
+	{
+		if (m_Energy <= 0)
+		{
+			m_light->ToggleLightOn(false);
+		}else if (m_Energy >= 100)
+		{
+			m_light->ToggleLightOn(true);
+		}
+		{
+			if (m_light->GetLightStatus())
+			{
+				m_Energy--;
+			}else
+			{
+				m_Energy++;
+			}
+		}
+	}
 }
 
 void PlayerFishObject::UpdateHealth()

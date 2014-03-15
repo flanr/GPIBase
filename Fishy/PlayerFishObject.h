@@ -39,6 +39,7 @@ private:
 	void UpdateChewing(float p_Deltatime);
 	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
 	void UpdateHealth();
+	void UpdateEnergy();
 	void UpdateCollider();
 	void UpdateLightPosition();
 private:
@@ -49,7 +50,7 @@ private:
 	int m_Energy;
 	int m_Experience;
 
-
+	bool m_StageTwo;
 	bool m_SlowingDown;
 	int m_Healthtimer;
 	int m_iAttacktimer;

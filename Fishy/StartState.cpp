@@ -32,12 +32,12 @@ StartState::StartState(Core* p_pCore)
 
 	// Options
 	m_ButtonOptionPos = sf::Vector2f(m_TitleImg->getPosition().x + 485 , m_TitleImg->getPosition().y + 350);
-	m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1_smaller.png",0,0,170,177));
+	m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_smaller.png",0,0,170,177));
 	m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 
 	// Quit
 	m_ButtonQuitPos = sf::Vector2f(m_TitleImg->getPosition().x + 845 , m_TitleImg->getPosition().y + 350);
-	m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_1_smaller.png",0,0,170,177));
+	m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_2_smaller.png",0,0,170,177));
 	m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 
 	
@@ -134,12 +134,12 @@ int StartState::MouseOver(int x, int y)
 	int quitY = m_ButtonQuit.GetCircle().getGlobalBounds().top;
 	if ((x > quitX - m_ButtonQuit.GetCircle().getRadius() & x < quitX + m_ButtonQuit.GetCircle().getRadius() ) && (y > quitY - m_ButtonQuit.GetCircle().getRadius()  && y < quitY + m_ButtonQuit.GetCircle().getRadius() ) ) 
 	{
-		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_1_smaller.png",170,0,170,177));
+		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_2_smaller.png",170,0,170,177));
 		m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 		return 2;
 	}else
 	{
-		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_1_smaller.png",0,0,170,177));
+		m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_2_smaller.png",0,0,170,177));
 		m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 	}
 
@@ -161,7 +161,7 @@ int StartState::MouseOver(int x, int y)
 	if(distancestuff < m_ButtonOptions.GetCircle().getRadius())
 	{ 
 		//cout << "Its alive  x:" << x << "  y: " << y << endl;
-		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1_smaller.png",170,0,170,177));
+		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_smaller.png",170,0,170,177));
 		m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 		/*if (m_pInputManager->IsReleased(MB_LEFT))
 		{
@@ -172,7 +172,7 @@ int StartState::MouseOver(int x, int y)
 	} else
 	{
 
-		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1_smaller.png",0,0,170,177));
+		m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_smaller.png",0,0,170,177));
 		m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 	}
 
@@ -212,12 +212,12 @@ void StartState::HandleInput()
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2 && (m_ButtonClick == 0 || m_ButtonClick == 2))
 		{
 			m_ButtonClick = 2;
-			m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_1_smaller.png",340,0,170,177));
+			m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_2_smaller.png",340,0,170,177));
 			m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 		}else if (MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 3 && (m_ButtonClick == 0 || m_ButtonClick == 3))
 		{
 			m_ButtonClick = 3;
-			m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_1_smaller.png",340,0,170,177));
+			m_ButtonOptions.SetSpriteCircle(m_SpriteManager->Load("Options_final_smaller.png",340,0,170,177));
 			m_ButtonOptions.SetPosition(m_ButtonOptionPos.x,m_ButtonOptionPos.y);
 		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
