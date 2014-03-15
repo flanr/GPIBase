@@ -8,7 +8,7 @@ PowerupObject::PowerupObject(eType p_eUpgrade, sf::Vector2f p_xPosition, sf::Spr
 {
 	m_xStartPos = p_xPosition;
 	bMovingUp = true;
-	m_fMovement = 0.1f;
+	m_fMovement = 40.0f;
 	SetPowerUpType(p_eUpgrade);
 	
 }
@@ -31,7 +31,7 @@ void PowerupObject::Update(float p_fDeltatime)
 {
 	if(bMovingUp)
 	{
-		if(m_xStartPos.y - GetPosition().y >= 5.0f)
+		if(m_xStartPos.y - GetPosition().y >= 100.0f)
 		{
 			bMovingUp = false;
 		}
@@ -42,7 +42,7 @@ void PowerupObject::Update(float p_fDeltatime)
 	}
 	else
 	{
-		if(m_xStartPos.y - GetPosition().y <= -5.0f)
+		if(m_xStartPos.y - GetPosition().y <= -100.0f)
 		{
 			bMovingUp = true;
 		}
@@ -62,8 +62,6 @@ void PowerupObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
 	if (GetCollider() != nullptr)
 	{
-		//cout << "EnemyFishObject::OnCollision: " << this->GetType() << "EnemyFishObject::OnCollision other: " << p_other->GetType() << endl;
-		printf("Collision TEST");
 		if (p_other->GetType() == "Player")
 		{
 			this->m_pxCollider = nullptr;

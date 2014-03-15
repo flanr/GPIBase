@@ -111,12 +111,66 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			continue;
 			}*/
-			
+			if (row[i] == 'l')
+			{
+				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
+
+				sf::Sprite * sprite = p_pSpriteManager->Load("Sprite_powerup_light.png", 0,0, 494, 490);
+				sprite->setOrigin(494 / 2.0f, 490 / 2.0f);
+				sprite->setPosition(iX,iY);
+
+				PowerupObject *go = new PowerupObject( LIGHT,sprite->getPosition(),sprite ,collider);
+				go->SetType("Powerup");
+				go->SetPosition(sf::Vector2f(iX,iY));
+				go->SetLevelLayer(MIDDLEGROUND);
+				m_pxGameObjMgr->Attach(go);
+				m_CollisionMgr->AttachCollider(collider);
+
+				iX += m_iWidth;
+				continue;
+			}
+			if (row[i] == 'p')
+			{
+				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
+
+				sf::Sprite * sprite = p_pSpriteManager->Load("PowerUp_Energy.png", 0,0, 494, 490);
+				sprite->setOrigin(494 / 2.0f, 490 / 2.0f);
+				sprite->setPosition(iX,iY);
+
+				PowerupObject *go = new PowerupObject( ENERGY,sprite->getPosition(),sprite ,collider);
+				go->SetType("Powerup");
+				go->SetPosition(sf::Vector2f(iX,iY));
+				go->SetLevelLayer(MIDDLEGROUND);
+				m_pxGameObjMgr->Attach(go);
+				m_CollisionMgr->AttachCollider(collider);
+
+				iX += m_iWidth;
+				continue;
+			}
+			if (row[i] == 'q')
+			{
+				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
+
+				sf::Sprite * sprite = p_pSpriteManager->Load("PowerUp_Speed.png", 0,0, 494, 490);
+				sprite->setOrigin(494 / 2.0f, 490 / 2.0f);
+				sprite->setPosition(iX,iY);
+
+				PowerupObject *go = new PowerupObject( SPEED,sprite->getPosition(),sprite ,collider);
+				go->SetType("Powerup");
+				go->SetPosition(sf::Vector2f(iX,iY));
+				go->SetLevelLayer(MIDDLEGROUND);
+				m_pxGameObjMgr->Attach(go);
+				m_CollisionMgr->AttachCollider(collider);
+
+				iX += m_iWidth;
+				continue;
+			}
 			if (row[i] == 'r')
 			{
 				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(256, 256) );
 
 				sf::Sprite * sprite = p_pSpriteManager->Load("powerup_rod.png", 0,0, 256, 256);
+				sprite->setOrigin(256 / 2.0f, 256 / 2.0f);
 				sprite->setPosition(iX,iY);
 
 				PowerupObject *go = new PowerupObject( ROD,sprite->getPosition(),sprite ,collider);
@@ -131,7 +185,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 
 			}
-		
+
 			if (row[i] == 'z')
 			{
 				sf::Sprite * sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
@@ -189,6 +243,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				Collider *collider = new Collider;
 				collider->SetPosition(sf::Vector2f(iX,iY) );
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
+
 				float Random_Size = 0.0f;
 
 				if (row[i] == 'E')
