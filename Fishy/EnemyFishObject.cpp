@@ -41,6 +41,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	m_xPlayerPosition = player->GetPosition();
 	//2=left 3= right
 	m_iPlayerDirection = player->GetDirection();
+	m_vPlayerVelocity = player->GetVelocity();
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
@@ -113,6 +114,13 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				this->~EnemyFishObject();
 				m_isDestroyed = true;
 			}
+			else if (player->GetState() != Chewing)
+			{
+				if(GetFSM()->CurrentState()->type == "hunting")
+				{
+					GetFSM()->CurrentState()->Exitstate(this);
+				}
+			}
 			player = nullptr;
 		}
 		if (p_other->GetType() == "BrownBrick")
@@ -134,7 +142,22 @@ void EnemyFishObject::Idle()
 	int iRandomY;
 	if(GetTimer() > 400)	{ResetTimer();}
 
-	if(GetTimer() == 50)
+	if(GetTimer() == 10)
+	{
+		iRandomX = random(1, 2);
+		//std::cout << iRandomX << std::endl;
+		if(iRandomX == 1)
+		{
+			SetVelocity(sf::Vector2f(GetSpeed() * -1, 0.0f) );
+			FlipXLeft(GetScale());
+		}
+		else if (iRandomX == 2)
+		{
+			SetVelocity(sf::Vector2f(GetSpeed(), 0.0f));
+			FlipXRight(GetScale());
+		}
+	}
+	if(GetTimer() == 100)
 	{
 		iRandomX = random(1, 2);
 		//std::cout << iRandomX << std::endl;
@@ -185,6 +208,7 @@ void EnemyFishObject::Scared()
 }
 void EnemyFishObject::Hunting()
 {
+	
 	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
 	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
 	DistanceVector/=sqrtf(DistanceNumber);
@@ -197,4 +221,5 @@ void EnemyFishObject::Hunting()
 	{
 		FlipXLeft(GetScale());
 	}
+	
 }

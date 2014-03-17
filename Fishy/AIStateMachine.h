@@ -27,7 +27,7 @@ public:
 	{
 		assert(pNewState && "<StateMachine::ChangeState>: trying to change to a nullptr State");
 		m_pPreviousState = m_pCurrentState;
-		m_pCurrentState->Exitstate(m_pOwner);
+		//m_pCurrentState->Exitstate(m_pOwner);
 		m_pCurrentState = pNewState;
 		m_pCurrentState->Enterstate(m_pOwner);
 	}

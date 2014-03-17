@@ -7,7 +7,7 @@
 class HuntingState : public AIState<EnemyFishObject>
 {
 private:
-	HuntingState(){}
+	HuntingState(){ type = "hunting";}
 
 public:
 	static HuntingState* Instance();
