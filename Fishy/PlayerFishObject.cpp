@@ -875,7 +875,7 @@ void PlayerFishObject::UpdateEnergy()
 		{
 			if (m_light->GetLightStatus())
 			{
-				m_Energy = m_Energy - .3 - (-.3 * m_PowerupEnergyCounter );
+				m_Energy = m_Energy - (1 - (.3 * m_PowerupEnergyCounter ));
 
 			}else
 			{
