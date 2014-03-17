@@ -41,9 +41,14 @@ GameState::GameState(Core* p_pCore)
 	Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
 	m_EnergySlider.SetSlider(0,0,154,17);
 	m_HealthSlider.SetSlider(0,0,190,28);
-	m_HealthSlider.SetColor(sf::Color::Red);
-	m_EnergySlider.SetColor(sf::Color::Yellow);
+	m_HealthSlider.SetColor(sf::Color(255,1,55,255));
+	m_EnergySlider.SetColor(sf::Color(0,230,119,255));
 
+	m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",0,156,281,156);
+
+	m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",0,312,281,156);
+
+	m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",0,468,281,156);
 
 }
 
@@ -137,6 +142,9 @@ bool GameState::EnterState()
 			m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );	
 			Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			/*m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );*/
 		}
 	}
 
@@ -162,7 +170,7 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 
-	
+
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
 
 	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing )
@@ -178,6 +186,10 @@ bool GameState::Update(float p_DeltaTime)
 
 void GameState::UpdateGUI()
 {
+	m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+
 	if(m_Camera->IsZoomingOut() )
 	{
 		Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
@@ -186,8 +198,14 @@ void GameState::UpdateGUI()
 		m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );		
+		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 	}
+
+
+
 
 	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 
 		(m_Camera->GetCameraView().getSize().x / 2.0f) + 
@@ -195,27 +213,44 @@ void GameState::UpdateGUI()
 		(m_Camera->GetCameraView().getSize().y / 2.0f) + 
 		(50.f * m_Camera->GetTotalZoom() ) );
 
+
+	m_GuiPower.setPosition(Gui->getPosition().x,Gui->getPosition().y);
+	m_GuiEnergy.setPosition(Gui->getPosition().x,Gui->getPosition().y);
+	m_GuiSpeed.setPosition(Gui->getPosition().x,Gui->getPosition().y);
+
+
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
 	m_HealthSlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (79 * m_Camera->GetTotalZoom() ) );
 
 	if (m_GameObjMgr->m_pxPlayer->GetStageTwo())
 	{
-		m_EnergySlider.SetColor(sf::Color::Yellow);
+		m_EnergySlider.SetColor(sf::Color(0,230,119,255));
 		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	} else
 	{
 		m_GameObjMgr->m_pxPlayer->SetEnergy(100);
-		
+
 		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 		m_EnergySlider.SetColor(sf::Color::White);
-		
+
 		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	}
 
 
 
+
+
+}
+void GameState::DrawGUI()
+{
+	m_DrawManager->DrawSlider(m_HealthSlider);
+	m_DrawManager->DrawSlider(m_EnergySlider);
+	m_DrawManager->Draw(Gui);
+	m_window->draw(m_GuiEnergy);
+	m_window->draw(m_GuiPower);
+	m_window->draw(m_GuiSpeed);
 }
 
 
@@ -262,6 +297,8 @@ void GameState::HandleInput()
 
 }
 
+
+
 void GameState::Draw()
 {
 	m_DrawManager->ClearWindow();
@@ -275,10 +312,7 @@ void GameState::Draw()
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}
 
-
-	m_DrawManager->DrawSlider(m_HealthSlider);
-	m_DrawManager->DrawSlider(m_EnergySlider);
-	m_DrawManager->Draw(Gui);
+	DrawGUI();
 	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 }

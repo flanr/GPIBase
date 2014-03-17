@@ -35,13 +35,14 @@ public:
 	string Next();
 	/*Returns Current State */
 	string GetCurrentState();
-	
+
 	void UpdateGUI();
 
 	void UpdateTutorial();
 	void TutorialWASD();
 	void TutorialSpace();
 	void TutorialF();
+	void DrawGUI();
 
 private:
 	bool bStateRunning;
@@ -64,8 +65,10 @@ private:
 	Slider m_HealthSlider;
 	Slider m_EnergySlider;
 	sf::Sprite *Gui;
+	sf::Sprite m_GuiEnergy;
+	sf::Sprite m_GuiSpeed;
+	sf::Sprite m_GuiPower;
 
-	
 	CollisionManager* m_pxCollisionManager;
 
 	bool m_TutorialWASD;
@@ -74,4 +77,7 @@ private:
 	sf::Sprite* m_TutorialSpriteWASD;
 	sf::Sprite* m_TutorialSpriteSPACE;
 	sf::Sprite* m_TutorialSpriteF;
+
+
+
 };
