@@ -56,6 +56,9 @@ public:
 	void SetActive(bool p_Activate);
 	bool GetActive();
 
+	void AddLightSprite(sf::Sprite *p_sprite);
+	sf::Sprite * GetLightSprite();
+
 	virtual void OnCollision(GameObject* p_xOther, sf::Vector2f& offset);
 
 protected:
@@ -67,4 +70,5 @@ protected:
 
 	bool m_ActiveUpdate;
 	LightSource *m_light;
+	sf::Sprite *m_LightSprite;
 };

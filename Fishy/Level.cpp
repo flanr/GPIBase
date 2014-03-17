@@ -111,6 +111,82 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 			continue;
 			}*/
+			if (row[i] == 'e')
+			{
+				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0,0, 400, 209);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-158,iY-40));
+				go->SetLevelLayer(MIDDLEGROUND);
+				go->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+				go->GetLightSource()->SetRadius(480);
+				go->AddLightSprite(p_pSpriteManager->Load("Generic_Light_Yellow_transparent.png", 0,0, 1023, 1023) );
+				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
+				go->GetLightSprite()->setScale(0.3f, 0.3f);
+				go->SetLightPosition(sf::Vector2f(iX + 222, iY + 142));
+				m_pxGameObjMgr->Attach(go);
+
+				iX += m_iWidth;
+				continue;
+			}
+			if (row[i] == 'f')
+			{
+				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0,209, 400, 209);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-242,iY-58));
+				go->SetLevelLayer(MIDDLEGROUND);
+				go->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+				go->GetLightSource()->SetRadius(480);
+				go->AddLightSprite(p_pSpriteManager->Load("Generic_Light_Yellow_transparent.png", 0,0, 1023, 1023) );
+				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
+				go->GetLightSprite()->setScale(0.3f, 0.3f);
+				go->SetLightPosition(sf::Vector2f(iX - 222, iY +124));
+				m_pxGameObjMgr->Attach(go);
+
+				iX += m_iWidth;
+				continue;
+			}
+			if (row[i] == 'g')
+			{
+				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0, 418, 400, 209);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-205,iY-158));
+				go->SetLevelLayer(MIDDLEGROUND);
+				go->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+				go->GetLightSource()->SetRadius(480);
+				go->AddLightSprite(p_pSpriteManager->Load("Generic_Light_Yellow_transparent.png", 0,0, 1023, 1023) );
+				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
+				go->GetLightSprite()->setScale(0.3f, 0.3f);
+				go->SetLightPosition(sf::Vector2f(iX - 8, iY));
+				m_pxGameObjMgr->Attach(go);
+
+				iX += m_iWidth;
+				continue;
+			}
+			if (row[i] == 'h')
+			{
+				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0, 627, 400, 209);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-180,iY-50));
+				go->SetLevelLayer(MIDDLEGROUND);
+				go->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+				go->GetLightSource()->SetRadius(480);
+				go->AddLightSprite(p_pSpriteManager->Load("Generic_Light_Yellow_transparent.png", 0,0, 1023, 1023) );
+				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
+				go->GetLightSprite()->setScale(0.3f, 0.3f);
+				go->SetLightPosition(sf::Vector2f(iX + 8, iY));
+				m_pxGameObjMgr->Attach(go);
+
+				iX += m_iWidth;
+				continue;
+			}
 			if (row[i] == 'l')
 			{
 				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
@@ -248,7 +324,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				if (row[i] == 'E')
 				{
-					
+
 					if (Random(1, 10) < 3)
 					{
 						if (iY > 0 && iY < 4600/2)
@@ -354,12 +430,34 @@ void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 			if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == n)
 			{
 				p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
+
+				//Draw light if object has a light
+				if(m_pxGameObjMgr->m_apxGameObject[i]->HasLight() )
+				{
+					//Draw light if its toggled on
+					if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus())
+					{
+						if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() != nullptr)
+						{
+							p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() );
+						}
+					}
+				}
 			}
 
 		}
 		if (m_pxGameObjMgr->m_pxPlayer->GetLevelLayer() == n)
 		{
 			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+			//Draw light if Player has a light
+			if(m_pxGameObjMgr->m_pxPlayer->HasLight() )
+			{
+				//Draw light if its toggled on
+				if(m_pxGameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() )
+				{
+					p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSprite() );
+				}
+			}
 		}
 
 		/*if (m_pxGameObjMgr->m_pxPlayer != nullptr)
