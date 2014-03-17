@@ -146,30 +146,33 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 
 	for(int i = 0UL; i < m_apxGameObject.size(); i++)
 	{
-		//if (m_apxGameObject[i]->GetType() != "GameObject")
-		if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
+		if(m_apxGameObject[i]->GetActive() )
 		{
-			dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, m_pxPlayer);
-		}
-		else if(dynamic_cast<PowerupObject*> (m_apxGameObject[i]) )
-		{
-			dynamic_cast<PowerupObject*> (m_apxGameObject[i])->Update(p_fDeltatime);
-		}
-		else
-		{
-			m_apxGameObject[i]->Update(p_fDeltatime);
-		}
-		if (m_apxGameObject[i]->GetCollider() == nullptr && m_apxGameObject[i]->GetLevelLayer() == ELayer::MIDDLEGROUND)
-		{
-			if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
+			//if (m_apxGameObject[i]->GetType() != "GameObject")
+			if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 			{
-				DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) );
-				m_apxGameObject.erase(m_apxGameObject.begin() +i);
+				dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->Update(p_fDeltatime, m_pxPlayer);
 			}
-			else if( static_cast<PowerupObject*> (m_apxGameObject[i])->GetDestroyed() )
+			else if(dynamic_cast<PowerupObject*> (m_apxGameObject[i]) )
 			{
-				DestroyPowerup(dynamic_cast<PowerupObject*> (m_apxGameObject[i]) );
-				m_apxGameObject.erase(m_apxGameObject.begin() +i);
+				dynamic_cast<PowerupObject*> (m_apxGameObject[i])->Update(p_fDeltatime);
+			}
+			else
+			{
+				m_apxGameObject[i]->Update(p_fDeltatime);
+			}
+			if (m_apxGameObject[i]->GetCollider() == nullptr && m_apxGameObject[i]->GetLevelLayer() == ELayer::MIDDLEGROUND)
+			{
+				if( static_cast<EnemyFishObject*> (m_apxGameObject[i])->GetDestroyed() )
+				{
+					DestroyEnemy(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) );
+					m_apxGameObject.erase(m_apxGameObject.begin() +i);
+				}
+				else if( static_cast<PowerupObject*> (m_apxGameObject[i])->GetDestroyed() )
+				{
+					DestroyPowerup(dynamic_cast<PowerupObject*> (m_apxGameObject[i]) );
+					m_apxGameObject.erase(m_apxGameObject.begin() +i);
+				}
 			}
 		}
 

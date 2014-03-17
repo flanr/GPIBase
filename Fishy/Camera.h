@@ -1,6 +1,7 @@
 #pragma once
 class LightSource;
 class GameObjectManager;
+class GameObject;
 class Level;
 
 class Camera
@@ -45,6 +46,8 @@ public:
 	/*Used for updating GUI size*/
 	void SetTotalZoom(float p_TotalZoom);
 	float GetTotalZoom();
+
+	void SetObjectsActive(GameObject* p_GameObject);
 
 private:
 	sf::View m_CameraView;
