@@ -354,12 +354,20 @@ void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 			if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == n)
 			{
 				p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
+				if(m_pxGameObjMgr->m_apxGameObject[i]->HasLight() )
+				{
+					p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() );
+				}
 			}
 
 		}
 		if (m_pxGameObjMgr->m_pxPlayer->GetLevelLayer() == n)
 		{
 			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+			if(m_pxGameObjMgr->m_pxPlayer->HasLight() )
+				{
+					p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSprite() );
+				}
 		}
 
 		/*if (m_pxGameObjMgr->m_pxPlayer != nullptr)

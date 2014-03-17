@@ -12,6 +12,7 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 	SetPosition(p_xPosition);
 	m_isDestroyed = false;
 	m_light = nullptr;
+	m_LightSprite = nullptr;
 	m_ActiveUpdate = false;
 	if(m_pxCollider != nullptr)
 		m_pxCollider->SetParent(this);
@@ -26,6 +27,10 @@ GameObject::~GameObject()
 	if(GetLightSource() != nullptr)
 	{
 		delete GetLightSource();
+	}
+	if(m_LightSprite != nullptr)
+	{
+		delete  m_LightSprite;
 	}
 }
 void GameObject::SetLevelLayer(ELayer layer)
@@ -74,14 +79,26 @@ sf::Vector2f GameObject::GetLightPosition()
 void GameObject::SetLightPosition(const sf::Vector2f &p_xPosition)
 {
 	m_light->SetPosition(p_xPosition);
+	if(m_LightSprite != nullptr)
+	{
+		m_LightSprite->setPosition(p_xPosition);
+	}
 }
 void GameObject::SetLightPositionX(const float &p_Xposition)
 {
 	m_light->SetPosition(sf::Vector2f(p_Xposition, GetLightPosition().y) );
+	if(m_LightSprite != nullptr)
+	{
+		m_LightSprite->setPosition(sf::Vector2f(p_Xposition, GetLightPosition().y));
+	}
 }
 void GameObject::SetLightPositionY(const float &p_Yposition)
 {
 	m_light->SetPosition(sf::Vector2f(GetLightPosition().x, p_Yposition) );
+	if(m_LightSprite != nullptr)
+	{
+		m_LightSprite->setPosition(sf::Vector2f(GetLightPosition().x, p_Yposition) );
+	}
 }
 bool GameObject::HasSprite() const
 {
@@ -159,6 +176,16 @@ void GameObject::SetActive(bool p_Activate)
 bool GameObject::GetActive()
 {
 	return m_ActiveUpdate;
+}
+
+void GameObject::AddLightSprite(sf::Sprite *p_sprite)
+{
+	m_LightSprite = p_sprite;
+}
+
+sf::Sprite * GameObject::GetLightSprite()
+{
+	return m_LightSprite;
 }
 
 void GameObject::OnCollision(GameObject* p_xOther, sf::Vector2f& p_Offset)

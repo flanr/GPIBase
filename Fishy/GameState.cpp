@@ -85,6 +85,10 @@ bool GameState::EnterState()
 		Player->SetPosition(sf::Vector2f(posx, posy) );
 		Player->SetLevelLayer(MIDDLEGROUND);
 		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
+		Player->AddLightSprite(m_SpriteManager->Load("Generic_Light_Yellow_transparent.png", 0,0, 1023, 1023) );
+		Player->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
+		Player->GetLightSprite()->setScale(0.3f, 0.3f);
+
 		m_GameObjMgr->AttachPlayer(Player);
 		m_pxCollisionManager->AttachCollider(Player->GetCollider() );
 		m_GameObjMgr->m_pxPlayer->SetSoundManager(m_pCore->m_SoundManager);
