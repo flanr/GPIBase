@@ -327,11 +327,11 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 					if (Random(1, 10) < 3)
 					{
-						if (iY > 0 && iY < 4600/2)
+						if (iY > 0 && iY < 4600)
 						{
 							Random_Size = Random(.6 , .8);
 						}
-						if (iY > 4600/2 && iY < 11500/2)
+						if (iY > 4600 && iY < 11500)
 						{
 							Random_Size = Random(.8, 1.6f);
 						}
@@ -340,7 +340,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						tempEnemy->setOrigin((301)/2, (142)/2);
 						tempEnemy->setPosition(iX, iY);
 						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
-						enemy->SetLevelLayer(layer);
+						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
 						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 						enemy->SetSubType("Stage2");
@@ -352,11 +352,11 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					else
 					{
 
-						if (iY > 0 && iY < 4600/2)
+						if (iY > 0 && iY < 4600)
 						{
 							Random_Size = Random(.1 , .4);
 						}
-						if (iY > 4600/2 && iY < 11500/2)
+						if (iY > 4600 && iY < 11500)
 						{
 							Random_Size = Random(.5, .8);
 						}
@@ -367,7 +367,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						tempEnemy->setOrigin((265)/2, (100)/2);
 						tempEnemy->setPosition(iX, iY);
 						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
-						enemy->SetLevelLayer(layer);
+						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
 						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 						enemy->SetSubType("Stage1");

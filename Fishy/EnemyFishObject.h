@@ -50,7 +50,7 @@ public:
 	void Hunting();
 									
 private:
-	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition;
+	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition, m_vPlayerVelocity;
 	int m_iStateTimer, m_iPlayerDirection;
 	AIStateMachine<EnemyFishObject>* m_pAIStateMachine;
 	bool isSafe;
