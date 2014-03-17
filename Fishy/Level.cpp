@@ -327,11 +327,11 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 					if (Random(1, 10) < 3)
 					{
-						if (iY > 0 && iY < 4600/2)
+						if (iY > 0 && iY < 4600)
 						{
 							Random_Size = Random(.6 , .8);
 						}
-						if (iY > 4600/2 && iY < 11500/2)
+						if (iY > 4600 && iY < 11500)
 						{
 							Random_Size = Random(.8, 1.6f);
 						}
@@ -352,11 +352,11 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					else
 					{
 
-						if (iY > 0 && iY < 4600/2)
+						if (iY > 0 && iY < 4600)
 						{
 							Random_Size = Random(.1 , .4);
 						}
-						if (iY > 4600/2 && iY < 11500/2)
+						if (iY > 4600 && iY < 11500)
 						{
 							Random_Size = Random(.5, .8);
 						}
