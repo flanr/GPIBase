@@ -44,6 +44,7 @@ GameState::GameState(Core* p_pCore)
 	m_HealthSlider.SetColor(sf::Color::Red);
 	m_EnergySlider.SetColor(sf::Color::Yellow);
 
+
 }
 
 string GameState::GetCurrentState()
@@ -155,10 +156,14 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 
-	m_pxCollisionManager->CheckCollisionRectVsRect();
+	
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
-	//If the player is growing or eating the game won't update
-	m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+
+	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing )
+	{
+		m_pxCollisionManager->CheckCollisionRectVsRect();
+		m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
+	}
 	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
 
@@ -185,10 +190,26 @@ void GameState::UpdateGUI()
 		(50.f * m_Camera->GetTotalZoom() ) );
 
 	sf::Vector2f GUI_pos = Gui->getPosition();
-	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
-	m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	m_HealthSlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (79 * m_Camera->GetTotalZoom() ) );
+
+	if (m_GameObjMgr->m_pxPlayer->GetStageTwo())
+	{
+		m_EnergySlider.SetColor(sf::Color::Yellow);
+		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
+		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
+	} else
+	{
+		m_GameObjMgr->m_pxPlayer->SetEnergy(100);
+		
+		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
+		m_EnergySlider.SetColor(sf::Color::White);
+		
+		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
+	}
+
+
+
 }
 
 
@@ -260,3 +281,18 @@ bool GameState::IsType(const string &p_type)
 {
 	return p_type.compare("GameState") == 0;
 }																																										//Sten
+
+
+void GameState::TutorialWASD()
+{
+
+}
+
+void GameState::TutorialSpace()
+{
+
+}
+void GameState::TutorialF()
+{
+
+}

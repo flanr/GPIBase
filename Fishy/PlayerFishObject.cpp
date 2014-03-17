@@ -17,8 +17,8 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	: FishObject(p_Position, p_Sprite, p_Collider)
 {
 
-	m_Health = 90;
-	m_Energy = 90;
+	m_Health = 100;
+	m_Energy = 100;
 
 	m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
 	SetSpeed(500.0f);
@@ -39,6 +39,8 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	SetType("Player");
 	m_Time = m_Clock.restart();
 	m_bCanTakeDamage = true;
+	SetActive(true);
+	m_StageTwo =false;
 };
 
 PlayerFishObject::~PlayerFishObject()
@@ -120,6 +122,9 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	//UpdateCollider();
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
 	UpdateHealth();
+	UpdateEnergy();
+	UpdateSoundFeedback();
+
 	if(GetState() == Death)
 	{
 		cout << "DEAD!" << endl;
@@ -251,7 +256,7 @@ void PlayerFishObject::SetHealth(int p_Health)
 {
 	if(p_Health <= 100)
 	{
-	
+
 		m_Health = p_Health;
 	}
 }
@@ -369,6 +374,9 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			{
 				m_HasGrown = true;
 				SetState(Growing);
+				m_StageTwo = true;
+				m_HasFishingRod = true;
+				m_light->ToggleLightOn(false);
 			}
 		}
 		else if(( powerup->GetPowerUpType() == LIGHT) )
@@ -397,6 +405,11 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				cout << "ENERGY" << endl;
 				cout << GetEnergy() << endl;
 				m_PowerupEnergyCounter++;
+
+				if (m_Energy > 100)
+				{
+					m_Energy = 100;
+				}
 			}
 		}
 		powerup = nullptr;
@@ -641,17 +654,22 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 
 	if(m_HasFishingRod)
 	{
-		if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
+		if (m_StageTwo)
 		{
-			if(m_light->GetLightStatus())
+			if(p_pxInputManager->IsDownOnceK(sf::Keyboard::F) )
 			{
-				m_light->ToggleLightOn(false);
-			}
-			else
-			{
-				m_light->ToggleLightOn(true);
+
+				if(m_light->GetLightStatus())
+				{
+					m_light->ToggleLightOn(false);
+				}
+				else
+				{
+					m_light->ToggleLightOn(true);
+				}
 			}
 		}
+
 	}
 
 }
@@ -825,7 +843,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 			SetPlayerScale(0.6f);
 			m_light->SetRadius(m_light->GetRadius() * 3.0f );
 			m_LightbulbPosRelativeToPlayer *= GetScale();
-			m_HasFishingRod = true;
+			//m_HasFishingRod = true;
 		}
 		else if( GetCurrentLevel() == 7)  
 		{ 
@@ -841,6 +859,35 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 	}
 	else
 		FlipXRight(GetScale() );
+}
+void PlayerFishObject::UpdateEnergy()
+{
+	if (m_StageTwo)
+	{
+		if (m_Energy <= 0)
+		{
+			m_light->ToggleLightOn(false);
+
+		}else if (m_Energy >= 100)
+		{
+
+		}
+		{
+			if (m_light->GetLightStatus())
+			{
+				m_Energy = m_Energy - .3 - (-.3 * m_PowerupEnergyCounter );
+
+			}else
+			{
+				if (m_Energy <= 100)
+				{
+					m_Energy= m_Energy + 0.8;
+				}
+
+				
+			}
+		}
+	}
 }
 
 void PlayerFishObject::UpdateHealth()
@@ -867,7 +914,7 @@ void PlayerFishObject::UpdateHealth()
 
 void PlayerFishObject::DamageCooldown()
 {
-	
+
 
 	if (!m_bCanTakeDamage)
 	{
@@ -900,3 +947,28 @@ void PlayerFishObject::UpdateLightPosition()
 
 }
 
+bool PlayerFishObject::GetStageTwo()
+{
+	return m_StageTwo;
+}
+
+void PlayerFishObject::UpdateSoundFeedback()
+{
+
+	if (m_Health < 25)
+	{
+		//cout << "Less than 25%" << endl;
+
+	}else if (m_Health < 50)
+	{
+		//cout << "Less than 50%" << endl;
+
+	}
+	else if (m_Health < 75)
+	{
+		//cout << "Less than 75%" << endl;
+
+	}
+
+
+}

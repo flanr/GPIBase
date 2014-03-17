@@ -8,7 +8,7 @@ class Collider;
 class Sprite;
 class LightSource;
 enum ELayer;
-	
+
 class GameObject
 {
 public:
@@ -41,7 +41,7 @@ public:
 
 	void SetDestroyed(bool p_bDestroyed);
 	bool GetDestroyed();
-	
+
 	void FlipXLeft(float scale);
 	void FlipXRight(float scale);
 	void SetLevelLayer(ELayer); 
@@ -53,6 +53,9 @@ public:
 	std::string GetType(){ return m_sType;};
 	void SetType(std::string p_sType){m_sType = p_sType;};
 
+	void SetActive(bool p_Activate);
+	bool GetActive();
+
 	virtual void OnCollision(GameObject* p_xOther, sf::Vector2f& offset);
 
 protected:
@@ -62,5 +65,6 @@ protected:
 	std::string m_sType;
 	ELayer m_LevelLayer;
 
+	bool m_ActiveUpdate;
 	LightSource *m_light;
 };

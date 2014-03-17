@@ -32,6 +32,7 @@ public:
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 	
 	void DamageCooldown();
+	bool GetStageTwo();
 private:
 	
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
@@ -40,16 +41,19 @@ private:
 	void UpdateChewing(float p_Deltatime);
 	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
 	void UpdateHealth();
+	void UpdateEnergy();
 	void UpdateCollider();
 	void UpdateLightPosition();
+	void UpdateSoundFeedback();
 private:
 	sf::Vector2f m_fVelocity;
 	sf::Vector2f m_LightbulbPosRelativeToPlayer;
 
 	int m_Health;
-	int m_Energy;
+	float m_Energy;
 	int m_Experience;
 
+	bool m_StageTwo;
 	int m_PowerupLightCounter;
 	int m_PowerupSpeedCounter;
 	int m_PowerupEnergyCounter;

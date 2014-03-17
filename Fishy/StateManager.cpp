@@ -44,6 +44,7 @@ void StateManager::Update(float p_fDeltatime)
 	}
 	if (!m_pCurrentState->Update(p_fDeltatime))
 	{
+		cout << "asdasd" << endl;
 		ChangeState();
 	}
 }

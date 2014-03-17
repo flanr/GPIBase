@@ -1,5 +1,5 @@
 // Core.h
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "StateManager.h"
 #pragma once
 
