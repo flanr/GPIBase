@@ -39,6 +39,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	SetType("Player");
 	m_Time = m_Clock.restart();
 	m_bCanTakeDamage = true;
+	SetActive(true);
 };
 
 PlayerFishObject::~PlayerFishObject()

@@ -27,12 +27,22 @@ void CollisionManager::CheckCollisionRectVsRect()
 	sf::Vector2f offset = sf::Vector2f(0.f,0.f);
 	for (int i = 0; i < m_axRectColliders.size()-1; i++)
 	{
+		//if the collider is not within the camera then continue to next collider
+		if(!(m_axRectColliders[i]->GetParent()->GetActive() ) )
+		{
+			continue;
+		}
 		if (m_axRectColliders[i]->GetParent()->GetType() == "BrownBrick")
 		{
 			continue;
 		}
 		for (int j = i+1; j < m_axRectColliders.size(); j++)
 		{
+			//if the collider is not within the camera then continue to next collider
+			if(!(m_axRectColliders[j]->GetParent()->GetActive() ) )
+			{
+				continue;
+			}
 
 			if (m_axRectColliders[i]->OverlapRectVsRect(m_axRectColliders[j], offset))
 			{
@@ -76,6 +86,7 @@ void CollisionManager::CheckCollisionRectVsCircle()
 	sf::Vector2f offset;
 	for (int i = 0; i < m_axRectColliders.size(); i++)
 	{
+
 		for (int j = 0; j < m_axCircleColliders.size(); j++)
 		{
 			if (m_axRectColliders[i]->OverlapRectVsCircle(m_axCircleColliders[j], offset))
@@ -83,13 +94,14 @@ void CollisionManager::CheckCollisionRectVsCircle()
 				std::cout << "Collision!\n";
 				/*if (m_axRectColliders[i]->GetParent() != nullptr && m_axCircleColliders[j]->GetParent() != nullptr)
 				{
-					m_axRectColliders[i]->OnCollision(m_axCircleColliders[j], offset);
-					m_axCircleColliders[j]->OnCollision(m_axRectColliders[i], offset);
+				m_axRectColliders[i]->OnCollision(m_axCircleColliders[j], offset);
+				m_axCircleColliders[j]->OnCollision(m_axRectColliders[i], offset);
 				}
 
 				RemoveEnemyCollider();*/
 			}
 		}
+
 	}
 }
 
@@ -127,12 +139,12 @@ void CollisionManager::RemoveEnemyCollider()
 	/*for (size_t it = m_axCircleColliders.size()-1; it > 0; it--)
 	{
 
-		if(m_axCircleColliders[it]->GetParent() == nullptr)
-		{
-			delete m_axCircleColliders[it];
-			m_axCircleColliders[it] = nullptr;
-			m_axCircleColliders.erase(m_axCircleColliders.begin()+ it);
-		}
+	if(m_axCircleColliders[it]->GetParent() == nullptr)
+	{
+	delete m_axCircleColliders[it];
+	m_axCircleColliders[it] = nullptr;
+	m_axCircleColliders.erase(m_axCircleColliders.begin()+ it);
+	}
 	}*/
 }
 

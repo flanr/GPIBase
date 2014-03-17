@@ -12,6 +12,7 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 	SetPosition(p_xPosition);
 	m_isDestroyed = false;
 	m_light = nullptr;
+	m_ActiveUpdate = false;
 	if(m_pxCollider != nullptr)
 		m_pxCollider->SetParent(this);
 }
@@ -149,6 +150,15 @@ bool GameObject::HasLight() const
 LightSource* GameObject::GetLightSource()
 {
 	return m_light;
+}
+
+void GameObject::SetActive(bool p_Activate)
+{
+	m_ActiveUpdate = p_Activate;
+}
+bool GameObject::GetActive()
+{
+	return m_ActiveUpdate;
 }
 
 void GameObject::OnCollision(GameObject* p_xOther, sf::Vector2f& p_Offset)

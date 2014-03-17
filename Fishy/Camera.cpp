@@ -179,6 +179,9 @@ void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level)
 
 	for( int i = 0; i < p_GameObjMgr->m_apxGameObject.size(); i++)
 	{
+		//Sets GameObject active if its close to or within Camera Range
+		SetObjectsActive(p_GameObjMgr->m_apxGameObject[i]);
+
 		if(p_GameObjMgr->m_apxGameObject[i]->HasLight() )
 		{
 			{
@@ -324,4 +327,21 @@ void Camera::SetTotalZoom(float p_TotalZoom)
 float Camera::GetTotalZoom()
 {
 	return m_TotalZoom;
+}
+
+void Camera::SetObjectsActive(GameObject* p_GameObject)
+{
+	if(p_GameObject->GetPosition().x >= (GetCameraView().getCenter().x - GetCameraView().getSize().x ) &&
+		p_GameObject->GetPosition().x <= (GetCameraView().getCenter().x + GetCameraView().getSize().x ) &&
+		p_GameObject->GetPosition().y >= (GetCameraView().getCenter().y - GetCameraView().getSize().y ) &&
+		p_GameObject->GetPosition().y <= (GetCameraView().getCenter().y + GetCameraView().getSize().y ) 
+		)
+	{
+		p_GameObject->SetActive(true);
+	}
+	else
+	{
+		p_GameObject->SetActive(false);
+	}
+
 }
