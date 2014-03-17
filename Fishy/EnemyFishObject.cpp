@@ -45,7 +45,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
-	
+
 
 	SetPosition( GetPosition() + GetVelocity()*deltatime );
 
@@ -70,7 +70,7 @@ int EnemyFishObject::random(int min, int max)
 
 void EnemyFishObject::ChangeState()
 {
-//	SetState(Idle);
+	//	SetState(Idle);
 	/*if(GetState() == Moving)
 	{
 	SetState(Fleeing);
@@ -182,7 +182,7 @@ void EnemyFishObject::Idle()
 		else if (iRandomY == 2)
 		{
 			SetVelocity(sf::Vector2f(0.0f, GetSpeed()* -1));
-			
+
 		}
 	}
 }
@@ -208,7 +208,7 @@ void EnemyFishObject::Scared()
 }
 void EnemyFishObject::Hunting()
 {
-	
+
 	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
 	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
 	DistanceVector/=sqrtf(DistanceNumber);
@@ -221,5 +221,23 @@ void EnemyFishObject::Hunting()
 	{
 		FlipXLeft(GetScale());
 	}
-	
+
+}
+
+void EnemyFishObject::Attracted()
+{
+	if(GetLightSource() != nullptr)
+	{
+		sf::Vector2f DistanceLightPos = GetLightSource()->GetPosition() - GetPosition();
+		float DistanceNumber = DistanceLightPos.x * DistanceLightPos.x + DistanceLightPos.y * DistanceLightPos.y;
+		if (sqrtf(DistanceNumber) > 600.f)
+		{
+			if (GetLightSource()->GetLightStatus())
+			{
+				DistanceLightPos/=sqrt(DistanceNumber);
+				SetVelocity(DistanceLightPos * GetSpeed());
+			}
+		}
+
+	}
 }

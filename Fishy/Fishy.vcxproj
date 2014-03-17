@@ -88,6 +88,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttractedState.h" />
     <ClInclude Include="AIGlobalState.h" />
     <ClInclude Include="AIState.h" />
     <ClInclude Include="AIStateMachine.h" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIGlobalState.cpp" />
+    <ClCompile Include="AttractedState.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
