@@ -32,6 +32,7 @@ public:
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 	
 	void DamageCooldown();
+	bool GetStageTwo();
 private:
 	
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
@@ -43,6 +44,7 @@ private:
 	void UpdateEnergy();
 	void UpdateCollider();
 	void UpdateLightPosition();
+	void UpdateSoundFeedback();
 private:
 	sf::Vector2f m_fVelocity;
 	sf::Vector2f m_LightbulbPosRelativeToPlayer;
