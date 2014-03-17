@@ -125,6 +125,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
 				go->GetLightSprite()->setScale(0.3f, 0.3f);
 				go->SetLightPosition(sf::Vector2f(iX + 222, iY + 142));
+				go->GetLightSource()->ToggleLightOn(false);
+				go->SetType("InteractiveLight");
 				m_pxGameObjMgr->Attach(go);
 
 				iX += m_iWidth;
@@ -144,6 +146,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
 				go->GetLightSprite()->setScale(0.3f, 0.3f);
 				go->SetLightPosition(sf::Vector2f(iX - 222, iY +124));
+				go->GetLightSource()->ToggleLightOn(false);
+				go->SetType("InteractiveLight");
 				m_pxGameObjMgr->Attach(go);
 
 				iX += m_iWidth;
@@ -163,6 +167,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
 				go->GetLightSprite()->setScale(0.3f, 0.3f);
 				go->SetLightPosition(sf::Vector2f(iX - 8, iY));
+				go->GetLightSource()->ToggleLightOn(false);
+				go->SetType("InteractiveLight");
 				m_pxGameObjMgr->Attach(go);
 
 				iX += m_iWidth;
@@ -182,6 +188,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				go->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
 				go->GetLightSprite()->setScale(0.3f, 0.3f);
 				go->SetLightPosition(sf::Vector2f(iX + 8, iY));
+				go->GetLightSource()->ToggleLightOn(false);
+				go->SetType("InteractiveLight");
 				m_pxGameObjMgr->Attach(go);
 
 				iX += m_iWidth;
@@ -426,20 +434,22 @@ void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 	{
 		for(auto i=0UL; i < m_pxGameObjMgr->m_apxGameObject.size();i++)
 		{	
-
-			if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == n)
+			if(m_pxGameObjMgr->m_apxGameObject[i]->GetActive() )
 			{
-				p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
-
-				//Draw light if object has a light
-				if(m_pxGameObjMgr->m_apxGameObject[i]->HasLight() )
+				if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == n)
 				{
-					//Draw light if its toggled on
-					if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus())
+					p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
+
+					//Draw light if object has a light
+					if(m_pxGameObjMgr->m_apxGameObject[i]->HasLight() )
 					{
-						if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() != nullptr)
+						//Draw light if its toggled on
+						if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus())
 						{
-							p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() );
+							if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() != nullptr)
+							{
+								p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() );
+							}
 						}
 					}
 				}

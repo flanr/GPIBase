@@ -67,6 +67,7 @@ protected:
 	bool m_isDestroyed;
 	std::string m_sType;
 	ELayer m_LevelLayer;
+	float m_LightTimer;
 
 	bool m_ActiveUpdate;
 	LightSource *m_light;
