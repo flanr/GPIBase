@@ -44,75 +44,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
-	//ChangeState();
-	//SetVelocity(sf::Vector2f(0.0f, 0.0f));
-	//SetVelocity(sf::Vector2f(0.0f, deltatime * GetSpeed()) );
-
-	//float delta_x = GetPosition().x - player->GetPosition().x;
-	//float delta_y = GetPosition().y - player->GetPosition().y;
-	//sf::Vector2f distance_to_light;
-	//distance_to_light.x = delta_x;
-	//distance_to_light.y = delta_y;
-
-	//m_iStateTimer++;
-	//if(m_iStateTimer >= 400)
-	//{		
-	//	m_iStateTimer = 0;
-	//}
-	//if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
-	//{
-	//	SetState(Attack);
-	//}
-	//else if ((player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
-	//{
-	//	SetState(Fleeing);
-	//}
-
-	//if(GetState() == Idle)
-	//{
-
-	//	if(m_iStateTimer > 250)
-	//	{
-	//		SetVelocity(sf::Vector2f(deltatime * -GetSpeed(), 0.0f) );
-	//		//SetScale(GetScale());
-	//		FlipXLeft(1.0f);
-
-	//	}
-	//	else
-	//	{
-	//		SetVelocity(sf::Vector2f(deltatime * GetSpeed(), 0.0f) );
-	//		//SetScale(GetScale());
-	//		FlipXRight(1.f);
-
-	//	}
-	//}
-
-	//if(GetState() == Fleeing)
-	//{
-
-	//	if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x > GetPosition().x) && (player->GetDirection() == FacingRight))
-	//	{
-	//		//distace to player
-	//		SetVelocity(GetVelocity() + distance_to_light * GetSpeed());
-
-	//		m_xPosition += m_velocity * deltatime;
-	//	}
-
-	//	if (fabs(delta_x) <= 200 && fabs(delta_y) <= 200 && (player->GetPosition().x < m_xPosition.x) && (player->GetDirection() == FacingLeft))
-	//	{
-	//		//distace to player
-	//		m_velocity += distance_to_light * GetSpeed();
-
-	//		m_xPosition += m_velocity * deltatime;
-	//	}
-
-
-	/*};
-
-	if(GetState() == Attack)
-	{
-	SetVelocity(sf::Vector2f(0.0f, deltatime * -GetSpeed()) );
-	};*/
+	
 
 	SetPosition( GetPosition() + GetVelocity()*deltatime );
 
