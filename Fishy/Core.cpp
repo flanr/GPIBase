@@ -71,7 +71,7 @@ bool Core::Initialize()
 		{
 			return false;
 		}
-		m_SoundManager->PlayMusic("atmosphere4.wav");
+		//m_SoundManager->PlayMusic("atmosphere4.wav");
 
 	}
 

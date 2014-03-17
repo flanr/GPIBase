@@ -185,10 +185,26 @@ void GameState::UpdateGUI()
 		(50.f * m_Camera->GetTotalZoom() ) );
 
 	sf::Vector2f GUI_pos = Gui->getPosition();
-	m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
-	m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	m_HealthSlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (79 * m_Camera->GetTotalZoom() ) );
+
+	if (m_GameObjMgr->m_pxPlayer->GetStageTwo())
+	{
+		m_EnergySlider.SetColor(sf::Color::Yellow);
+		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
+		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
+	} else
+	{
+		m_GameObjMgr->m_pxPlayer->SetEnergy(100);
+		
+		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
+		m_EnergySlider.SetColor(sf::Color::White);
+		
+		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
+	}
+
+
+
 }
 
 
