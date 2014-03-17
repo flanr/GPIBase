@@ -38,6 +38,7 @@ public:
 	
 	void UpdateGUI();
 
+	void UpdateTutorial();
 	void TutorialWASD();
 	void TutorialSpace();
 	void TutorialF();
@@ -70,7 +71,7 @@ private:
 	bool m_TutorialWASD;
 	bool m_TutorialSPACE;
 	bool m_TutorialF;
-	sf::Sprite m_TutorialSpriteWASD;
-	sf::Sprite m_TutorialSpriteSPACE;
-	sf::Sprite m_TutorialSpriteF;
+	sf::Sprite* m_TutorialSpriteWASD;
+	sf::Sprite* m_TutorialSpriteSPACE;
+	sf::Sprite* m_TutorialSpriteF;
 };

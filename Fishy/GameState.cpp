@@ -86,6 +86,7 @@ bool GameState::EnterState()
 		Player->SetPosition(sf::Vector2f(posx, posy) );
 		Player->SetLevelLayer(MIDDLEGROUND);
 		Player->AddLightSource(new LightSource(sf::Vector2f(posx, posy), 240) );
+		Player->GetLightSource()->ToggleLightOn(false);
 		m_GameObjMgr->AttachPlayer(Player);
 		m_pxCollisionManager->AttachCollider(Player->GetCollider() );
 		m_GameObjMgr->m_pxPlayer->SetSoundManager(m_pCore->m_SoundManager);
