@@ -248,7 +248,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				if (row[i] == 'E')
 				{
-					
+
 					if (Random(1, 10) < 3)
 					{
 						if (iY > 0 && iY < 4600/2)
@@ -354,9 +354,15 @@ void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 			if (m_pxGameObjMgr->m_apxGameObject[i]->GetLevelLayer() == n)
 			{
 				p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetSprite());
+
+				//Draw light if object has a light
 				if(m_pxGameObjMgr->m_apxGameObject[i]->HasLight() )
 				{
-					p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() );
+					//Draw light if its toggled on
+					if(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSource()->GetLightStatus())
+					{
+						p_draw_manager->Draw(m_pxGameObjMgr->m_apxGameObject[i]->GetLightSprite() );
+					}
 				}
 			}
 
@@ -364,10 +370,15 @@ void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 		if (m_pxGameObjMgr->m_pxPlayer->GetLevelLayer() == n)
 		{
 			p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetSprite() );
+			//Draw light if Player has a light
 			if(m_pxGameObjMgr->m_pxPlayer->HasLight() )
+			{
+				//Draw light if its toggled on
+				if(m_pxGameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() )
 				{
 					p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSprite() );
 				}
+			}
 		}
 
 		/*if (m_pxGameObjMgr->m_pxPlayer != nullptr)
