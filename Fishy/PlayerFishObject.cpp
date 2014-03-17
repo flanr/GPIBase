@@ -874,12 +874,13 @@ void PlayerFishObject::UpdateEnergy()
 		{
 			if (m_light->GetLightStatus())
 			{
-				m_Energy--;
+				m_Energy = m_Energy - .3 - (-.3 * m_PowerupEnergyCounter );
+
 			}else
 			{
 				if (m_Energy <= 100)
 				{
-					m_Energy++;
+					m_Energy= m_Energy + 0.8;
 				}
 
 				
@@ -955,14 +956,17 @@ void PlayerFishObject::UpdateSoundFeedback()
 
 	if (m_Health < 25)
 	{
-		cout << "Less than 25%" << endl;
+		//cout << "Less than 25%" << endl;
+
 	}else if (m_Health < 50)
 	{
-		cout << "Less than 50%" << endl;
+		//cout << "Less than 50%" << endl;
+
 	}
 	else if (m_Health < 75)
 	{
-		cout << "Less than 75%" << endl;
+		//cout << "Less than 75%" << endl;
+
 	}
 
 

@@ -16,37 +16,71 @@ d 1024 0 256 256
 S 0 0 0 0
 E 504 0 70 70
 
-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-ddb333333333333cdddb333333333333333333cdb3333333333333333cddddddddddb33333333333333cdd
-dd2000000000000833370000000000000000004d200000000000E00004dddddddddd2000000000000004dd
-dd2000S000E0E00000000000000000000000059d2000E000E000000008333cdddddd2000000000000004dd
-dd200000000E000000E0E00000000516000059db7000000E000E0E00000004dddddd2000E0E00E000004dd
-dda111600000000000E00000051119da11119dd200E0E00000000E0000000833333370000000E0000004dd
-dddddda11111111600000E0008333333333333370000000000000000E00E00E000000E0E00E000000004dd
-ddddddddddddddda6000000000000000000000000000005111160E00E00E0E00000E0000000000000059dd
-dddddddddddddddda60000000000E00E00000E000000059dddd20000000000000E000000000000000594dd
-ddddddddddddddddda6000051160000000000000000059ddddda1111111116000000000E00E0000059dddd
-dddddddddddddddddda11119dda111111111111111119dddddddddddddddda1600000000000000059ddddd
-dddddddddddddddddddb333333333333333333333333333333333333333333ca600000E000000059dddddd
-ddddddddddddddddddd2000000000000000000000E000000000EE0EEE000008370000E000000059ddddddd
-ddddddddddddddddddd2000000E000E00E000E000000000000000000E000E000E00E0000000059dddddddd
-ddddddddddddddddddd2000000000000E0E00000E0E000000056000000E0000E0000000000059ddddddddd
-ddddddddddddddddddd200000E00000000000000000000000042000000000000000000000059dddddddddd
-ddddddddddddddddddda1110000111111111111111111111119a11111111111111111111119ddddddddddd
-dddddddddddddddddddddd20E004dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-dddddddddddddddddddddd200004dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-dddddddddddddddddddddd200E04dddddb333333cddddddddddddddddddddddddddddddddddddddddddddd
-dddddddddddddddddddddd20E004ddddb700000083cb33cb3333cddddddddddddddddddddddddddddddddd
-dddddddddddddddddddddd200004dddb700000000042008700004ddddddddddddddddddddddddddddddddd
-ddddddddddddddddddb333700004b337000000000087000000008333cb333333cddddddddddddddddddddd
-dddddddddddddddddd200000000870000000E0000E0E00000000000042000000833cdddddddddddddddddd
-dddddddddddddddddd7000E0000000000E0000E000000000000E00008700000000083cdddddddddddddddd
-ddddddddddddddddb7000000000000E000000000000000E00000000000000000000004dddddddddddddddd
-ddddddddddddddb37000000000E000000000000000000000E00000E00000000000000833cddddddddddddd
-ddddddddddddb3700000E0000000000000051111600000000000000000000000000000004ddddddddddddd
-dddddddddddb700000000000000005111119dddda11111111116000000E00000000000008cdddddddddddd
-ddddddddddb7000000000000005119ddddddddddddddddddddd20000000000E00000000008cddddddddddd
-
-
-
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	b	3	3	3	3	3	3	3	3	3	3	3	3	c	d	d	d	b	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	c	d	b	3	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	8	3	3	3	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	2	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	2	0	0	0	S	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	2	0	0	0	8	3	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	6	0	0	0	0	5	9	d	b	7	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	a	1	1	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	1	1	9	d	a	1	1	1	1	9	d	d	2	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	a	1	1	1	1	1	1	1	1	6	0	0	0	0	0	0	0	0	0	8	3	3	3	3	3	3	3	3	3	3	3	3	3	7	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	8	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	5	1	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	1	1	1	1	9	d	d	a	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	b	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	1	1	1	0	0	0	0	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	4	d	d	d	d	d	b	3	3	3	3	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	4	d	d	d	d	b	7	0	0	0	0	0	0	8	3	c	b	3	3	c	b	3	3	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	4	d	d	d	b	7	0	0	0	0	0	0	0	0	0	4	2	0	0	8	7	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	b	3	3	3	7	0	0	0	0	4	b	3	3	7	0	0	0	0	0	0	0	0	0	0	8	7	0	0	0	0	0	0	0	0	8	3	3	3	c	b	3	3	3	3	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	8	7	0	0	0	0	0	0	0	E	0	0	0	0	E	0	E	0	0	0	0	0	0	0	0	0	0	0	0	4	2	0	0	0	0	0	0	8	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	7	0	0	0	E	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	8	7	0	0	0	0	0	0	0	0	0	8	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	b	7	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	b	3	7	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	8	3	3	c	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	b	3	7	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	1	1	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	b	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	1	1	1	1	9	d	d	d	d	a	1	1	1	1	1	1	1	1	1	1	6	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	8	c	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	b	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	8	c	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	b	7	0	0	0	0	0	0	E	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	1	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	b	3	7	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	b	7	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	1	1	6	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	5	6	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	b	3	3	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	b	7	0	0	0	0	0	0	5	1	d	2	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	2	0	0	8	3	c	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	E	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	b	7	0	0	0	0	0	0	5	d	d	3	7	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	b	3	7	0	0	0	0	4	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	b	7	0	0	0	0	E	0	0	8	3	7	0	0	0	0	8	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	3	7	0	0	0	0	0	0	4	d	d	b	3	3	3	7	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	b	3	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	b	7	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	8	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	2	0	0	0	0	0	0	E	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	6	0	0	0	0	0	0	0	0	0	0	0	5	1	1	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	4	d	d	d	2	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	a	1	6	0	0	0	0	0	0	0	0	8	c	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	6	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	8	c	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	2	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	5	9	2	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	2	0	0	0	0	0	0	0	0	0	8	c	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	2	0	0	0	0	0	5	6	0	0	0	0	0	0	0	0	0	0	5	9	d	a	6	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	4	2	0	0	0	E	0	0	E	0	0	0	0	0	5	1	1	1	d	d	a	6	0	0	0	0	4	2	0	0	0	0	0	0	0	0	0	0	8	c	d	b	7	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	8	7	0	0	0	0	0	0	0	0	0	0	0	0	4	b	3	3	c	d	d	a	1	1	1	1	9	2	0	0	E	0	0	0	0	0	0	0	0	8	3	7	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	2	0	0	8	c	d	b	3	3	c	d	d	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	E	0	0	0	E	0	0	0	0	0	0	8	7	0	0	0	4	d	2	0	0	8	3	3	7	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	8	3	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	E	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	E	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	4	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	E	0	0	0	E	0	0	0	0	E	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	a	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	1	9	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d
+d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d	d

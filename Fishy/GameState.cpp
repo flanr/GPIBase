@@ -44,6 +44,7 @@ GameState::GameState(Core* p_pCore)
 	m_HealthSlider.SetColor(sf::Color::Red);
 	m_EnergySlider.SetColor(sf::Color::Yellow);
 
+
 }
 
 string GameState::GetCurrentState()
@@ -276,3 +277,18 @@ bool GameState::IsType(const string &p_type)
 {
 	return p_type.compare("GameState") == 0;
 }																																										//Sten
+
+
+void GameState::TutorialWASD()
+{
+
+}
+
+void GameState::TutorialSpace()
+{
+
+}
+void GameState::TutorialF()
+{
+
+}
