@@ -10,6 +10,7 @@
 #include "PlayerFishObject.h"
 #include "EnemyFishObject.h"
 #include "PowerupObject.h"
+#include "LightSource.h"
 //#include "ParticleObject.h"
 
 GameObjectManager::GameObjectManager(InputManager *p_pxInputManager)
@@ -148,6 +149,17 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 	{
 		if(m_apxGameObject[i]->GetActive() )
 		{
+			if(m_apxGameObject[i]->HasLight())
+			{
+				if(m_pxPlayer->GetLightSource()->GetLightStatus() )
+				{
+					if(m_pxPlayer->GetLightSprite()->getGlobalBounds().intersects(m_apxGameObject[i]->GetLightSprite()->getGlobalBounds() ) )
+					{
+						cout << "INTERSECTS";
+						m_apxGameObject[i]->GetLightSource()->ToggleLightOn(true);
+					}
+				}
+			}
 			//if (m_apxGameObject[i]->GetType() != "GameObject")
 			if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
 			{

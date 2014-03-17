@@ -14,6 +14,7 @@ GameObject::GameObject(sf::Vector2f p_xPosition, sf::Sprite * p_pxSprite, Collid
 	m_light = nullptr;
 	m_LightSprite = nullptr;
 	m_ActiveUpdate = false;
+	m_LightTimer = 0.0f;
 	if(m_pxCollider != nullptr)
 		m_pxCollider->SetParent(this);
 }
@@ -147,6 +148,23 @@ void GameObject::FlipXRight(float scale)
 
 void GameObject::Update(float deltatime)
 {
+	if(GetType() == "InteractiveLight")
+	{
+		if(HasLight() )
+		{
+			if(GetLightSource()->GetLightStatus() )
+			{
+				m_LightTimer += deltatime;
+				cout <<"TIMER " << m_LightTimer;
+				if(m_LightTimer > 10.f)
+				{
+					GetLightSource()->ToggleLightOn(false);
+					m_LightTimer = 0.0f;
+				}
+			}
+		}
+	}
+
 	if (GetCollider() != nullptr)
 	{
 		GetCollider()->SetPosition(GetPosition());

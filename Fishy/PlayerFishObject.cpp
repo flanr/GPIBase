@@ -363,6 +363,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	{
 		SetPosition(GetPosition() + p_Offset);
 	}
+	//Look in gameobjectmanager for intersects with light to toggle light on
 	if (p_other->GetType() == "Powerup")
 	{
 		PowerupObject* powerup = dynamic_cast<PowerupObject*>(p_other);
@@ -884,7 +885,7 @@ void PlayerFishObject::UpdateEnergy()
 					m_Energy= m_Energy + 0.8;
 				}
 
-				
+
 			}
 		}
 	}
