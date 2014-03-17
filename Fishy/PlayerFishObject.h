@@ -50,7 +50,7 @@ private:
 	sf::Vector2f m_LightbulbPosRelativeToPlayer;
 
 	int m_Health;
-	int m_Energy;
+	float m_Energy;
 	int m_Experience;
 
 	bool m_StageTwo;

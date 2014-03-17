@@ -38,6 +38,9 @@ public:
 	
 	void UpdateGUI();
 
+	void TutorialWASD();
+	void TutorialSpace();
+	void TutorialF();
 
 private:
 	bool bStateRunning;
@@ -64,4 +67,10 @@ private:
 	
 	CollisionManager* m_pxCollisionManager;
 
+	bool m_TutorialWASD;
+	bool m_TutorialSPACE;
+	bool m_TutorialF;
+	sf::Sprite m_TutorialSpriteWASD;
+	sf::Sprite m_TutorialSpriteSPACE;
+	sf::Sprite m_TutorialSpriteF;
 };
