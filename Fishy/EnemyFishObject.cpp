@@ -241,7 +241,14 @@ void EnemyFishObject::Attracted()
 			DistanceLightPos/=sqrtf(DistanceNumber);
 			SetVelocity(DistanceLightPos * GetSpeed());
 		}
-
+		if (GetVelocity().x < 0)
+		{
+			FlipXLeft(GetScale());
+		}
+		if (GetVelocity().x > 0)
+		{
+			FlipXRight(GetScale());
+		}
 	}
 
 
