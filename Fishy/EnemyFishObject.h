@@ -50,6 +50,8 @@ public:
 	void Hunting();
 	//Attracted
 	void Attracted();
+	LightSource* GetPlayerLightSource()						{return m_pPlayerLightSource;}
+
 									
 private:
 	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition, m_vPlayerVelocity;
@@ -58,4 +60,5 @@ private:
 	bool isSafe;
 	std::string m_SubType;
 	float m_SubTypeSize;
+	LightSource* m_pPlayerLightSource;
 };

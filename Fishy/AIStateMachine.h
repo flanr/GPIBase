@@ -47,3 +47,5 @@ private:
 	AIState<entity_type>* m_pPreviousState;
 	AIState<entity_type>* m_pGlobalState;
 };
+
+//OnCollision()

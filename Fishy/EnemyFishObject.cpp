@@ -42,6 +42,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	//2=left 3= right
 	m_iPlayerDirection = player->GetDirection();
 	m_vPlayerVelocity = player->GetVelocity();
+	m_pPlayerLightSource = player->GetLightSource();
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
@@ -226,18 +227,18 @@ void EnemyFishObject::Hunting()
 
 void EnemyFishObject::Attracted()
 {
-	if(GetLightSource() != nullptr)
+	if(GetPlayerLightSource() != nullptr)
 	{
-		sf::Vector2f DistanceLightPos = GetLightSource()->GetPosition() - GetPosition();
+		sf::Vector2f DistanceLightPos = GetPlayerLightSource()->GetPosition() - GetPosition();
 		float DistanceNumber = DistanceLightPos.x * DistanceLightPos.x + DistanceLightPos.y * DistanceLightPos.y;
-		if (sqrtf(DistanceNumber) > 600.f)
+
+		if (DistanceNumber != 0)
 		{
-			if (GetLightSource()->GetLightStatus())
-			{
-				DistanceLightPos/=sqrt(DistanceNumber);
-				SetVelocity(DistanceLightPos * GetSpeed());
-			}
+			DistanceLightPos/=sqrtf(DistanceNumber);
+			SetVelocity(DistanceLightPos * GetSpeed());
 		}
 
 	}
+
+
 }
