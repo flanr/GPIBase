@@ -11,7 +11,8 @@ public:
 	~Camera();
 	void Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position);
 	void Update(GameObjectManager *p_GameObjMgr, Level *p_Level);
-	void Camera::UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level);
+	void UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level);
+
 
 	void SetCenterCamera(sf::Vector2f p_position);
 	sf::View GetCameraView();

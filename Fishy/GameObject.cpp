@@ -155,7 +155,6 @@ void GameObject::Update(float deltatime)
 			if(GetLightSource()->GetLightStatus() )
 			{
 				m_LightTimer += deltatime;
-				cout <<"TIMER " << m_LightTimer;
 				if(m_LightTimer > 10.f)
 				{
 					GetLightSource()->ToggleLightOn(false);

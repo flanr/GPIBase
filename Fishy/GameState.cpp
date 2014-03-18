@@ -37,12 +37,8 @@ GameState::GameState(Core* p_pCore)
 	m_Camera = nullptr;
 
 	bStateRunning = false;
+	Gui = nullptr;
 
-	Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
-	m_EnergySlider.SetSlider(0,0,154,17);
-	m_HealthSlider.SetSlider(0,0,190,28);
-	m_HealthSlider.SetColor(sf::Color::Red);
-	m_EnergySlider.SetColor(sf::Color::Yellow);
 
 
 }
@@ -63,6 +59,14 @@ bool GameState::EnterState()
 
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
+	if(Gui == nullptr)
+	{
+		Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
+		m_EnergySlider.SetSlider(0,0,154,17);
+		m_HealthSlider.SetSlider(0,0,190,28);
+		m_HealthSlider.SetColor(sf::Color::Red);
+		m_EnergySlider.SetColor(sf::Color::Yellow);
+	}
 
 	if (m_LevelLayerBackgroundSecondLowest == nullptr)
 	{
@@ -150,11 +154,6 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-
-	if (m_GameObjMgr->GetEnemyCounter() == 0)
-	{
-		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-	}
 	HandleInput();
 
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
@@ -162,16 +161,28 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 
-	
+
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
 
-	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing )
+	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing && m_GameObjMgr->m_pxPlayer->GetState() != Death)
 	{
 		m_pxCollisionManager->CheckCollisionRectVsRect();
 		m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	}
 	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
+
+	if(m_GameObjMgr->m_pxPlayer->GetGameStatus() )
+	{
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
+	}
+	else if (m_GameObjMgr->GetEnemyCounter() == 0)
+	{
+		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
+	}
 
 	return true;
 }
@@ -207,10 +218,10 @@ void GameState::UpdateGUI()
 	} else
 	{
 		m_GameObjMgr->m_pxPlayer->SetEnergy(100);
-		
+
 		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 		m_EnergySlider.SetColor(sf::Color::White);
-		
+
 		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	}
 
@@ -275,10 +286,12 @@ void GameState::Draw()
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}
 
-
-	m_DrawManager->DrawSlider(m_HealthSlider);
-	m_DrawManager->DrawSlider(m_EnergySlider);
-	m_DrawManager->Draw(Gui);
+	if(m_GameObjMgr->m_pxPlayer->GetState() != Death)
+	{
+		m_DrawManager->DrawSlider(m_HealthSlider);
+		m_DrawManager->DrawSlider(m_EnergySlider);
+		m_DrawManager->Draw(Gui);
+	}
 	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 }
@@ -286,8 +299,29 @@ void GameState::Draw()
 bool GameState::IsType(const string &p_type)
 {
 	return p_type.compare("GameState") == 0;
-}																																										//Sten
-
+}
+//Sten
+void GameState::Cleanup()
+{
+	m_GameObjMgr->Cleanup();
+	delete m_LevelLayerBackgroundLowest;
+	m_LevelLayerBackgroundLowest = nullptr;
+	delete m_LevelLayerBackgroundSecondLowest;
+	m_LevelLayerBackgroundSecondLowest = nullptr;
+	delete m_LevelLayerBackgroundSecondHighest;
+	m_LevelLayerBackgroundSecondHighest = nullptr;
+	delete m_LevelLayerMidleGround;
+	m_LevelLayerMidleGround = nullptr;
+	delete m_LevelLayerMiddleFront;
+	m_LevelLayerMiddleFront = nullptr;
+	delete m_LevelLayerForGround;
+	m_LevelLayerForGround = nullptr;
+	m_pxCollisionManager->Cleanup();
+	delete Gui;
+	Gui = nullptr;
+	delete m_Camera;
+	m_Camera = nullptr;
+}
 
 void GameState::TutorialWASD()
 {

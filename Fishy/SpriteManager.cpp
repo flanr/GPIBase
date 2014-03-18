@@ -98,7 +98,7 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 			anim.m_fFrameDuration = fFrameDuration;
 			anim.m_axAnimation.push_back(Rect);
 		}
-
+		anim.m_TotalFrames = NumFrames;
 		//lagrar i <map> när tom rad kommer
 		pxSprite->StoreAnim(AnimName, anim);
 	}

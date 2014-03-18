@@ -1,6 +1,7 @@
 // EnemyFishObject.cpp
 #include "stdafx.h"
 #include "EnemyFishObject.h"
+#include "AnimatedSprite.h"
 #include "LightSource.h"
 #include "PlayerFishObject.h"
 #include "AIState.h"
@@ -45,7 +46,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
-	
+
 
 	SetPosition( GetPosition() + GetVelocity()*deltatime );
 
@@ -70,7 +71,7 @@ int EnemyFishObject::random(int min, int max)
 
 void EnemyFishObject::ChangeState()
 {
-//	SetState(Idle);
+	//	SetState(Idle);
 	/*if(GetState() == Moving)
 	{
 	SetState(Fleeing);
@@ -110,9 +111,12 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
 			if(player->GetState() == Chewing)
 			{
-				this->m_pxCollider = nullptr;
-				this->~EnemyFishObject();
-				m_isDestroyed = true;
+				if(player->GetCurrentAnimation()->GetCurrentFrame() <= 2)
+				{
+					this->m_pxCollider = nullptr;
+					this->~EnemyFishObject();
+					m_isDestroyed = true;
+				}
 			}
 			else if (player->GetState() != Chewing)
 			{
@@ -182,7 +186,7 @@ void EnemyFishObject::Idle()
 		else if (iRandomY == 2)
 		{
 			SetVelocity(sf::Vector2f(0.0f, GetSpeed()* -1));
-			
+
 		}
 	}
 }
@@ -208,7 +212,7 @@ void EnemyFishObject::Scared()
 }
 void EnemyFishObject::Hunting()
 {
-	
+
 	sf::Vector2f DistanceVector = GetPlayerPosition() - GetPosition();
 	float DistanceNumber = DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y;
 	DistanceVector/=sqrtf(DistanceNumber);
@@ -221,5 +225,5 @@ void EnemyFishObject::Hunting()
 	{
 		FlipXLeft(GetScale());
 	}
-	
+
 }
