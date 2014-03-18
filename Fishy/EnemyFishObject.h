@@ -48,6 +48,8 @@ public:
 	void SetSafe(bool val)									{isSafe = val;}
 	//Hunting
 	void Hunting();
+	//Attracted
+	void Attracted();
 									
 private:
 	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition, m_vPlayerVelocity;

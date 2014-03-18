@@ -227,3 +227,21 @@ void EnemyFishObject::Hunting()
 	}
 
 }
+
+void EnemyFishObject::Attracted()
+{
+	if(GetLightSource() != nullptr)
+	{
+		sf::Vector2f DistanceLightPos = GetLightSource()->GetPosition() - GetPosition();
+		float DistanceNumber = DistanceLightPos.x * DistanceLightPos.x + DistanceLightPos.y * DistanceLightPos.y;
+		if (sqrtf(DistanceNumber) > 600.f)
+		{
+			if (GetLightSource()->GetLightStatus())
+			{
+				DistanceLightPos/=sqrt(DistanceNumber);
+				SetVelocity(DistanceLightPos * GetSpeed());
+			}
+		}
+
+	}
+}

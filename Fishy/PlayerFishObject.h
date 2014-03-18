@@ -35,11 +35,15 @@ public:
 
 	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
-	
+
 	void DamageCooldown();
 	bool GetStageTwo();
+
+	int GetPowerupLightCount();
+	int GetPowerupSpeedCount();
+	int GetPowerupEnergyCount();
 private:
-	
+
 	void UpdateInput(InputManager *p_pxInputManager, float p_Deltatime);
 	void UpdateIdle(float p_Deltatime);
 	void UpdateAttack(float p_Deltatime);
@@ -51,6 +55,7 @@ private:
 	void UpdateCollider();
 	void UpdateLightPosition();
 	void UpdateSoundFeedback();
+	
 private:
 	sf::Vector2f m_fVelocity;
 	sf::Vector2f m_LightbulbPosRelativeToPlayer;

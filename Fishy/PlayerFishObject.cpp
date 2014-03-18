@@ -396,6 +396,7 @@ void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
 
 void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
+
 	if (p_other->GetType() == "BrownBrick")
 	{
 		SetPosition(GetPosition() + p_Offset);
@@ -835,7 +836,7 @@ void PlayerFishObject::UpdateDeath(float p_Deltatime,  Camera *p_Camera)
 			m_DeathTimer += p_Deltatime;
 			if(m_light->GetRadius() > 0)
 			{
-				m_light->SetRadius(m_light->GetRadius() -7.f);
+				m_light->SetRadius(m_light->GetRadius() -10.f);
 			}
 			if(m_DeathTimer >= 1.5f)
 			{
@@ -1053,4 +1054,19 @@ void PlayerFishObject::UpdateSoundFeedback()
 	}
 
 
+}
+
+int PlayerFishObject::GetPowerupLightCount()
+{
+	return m_PowerupLightCounter;
+}
+
+int PlayerFishObject::GetPowerupSpeedCount()
+{
+	return m_PowerupSpeedCounter;
+}
+
+int PlayerFishObject::GetPowerupEnergyCount()
+{
+	return m_PowerupEnergyCounter;
 }
