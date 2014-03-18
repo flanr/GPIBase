@@ -27,11 +27,13 @@ void CollisionManager::CheckCollisionRectVsRect()
 	sf::Vector2f offset = sf::Vector2f(0.f,0.f);
 	for (int i = 0; i < m_axRectColliders.size()-1; i++)
 	{
+		
 		//if the collider is not within the camera then continue to next collider
 		if(!(m_axRectColliders[i]->GetParent()->GetActive() ) )
 		{
 			continue;
 		}
+		
 		if (m_axRectColliders[i]->GetParent()->GetType() == "BrownBrick")
 		{
 			continue;
@@ -50,6 +52,7 @@ void CollisionManager::CheckCollisionRectVsRect()
 				if (count > 0){offset /= (float)count;}*/
 				if (m_axRectColliders[i]->GetParent() != nullptr && m_axRectColliders[j]->GetParent() != nullptr)
 				{
+					
 					m_axRectColliders[i]->OnCollision(m_axRectColliders[j], offset);
 					m_axRectColliders[j]->OnCollision(m_axRectColliders[i], offset);
 				}

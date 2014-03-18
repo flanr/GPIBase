@@ -16,6 +16,7 @@ public:
 		void Cleanup();
 
 		sf::Sprite* Load(const std::string &filename, int x, int y, int width, int height);
+		sf::Sprite Loadnonpointer(const std::string &filename, int x, int y, int width, int height);
 		AnimatedSprite *LoadAnim(const std::string &p_sFilename);
 
 private:

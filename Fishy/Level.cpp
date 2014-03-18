@@ -201,6 +201,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				sf::Sprite * sprite = p_pSpriteManager->Load("Sprite_powerup_light.png", 0,0, 494, 490);
 				sprite->setOrigin(494 / 2.0f, 490 / 2.0f);
+				sprite->setScale(0.3f, 0.3f);
+				collider->SetExtention(sf::Vector2f(sprite->getGlobalBounds().width *0.5f , sprite->getGlobalBounds().height *0.5f ) );
 				sprite->setPosition(iX,iY);
 
 				PowerupObject *go = new PowerupObject( LIGHT,sprite->getPosition(),sprite ,collider);
@@ -219,6 +221,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				sf::Sprite * sprite = p_pSpriteManager->Load("PowerUp_Energy.png", 0,0, 494, 490);
 				sprite->setOrigin(494 / 2.0f, 490 / 2.0f);
+				sprite->setScale(0.3f, 0.3f);
+				collider->SetExtention(sf::Vector2f(sprite->getGlobalBounds().width *0.5f , sprite->getGlobalBounds().height *0.5f ) );
 				sprite->setPosition(iX,iY);
 
 				PowerupObject *go = new PowerupObject( ENERGY,sprite->getPosition(),sprite ,collider);
@@ -237,6 +241,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				sf::Sprite * sprite = p_pSpriteManager->Load("PowerUp_Speed.png", 0,0, 494, 490);
 				sprite->setOrigin(494 / 2.0f, 490 / 2.0f);
+				sprite->setScale(0.3f, 0.3f);
+				collider->SetExtention(sf::Vector2f(sprite->getGlobalBounds().width *0.5f , sprite->getGlobalBounds().height *0.5f ) );
 				sprite->setPosition(iX,iY);
 
 				PowerupObject *go = new PowerupObject( SPEED,sprite->getPosition(),sprite ,collider);
@@ -465,7 +471,10 @@ void Level::Draw(DrawManager *p_draw_manager, Camera *p_Camera)
 				//Draw light if its toggled on
 				if(m_pxGameObjMgr->m_pxPlayer->GetLightSource()->GetLightStatus() )
 				{
-					p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSprite() );
+					if(m_pxGameObjMgr->m_pxPlayer->GetLightSprite() != nullptr)
+					{
+						p_draw_manager->Draw(m_pxGameObjMgr->m_pxPlayer->GetLightSprite() );
+					}
 				}
 			}
 		}

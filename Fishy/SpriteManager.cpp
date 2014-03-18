@@ -44,6 +44,21 @@ sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int w
 	return new sf::Sprite(*it->second, sf::IntRect(x, y, width, height) );
 
 }
+sf::Sprite SpriteManager::Loadnonpointer(const std::string &filename, int x, int y, int width, int height)
+{
+	std::map<std::string,sf::Texture*>::iterator it = m_axSprites.find(filename);
+	if(it == m_axSprites.end()) 
+	{
+		if(!LoadImage(filename) ) 
+		{
+			cout << "load sprite failed" << endl;
+			//return;
+		}
+		it = m_axSprites.find(filename);
+	}
+	return sf::Sprite(*it->second, sf::IntRect(x, y, width, height) );
+}
+
 
 AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 {
@@ -98,7 +113,7 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 			anim.m_fFrameDuration = fFrameDuration;
 			anim.m_axAnimation.push_back(Rect);
 		}
-
+		anim.m_TotalFrames = NumFrames;
 		//lagrar i <map> när tom rad kommer
 		pxSprite->StoreAnim(AnimName, anim);
 	}

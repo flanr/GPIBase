@@ -37,13 +37,14 @@ GameState::GameState(Core* p_pCore)
 	m_Camera = nullptr;
 
 	bStateRunning = false;
+	Gui = nullptr;
 
-	Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
-	m_EnergySlider.SetSlider(0,0,154,17);
-	m_HealthSlider.SetSlider(0,0,190,28);
-	m_HealthSlider.SetColor(sf::Color::Red);
-	m_EnergySlider.SetColor(sf::Color::Yellow);
 
+	m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",0,468,281,156);
+
+	m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",0,312,281,156);
+
+	m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",0,156,281,156);
 
 }
 
@@ -63,6 +64,14 @@ bool GameState::EnterState()
 
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
+	if(Gui == nullptr)
+	{
+		Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
+		m_EnergySlider.SetSlider(0,0,154,17);
+		m_HealthSlider.SetSlider(0,0,190,28);
+		m_HealthSlider.SetColor(sf::Color::Red);
+		m_EnergySlider.SetColor(sf::Color::Yellow);
+	}
 
 	if (m_LevelLayerBackgroundSecondLowest == nullptr)
 	{
@@ -130,12 +139,17 @@ bool GameState::EnterState()
 			}
 			m_Camera->GetFilterSprite()->setScale(m_Camera->GetFilterSprite()->getScale() * m_Camera->GetZoomStrength() );
 
+
+
 			m_EnergySlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_HealthSlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-			m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );	
+			m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		}
 	}
@@ -150,11 +164,6 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-
-	if (m_GameObjMgr->GetEnemyCounter() == 0)
-	{
-		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-	}
 	HandleInput();
 
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
@@ -162,10 +171,10 @@ bool GameState::Update(float p_DeltaTime)
 		m_GameObjMgr->m_pxPlayer->Update(m_pInputManager, m_SpriteManager, m_Camera, p_DeltaTime);
 	}
 
-	
+
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
 
-	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing )
+	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing && m_GameObjMgr->m_pxPlayer->GetState() != Death)
 	{
 		m_pxCollisionManager->CheckCollisionRectVsRect();
 		m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
@@ -173,11 +182,27 @@ bool GameState::Update(float p_DeltaTime)
 	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
 
+	if(m_GameObjMgr->m_pxPlayer->GetGameStatus() )
+	{
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
+	}
+	else if (m_GameObjMgr->GetEnemyCounter() == 0)
+	{
+		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
+	}
+
 	return true;
 }
 
 void GameState::UpdateGUI()
 {
+	/*m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+	m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+	m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );*/
+
 	if(m_Camera->IsZoomingOut() )
 	{
 		Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
@@ -186,8 +211,71 @@ void GameState::UpdateGUI()
 		m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );		
+		m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 	}
+
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 1)
+	{
+		sf::Vector2f tmp = m_GuiEnergy.getScale();
+		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",281,312,281,156);
+		m_GuiEnergy.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 2)
+	{
+		sf::Vector2f tmp = m_GuiEnergy.getScale();
+		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",562,312,281,156);
+		m_GuiEnergy.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 3)
+	{
+		sf::Vector2f tmp = m_GuiEnergy.getScale();
+		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",843,312,281,156);
+		m_GuiEnergy.setScale(tmp);
+	}
+
+
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 1)
+	{
+		sf::Vector2f tmp = m_GuiSpeed.getScale();
+		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",281,156,281,156);
+		m_GuiSpeed.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 2)
+	{
+		sf::Vector2f tmp = m_GuiSpeed.getScale();
+		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",562,156,281,156);
+		m_GuiSpeed.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 3)
+	{
+		sf::Vector2f tmp = m_GuiSpeed.getScale();
+		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",843,156,281,156);
+		m_GuiSpeed.setScale(tmp);
+	}
+
+
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 1)
+	{
+		sf::Vector2f tmp = m_GuiPower.getScale();
+		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",281,468,281,156);
+		m_GuiPower.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 2)
+	{
+		sf::Vector2f tmp = m_GuiPower.getScale();
+		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",562,468,281,156);
+		m_GuiPower.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 3)
+	{
+		sf::Vector2f tmp = m_GuiPower.getScale();
+		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",843,468,281,156);
+		m_GuiPower.setScale(tmp);
+	}
+
 
 	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 
 		(m_Camera->GetCameraView().getSize().x / 2.0f) + 
@@ -195,27 +283,44 @@ void GameState::UpdateGUI()
 		(m_Camera->GetCameraView().getSize().y / 2.0f) + 
 		(50.f * m_Camera->GetTotalZoom() ) );
 
+
+	m_GuiPower.setPosition(Gui->getPosition().x,Gui->getPosition().y);
+	m_GuiEnergy.setPosition(Gui->getPosition().x,Gui->getPosition().y);
+	m_GuiSpeed.setPosition(Gui->getPosition().x,Gui->getPosition().y);
+
+
 	sf::Vector2f GUI_pos = Gui->getPosition();
 	m_HealthSlider.SetValue(m_GameObjMgr->m_pxPlayer->GetHealth());
 	m_HealthSlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (79 * m_Camera->GetTotalZoom() ) );
 
 	if (m_GameObjMgr->m_pxPlayer->GetStageTwo())
 	{
-		m_EnergySlider.SetColor(sf::Color::Yellow);
+		m_EnergySlider.SetColor(sf::Color(0,230,119,255));
 		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	} else
 	{
 		m_GameObjMgr->m_pxPlayer->SetEnergy(100);
-		
+
 		m_EnergySlider.SetValue(m_GameObjMgr->m_pxPlayer->GetEnergy());
 		m_EnergySlider.SetColor(sf::Color::White);
-		
+
 		m_EnergySlider.SetPosition(GUI_pos.x + (75 * m_Camera->GetTotalZoom() ) ,GUI_pos.y + (55 * m_Camera->GetTotalZoom() ) );
 	}
 
 
 
+
+
+}
+void GameState::DrawGUI()
+{
+	m_DrawManager->DrawSlider(m_HealthSlider);
+	m_DrawManager->DrawSlider(m_EnergySlider);
+	m_DrawManager->Draw(Gui);
+	m_window->draw(m_GuiEnergy);
+	m_window->draw(m_GuiPower);
+	m_window->draw(m_GuiSpeed);
 }
 
 
@@ -262,6 +367,8 @@ void GameState::HandleInput()
 
 }
 
+
+
 void GameState::Draw()
 {
 	m_DrawManager->ClearWindow();
@@ -275,10 +382,10 @@ void GameState::Draw()
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}
 
-
-	m_DrawManager->DrawSlider(m_HealthSlider);
-	m_DrawManager->DrawSlider(m_EnergySlider);
-	m_DrawManager->Draw(Gui);
+	if(m_GameObjMgr->m_pxPlayer->GetState() != Death)
+	{
+		DrawGUI();
+	}
 	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 }
@@ -286,8 +393,29 @@ void GameState::Draw()
 bool GameState::IsType(const string &p_type)
 {
 	return p_type.compare("GameState") == 0;
-}																																										//Sten
-
+}
+//Sten
+void GameState::Cleanup()
+{
+	m_GameObjMgr->Cleanup();
+	delete m_LevelLayerBackgroundLowest;
+	m_LevelLayerBackgroundLowest = nullptr;
+	delete m_LevelLayerBackgroundSecondLowest;
+	m_LevelLayerBackgroundSecondLowest = nullptr;
+	delete m_LevelLayerBackgroundSecondHighest;
+	m_LevelLayerBackgroundSecondHighest = nullptr;
+	delete m_LevelLayerMidleGround;
+	m_LevelLayerMidleGround = nullptr;
+	delete m_LevelLayerMiddleFront;
+	m_LevelLayerMiddleFront = nullptr;
+	delete m_LevelLayerForGround;
+	m_LevelLayerForGround = nullptr;
+	m_pxCollisionManager->Cleanup();
+	delete Gui;
+	Gui = nullptr;
+	delete m_Camera;
+	m_Camera = nullptr;
+}
 
 void GameState::TutorialWASD()
 {

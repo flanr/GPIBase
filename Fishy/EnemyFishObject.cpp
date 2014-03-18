@@ -1,6 +1,7 @@
 // EnemyFishObject.cpp
 #include "stdafx.h"
 #include "EnemyFishObject.h"
+#include "AnimatedSprite.h"
 #include "LightSource.h"
 #include "PlayerFishObject.h"
 #include "AIState.h"
@@ -111,9 +112,12 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
 			if(player->GetState() == Chewing)
 			{
-				this->m_pxCollider = nullptr;
-				this->~EnemyFishObject();
-				m_isDestroyed = true;
+				if(player->GetCurrentAnimation()->GetCurrentFrame() <= 2)
+				{
+					this->m_pxCollider = nullptr;
+					this->~EnemyFishObject();
+					m_isDestroyed = true;
+				}
 			}
 			else if (player->GetState() != Chewing)
 			{

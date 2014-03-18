@@ -25,6 +25,11 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::Cleanup()
 {
+	if(m_pxPlayer != nullptr)
+	{
+		delete m_pxPlayer;
+		m_pxPlayer = nullptr;
+	}
 	//Delete GameObjects
 	{
 		auto it = m_apxGameObject.begin();
@@ -35,6 +40,7 @@ void GameObjectManager::Cleanup()
 		}
 		m_apxGameObject.clear();
 	}
+	
 }
 
 //attach objects
@@ -155,7 +161,6 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 				{
 					if(m_pxPlayer->GetLightSprite()->getGlobalBounds().intersects(m_apxGameObject[i]->GetLightSprite()->getGlobalBounds() ) )
 					{
-						cout << "INTERSECTS";
 						m_apxGameObject[i]->GetLightSource()->ToggleLightOn(true);
 					}
 				}
