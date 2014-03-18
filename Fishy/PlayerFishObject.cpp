@@ -359,6 +359,7 @@ void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
 
 void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {
+
 	if (p_other->GetType() == "BrownBrick")
 	{
 		SetPosition(GetPosition() + p_Offset);
@@ -972,4 +973,19 @@ void PlayerFishObject::UpdateSoundFeedback()
 	}
 
 
+}
+
+int PlayerFishObject::GetPowerupLightCount()
+{
+	return m_PowerupLightCounter;
+}
+
+int PlayerFishObject::GetPowerupSpeedCount()
+{
+	return m_PowerupSpeedCounter;
+}
+
+int PlayerFishObject::GetPowerupEnergyCount()
+{
+	return m_PowerupEnergyCounter;
 }

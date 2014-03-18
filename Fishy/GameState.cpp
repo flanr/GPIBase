@@ -44,11 +44,11 @@ GameState::GameState(Core* p_pCore)
 	m_HealthSlider.SetColor(sf::Color(255,1,55,255));
 	m_EnergySlider.SetColor(sf::Color(0,230,119,255));
 
-	m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",0,156,281,156);
+	m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",0,468,281,156);
 
 	m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",0,312,281,156);
 
-	m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",0,468,281,156);
+	m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",0,156,281,156);
 
 }
 
@@ -135,16 +135,18 @@ bool GameState::EnterState()
 			}
 			m_Camera->GetFilterSprite()->setScale(m_Camera->GetFilterSprite()->getScale() * m_Camera->GetZoomStrength() );
 
+
+			
 			m_EnergySlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_HealthSlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_HealthSlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_EnergySlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-			m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );	
-			Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-			/*m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_HealthSlider.m_SliderBox.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-			m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );*/
+			m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+			Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		}
 	}
 
@@ -186,9 +188,9 @@ bool GameState::Update(float p_DeltaTime)
 
 void GameState::UpdateGUI()
 {
-	m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+	/*m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );*/
 
 	if(m_Camera->IsZoomingOut() )
 	{
@@ -204,7 +206,64 @@ void GameState::UpdateGUI()
 		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 	}
 
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 1)
+	{
+		sf::Vector2f tmp = m_GuiEnergy.getScale();
+		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",281,312,281,156);
+		m_GuiEnergy.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 2)
+	{
+		sf::Vector2f tmp = m_GuiEnergy.getScale();
+		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",562,312,281,156);
+		m_GuiEnergy.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 3)
+	{
+		sf::Vector2f tmp = m_GuiEnergy.getScale();
+		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",843,312,281,156);
+		m_GuiEnergy.setScale(tmp);
+	}
 
+
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 1)
+	{
+		sf::Vector2f tmp = m_GuiSpeed.getScale();
+		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",281,156,281,156);
+		m_GuiSpeed.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 2)
+	{
+		sf::Vector2f tmp = m_GuiSpeed.getScale();
+		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",562,156,281,156);
+		m_GuiSpeed.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 3)
+	{
+		sf::Vector2f tmp = m_GuiSpeed.getScale();
+		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",843,156,281,156);
+		m_GuiSpeed.setScale(tmp);
+	}
+
+
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 1)
+	{
+		sf::Vector2f tmp = m_GuiPower.getScale();
+		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",281,468,281,156);
+		m_GuiPower.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 2)
+	{
+		sf::Vector2f tmp = m_GuiPower.getScale();
+		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",562,468,281,156);
+		m_GuiPower.setScale(tmp);
+	}
+	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 3)
+	{
+		sf::Vector2f tmp = m_GuiPower.getScale();
+		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",843,468,281,156);
+		m_GuiPower.setScale(tmp);
+	}
 
 
 	Gui->setPosition(m_Camera->GetCameraView().getCenter().x - 
