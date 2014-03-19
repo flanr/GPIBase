@@ -10,6 +10,7 @@ public:
 	struct Anim
 	{
 		float m_fFrameDuration;
+		int m_TotalFrames;
 		struct std::vector<sf::IntRect> m_axAnimation;
 	};
 

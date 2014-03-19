@@ -28,6 +28,11 @@ public:
 	int GetExperience();
 	bool UpdateLevel();
 	bool HasGrown();
+	AnimatedSprite* GetCurrentAnimation();
+
+	void SetGameStatus(bool p_Status);
+	bool GetGameStatus();
+
 	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
 
@@ -43,9 +48,10 @@ private:
 	void UpdateIdle(float p_Deltatime);
 	void UpdateAttack(float p_Deltatime);
 	void UpdateChewing(float p_Deltatime);
+	void UpdateDeath(float p_Deltatime, Camera *p_Camera);
 	void UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera ,float p_Deltatime);
-	void UpdateHealth();
-	void UpdateEnergy();
+	void UpdateHealth(float p_Deltatime);
+	void UpdateEnergy(float p_Deltatime);
 	void UpdateCollider();
 	void UpdateLightPosition();
 	void UpdateSoundFeedback();
@@ -57,16 +63,19 @@ private:
 	int m_Health;
 	float m_Energy;
 	int m_Experience;
+	bool m_GameOver;
 
 	bool m_StageTwo;
 	int m_PowerupLightCounter;
 	int m_PowerupSpeedCounter;
 	int m_PowerupEnergyCounter;
 	bool m_SlowingDown;
-	int m_Healthtimer;
-	int m_iAttacktimer;
-	int m_ChewTimer;
-	int m_GrowTimer;
+	float m_Healthtimer;
+	float m_iAttacktimer;
+	float m_ChewTimer;
+	float m_GrowTimer;
+	float m_DeathTimer;
+
 	bool m_HasGrown;
 	bool m_HasFishingRod;
 	SoundManager* m_SoundManager;
@@ -75,6 +84,7 @@ private:
 
 	int m_iWidth, m_iHeight;
 
+	bool m_bHasPlayedDeathMusic;
 	bool m_bCanTakeDamage;
 	sf::Clock m_Clock;
 	sf::Time m_Time;

@@ -41,12 +41,8 @@ GameState::GameState(Core* p_pCore)
 	m_Camera = nullptr;
 
 	bStateRunning = false;
+	Gui = nullptr;
 
-	Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
-	m_EnergySlider.SetSlider(0,0,154,17);
-	m_HealthSlider.SetSlider(0,0,190,28);
-	m_HealthSlider.SetColor(sf::Color(255,1,55,255));
-	m_EnergySlider.SetColor(sf::Color(0,230,119,255));
 
 	m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",0,468,281,156);
 
@@ -72,6 +68,14 @@ bool GameState::EnterState()
 
 	m_sCurrentState = "GameState";
 	cout << "Gamestate::EnterState" << endl;
+	if(Gui == nullptr)
+	{
+		Gui = m_SpriteManager->Load("newGUI.png",0,0,281,156);
+		m_EnergySlider.SetSlider(0,0,154,17);
+		m_HealthSlider.SetSlider(0,0,190,28);
+		m_HealthSlider.SetColor(sf::Color::Red);
+		m_EnergySlider.SetColor(sf::Color::Yellow);
+	}
 
 	if (m_LevelLayerBackgroundSecondLowest == nullptr)
 	{
@@ -140,7 +144,7 @@ bool GameState::EnterState()
 			m_Camera->GetFilterSprite()->setScale(m_Camera->GetFilterSprite()->getScale() * m_Camera->GetZoomStrength() );
 
 
-			
+
 			m_EnergySlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_HealthSlider.m_FullSlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 			m_EnergySlider.m_EmptySlider.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
@@ -164,11 +168,6 @@ void GameState::ExitState()
 
 bool GameState::Update(float p_DeltaTime)
 {
-
-	if (m_GameObjMgr->GetEnemyCounter() == 0)
-	{
-		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-	}
 	HandleInput();
 
 	if(m_GameObjMgr->m_pxPlayer != nullptr)
@@ -179,7 +178,7 @@ bool GameState::Update(float p_DeltaTime)
 
 	//m_pxCollisionManager->CheckCollisionRectVsCircle();
 
-	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing )
+	if( m_GameObjMgr->m_pxPlayer->GetState() != Growing && m_GameObjMgr->m_pxPlayer->GetState() != Death)
 	{
 		m_pxCollisionManager->CheckCollisionRectVsRect();
 		m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
@@ -188,14 +187,26 @@ bool GameState::Update(float p_DeltaTime)
 	UpdateGUI();
 	UpdateTutorial();
 
+	if(m_GameObjMgr->m_pxPlayer->GetGameStatus() )
+	{
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
+	}
+	else if (m_GameObjMgr->GetEnemyCounter() == 0)
+	{
+		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
+	}
+
 	return true;
 }
 
 void GameState::UpdateGUI()
 {
 	/*m_GuiEnergy.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-		m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
-		m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );*/
+	m_GuiPower.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
+	m_GuiSpeed.setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );*/
 
 	if(m_Camera->IsZoomingOut() )
 	{
@@ -376,9 +387,15 @@ void GameState::Draw()
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}
 
-	DrawGUI();
-	DrawTutorial();
+
 	
+	
+
+	if(m_GameObjMgr->m_pxPlayer->GetState() != Death)
+	{
+		DrawGUI();
+	}
+	DrawTutorial();
 	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 }
@@ -386,8 +403,29 @@ void GameState::Draw()
 bool GameState::IsType(const string &p_type)
 {
 	return p_type.compare("GameState") == 0;
-}																																										//Sten
-
+}
+//Sten
+void GameState::Cleanup()
+{
+	m_GameObjMgr->Cleanup();
+	delete m_LevelLayerBackgroundLowest;
+	m_LevelLayerBackgroundLowest = nullptr;
+	delete m_LevelLayerBackgroundSecondLowest;
+	m_LevelLayerBackgroundSecondLowest = nullptr;
+	delete m_LevelLayerBackgroundSecondHighest;
+	m_LevelLayerBackgroundSecondHighest = nullptr;
+	delete m_LevelLayerMidleGround;
+	m_LevelLayerMidleGround = nullptr;
+	delete m_LevelLayerMiddleFront;
+	m_LevelLayerMiddleFront = nullptr;
+	delete m_LevelLayerForGround;
+	m_LevelLayerForGround = nullptr;
+	m_pxCollisionManager->Cleanup();
+	delete Gui;
+	Gui = nullptr;
+	delete m_Camera;
+	m_Camera = nullptr;
+}
 
 void GameState::TutorialWASD()
 {
@@ -420,8 +458,8 @@ void GameState::TutorialSpace()
 void GameState::TutorialF()
 {
 	m_TutorialSpriteF = m_SpriteManager->Loadnonpointer("press_f_small.png",0,0,392,62);
-	m_TutorialSpriteF.setScale(sf::Vector2f(2,2));
-	m_TutorialSpriteF.setPosition(m_Camera->GetCameraView().getCenter());
+	m_TutorialSpriteF.setScale(sf::Vector2f(3,3));
+	m_TutorialSpriteF.setPosition(m_Camera->GetCameraView().getCenter().x - 500 ,m_Camera->GetCameraView().getCenter().y - 380);
 	if ( m_GameObjMgr->m_pxPlayer->GetPosition().y > 3840 && m_GameObjMgr->m_pxPlayer->GetStageTwo() && !m_TutorialFPressed )
 	{
 		m_TutorialF = true;

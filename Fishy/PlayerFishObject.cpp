@@ -22,10 +22,12 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 
 	m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
 	SetSpeed(500.0f);
-	m_Healthtimer = 10;
-	m_iAttacktimer = 15;
-	m_ChewTimer = 32;
-	m_GrowTimer = 64;
+	m_Healthtimer = 0.f;
+	m_iAttacktimer = 0.f;
+	SetAttackPower(0.f);
+	m_ChewTimer = 0.f;
+	m_GrowTimer = 0.f;
+	m_DeathTimer = 0.f;
 	m_SlowingDown = false;
 	SetDirection(FacingRight);
 	SetPlayerScale(0.6f);
@@ -41,6 +43,8 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_bCanTakeDamage = true;
 	SetActive(true);
 	m_StageTwo =false;
+	m_bHasPlayedDeathMusic = false;
+	m_GameOver = false;
 };
 
 PlayerFishObject::~PlayerFishObject()
@@ -54,10 +58,12 @@ PlayerFishObject::~PlayerFishObject()
 	}
 	m_mpAnimations.clear();
 
-	if( m_pxCurrentAnimation != nullptr)
+	m_pxSprite = nullptr;
+	m_pxCurrentAnimation = nullptr;
+	if(m_light != nullptr)
 	{
-		delete m_pxCurrentAnimation;
-		m_pxCurrentAnimation = nullptr;
+		delete m_light;
+		m_light = nullptr;
 	}
 }
 
@@ -121,12 +127,22 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 {
 	//UpdateCollider();
 	SetVelocity(sf::Vector2f(0.0f, 0.0f));
-	UpdateHealth();
-	UpdateEnergy();
-	UpdateSoundFeedback();
+	if(GetState() != Death)
+	{
+		UpdateHealth(p_Deltatime);
+		UpdateEnergy(p_Deltatime);
+		UpdateSoundFeedback();
+	} 
 
 	if(GetState() == Death)
 	{
+		UpdateDeath(p_Deltatime, p_Camera);
+		if (!m_bHasPlayedDeathMusic)
+		{
+			m_SoundManager->PlaySound("FishyDeathChoir.ogg");
+			m_bHasPlayedDeathMusic = true;
+		}
+		
 		cout << "DEAD!" << endl;
 	}
 	else if(GetState() == Attack )
@@ -178,9 +194,23 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 
 	if(m_pxCurrentAnimation != nullptr) 
 	{
-		m_pxCurrentAnimation->Update(p_Deltatime);
-		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+		if(GetCurrentLevel() < 4)
+		{
+			if( !((GetState() == Death)  && (m_pxCurrentAnimation->GetCurrentFrame() == 5) ) )
+			{
+				m_pxCurrentAnimation->Update(p_Deltatime);
+				m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+			}
+		}
+		else
+		{
+			if( !((GetState() == Death)  && (m_pxCurrentAnimation->GetCurrentFrame() == 13) ) )
+			{
+				m_pxCurrentAnimation->Update(p_Deltatime);
+				m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+			}
 
+		}
 
 	}
 
@@ -343,6 +373,20 @@ bool PlayerFishObject::HasGrown()
 	return m_HasGrown;
 }
 
+AnimatedSprite* PlayerFishObject::GetCurrentAnimation()
+{
+	return m_pxCurrentAnimation;
+}
+
+void PlayerFishObject::SetGameStatus(bool p_Status)
+{
+	m_GameOver = p_Status;
+}
+bool PlayerFishObject::GetGameStatus()
+{
+	return m_GameOver;
+}
+
 void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
 {
 	m_SoundManager = p_soundmanager;
@@ -371,6 +415,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 
 		if(( powerup->GetPowerUpType() == ROD) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			SetExperience(1000);
 			if(UpdateLevel() )
 			{
@@ -383,6 +428,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		}
 		else if(( powerup->GetPowerUpType() == LIGHT) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			if(m_PowerupLightCounter < 3)
 			{
 				m_light->SetRadius(m_light->GetRadius() * 1.1f);
@@ -392,15 +438,17 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		}
 		else if(( powerup->GetPowerUpType() == SPEED) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			if (m_PowerupSpeedCounter < 3)
 			{
-				SetSpeed(GetSpeed() * 1.1f);
+				SetSpeed(GetSpeed() * 1.2f);
 				cout << "SPEED" << endl;
 				m_PowerupSpeedCounter++;
 			}		
 		}
 		else if(( powerup->GetPowerUpType() == ENERGY) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			if (m_PowerupEnergyCounter < 3)
 			{
 				SetEnergy(GetEnergy() * 1.1f);
@@ -461,9 +509,15 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			{
 				m_HasGrown = true;
 			}
-			SetState(Chewing);
-			m_pxCurrentAnimation->SetActiveAnimation("Chew");
-			m_SoundManager->PlaySound("chew_sound2.wav");
+			if(m_pxCurrentAnimation->GetCurrentFrame() >= 1)
+			{
+				if(GetState() != Chewing )
+				{
+					SetState(Chewing);
+					m_pxCurrentAnimation->SetActiveAnimation("Chew");
+					m_SoundManager->PlaySound("chew_sound2.wav");
+				}
+			}
 
 			//std::cout << GetExperience() << std::endl;
 			cout << GetCurrentLevel() << endl;
@@ -664,10 +718,12 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 				if(m_light->GetLightStatus())
 				{
 					m_light->ToggleLightOn(false);
+					m_SoundManager->PlaySound("sound_ToggleLight.wav");
 				}
 				else
 				{
 					m_light->ToggleLightOn(true);
+					m_SoundManager->PlaySound("sound_ToggleLight.wav");
 				}
 			}
 		}
@@ -717,40 +773,41 @@ void PlayerFishObject::UpdateAttack(float p_Deltatime)
 	}
 	else if(GetDirection() == FacingUpRight )
 	{
-		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower(), p_Deltatime * -GetSpeed() * GetAttackPower() ) );
+		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower() * 0.6f, p_Deltatime * -GetSpeed() * GetAttackPower() * 0.6f ) );
 	}
 	else if(GetDirection()  == FacingUpLeft )
 	{
-		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetAttackPower(), p_Deltatime * -GetSpeed() * GetAttackPower() ) );
+		SetVelocity(sf::Vector2f(p_Deltatime * -GetSpeed() * GetAttackPower() * 0.6f, p_Deltatime * -GetSpeed() * GetAttackPower()  * 0.6f) );
 	}
 	else if(GetDirection() == FacingDownRight)
 	{
-		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower(), p_Deltatime * GetSpeed() * GetAttackPower()) );
+		SetVelocity(sf::Vector2f(p_Deltatime * GetSpeed() * GetAttackPower() * 0.6f, p_Deltatime * GetSpeed() * GetAttackPower() * 0.6f) );
 	}
 	else if(GetDirection()  == FacingDownLeft)
 	{
-		SetVelocity(sf::Vector2f( p_Deltatime * -GetSpeed() * GetAttackPower(), p_Deltatime * GetSpeed() * GetAttackPower() ) );
+		SetVelocity(sf::Vector2f( p_Deltatime * -GetSpeed() * GetAttackPower()* 0.6f, p_Deltatime * GetSpeed() * GetAttackPower() * 0.6f) );
 	}
 
 	if(m_SlowingDown)
 	{
-		SetAttackPower( GetAttackPower() - 0.5f);
+		SetAttackPower( GetAttackPower() - 0.25f);
 	}
 	else
 	{
-		SetAttackPower( GetAttackPower() + 0.5f);
+		SetAttackPower( GetAttackPower() + 1.f);
 		if(GetAttackPower() > 4.f)
 		{
 			m_SlowingDown = true;
 		}
 	}
 
-	m_iAttacktimer--;
-	if(m_iAttacktimer == 0)
+
+	m_iAttacktimer += p_Deltatime;
+	if(m_iAttacktimer >= 0.4f)
 	{
 		SetState(Idle);
 		m_pxCurrentAnimation->SetActiveAnimation("Idle");
-		m_iAttacktimer = 15;
+		m_iAttacktimer = 0;
 		SetAttackPower(0.0f);
 		m_SlowingDown = false;
 	}
@@ -758,8 +815,8 @@ void PlayerFishObject::UpdateAttack(float p_Deltatime)
 
 void PlayerFishObject::UpdateChewing(float p_Deltatime)
 {
-	m_ChewTimer--;
-	if(m_ChewTimer == 0)
+	m_ChewTimer += p_Deltatime;
+	if(m_ChewTimer > 0.4f)
 	{
 		if(m_HasGrown)
 		{
@@ -770,9 +827,46 @@ void PlayerFishObject::UpdateChewing(float p_Deltatime)
 			SetState(Idle);
 			m_pxCurrentAnimation->SetActiveAnimation("Idle");
 		}
-		m_ChewTimer = 32;
+		m_ChewTimer = 0.f;
 	}
 }
+
+void PlayerFishObject::UpdateDeath(float p_Deltatime,  Camera *p_Camera)
+{
+	if(m_pxCurrentAnimation->GetCurrentFrame() == 13)
+	{
+		if(m_LightSprite != nullptr)
+		{
+			delete m_LightSprite;
+			m_LightSprite =  nullptr;
+		}
+	}
+
+	if(GetCurrentLevel() >= 4)
+	{
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 13)
+		{
+			m_DeathTimer += p_Deltatime;
+			if(m_light->GetRadius() > 0)
+			{
+				m_light->SetRadius(m_light->GetRadius() -11.f);
+			}
+			if(m_DeathTimer >= 1.5f)
+			{
+				m_GameOver = true;
+			}
+		}
+	}
+	else
+	{
+		m_DeathTimer += p_Deltatime;
+		if(m_DeathTimer >= 1.5f)
+		{
+			m_GameOver = true;
+		}
+	}
+}
+
 void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_Camera, float p_Deltatime)
 {
 	if(GetCurrentLevel() == 4 || GetCurrentLevel() == 7)
@@ -781,11 +875,11 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		{
 			m_pxCurrentAnimation->SetActiveAnimation("GrowingStage");
 		}
-		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.8f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.8f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.4f); }
-		p_Camera->SetZoomStrength(1.005f);
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 0) { SetPlayerScale(0.7f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.5f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.6f); }
+		p_Camera->SetZoomStrength(1.010f);
 		p_Camera->ZoomOut(p_Camera->GetZoomStrength() );
 		p_Camera->SetZoomingOut(true);
 	}
@@ -795,10 +889,10 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		{
 			m_pxCurrentAnimation->SetActiveAnimation("GrowingLevel");
 		}
-		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.6f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.5f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.7f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(0.8f); }
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 0) { SetPlayerScale(0.6f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.5f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.8f); }
 	}
 	else if(GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9)
 	{
@@ -806,19 +900,19 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		{
 			m_pxCurrentAnimation->SetActiveAnimation("GrowingLevel");
 		}
-		if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.8f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.9f); }
-		else if(m_pxCurrentAnimation->GetCurrentFrame() == 4) { SetPlayerScale(1.0f); }
+		if(m_pxCurrentAnimation->GetCurrentFrame() == 0) { SetPlayerScale(0.8f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.7f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.9f); }
+		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(1.0f); }
 	}
 
-	m_GrowTimer--;
-	if(m_GrowTimer == 0)
+	m_GrowTimer += p_Deltatime;
+	if(m_GrowTimer > 0.7)
 	{
 
 		SetState(Idle);
 		m_pxCurrentAnimation->SetActiveAnimation("Idle");
-		m_GrowTimer = 64;
+		m_GrowTimer = 0;
 		m_HasGrown = false;
 		//p_Camera->SetZoomingOut(false);
 		if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)  
@@ -862,7 +956,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 	else
 		FlipXRight(GetScale() );
 }
-void PlayerFishObject::UpdateEnergy()
+void PlayerFishObject::UpdateEnergy(float p_Deltatime)
 {
 	if (m_StageTwo)
 	{
@@ -892,14 +986,14 @@ void PlayerFishObject::UpdateEnergy()
 	}
 }
 
-void PlayerFishObject::UpdateHealth()
+void PlayerFishObject::UpdateHealth(float p_Deltatime)
 {
 	if(GetState() != Death)
 	{
-		if(m_Healthtimer == 0)
+		if(m_Healthtimer >= 0.5f)
 		{
 			m_Health--;
-			m_Healthtimer = 50;
+			m_Healthtimer = 0.f;
 			if(GetHealth() == 0)
 			{
 				SetState(Death);
@@ -908,7 +1002,7 @@ void PlayerFishObject::UpdateHealth()
 		}
 		else
 		{
-			m_Healthtimer--;
+			m_Healthtimer+= p_Deltatime;
 		}
 	}
 }

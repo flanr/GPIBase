@@ -30,7 +30,8 @@ public:
 	void Draw();
 	/* Handle Input in GameState */
 	void HandleInput();
-
+	/*Call Cleanup when you want to play a new game*/
+	void Cleanup();
 	/* Returns default Next State */
 	string Next();
 	/*Returns Current State */

@@ -1,6 +1,7 @@
 // EnemyFishObject.cpp
 #include "stdafx.h"
 #include "EnemyFishObject.h"
+#include "AnimatedSprite.h"
 #include "LightSource.h"
 #include "PlayerFishObject.h"
 #include "AIState.h"
@@ -34,14 +35,31 @@ EnemyFishObject::~EnemyFishObject()
 		delete m_pAIStateMachine;
 		m_pAIStateMachine = nullptr;
 	}
+
+	//delete all Animated sprites
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		delete it->second;
+		it++;
+	}
+	m_mpAnimations.clear();
+
+	m_pxSprite = nullptr;
+	m_pxCurrentAnimation = nullptr;
 }
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
+	if(GetSubType() == "Stage3")
+	{
+		m_pxCurrentAnimation->SetActiveAnimation("Idle");
+	}
 	m_xPlayerPosition = player->GetPosition();
 	//2=left 3= right
 	m_iPlayerDirection = player->GetDirection();
 	m_vPlayerVelocity = player->GetVelocity();
+	m_pPlayerLightSource = player->GetLightSource();
 	++m_iStateTimer;
 	m_pAIStateMachine->Update();
 
@@ -53,12 +71,47 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{
 		m_light->SetPosition( GetPosition() );
 	}
+	if(GetSubType() == "Stage3")
+	{
+		if(m_pxCurrentAnimation != nullptr) 
+		{
+			m_pxCurrentAnimation->Update(deltatime);
+			m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+		}
+	}
 
 	if(m_pxCollider != nullptr )
 	{
 		m_pxCollider->SetPosition(GetPosition() );
 	}
+}
 
+void EnemyFishObject::SetEnemyScale(float x)
+{
+	SetScale(x);
+
+	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
+	while(it != m_mpAnimations.end() )
+	{
+		it->second->setScale(GetScale(),GetScale());
+		it++;
+	}
+}
+
+void EnemyFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite)
+{
+	m_mpAnimations.insert(std::pair<std::string,AnimatedSprite*>(p_sName, p_pxAnimSprite));
+	if(	m_pxSprite == nullptr) 
+	{
+		m_pxSprite = p_pxAnimSprite;
+		m_pxCurrentAnimation = p_pxAnimSprite;
+	}
+	SetEnemyScale(GetScale());
+}
+
+AnimatedSprite* EnemyFishObject::GetCurrentAnimation()
+{
+	return m_pxCurrentAnimation;
 }
 
 int EnemyFishObject::random(int min, int max)
@@ -110,9 +163,12 @@ void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			PlayerFishObject *player = dynamic_cast <PlayerFishObject*> (p_other);
 			if(player->GetState() == Chewing)
 			{
-				this->m_pxCollider = nullptr;
-				this->~EnemyFishObject();
-				m_isDestroyed = true;
+				if(player->GetCurrentAnimation()->GetCurrentFrame() <= 2)
+				{
+					this->m_pxCollider = nullptr;
+					this->~EnemyFishObject();
+					m_isDestroyed = true;
+				}
 			}
 			else if (player->GetState() != Chewing)
 			{
@@ -226,18 +282,25 @@ void EnemyFishObject::Hunting()
 
 void EnemyFishObject::Attracted()
 {
-	if(GetLightSource() != nullptr)
+	if(GetPlayerLightSource() != nullptr)
 	{
-		sf::Vector2f DistanceLightPos = GetLightSource()->GetPosition() - GetPosition();
+		sf::Vector2f DistanceLightPos = GetPlayerLightSource()->GetPosition() - GetPosition();
 		float DistanceNumber = DistanceLightPos.x * DistanceLightPos.x + DistanceLightPos.y * DistanceLightPos.y;
-		if (sqrtf(DistanceNumber) > 600.f)
-		{
-			if (GetLightSource()->GetLightStatus())
-			{
-				DistanceLightPos/=sqrt(DistanceNumber);
-				SetVelocity(DistanceLightPos * GetSpeed());
-			}
-		}
 
+		if (DistanceNumber != 0)
+		{
+			DistanceLightPos/=sqrtf(DistanceNumber);
+			SetVelocity(DistanceLightPos * GetSpeed());
+		}
+		if (GetVelocity().x < 0)
+		{
+			FlipXLeft(GetScale());
+		}
+		if (GetVelocity().x > 0)
+		{
+			FlipXRight(GetScale());
+		}
 	}
+
+
 }

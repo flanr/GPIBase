@@ -11,3 +11,5 @@ public:
 	virtual void Exitstate(entity_type*) = 0;
 	virtual ~AIState(){}
 };
+
+//virtual void OnCollision() = 0
