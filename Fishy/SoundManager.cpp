@@ -49,6 +49,7 @@ void SoundManager::PlayMusic(string path)
 
 				music.soundHandle->play();
 				music.soundHandle->setVolume(m_MusicVolume);
+				music.soundHandle->setLoop(true);
 				//cout << "Music was found, playing : " << path << endl;
 				return;
 			}
