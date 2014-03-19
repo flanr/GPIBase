@@ -43,6 +43,7 @@ public:
 	void TutorialSpace();
 	void TutorialF();
 	void DrawGUI();
+	void DrawTutorial();
 
 private:
 	bool bStateRunning;
@@ -74,9 +75,10 @@ private:
 	bool m_TutorialWASD;
 	bool m_TutorialSPACE;
 	bool m_TutorialF;
-	sf::Sprite* m_TutorialSpriteWASD;
-	sf::Sprite* m_TutorialSpriteSPACE;
-	sf::Sprite* m_TutorialSpriteF;
+	bool m_TutorialFPressed;
+	sf::Sprite m_TutorialSpriteWASD;
+	sf::Sprite m_TutorialSpriteSPACE;
+	sf::Sprite m_TutorialSpriteF;
 
 
 

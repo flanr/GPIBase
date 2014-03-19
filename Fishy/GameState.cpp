@@ -33,6 +33,10 @@ GameState::GameState(Core* p_pCore)
 	m_LevelLayerBackgroundSecondHighest = nullptr;
 	m_LevelLayerMiddleFront = nullptr;
 	m_LevelLayerBackgroundLowest = nullptr;
+	m_TutorialSPACE = false;
+	m_TutorialF = false;
+	m_TutorialFPressed = false;
+	m_TutorialWASD = false;
 
 	m_Camera = nullptr;
 
@@ -149,7 +153,7 @@ bool GameState::EnterState()
 			Gui->setScale(Gui->getScale().x * m_Camera->GetZoomStrength(), Gui->getScale().y *  m_Camera->GetZoomStrength() );
 		}
 	}
-
+	m_TutorialWASD = true;
 	return false;
 }
 
@@ -182,6 +186,7 @@ bool GameState::Update(float p_DeltaTime)
 	}
 	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
 	UpdateGUI();
+	UpdateTutorial();
 
 	return true;
 }
@@ -211,13 +216,13 @@ void GameState::UpdateGUI()
 		sf::Vector2f tmp = m_GuiEnergy.getScale();
 		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",281,312,281,156);
 		m_GuiEnergy.setScale(tmp);
-	}
+	} else
 	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 2)
 	{
 		sf::Vector2f tmp = m_GuiEnergy.getScale();
 		m_GuiEnergy = m_SpriteManager->Loadnonpointer("newGUI.png",562,312,281,156);
 		m_GuiEnergy.setScale(tmp);
-	}
+	} else
 	if (m_GameObjMgr->m_pxPlayer->GetPowerupEnergyCount() == 3)
 	{
 		sf::Vector2f tmp = m_GuiEnergy.getScale();
@@ -231,13 +236,13 @@ void GameState::UpdateGUI()
 		sf::Vector2f tmp = m_GuiSpeed.getScale();
 		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",281,156,281,156);
 		m_GuiSpeed.setScale(tmp);
-	}
+	} else
 	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 2)
 	{
 		sf::Vector2f tmp = m_GuiSpeed.getScale();
 		m_GuiSpeed = m_SpriteManager->Loadnonpointer("newGUI.png",562,156,281,156);
 		m_GuiSpeed.setScale(tmp);
-	}
+	} else
 	if (m_GameObjMgr->m_pxPlayer->GetPowerupSpeedCount() == 3)
 	{
 		sf::Vector2f tmp = m_GuiSpeed.getScale();
@@ -251,13 +256,13 @@ void GameState::UpdateGUI()
 		sf::Vector2f tmp = m_GuiPower.getScale();
 		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",281,468,281,156);
 		m_GuiPower.setScale(tmp);
-	}
+	}else
 	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 2)
 	{
 		sf::Vector2f tmp = m_GuiPower.getScale();
 		m_GuiPower = m_SpriteManager->Loadnonpointer("newGUI.png",562,468,281,156);
 		m_GuiPower.setScale(tmp);
-	}
+	}else
 	if (m_GameObjMgr->m_pxPlayer->GetPowerupLightCount() == 3)
 	{
 		sf::Vector2f tmp = m_GuiPower.getScale();
@@ -372,6 +377,8 @@ void GameState::Draw()
 	}
 
 	DrawGUI();
+	DrawTutorial();
+	
 	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 }
@@ -384,14 +391,75 @@ bool GameState::IsType(const string &p_type)
 
 void GameState::TutorialWASD()
 {
+	m_TutorialSpriteWASD = m_SpriteManager->Loadnonpointer("press_wasd_small.png",0,0,365,103);
+	m_TutorialSpriteWASD.setScale(sf::Vector2f(2,2));
+	m_TutorialSpriteWASD.setPosition(m_Camera->GetCameraView().getCenter().x - 300 ,m_Camera->GetCameraView().getCenter().y - 300);
+	
+
+	if (m_GameObjMgr->m_pxPlayer->GetPosition().x > 3500)
+	{
+		m_TutorialWASD = false;
+	}
 
 }
 
 void GameState::TutorialSpace()
 {
-
+	m_TutorialSpriteSPACE = m_SpriteManager->Loadnonpointer("press_spacebar_small.png",0,0,462,62);
+	m_TutorialSpriteSPACE.setScale(sf::Vector2f(2,2));
+	m_TutorialSpriteSPACE.setPosition(m_Camera->GetCameraView().getCenter().x - 450 ,m_Camera->GetCameraView().getCenter().y - 300);
+	if (m_GameObjMgr->m_pxPlayer->GetPosition().x > 3750  && m_GameObjMgr->m_pxPlayer->GetPosition().y < 3840 && m_GameObjMgr->m_pxPlayer->GetExperience() == 0)
+	{
+		m_TutorialSPACE = true;
+	}else
+	{
+		m_TutorialSPACE = false;
+	}
+	
 }
 void GameState::TutorialF()
 {
+	m_TutorialSpriteF = m_SpriteManager->Loadnonpointer("press_f_small.png",0,0,392,62);
+	m_TutorialSpriteF.setScale(sf::Vector2f(2,2));
+	m_TutorialSpriteF.setPosition(m_Camera->GetCameraView().getCenter());
+	if ( m_GameObjMgr->m_pxPlayer->GetPosition().y > 3840 && m_GameObjMgr->m_pxPlayer->GetStageTwo() && !m_TutorialFPressed )
+	{
+		m_TutorialF = true;
+		if (m_pInputManager->IsDownK(sf::Keyboard::F))
+		{
+			m_TutorialFPressed = true;
+		}
+	}else
+	{
+		m_TutorialF = false;
+	}
 
+	
 }
+
+void GameState::UpdateTutorial()
+{
+
+	TutorialWASD();
+	TutorialSpace();
+	TutorialF();
+	
+}
+void GameState::DrawTutorial()
+{
+	if (m_TutorialWASD)
+	{
+		m_window->draw(m_TutorialSpriteWASD);
+	}
+
+	if (m_TutorialSPACE)
+	{
+		m_window->draw(m_TutorialSpriteSPACE);
+	}
+
+	if (m_TutorialF)
+	{
+		m_window->draw(m_TutorialSpriteF);
+	}
+}
+

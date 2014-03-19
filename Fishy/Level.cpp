@@ -320,7 +320,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 
 
-			if (p_collider)
+			if (p_collider || layer == FOREGROUND)
 			{
 
 				// Collider
