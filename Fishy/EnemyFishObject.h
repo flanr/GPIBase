@@ -54,6 +54,8 @@ public:
 	void Hunting();
 	//Attracted
 	void Attracted();
+	LightSource* GetPlayerLightSource()						{return m_pPlayerLightSource;}
+
 									
 private:
 	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition, m_vPlayerVelocity;
@@ -62,7 +64,7 @@ private:
 	bool isSafe;
 	std::string m_SubType;
 	float m_SubTypeSize;
-
 	AnimatedSprite *m_pxCurrentAnimation;
 	std::map<std::string, AnimatedSprite*> m_mpAnimations;
+	LightSource* m_pPlayerLightSource;
 };
