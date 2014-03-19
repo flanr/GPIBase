@@ -836,7 +836,7 @@ void PlayerFishObject::UpdateDeath(float p_Deltatime,  Camera *p_Camera)
 			m_DeathTimer += p_Deltatime;
 			if(m_light->GetRadius() > 0)
 			{
-				m_light->SetRadius(m_light->GetRadius() -10.f);
+				m_light->SetRadius(m_light->GetRadius() -11.f);
 			}
 			if(m_DeathTimer >= 1.5f)
 			{

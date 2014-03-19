@@ -388,8 +388,21 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						m_pxGameObjMgr->Attach(enemy);
 						m_CollisionMgr->AttachCollider(collider);
 					}
-
 				}
+				//else if (row[i] == 'F')
+				//{
+				//		EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+				//		AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyNormalAnim.txt");	
+				//		enemy->AddAnimation("EnemyNormal", pxAnimSprite);
+				//		collider->SetExtention(sf::Vector2f(542, 205));
+				//		enemy->SetLevelLayer(MIDDLEGROUND);
+				//		enemy->SetPosition(sf::Vector2f(iX, iY) );
+				//		enemy->SetScale(0.2f);
+				//		//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+				//		enemy->SetSubType("Stage3");
+				//		m_pxGameObjMgr->Attach(enemy);
+				//		m_CollisionMgr->AttachCollider(collider);
+				//}
 				else
 				{
 					sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);
