@@ -84,6 +84,7 @@ private:
 
 	int m_iWidth, m_iHeight;
 
+	bool m_bHasPlayedDeathMusic;
 	bool m_bCanTakeDamage;
 	sf::Clock m_Clock;
 	sf::Time m_Time;

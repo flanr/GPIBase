@@ -43,12 +43,14 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_bCanTakeDamage = true;
 	SetActive(true);
 	m_StageTwo =false;
+	m_bHasPlayedDeathMusic = false;
 	m_GameOver = false;
 };
 
 PlayerFishObject::~PlayerFishObject()
 {
 	//delete all Animated sprites
+	m_bHasPlayedDeathMusic= false;
 	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
 	while(it != m_mpAnimations.end() )
 	{
@@ -136,6 +138,13 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 	if(GetState() == Death)
 	{
 		UpdateDeath(p_Deltatime, p_Camera);
+		if (!m_bHasPlayedDeathMusic)
+		{
+			m_SoundManager->StopMusic();
+			m_SoundManager->PlaySound("FishyDeathChoir.ogg");
+			m_bHasPlayedDeathMusic = true;
+		}
+		
 		cout << "DEAD!" << endl;
 	}
 	else if(GetState() == Attack )
@@ -408,6 +417,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 
 		if(( powerup->GetPowerUpType() == ROD) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			SetExperience(1000);
 			if(UpdateLevel() )
 			{
@@ -420,6 +430,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		}
 		else if(( powerup->GetPowerUpType() == LIGHT) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			if(m_PowerupLightCounter < 3)
 			{
 				m_light->SetRadius(m_light->GetRadius() * 1.1f);
@@ -429,6 +440,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		}
 		else if(( powerup->GetPowerUpType() == SPEED) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			if (m_PowerupSpeedCounter < 3)
 			{
 				SetSpeed(GetSpeed() * 1.2f);
@@ -438,6 +450,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		}
 		else if(( powerup->GetPowerUpType() == ENERGY) )
 		{
+			m_SoundManager->PlaySound("Upgrade.wav");
 			if (m_PowerupEnergyCounter < 3)
 			{
 				SetEnergy(GetEnergy() * 1.1f);
@@ -677,6 +690,8 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		/*if(!(GetDirection() == FacingDown || GetDirection() == FacingUp ) )
 		{*/
 		SetState(Attack);
+		m_SoundManager->PlaySound("dashSound2.wav");
+		cout << "Dash Sound play" << endl;
 		m_pxCurrentAnimation->SetActiveAnimation("Dash");
 		/*}*/
 	}
@@ -707,10 +722,12 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 				if(m_light->GetLightStatus())
 				{
 					m_light->ToggleLightOn(false);
+					m_SoundManager->PlaySound("sound_ToggleLight.wav");
 				}
 				else
 				{
 					m_light->ToggleLightOn(true);
+					m_SoundManager->PlaySound("sound_ToggleLight.wav");
 				}
 			}
 		}
@@ -836,11 +853,12 @@ void PlayerFishObject::UpdateDeath(float p_Deltatime,  Camera *p_Camera)
 			m_DeathTimer += p_Deltatime;
 			if(m_light->GetRadius() > 0)
 			{
-				m_light->SetRadius(m_light->GetRadius() -10.f);
+				m_light->SetRadius(m_light->GetRadius() -11.f);
 			}
 			if(m_DeathTimer >= 1.5f)
 			{
 				m_GameOver = true;
+				
 			}
 		}
 	}

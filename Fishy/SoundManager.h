@@ -22,7 +22,9 @@ public:
 	bool Initialize(string path);
 	void PlaySound(string path);
 	void PlayMusic(string path);
+
 	void StopSound();
+	void StopMusic();
 	void SetMusicVolume(int value);
 	void SetSoundVolume(int value);
 	int GetMusicVolume();

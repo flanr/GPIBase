@@ -14,6 +14,9 @@ public:
 	void Draw();
 	void HandleInput();
 
+	void MouseDown(int x, int y);
+	int MouseOver(int x, int y);
+
 	string Next();
 	string GetCurrentState();
 
@@ -26,6 +29,17 @@ private:
 	SoundManager * m_SoundManager;
 
 	sf::Sprite *m_BackGroundImg;
+	sf::Sprite *m_GameOverImg;
+	sf::Sprite *m_Deadfish;
+	
+	// Start
+	Button m_ButtonStart;
+	sf::Vector2f m_ButtonStartPos;
+	// Quit
+	Button m_ButtonQuit;
+	sf::Vector2f m_ButtonQuitPos;
+
+	int m_ButtonClick;
 
 
 };

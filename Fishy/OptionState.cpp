@@ -153,14 +153,16 @@ void OptionState::HandleInput()
 			m_ButtonReturn.SetPosition(m_ButtonReturnPos.x,m_ButtonReturnPos.y);
 		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
-		{m_ButtonClick = -1;}
+		{m_ButtonClick = -1;
+		
+		}
 
 		m_SliderMusicVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
 		m_SoundManager->SetMusicVolume(m_SliderMusicVol.GetValue());
 		m_SliderSoundVol.MouseDown(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
 		m_SoundManager->SetSoundVolume(m_SliderSoundVol.GetValue());
-		m_SliderMusicVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
-		m_SliderSoundVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		//m_SliderMusicVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
+		//m_SliderSoundVol.MoveMouse(sf::Mouse::getPosition(*m_window).x,sf::Mouse::getPosition(*m_window).y);
 
 	}
 	else if (m_pInputManager->IsReleased(MB_LEFT))
