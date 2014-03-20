@@ -24,7 +24,6 @@ public:
 	bool OverlapRectVsCircle(Collider* other, sf::Vector2f& offset);
 	const sf::Vector2f& ClosestPointOnLine(const sf::Vector2f& p_vA,const sf::Vector2f& p_vB,const sf::Vector2f& p_vPoint);
 
-	sf::Vector2f GetPosition();
 	void SetPosition(const sf::Vector2f p_pos);
 	void SetExtention(const sf::Vector2f p_ext);
 	void SetPositionX(float x);
@@ -38,10 +37,11 @@ public:
 	////Temporary for testing
 	void SetStatus(bool p_Collision);
 	bool GetStatus();
-	sf::Vector2f GetExtension(){return m_extention;};
+	sf::Vector2f GetExtension()										{return m_extention;};
+	sf::Vector2f GetPosition()										{return m_position;}
 	void OnCollision(Collider* p_xOther, sf::Vector2f& offset);
-	GameObject* GetParent(){return m_xParent;};
-	void SetParent(GameObject* p_xParent){m_xParent = p_xParent;};
+	GameObject* GetParent()											{return m_xParent;};
+	void SetParent(GameObject* p_xParent)							{m_xParent = p_xParent;};
 
 private:
 	sf::Vector2f m_position;

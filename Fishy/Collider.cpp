@@ -24,10 +24,7 @@ Collider::Collider(sf::Vector2f p_position, float p_radius)
 {
 }
 
-sf::Vector2f Collider::GetPosition()
-{
-	return m_position;
-}
+
 void Collider::SetPositionX(float x)
 {
 	m_position.x = x;

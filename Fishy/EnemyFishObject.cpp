@@ -27,6 +27,27 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 
 	m_pAIStateMachine->SetCurrentState(IdleState::Instance());
 	m_pAIStateMachine->SetGlobalState(AIGlobalState::Instance());
+
+	GlowRectangle = sf::VertexArray(sf::Quads, 4);
+	
+	GlowTexture = new sf::Texture;
+	GlowTexture->loadFromFile("../data/sprites/enemy2_glow_spritesheet3.png", sf::IntRect(0,0,680,300));
+
+	GlowRectangle[0].position = (sf::Vector2f(0.f,0.f));
+	GlowRectangle[1].position = sf::Vector2f(265.f,0.f);
+	GlowRectangle[2].position = sf::Vector2f(265.f, 231.f);
+	GlowRectangle[3].position = sf::Vector2f(0.f,231.f);
+
+	GlowRectangle[0].color = sf::Color::Red;
+	GlowRectangle[1].color = sf::Color::Red;
+	GlowRectangle[2].color = sf::Color::Red;
+	GlowRectangle[3].color = sf::Color::Red;
+
+	GlowRectangle[0].texCoords = sf::Vector2f(0, 0);
+	GlowRectangle[1].texCoords = sf::Vector2f(680+0, 0);
+	GlowRectangle[2].texCoords = sf::Vector2f(680+0, 300+0);
+	GlowRectangle[3].texCoords = sf::Vector2f(0, 300+0);
+
 }
 EnemyFishObject::~EnemyFishObject()
 {
@@ -84,7 +105,11 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{
 		m_pxCollider->SetPosition(GetPosition() );
 	}
+
+	setGlowPosition();
+
 }
+
 
 void EnemyFishObject::SetEnemyScale(float x)
 {
@@ -148,6 +173,23 @@ sf::Vector2f EnemyFishObject::GetSpawnPosition(sf::Vector2f p_xSpawnPosition)
 void EnemyFishObject::SetAttractRadius(float p_fAttractRadius)
 {
 	m_pxCollider->SetRadius(p_fAttractRadius);
+}
+
+void EnemyFishObject::setGlowPosition()
+{
+	GlowRectangle[0].position = sf::Vector2f(m_pxCollider->GetPosition().x - m_pxCollider->GetExtension().x/2 , m_pxCollider->GetPosition().y - m_pxCollider->GetExtension().y/2);
+	GlowRectangle[1].position = sf::Vector2f(m_pxCollider->GetPosition().x + m_pxCollider->GetExtension().x/2 ,  m_pxCollider->GetPosition().y - m_pxCollider->GetExtension().y/2);
+	GlowRectangle[2].position = sf::Vector2f(m_pxCollider->GetPosition().x + m_pxCollider->GetExtension().x/2 ,  m_pxCollider->GetPosition().y + m_pxCollider->GetExtension().y /2);
+	GlowRectangle[3].position = sf::Vector2f(m_pxCollider->GetPosition().x - m_pxCollider->GetExtension().x /2,  m_pxCollider->GetPosition().y + m_pxCollider->GetExtension().y/2);
+	if (this->GetVelocity().x < 0.f)
+	{
+		sf::Vector2f temp = GlowRectangle[0].position;
+		sf::Vector2f temp2 = GlowRectangle[2].position;
+		GlowRectangle[0].position = GlowRectangle[1].position;
+		GlowRectangle[1].position = temp;
+		GlowRectangle[2].position = GlowRectangle[3].position;
+		GlowRectangle[3].position = temp2;
+	}
 }
 
 void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)

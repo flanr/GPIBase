@@ -5,6 +5,7 @@
 #include "Core.h"
 #include "PlayerFishObject.h"
 #include "FishObject.h"
+#include "EnemyFishObject.h"
 #include "DrawManager.h"
 #include "Level.h"
 #include "GameObjectManager.h"
@@ -395,7 +396,19 @@ void GameState::Draw()
 	{
 		DrawGUI();
 	}
+
+	for (int i = 0; i < m_GameObjMgr->m_apxGameObject.size(); i++)
+	{
+		if( (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy"))
+		{
+
+			m_window->draw(m_GameObjMgr->m_apxGameObject[i]->GetGlowRectange(), m_GameObjMgr->m_apxGameObject[i]->GetGlowTexture());
+		}
+	}
+
+
 	DrawTutorial();
+
 	//m_DrawManager->DrawRect(m_GameObjMgr->m_pxPlayer->GetCollider()->PlayerRect() );
 	m_DrawManager->DisplayWindow();
 }

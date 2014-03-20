@@ -61,6 +61,9 @@ public:
 
 	virtual void OnCollision(GameObject* p_xOther, sf::Vector2f& offset);
 
+	sf::VertexArray GetGlowRectange()						{return GlowRectangle;}
+	sf::Texture* GetGlowTexture()							{return GlowTexture;}
+
 protected:
 	sf::Sprite *m_pxSprite;
 	Collider *m_pxCollider;
@@ -72,4 +75,7 @@ protected:
 	bool m_ActiveUpdate;
 	LightSource *m_light;
 	sf::Sprite *m_LightSprite;
+
+	sf::Texture* GlowTexture;
+	sf::VertexArray GlowRectangle;
 };
