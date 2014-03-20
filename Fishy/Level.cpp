@@ -349,14 +349,26 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						{
 							Random_Size = Random(.8, 1.6f);
 						}
-						collider->SetExtention(sf::Vector2f(301, 142));
-						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_spritesheet2.png", 76,38, 301, 142);
-						tempEnemy->setOrigin((301)/2, (142)/2);
-						tempEnemy->setPosition(iX, iY);
-						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+						//collider->SetExtention(sf::Vector2f(301, 142));
+						//sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_spritesheet2.png", 76,38, 301, 142);
+						//tempEnemy->setOrigin((301)/2, (142)/2);
+						//tempEnemy->setPosition(iX, iY);
+						//EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+						//enemy->SetLevelLayer(MIDDLEGROUND);
+						//enemy->SetScale(Random_Size);
+						////enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+						//enemy->SetSubType("Stage2");
+						//enemy->SetSpeed(100);
+						//enemy->SetSubTypeSize(Random_Size);
+						//m_pxGameObjMgr->Attach(enemy);
+						//m_CollisionMgr->AttachCollider(collider);
+						collider->SetExtention(sf::Vector2f(295, 140));
+						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreenAnim.txt");	
+						enemy->AddAnimation("EnemyNormal", pxAnimSprite);
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
-						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+						enemy->SetPosition(sf::Vector2f(iX, iY) );
 						enemy->SetSubType("Stage2");
 						enemy->SetSpeed(100);
 						enemy->SetSubTypeSize(Random_Size);
@@ -389,20 +401,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						m_CollisionMgr->AttachCollider(collider);
 					}
 				}
-				//else if (row[i] == 'F')
-				//{
-				//		EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
-				//		AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyNormalAnim.txt");	
-				//		enemy->AddAnimation("EnemyNormal", pxAnimSprite);
-				//		collider->SetExtention(sf::Vector2f(542, 205));
-				//		enemy->SetLevelLayer(MIDDLEGROUND);
-				//		enemy->SetPosition(sf::Vector2f(iX, iY) );
-				//		enemy->SetScale(0.2f);
-				//		//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-				//		enemy->SetSubType("Stage3");
-				//		m_pxGameObjMgr->Attach(enemy);
-				//		m_CollisionMgr->AttachCollider(collider);
-				//}
 				else
 				{
 					sf::Sprite *sprite = p_pSpriteManager->Load(m_SpriteMapFileName, c.x, c.y, c.w, c.h);

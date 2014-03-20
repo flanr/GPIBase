@@ -192,6 +192,13 @@ void GameObjectManager::UpdateAllObjects(float p_fDeltatime)
 				}
 			}
 		}
+		else
+		{
+			if(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i]) )
+			{
+				dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->SetEnemyScale(dynamic_cast<EnemyFishObject*> (m_apxGameObject[i])->GetScale() );
+			}
+		}
 
 	}
 }

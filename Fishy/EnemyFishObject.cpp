@@ -51,7 +51,7 @@ EnemyFishObject::~EnemyFishObject()
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
-	if(GetSubType() == "Stage3")
+	if(GetSubType() == "Stage2" || GetSubType() == "Stage3")
 	{
 		m_pxCurrentAnimation->SetActiveAnimation("Idle");
 	}
@@ -71,7 +71,7 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{
 		m_light->SetPosition( GetPosition() );
 	}
-	if(GetSubType() == "Stage3")
+	if(GetSubType() == "Stage2" || GetSubType() == "Stage3")
 	{
 		if(m_pxCurrentAnimation != nullptr) 
 		{
