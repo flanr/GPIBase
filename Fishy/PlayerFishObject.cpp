@@ -50,6 +50,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 PlayerFishObject::~PlayerFishObject()
 {
 	//delete all Animated sprites
+	m_bHasPlayedDeathMusic= false;
 	std::map<std::string, AnimatedSprite*>::iterator it = m_mpAnimations.begin();
 	while(it != m_mpAnimations.end() )
 	{
@@ -139,6 +140,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 		UpdateDeath(p_Deltatime, p_Camera);
 		if (!m_bHasPlayedDeathMusic)
 		{
+			m_SoundManager->StopMusic();
 			m_SoundManager->PlaySound("FishyDeathChoir.ogg");
 			m_bHasPlayedDeathMusic = true;
 		}
@@ -688,6 +690,8 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		/*if(!(GetDirection() == FacingDown || GetDirection() == FacingUp ) )
 		{*/
 		SetState(Attack);
+		m_SoundManager->PlaySound("dashSound2.wav");
+		cout << "Dash Sound play" << endl;
 		m_pxCurrentAnimation->SetActiveAnimation("Dash");
 		/*}*/
 	}
@@ -854,6 +858,7 @@ void PlayerFishObject::UpdateDeath(float p_Deltatime,  Camera *p_Camera)
 			if(m_DeathTimer >= 1.5f)
 			{
 				m_GameOver = true;
+				
 			}
 		}
 	}

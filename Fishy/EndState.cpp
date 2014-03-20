@@ -189,6 +189,7 @@ void EndState::HandleInput()
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 1 && m_ButtonClick == 1)
 		{
 			m_pCore->m_StateManager.SetState("GameState");
+			m_SoundManager->PlayMusic("WIPFishyAmbient_1.ogg");
 		}
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 2 && m_ButtonClick == 2)
 		{

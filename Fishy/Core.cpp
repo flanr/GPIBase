@@ -72,7 +72,8 @@ bool Core::Initialize()
 			return false;
 		}
 		m_SoundManager->PlayMusic("WIPFishyAmbient_1.ogg");
-
+		
+		
 	}
 
 	if(m_GameObjectManager == nullptr)
@@ -148,7 +149,7 @@ void Core::UpdateDeltatime()
 	m_TimeSinceLastUpdate = m_Clock.restart();
 
 	m_fDeltaTime = m_TimeSinceLastUpdate.asSeconds();
-	cout << m_fDeltaTime << endl;
+	//cout << m_fDeltaTime << endl;
 	if(m_fDeltaTime > 0.1f)
 	{
 		m_fDeltaTime = 0.1f;

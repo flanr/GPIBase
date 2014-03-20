@@ -64,6 +64,7 @@ bool StartState::EnterState()
 	cout << "StartState::EnterState" << endl;
 
 
+
 	return false;
 } // 96 29 60
 

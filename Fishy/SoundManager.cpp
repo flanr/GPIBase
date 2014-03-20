@@ -79,6 +79,13 @@ void SoundManager::StopSound()
 bool SoundManager::Initialize(string directory)
 {
 	m_directory = directory;
+	AddSound("Upgrade.wav");
+	AddSound("sound_ToggleLight.wav");
+	AddSound("FishyDeathChoir.ogg");
+	AddSound("chew_sound2.wav");
+	AddSound("dashSound1.wav");
+	AddSound("dashSound2.wav");
+	AddSound("HungerAlert.wav");
 
 	return true;
 }
@@ -183,4 +190,12 @@ void SoundManager::MuteSound()
 	SetSoundVolume(0);
 }
 
+void SoundManager::StopMusic()
+{
+	for(MusicStruct music : m_MusicBank)
+	{
+		music.soundHandle->stop();
+	}
+
+}
 
