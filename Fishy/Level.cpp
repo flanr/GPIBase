@@ -366,6 +366,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
 						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreenAnim.txt");	
 						enemy->AddAnimation("EnemyNormal", pxAnimSprite);
+						enemy->GetSprite()->setOrigin((295)/2, (140)/2);
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
 						enemy->SetPosition(sf::Vector2f(iX, iY) );
