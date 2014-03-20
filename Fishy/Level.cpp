@@ -376,13 +376,14 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						}
 
 
-						collider->SetExtention(sf::Vector2f(265, 100));
-						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_tmp.png", 0,0, 265, 100);
-						tempEnemy->setOrigin((265)/2, (100)/2);
+						collider->SetExtention(sf::Vector2f(680,300));
+						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy2_spritesheet.png", 0,0, 680,300);
+						tempEnemy->setOrigin((680)/2, (300)/2);
 						tempEnemy->setPosition(iX, iY);
 						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
+						collider->SetExtention(sf::Vector2f(680.f*enemy->GetScale(), 300.f*enemy->GetScale())); 
 						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
 						enemy->SetSubType("Stage1");
 						m_pxGameObjMgr->Attach(enemy);

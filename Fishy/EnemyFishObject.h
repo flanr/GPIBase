@@ -26,6 +26,10 @@ public:
 	void OnCollision(GameObject* p_other, sf::Vector2f& p_Offset);
 
 	
+	
+
+	void setGlowPosition();
+
 	/*----------------AI STUFF-------------------*/
 	AIStateMachine<EnemyFishObject>* GetFSM()				{return m_pAIStateMachine;}
 	void AddTimer(const int nr)								{m_iStateTimer+= nr;};
@@ -61,4 +65,6 @@ private:
 	std::string m_SubType;
 	float m_SubTypeSize;
 	LightSource* m_pPlayerLightSource;
+	/*sf::Sprite* glow;*/
+	
 };
