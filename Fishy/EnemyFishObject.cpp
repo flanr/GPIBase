@@ -29,7 +29,7 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	m_pAIStateMachine->SetGlobalState(AIGlobalState::Instance());
 
 	GlowRectangle = sf::VertexArray(sf::Quads, 4);
-	
+
 	GlowTexture = new sf::Texture;
 	GlowTexture->loadFromFile("../data/sprites/enemy2_glow_spritesheet3.png", sf::IntRect(0,0,680,300));
 
@@ -72,10 +72,9 @@ EnemyFishObject::~EnemyFishObject()
 
 void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 {
-	if(GetSubType() == "Stage2")
-	{
-		m_pxCurrentAnimation->SetActiveAnimation("Idle");
-	}
+
+	m_pxCurrentAnimation->SetActiveAnimation("Idle");
+
 	m_xPlayerPosition = player->GetPosition();
 	//2=left 3= right
 	m_iPlayerDirection = player->GetDirection();
@@ -92,14 +91,13 @@ void EnemyFishObject::Update(float deltatime, PlayerFishObject *player)
 	{
 		m_light->SetPosition( GetPosition() );
 	}
-	if(GetSubType() == "Stage2")
+
+	if(m_pxCurrentAnimation != nullptr) 
 	{
-		if(m_pxCurrentAnimation != nullptr) 
-		{
-			m_pxCurrentAnimation->Update(deltatime);
-			m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
-		}
+		m_pxCurrentAnimation->Update(deltatime);
+		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
 	}
+
 
 	if(m_pxCollider != nullptr )
 	{

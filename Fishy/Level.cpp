@@ -272,8 +272,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				iX += m_iWidth;
 				continue;
-
-
 			}
 
 			if (row[i] == 'z')
@@ -335,40 +333,128 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				collider->SetExtention(sf::Vector2f(c.w, c.h));
 
 				float Random_Size = 0.0f;
-
+				int randomFish = Random(1 ,10);
+				bool niceFish = false;
+				bool greenFish = false;
+				bool nastyFish = false;
+				int fishLevel = 0;
 				if (row[i] == 'E')
 				{
 
-					if (Random(1, 10) < 3)
+					/*if (Random(1, 10) < 3)
 					{
-						if (iY > 0 && iY < 4600)
+					if (iY > 0 && iY < 4600)
+					{
+					Random_Size = Random(.6 , .8);
+					}
+					if (iY > 4600 && iY < 11500)
+					{
+					Random_Size = Random(.8, 1.6f);
+					}*/
+					//collider->SetExtention(sf::Vector2f(301, 142));
+					//sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_spritesheet2.png", 76,38, 301, 142);
+					//tempEnemy->setOrigin((301)/2, (142)/2);
+					//tempEnemy->setPosition(iX, iY);
+					//EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+					//enemy->SetLevelLayer(MIDDLEGROUND);
+					//enemy->SetScale(Random_Size);
+					////enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
+					//enemy->SetSubType("Stage2");
+					//enemy->SetSpeed(100);
+					//enemy->SetSubTypeSize(Random_Size);
+					//m_pxGameObjMgr->Attach(enemy);
+					//m_CollisionMgr->AttachCollider(collider);
+
+					if ((iY >= 0) && (iY < 5400) )
+					{
+						niceFish = true;
+						Random_Size = Random(0.1f , 0.25f);
+						if( Random_Size < 0.15f)		{ fishLevel = 0; }
+						else if(Random_Size < 0.20f)	{ fishLevel = 1; }
+						else							{ fishLevel = 2; }
+					}
+					else if ( (iY >= 5400) && (iY < 12800) )
+					{
+						if(randomFish <= 4)
 						{
-							Random_Size = Random(.6 , .8);
+							niceFish = true;
+							Random_Size = Random(0.25f , 0.5f);
+							if( Random_Size < 0.35f)		{ fishLevel = 3; }
+							else if(Random_Size < 0.45f)	{ fishLevel = 4; }
+							else							{ fishLevel = 5; }
 						}
-						if (iY > 4600 && iY < 11500)
+						else if( (randomFish > 4) && (randomFish <= 9) ) 
 						{
-							Random_Size = Random(.8, 1.6f);
+							greenFish = true;
+							Random_Size = Random(0.8f , 1.3f);
+							if( Random_Size < 1.0f)			{ fishLevel = 3; }
+							else if(Random_Size < 1.2f)		{ fishLevel = 4; }
+							else							{ fishLevel = 5; }
 						}
-						//collider->SetExtention(sf::Vector2f(301, 142));
-						//sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy_spritesheet2.png", 76,38, 301, 142);
-						//tempEnemy->setOrigin((301)/2, (142)/2);
-						//tempEnemy->setPosition(iX, iY);
-						//EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
-						//enemy->SetLevelLayer(MIDDLEGROUND);
-						//enemy->SetScale(Random_Size);
-						////enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-						//enemy->SetSubType("Stage2");
-						//enemy->SetSpeed(100);
-						//enemy->SetSubTypeSize(Random_Size);
-						//m_pxGameObjMgr->Attach(enemy);
-						//m_CollisionMgr->AttachCollider(collider);
+						else
+						{
+							nastyFish = true;
+							Random_Size = 1.5f;
+							fishLevel = 6;
+						}
+					}
+					else if( iY >= 12800 )
+					{
+						if(randomFish <= 1)
+						{
+							niceFish = true;
+							Random_Size = Random(1.0f , 1.3f);
+							if( Random_Size < 1.1f)			{ fishLevel = 6; }
+							else if(Random_Size < 1.2f)		{ fishLevel = 7; }
+							else							{ fishLevel = 8; }
+						}
+						else if( (randomFish > 1) && (randomFish <= 7) ) 
+						{
+							greenFish = true;
+							Random_Size = Random(1.3f , 2.0f);
+							if( Random_Size < 1.5f)			{ fishLevel = 6; }
+							else if(Random_Size < 1.7f)		{ fishLevel = 7; }
+							else							{ fishLevel = 8; }
+						}
+						else
+						{
+							nastyFish = true;
+							Random_Size = Random(1.5f , 3.0f);
+							if( Random_Size < 2.0f)			{ fishLevel = 7; }
+							else if( Random_Size < 2.5f)	{ fishLevel = 8; }
+							else							{ fishLevel = 9; }
+						}
+
+					}
+					if(niceFish == true)
+					{
+
+						collider->SetExtention(sf::Vector2f(549,205));
+						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyNormalAnim.txt");	
+						enemy->AddAnimation("EnemyNormal", pxAnimSprite);
+						enemy->SetLevelLayer(MIDDLEGROUND);
+						enemy->GetSprite()->setOrigin(549/2.0f, 205/2.0f);
+						enemy->SetCurrentLevel(fishLevel);
+						enemy->SetScale(Random_Size);
+						collider->SetExtention(sf::Vector2f(549.f*enemy->GetScale(), 205.f*enemy->GetScale())); 
+						enemy->SetPosition(sf::Vector2f(iX, iY) );
+						enemy->SetSubType("Stage1");
+						enemy->SetSpeed(100);
+						enemy->SetSubTypeSize(Random_Size);
+						m_pxGameObjMgr->Attach(enemy);
+						m_CollisionMgr->AttachCollider(collider);
+					}
+					else if(greenFish == true)
+					{
 						collider->SetExtention(sf::Vector2f(295, 140));
 						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
 						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreenAnim.txt");	
-						enemy->AddAnimation("EnemyNormal", pxAnimSprite);
-						enemy->GetSprite()->setOrigin((295)/2, (140)/2);
+						enemy->AddAnimation("EnemyGreen", pxAnimSprite);
+						enemy->GetSprite()->setOrigin(295/2.0f, 140/2.0f);
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
+						enemy->SetCurrentLevel(fishLevel);
 						enemy->SetPosition(sf::Vector2f(iX, iY) );
 						enemy->SetSubType("Stage2");
 						enemy->SetSpeed(100);
@@ -376,29 +462,21 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						m_pxGameObjMgr->Attach(enemy);
 						m_CollisionMgr->AttachCollider(collider);
 					}
-					else
+					else if(nastyFish == true)
 					{
 
-						if (iY > 0 && iY < 4600)
-						{
-							Random_Size = Random(.1 , .4);
-						}
-						if (iY > 4600 && iY < 11500)
-						{
-							Random_Size = Random(.5, .8);
-						}
-
-
-						collider->SetExtention(sf::Vector2f(680,300));
-						sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy2_spritesheet.png", 0,0, 680,300);
-						tempEnemy->setOrigin((680)/2, (300)/2);
-						tempEnemy->setPosition(iX, iY);
-						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+						collider->SetExtention(sf::Vector2f(495, 385));
+						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreyAnim.txt");	
+						enemy->AddAnimation("EnemyGrey", pxAnimSprite);
+						enemy->GetSprite()->setOrigin(495/2.0f, 385/2.0f); 
 						enemy->SetLevelLayer(MIDDLEGROUND);
+						enemy->SetCurrentLevel(fishLevel);
 						enemy->SetScale(Random_Size);
-						collider->SetExtention(sf::Vector2f(680.f*enemy->GetScale(), 300.f*enemy->GetScale())); 
-						//enemy->AddLightSource(new LightSource(sf::Vector2f(iX, iY), 240) );
-						enemy->SetSubType("Stage1");
+						enemy->SetPosition(sf::Vector2f(iX, iY) );
+						enemy->SetSubType("Stage3"); //glöm inte att ändra i enemyfish så alla animationer uppdateras
+						enemy->SetSpeed(100);
+						enemy->SetSubTypeSize(Random_Size);
 						m_pxGameObjMgr->Attach(enemy);
 						m_CollisionMgr->AttachCollider(collider);
 					}
