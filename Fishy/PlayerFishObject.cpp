@@ -832,11 +832,11 @@ void PlayerFishObject::UpdateAttack(float p_Deltatime)
 
 	if(m_SlowingDown)
 	{
-		SetAttackPower( GetAttackPower() - 0.25f);
+		SetAttackPower( GetAttackPower() - (2.5f * p_Deltatime) );
 	}
 	else
 	{
-		SetAttackPower( GetAttackPower() + 1.f);
+		SetAttackPower( GetAttackPower() + (15.f * p_Deltatime) );
 		if(GetAttackPower() > 4.f)
 		{
 			m_SlowingDown = true;
@@ -950,7 +950,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 	}
 
 	m_GrowTimer += p_Deltatime;
-	if(m_GrowTimer > 0.7)
+	if(m_GrowTimer >= 0.7)
 	{
 
 		SetState(Idle);
