@@ -253,7 +253,7 @@ void PlayerFishObject::MenuUpdate( float p_Deltatime)
 	}
 	else if(GetDirection() == FacingLeft)
 	{
-		Move(-2,0);
+		Move(-50 * p_Deltatime,0);
 		if(GetPosition().x <= 100)
 		{
 			FlipXRight(GetScale());
@@ -922,8 +922,8 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 1) { SetPlayerScale(0.5f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.6f); }
-		p_Camera->SetZoomStrength(1.010f);
-		p_Camera->ZoomOut(p_Camera->GetZoomStrength() );
+		p_Camera->SetZoomStrength((0.5f * p_Deltatime) + 1);
+		p_Camera->ZoomOut( (p_Camera->GetZoomStrength() ) );
 		p_Camera->SetZoomingOut(true);
 	}
 	else if(GetCurrentLevel() == 2 || GetCurrentLevel() == 5 || GetCurrentLevel() == 8)
