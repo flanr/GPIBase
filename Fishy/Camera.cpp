@@ -331,10 +331,10 @@ float Camera::GetTotalZoom()
 
 void Camera::SetObjectsActive(GameObject* p_GameObject)
 {
-	if(p_GameObject->GetPosition().x >= (GetCameraView().getCenter().x - ((GetCameraView().getSize().x + 2048) /2.0f)) &&
-		p_GameObject->GetPosition().x <= (GetCameraView().getCenter().x + ((GetCameraView().getSize().x + 2048) /2.0f)) &&
-		p_GameObject->GetPosition().y >= (GetCameraView().getCenter().y - ((GetCameraView().getSize().y + 768) /2.0f)) &&
-		p_GameObject->GetPosition().y <= (GetCameraView().getCenter().y + ((GetCameraView().getSize().y + 768) /2.0f)) 
+	if(p_GameObject->GetPosition().x  >= (GetCameraView().getCenter().x - ((GetCameraView().getSize().x + 3072) /2.0f)) &&
+		p_GameObject->GetPosition().x <= (GetCameraView().getCenter().x + ((GetCameraView().getSize().x + 3072) /2.0f)) &&
+		p_GameObject->GetPosition().y >= (GetCameraView().getCenter().y - ((GetCameraView().getSize().y + 2048) /2.0f)) &&
+		p_GameObject->GetPosition().y <= (GetCameraView().getCenter().y + ((GetCameraView().getSize().y + 2048) /2.0f)) 
 		)
 	{
 		p_GameObject->SetActive(true);
