@@ -244,7 +244,7 @@ void PlayerFishObject::MenuUpdate( float p_Deltatime)
 	m_pxCurrentAnimation->SetActiveAnimation("Move");
 	if(GetDirection() == FacingRight)
 	{
-		Move(2, 0);
+		Move(50 * p_Deltatime, 0);
 		if(GetPosition().x >= 1180)
 		{
 			FlipXLeft(GetScale());
