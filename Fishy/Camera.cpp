@@ -251,7 +251,7 @@ sf::FloatRect Camera::GetCameraViewport()
 void Camera::AddLayer()
 {
 	m_FilterTexture = new sf::RenderTexture();
-	m_FilterTexture->create(m_CameraView.getSize().x, m_CameraView.getSize().y);
+	m_FilterTexture->create(m_CameraView.getSize().x , m_CameraView.getSize().y);
 	m_FilterSprite = new sf::Sprite();
 	m_FilterSprite->setTexture(m_FilterTexture->getTexture() );
 	m_FilterSprite->setOrigin(m_FilterTexture->getTexture().getSize().x / 2.0f, m_FilterTexture->getTexture().getSize().y / 2.0f  );

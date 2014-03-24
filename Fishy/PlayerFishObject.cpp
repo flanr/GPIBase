@@ -144,7 +144,7 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 			m_SoundManager->PlaySound("FishyDeathChoir.ogg");
 			m_bHasPlayedDeathMusic = true;
 		}
-		
+
 		cout << "DEAD!" << endl;
 	}
 	else if(GetState() == Attack )
@@ -272,7 +272,6 @@ void PlayerFishObject::ChangeStageAnimation(const std::string &p_sName, SpriteMa
 	//ska inte avbryta chewing
 	if(p_sName == "Stage2")
 	{
-
 		AnimatedSprite *NewAnimSprite = p_pxSpriteManager->LoadAnim("../data/anim/PlayerAnimStage2.txt");		
 		AddAnimation(p_sName, NewAnimSprite);
 		SetPosition(tempPos);
@@ -281,6 +280,7 @@ void PlayerFishObject::ChangeStageAnimation(const std::string &p_sName, SpriteMa
 	{
 		AnimatedSprite *NewAnimSprite = p_pxSpriteManager->LoadAnim("../data/anim/PlayerAnimStage3.txt");		
 		AddAnimation(p_sName, NewAnimSprite);
+		SetPosition(tempPos);
 	}
 }
 
@@ -351,17 +351,17 @@ bool PlayerFishObject::UpdateLevel()
 		SetCurrentLevel(6);
 		return true;
 	}
-	else if(GetExperience() == 1203)
+	else if(GetExperience() == 1003)
 	{
 		SetCurrentLevel(7);
 		return true;
 	}
-	else if(GetExperience() == 1204)
+	else if(GetExperience() == 1004)
 	{
 		SetCurrentLevel(8);
 		return true;
 	}
-	else if(GetExperience() == 1205)
+	else if(GetExperience() == 1005)
 	{
 		SetCurrentLevel(9);
 		return true;
@@ -434,6 +434,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			if(m_PowerupLightCounter < 3)
 			{
 				m_light->SetRadius(m_light->GetRadius() * 1.1f);
+				m_LightSprite->setScale(m_LightSprite->getScale() * 1.1f);
 				cout << "LIGHT" << endl;
 				m_PowerupLightCounter++;
 			}
@@ -853,12 +854,12 @@ void PlayerFishObject::UpdateDeath(float p_Deltatime,  Camera *p_Camera)
 			m_DeathTimer += p_Deltatime;
 			if(m_light->GetRadius() > 0)
 			{
-				m_light->SetRadius(m_light->GetRadius() -11.f);
+				m_light->SetRadius(m_light->GetRadius() -15.f);
 			}
 			if(m_DeathTimer >= 1.5f)
 			{
 				m_GameOver = true;
-				
+
 			}
 		}
 	}
@@ -928,6 +929,11 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 				m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
 				m_LightbulbPosRelativeToPlayer *= GetScale();
 			}
+			if(GetCurrentLevel() == 8)
+			{
+				m_LightbulbPosRelativeToPlayer = sf::Vector2f(492, 177);
+				m_LightbulbPosRelativeToPlayer *= GetScale();
+			}
 		}
 		else if (GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9) 
 		{ 
@@ -935,6 +941,12 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 			if(GetCurrentLevel() == 6)
 			{
 				m_LightbulbPosRelativeToPlayer = sf::Vector2f(204, 43);
+				m_LightbulbPosRelativeToPlayer *= GetScale();
+			}
+			if(GetCurrentLevel() == 9)
+			{
+				m_LightbulbPosRelativeToPlayer = sf::Vector2f(492, 177);
+				m_LightbulbPosRelativeToPlayer *= GetScale();
 			}
 		}
 
@@ -948,9 +960,10 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		}
 		else if( GetCurrentLevel() == 7)  
 		{ 
-			//ChangeStageAnimation("Stage3", p_SpriteManager); 
+			ChangeStageAnimation("Stage3", p_SpriteManager); 
 			SetPlayerScale(0.6f);
-			m_light->SetRadius(m_light->GetRadius() * 1.2f );
+			m_light->SetRadius(m_light->GetRadius() * 1.0f );
+			m_LightbulbPosRelativeToPlayer = sf::Vector2f(492, 177);
 			m_LightbulbPosRelativeToPlayer *= GetScale();
 		}
 	}
