@@ -40,8 +40,8 @@ StartState::StartState(Core* p_pCore)
 	m_ButtonQuit.SetSpriteCircle(m_SpriteManager->Load("exit_final_2_smaller.png",0,0,170,177));
 	m_ButtonQuit.SetPosition(m_ButtonQuitPos.x,m_ButtonQuitPos.y);
 
-	
 
+	m_AvatarAnim = nullptr;
 	m_ButtonClick = 0;
 
 }
@@ -63,6 +63,16 @@ bool StartState::EnterState()
 	m_sCurrentState = "StartState";
 	cout << "StartState::EnterState" << endl;
 
+	int posx = m_window->getDefaultView().getCenter().x;
+	int posy = m_window->getDefaultView().getCenter().y + 200.f;
+
+	////PlayerObject måste laddas in som nullptr,
+	m_AvatarAnim = new PlayerFishObject(sf::Vector2f(posx, posy ), nullptr, nullptr);
+	AnimatedSprite *pxAnimSprite = m_SpriteManager->LoadAnim("../data/anim/PlayerAnimStage1.txt");	
+	m_AvatarAnim->AddAnimation("PlayerStage1", pxAnimSprite);
+	m_AvatarAnim->SetPosition(sf::Vector2f(posx, posy) );
+
+
 
 
 	return false;
@@ -71,6 +81,11 @@ bool StartState::EnterState()
 void StartState::ExitState()
 {
 	cout << "StartState::ExitState" << endl;
+	if(m_AvatarAnim != nullptr)
+	{
+		delete m_AvatarAnim;
+		m_AvatarAnim = nullptr;
+	}
 }
 
 bool StartState::Update(float p_fDeltaTime)
@@ -78,6 +93,7 @@ bool StartState::Update(float p_fDeltaTime)
 
 
 	HandleInput();
+	m_AvatarAnim->MenuUpdate(p_fDeltaTime);
 	return true;
 }
 
@@ -258,6 +274,7 @@ void StartState::Draw()
 	m_DrawManager->Draw(m_ButtonStart.GetSprite());
 	m_DrawManager->Draw(m_ButtonQuit.GetSprite());
 	m_DrawManager->Draw(m_ButtonOptions.GetSprite());
+	m_DrawManager->Draw(m_AvatarAnim->GetSprite() );
 	//m_DrawManager->ClearWindow();
 	//m_level->Draw(m_DrawManager);
 	m_DrawManager->DisplayWindow();

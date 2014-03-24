@@ -239,6 +239,35 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 
 };
 
+void PlayerFishObject::MenuUpdate( float p_Deltatime)
+{
+	m_pxCurrentAnimation->SetActiveAnimation("Move");
+	if(GetDirection() == FacingRight)
+	{
+		Move(2, 0);
+		if(GetPosition().x >= 1180)
+		{
+			FlipXLeft(GetScale());
+			SetDirection(FacingLeft);
+		}
+	}
+	else if(GetDirection() == FacingLeft)
+	{
+		Move(-2,0);
+		if(GetPosition().x <= 100)
+		{
+			FlipXRight(GetScale());
+			SetDirection(FacingRight);
+		}
+	}
+
+	if(m_pxCurrentAnimation != nullptr) 
+	{
+		m_pxCurrentAnimation->Update(p_Deltatime);
+		m_pxCurrentAnimation->setOrigin(m_pxCurrentAnimation->getTextureRect().width / 2.0f, m_pxCurrentAnimation->getTextureRect().height / 2.0f);
+	}
+}
+
 void PlayerFishObject::AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite)
 {	
 	m_mpAnimations.insert(std::pair<std::string,AnimatedSprite*>(p_sName, p_pxAnimSprite));
@@ -326,12 +355,12 @@ int PlayerFishObject::GetExperience()
 
 bool PlayerFishObject::UpdateLevel()
 {
-	if(GetExperience() == 1)
+	if(GetExperience() == 10)
 	{
 		SetCurrentLevel(2);
 		return true;
 	}
-	else if(GetExperience() == 4)
+	else if(GetExperience() == 20)
 	{
 		SetCurrentLevel(3);
 		return true;
@@ -341,32 +370,36 @@ bool PlayerFishObject::UpdateLevel()
 		SetCurrentLevel(4);
 		return true;
 	}
-	else if(GetExperience() == 1001)
+	else if(GetExperience() == 1030)
 	{
 		SetCurrentLevel(5);
 		return true;
 	}
-	else if(GetExperience() == 1002)
+	else if(GetExperience() == 1070)
 	{
 		SetCurrentLevel(6);
 		return true;
 	}
-	else if(GetExperience() == 1003)
+	else if(GetExperience() == 1220)
 	{
 		SetCurrentLevel(7);
 		return true;
 	}
-	else if(GetExperience() == 1004)
+	else if(GetExperience() == 1280)
 	{
 		SetCurrentLevel(8);
 		return true;
 	}
-	else if(GetExperience() == 1005)
+	else if(GetExperience() == 1350)
 	{
 		SetCurrentLevel(9);
 		return true;
 	}
-
+	else if(GetExperience() == 1450)
+	{
+		SetCurrentLevel(10);
+		return true;
+	}
 	return false;
 }
 
@@ -506,7 +539,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		if(GetState() == Attack)
 		{
 
-			ExperienceGain(1);
+			ExperienceGain(10);
 			SetHealth(GetHealth() + 10);
 			if(UpdateLevel() )
 			{
@@ -522,8 +555,8 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				}
 			}
 
-			//std::cout << GetExperience() << std::endl;
-			cout << GetCurrentLevel() << endl;
+			cout <<"XP: " << GetExperience() << std::endl;
+			cout <<"Level: " << GetCurrentLevel() << endl;
 		}
 	}
 }

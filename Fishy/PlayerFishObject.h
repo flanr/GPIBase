@@ -15,6 +15,7 @@ public:
 
 	void SetPlayerScale(float x);
 	void Update(InputManager *p_pxInputManager,SpriteManager *p_SpriteManager ,Camera *p_Camera ,float p_Deltatime);
+	void MenuUpdate(float p_Deltatime);
 	void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
 	void ChangeStageAnimation(const std::string &p_sName, SpriteManager *p_pxSpriteManager);
 
