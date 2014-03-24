@@ -193,12 +193,12 @@ bool GameState::Update(float p_DeltaTime)
 		m_pCore->m_StateManager.SetState("EndState");
 		Cleanup();
 	}
-	else if (m_GameObjMgr->GetEnemyCounter() == 0)
-	{
-		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-		m_pCore->m_StateManager.SetState("EndState");
-		Cleanup();
-	}
+	//else if (m_GameObjMgr->GetEnemyCounter() == 0)
+	//{
+	//	cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+	//	m_pCore->m_StateManager.SetState("EndState");
+	//	Cleanup();
+	//}
 
 	return true;
 }

@@ -538,6 +538,10 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 
 		if(GetState() == Attack)
 		{
+			if(tempptr->GetSubType() == "Stage3")
+			{
+				m_GameOver = true;
+			}
 
 			ExperienceGain(10);
 			SetHealth(GetHealth() + 10);
@@ -933,7 +937,7 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 2) { SetPlayerScale(0.7f); }
 		else if(m_pxCurrentAnimation->GetCurrentFrame() == 3) { SetPlayerScale(0.8f); }
 	}
-	else if(GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9)
+	else if(GetCurrentLevel() == 3 || GetCurrentLevel() == 6 || GetCurrentLevel() == 9 || GetCurrentLevel() == 10)
 	{
 		if(m_pxCurrentAnimation->GetActiveAnimation() != "GrowingLevel" )
 		{
@@ -982,7 +986,12 @@ void PlayerFishObject::UpdateGrowing(SpriteManager *p_SpriteManager, Camera *p_C
 				m_LightbulbPosRelativeToPlayer *= GetScale();
 			}
 		}
-
+		else if(GetCurrentLevel() == 10)
+		{
+			SetPlayerScale(1.3f); 
+			m_LightbulbPosRelativeToPlayer = sf::Vector2f(492, 177);
+			m_LightbulbPosRelativeToPlayer *= GetScale();
+		}
 		if(GetCurrentLevel() == 4) 
 		{ 
 			ChangeStageAnimation("Stage2", p_SpriteManager); 
