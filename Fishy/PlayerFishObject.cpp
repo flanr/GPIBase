@@ -1031,13 +1031,13 @@ void PlayerFishObject::UpdateEnergy(float p_Deltatime)
 		{
 			if (m_light->GetLightStatus())
 			{
-				m_Energy = m_Energy - (1 - (.3 * m_PowerupEnergyCounter ));
+				m_Energy = m_Energy -( (10 - (.3 * m_PowerupEnergyCounter ) )* p_Deltatime );
 
 			}else
 			{
 				if (m_Energy <= 100)
 				{
-					m_Energy= m_Energy + 0.8;
+					m_Energy= m_Energy + (25 * p_Deltatime);
 				}
 
 
