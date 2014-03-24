@@ -188,7 +188,14 @@ bool GameState::Update(float p_DeltaTime)
 	UpdateGUI();
 	UpdateTutorial();
 
-	if(m_GameObjMgr->m_pxPlayer->GetGameStatus() )
+	
+	if(m_GameObjMgr->m_pxPlayer->GetGameWinStatus() )
+	{
+	
+		m_pCore->m_StateManager.SetState("WinState");
+		Cleanup();
+	}
+	else if(m_GameObjMgr->m_pxPlayer->GetGameOverStatus() )
 	{
 		m_pCore->m_StateManager.SetState("EndState");
 		Cleanup();
