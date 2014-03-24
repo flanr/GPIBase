@@ -39,7 +39,7 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 	m_FilterSprite->setPosition(p_Position );
 }
 
-void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
+void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level, float p_Deltatime)
 {
 	//m_MovingXAxis = false;
 	//m_MovingYAxis = false;
@@ -129,10 +129,10 @@ void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
 		{
 			if( !(p_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == MIDDLEGROUND || p_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == FOREGROUND) )
 			{
-				p_GameObjMgr->m_apxGameObject[i]->GetSprite()->setScale(p_GameObjMgr->m_apxGameObject[i]->GetSprite()->getScale() * GetZoomStrength());
+				p_GameObjMgr->m_apxGameObject[i]->GetSprite()->setScale(p_GameObjMgr->m_apxGameObject[i]->GetSprite()->getScale() * GetZoomStrength() );
 			}
 		}
-		m_FilterSprite->setScale(m_FilterSprite->getScale() * GetZoomStrength() );
+		m_FilterSprite->setScale((m_FilterSprite->getScale() * GetZoomStrength() )  );
 		m_TotalZoom *= GetZoomStrength();
 		//cout << "TotalZoom: " << m_TotalZoom << endl;
 		if(p_GameObjMgr->m_pxPlayer->HasGrown() == false)

@@ -10,7 +10,7 @@ public:
 	Camera(sf::Vector2f p_Size);
 	~Camera();
 	void Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position);
-	void Update(GameObjectManager *p_GameObjMgr, Level *p_Level);
+	void Update(GameObjectManager *p_GameObjMgr, Level *p_Level, float p_Deltatime);
 	void UpdateFilter(GameObjectManager *p_GameObjMgr, Level *p_Level);
 
 

@@ -184,7 +184,7 @@ bool GameState::Update(float p_DeltaTime)
 		m_pxCollisionManager->CheckCollisionRectVsRect();
 		m_GameObjMgr->UpdateAllObjects(p_DeltaTime);
 	}
-	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround );
+	m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround, p_DeltaTime );
 	UpdateGUI();
 	UpdateTutorial();
 
@@ -368,7 +368,7 @@ void GameState::HandleInput()
 	{
 
 		m_Camera->SetZoomStrength(1.005f);
-		m_Camera->ZoomOut(m_Camera->GetZoomStrength() );
+		m_Camera->ZoomOut(m_Camera->GetZoomStrength()  );
 	}
 
 }
