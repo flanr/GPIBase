@@ -465,11 +465,31 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					else if(nastyFish == true)
 					{
 
+
+						if (iY > 0 && iY < 4600)
+						{
+							Random_Size = Random(.1 , .4);
+						}
+						if (iY > 4600 && iY < 11500)
+						{
+							Random_Size = Random(.5, .8);
+						}
+
+
+						//collider->SetExtention(sf::Vector2f(680,300));
+						//sf::Sprite* tempEnemy = p_pSpriteManager->Load("enemy2_spritesheet.png", 0,0, 680,300);
+						//sf::Sprite* tempglow = p_pSpriteManager->Load("enemy_spritesheet_glow.png",0,0,680,300);
+						////enemy->SetEnemyStage2Glow(tempglow);
+						//tempEnemy->setOrigin((680)/2, (300)/2);
+						//tempEnemy->setPosition(iX, iY);
+						//EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
+
 						collider->SetExtention(sf::Vector2f(495, 385));
 						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
 						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreyAnim.txt");	
 						enemy->AddAnimation("EnemyGrey", pxAnimSprite);
 						enemy->GetSprite()->setOrigin(495/2.0f, 385/2.0f); 
+
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetCurrentLevel(fishLevel);
 						enemy->SetScale(Random_Size);

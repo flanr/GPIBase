@@ -34,9 +34,9 @@ EnemyFishObject::EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_pxSprit
 	GlowTexture->loadFromFile("../data/sprites/enemy2_glow_spritesheet3.png", sf::IntRect(0,0,680,300));
 
 	GlowRectangle[0].position = (sf::Vector2f(0.f,0.f));
-	GlowRectangle[1].position = sf::Vector2f(265.f,0.f);
-	GlowRectangle[2].position = sf::Vector2f(265.f, 231.f);
-	GlowRectangle[3].position = sf::Vector2f(0.f,231.f);
+	GlowRectangle[1].position = sf::Vector2f(549,0.f);
+	GlowRectangle[2].position = sf::Vector2f(549.f, 205.f);
+	GlowRectangle[3].position = sf::Vector2f(0.f,205.f);
 
 	GlowRectangle[0].color = sf::Color::Red;
 	GlowRectangle[1].color = sf::Color::Red;
@@ -189,6 +189,21 @@ void EnemyFishObject::setGlowPosition()
 		GlowRectangle[3].position = temp2;
 	}
 }
+
+void EnemyFishObject::UpdateGlow()
+{
+	if(m_pxCurrentAnimation->GetActiveAnimation() == "Idle")
+	{
+		//UpdateGlowTexture();
+	}
+}
+//void EnemyFishObject::UpdateGlowTexture(parameter)
+//{
+//	GlowRectangle[0].texCoords = sf::Vector2f(0.0f,0.0f);
+//	GlowRectangle[1].texCoords = sf::Vector2f(0.0f,0.0f);
+//	GlowRectangle[2].texCoords = sf::Vector2f(0.0f,0.0f);
+//	GlowRectangle[3].texCoords = sf::Vector2f(0.0f,0.0f);
+//}
 
 void EnemyFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 {

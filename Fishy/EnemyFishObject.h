@@ -33,6 +33,8 @@ public:
 	
 
 	void setGlowPosition();
+	void UpdateGlow();
+	void UpdateGlowTexture();
 
 	/*----------------AI STUFF-------------------*/
 	AIStateMachine<EnemyFishObject>* GetFSM()				{return m_pAIStateMachine;}
