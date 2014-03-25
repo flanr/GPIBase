@@ -7,18 +7,12 @@ LightSource::LightSource()
 
 LightSource::LightSource(sf::Vector2f p_Position, float p_Radius )
 {
-	//m_Position = p_Position;
 	m_LightRadius = p_Radius;
 	m_Circle = new sf::CircleShape(p_Radius);
 	m_Circle->setPosition(p_Position);
 	m_LightTexture = new sf::RenderTexture();
 	m_LightTexture->create(m_LightRadius * 2.0f, m_LightRadius * 2.0f);
 	CreateCircle();
-	//m_LightCircle = new sf::Sprite();
-	//m_LightCircle->setTexture(m_LightTexture->getTexture(), true);
-	//SetOrigin(sf::Vector2f(m_LightTexture->getTexture().getSize().x / 2.0f, m_LightTexture->getTexture().getSize().y / 2.0f) );
-	//SetPosition(p_Position);
-
 	m_LightOn = true;
 }
 
