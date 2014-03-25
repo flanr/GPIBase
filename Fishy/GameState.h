@@ -38,6 +38,9 @@ public:
 	string GetCurrentState();
 
 	void UpdateGUI();
+	void HandlePause();
+	void MouseDown(int x, int y);
+	int MouseOver(int x, int y);
 
 	void UpdateTutorial();
 	void TutorialWASD();
@@ -52,6 +55,7 @@ private:
 	Core *m_pCore;
 	sf::RenderWindow *m_window;
 	PlayerFishObject *m_player;
+	SoundManager *m_SoundManager;
 
 	Level* m_LevelLayerForGround;
 	Level* m_LevelLayerMidleGround;
@@ -77,10 +81,31 @@ private:
 	bool m_TutorialSPACE;
 	bool m_TutorialF;
 	bool m_TutorialFPressed;
+	bool m_Paused;
 	sf::Sprite m_TutorialSpriteWASD;
 	sf::Sprite m_TutorialSpriteSPACE;
 	sf::Sprite m_TutorialSpriteF;
 
+	/// PAUSE / OPTIONS ///
+	sf::Sprite *m_OptionBackground;
+sf::Sprite *m_BackGroundImg;
+	int m_ButtonClick;
+
+	// Buttons 
+	Button m_ButtonMusicMute;
+	sf::Vector2f m_ButtonMusicMutePos;
+	Button m_ButtonSoundMute;
+	sf::Vector2f m_ButtonSoundMutePos;
+	Button m_ButtonFullScreen;
+	sf::Vector2f m_ButtonFullScreenPos;
+	Button m_ButtonWindowed;
+	sf::Vector2f m_ButtonWindowedPos;
+	Button m_ButtonReturn;
+	sf::Vector2f m_ButtonReturnPos;
+
+	// Sliders
+	Slider m_SliderMusicVol;
+	Slider m_SliderSoundVol;
 
 
 };
