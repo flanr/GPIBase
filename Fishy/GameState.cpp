@@ -85,6 +85,13 @@ GameState::GameState(Core* p_pCore)
 	m_ButtonReturn.SetSpriteRect(m_SpriteManager->Load("backarrow.png",0,0,85,58));
 	m_ButtonReturnPos = sf::Vector2f(m_OptionBackground->getPosition().x + 364 ,m_OptionBackground->getPosition().y + 481);
 	m_ButtonReturn.SetPosition(m_ButtonReturnPos.x,m_ButtonReturnPos.y);
+	// Play
+	m_ButtonPlay.SetSpriteRect(m_SpriteManager->Load("Play_options_sprite.png",0,0,85,58));
+	m_ButtonPlayPos = sf::Vector2f(m_OptionBackground->getPosition().x , m_OptionBackground->getPosition().y );
+	m_ButtonPlay.SetPosition(m_ButtonPlayPos.x,m_ButtonPlayPos.y);
+	// Exit
+	m_ButtonExit.SetSpriteRect(m_SpriteManager->Load("exit_options_sprite.png",0,0,85,58));
+	m_ButtonExitPos = sf::Vector2f(m_OptionBackground->getPosition().x , m_OptionBackground->getPosition().y );
 
 
 	m_ButtonClick = -1;
@@ -328,6 +335,18 @@ void GameState::HandlePause()
 			m_ButtonReturn.SetSpriteRect(m_SpriteManager->Load("backarrow.png",170,0,85,57));
 			m_ButtonReturn.SetPosition(m_ButtonReturnPos.x,m_ButtonReturnPos.y);
 		}
+		else if (MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 6 && (m_ButtonClick == 0 || m_ButtonClick == 6)) // Play
+		{
+			m_ButtonClick = 6;
+			m_ButtonPlay.SetSpriteRect(m_SpriteManager->Load("Play_options_sprite.png",170,0,85,57));
+			m_ButtonPlay.SetPosition(m_ButtonPlayPos.x, m_ButtonPlayPos.y);
+		}
+		else if (MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 7 && (m_ButtonClick == 0 || m_ButtonClick == 7)) // Exit
+		{
+			m_ButtonClick = 7;
+			m_ButtonExit.SetSpriteRect(m_SpriteManager->Load("exit_options_sprite.png",170,0,85,57));
+			m_ButtonExit.SetPosition(m_ButtonExitPos.x, m_ButtonExitPos.y);
+		}
 		else if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y)  == 0 && m_ButtonClick == 0)
 		{m_ButtonClick = -1;
 
@@ -366,6 +385,15 @@ void GameState::HandlePause()
 		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 5 && m_ButtonClick == 5) // Back
 		{
 			m_pCore->m_StateManager.SetState("StartState");
+		}
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 6 && m_ButtonClick == 6) // Play
+		{
+			m_Paused = false;
+			m_Camera->ZoomOut(m_Camera->GetTotalZoom()  );
+		}
+		if(MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y) == 7 && m_ButtonClick == 7) // Exit
+		{
+			std::exit(0);
 		}
 		m_ButtonClick = 0;
 		m_SliderMusicVol.MouseUp();
@@ -476,6 +504,42 @@ int GameState::MouseOver(int x, int y)
 		m_ButtonReturn.SetPosition(m_ButtonReturnPos.x, m_ButtonReturnPos.y);
 	}
 
+	///////////////
+	// Play  //
+	///////////////
+
+	bw = m_ButtonPlay.GetSprite()->getGlobalBounds().width;
+	bh = m_ButtonPlay.GetSprite()->getGlobalBounds().height;
+	bx = m_ButtonPlay.GetSprite()->getGlobalBounds().left; 
+	by = m_ButtonPlay.GetSprite()->getGlobalBounds().top;
+	if ((x > bx && x < bx + bw ) && (y > by  && y < by + bh ) )  
+	{
+		m_ButtonPlay.SetSpriteRect(m_SpriteManager->Load("Play_options_sprite.png",85,0,85,57));
+		m_ButtonPlay.SetPosition(m_ButtonPlayPos.x,m_ButtonPlayPos.y);
+		return 6;
+	}else
+	{
+		m_ButtonPlay.SetSpriteRect(m_SpriteManager->Load("Play_options_sprite.png",0,0,85,57));
+		m_ButtonPlay.SetPosition(m_ButtonPlayPos.x, m_ButtonPlayPos.y);
+	}
+	///////////////
+	// Exit  //
+	///////////////
+
+	bw = m_ButtonExit.GetSprite()->getGlobalBounds().width;
+	bh = m_ButtonExit.GetSprite()->getGlobalBounds().height;
+	bx = m_ButtonExit.GetSprite()->getGlobalBounds().left; 
+	by = m_ButtonExit.GetSprite()->getGlobalBounds().top;
+	if ((x > bx && x < bx + bw ) && (y > by  && y < by + bh ) )  
+	{
+		m_ButtonExit.SetSpriteRect(m_SpriteManager->Load("exit_options_sprite.png",85,0,85,57));
+		m_ButtonExit.SetPosition(m_ButtonExitPos.x, m_ButtonExitPos.y);
+		return 7;
+	}else
+	{
+		m_ButtonExit.SetSpriteRect(m_SpriteManager->Load("exit_options_sprite.png",0,0,85,57));
+		m_ButtonExit.SetPosition(m_ButtonExitPos.x, m_ButtonExitPos.y);
+	}
 
 
 	return 0;
@@ -639,6 +703,9 @@ void GameState::HandleInput()
 
 			m_ButtonReturnPos = sf::Vector2f(m_OptionBackground->getPosition().x + 364 ,m_OptionBackground->getPosition().y + 481);
 
+			m_ButtonPlayPos = sf::Vector2f(m_OptionBackground->getPosition().x + 67 ,m_OptionBackground->getPosition().y + 481);
+
+			m_ButtonExitPos = sf::Vector2f(m_OptionBackground->getPosition().x + 701 ,m_OptionBackground->getPosition().y + 481);
 
 			m_SliderMusicVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+205,600,25);
 			m_SliderSoundVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+314,600,25);
@@ -730,6 +797,8 @@ void GameState::Draw()
 		m_DrawManager->Draw(m_ButtonFullScreen.GetSprite());
 		m_DrawManager->Draw(m_ButtonWindowed.GetSprite());
 		m_DrawManager->Draw(m_ButtonReturn.GetSprite());
+		m_DrawManager->Draw(m_ButtonPlay.GetSprite());
+		m_DrawManager->Draw(m_ButtonExit.GetSprite());
 		m_DrawManager->DrawSlider(m_SliderMusicVol);
 		m_DrawManager->DrawSlider(m_SliderSoundVol);
 	}
