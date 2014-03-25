@@ -132,7 +132,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'f')
+			else if (row[i] == 'f')
 			{
 				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0,209, 400, 209);
 				sprite->setPosition(iX,iY);
@@ -153,7 +153,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'g')
+			else if (row[i] == 'g')
 			{
 				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0, 418, 400, 209);
 				sprite->setPosition(iX,iY);
@@ -174,7 +174,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'h')
+			else if (row[i] == 'h')
 			{
 				sf::Sprite * sprite = p_pSpriteManager->Load("interactive_light_boxsize_400x209.png", 0, 627, 400, 209);
 				sprite->setPosition(iX,iY);
@@ -195,7 +195,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'l')
+			else if (row[i] == 'l')
 			{
 				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
 
@@ -215,7 +215,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'p')
+			else if (row[i] == 'p')
 			{
 				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
 
@@ -235,7 +235,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'q')
+			else if (row[i] == 'q')
 			{
 				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(494, 490) );
 
@@ -255,7 +255,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
-			if (row[i] == 'r')
+			else if (row[i] == 'r')
 			{
 				Collider *collider = new Collider(sf::Vector2f(iX,iY), sf::Vector2f(256, 256) );
 
@@ -273,8 +273,20 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				iX += m_iWidth;
 				continue;
 			}
+			else if (row[i] == 'w')
+			{
+				sf::Sprite * sprite = p_pSpriteManager->Load("plant1.png", 0,0, 315, 804);
+				sprite->setPosition(iX,iY);
 
-			if (row[i] == 'z')
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-150,iY-550));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'z')
 			{
 				sf::Sprite * sprite = p_pSpriteManager->Load("plant2.png", 0,0, 676, 632);
 				sprite->setPosition(iX,iY);
@@ -286,10 +298,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				iX += m_iWidth;
 				continue;
-
-
 			}
-			if (row[i] == 'x')
+			else if (row[i] == 'x')
 			{
 				sf::Sprite *sprite = p_pSpriteManager->Load("plant3.png", 0,0, 540, 840);
 				sprite->setPosition(iX,iY);
@@ -302,10 +312,80 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				iX += m_iWidth;
 				continue;
-
-
 			}
-			if (row[i] == 'v')
+			else if (row[i] == 'y')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("plant4.png", 0,0, 596, 768);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-375,iY-430));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'n')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("plant5.png", 0,0, 796, 712);
+				sprite->setPosition(iX,iY);
+				sprite->rotate(23);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-400,iY-450));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'm')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("plant6.png", 0,0, 1448, 1728);
+				sprite->setPosition(iX,iY);
+				sprite->setScale(0.5f, 0.5f);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-400,iY-650));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 't')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_1.png", 0,0, 398, 334);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-220,iY - 100));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'u')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_2.png", 0,0, 556, 424);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-470,iY-185));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'v')
 			{
 				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
 				sprite->setPosition(iX,iY);
@@ -318,8 +398,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				iX += m_iWidth;
 				continue;
-
-
 			}
 
 

@@ -88,6 +88,7 @@ bool Core::Initialize()
 		m_StateManager.Attach(new OptionState(this));
 		m_StateManager.Attach(new StartState(this));
 		m_StateManager.Attach(new EndState(this));
+		m_StateManager.Attach(new WinState(this));
 		m_StateManager.SetState("StartState");
 	}
 

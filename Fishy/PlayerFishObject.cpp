@@ -45,6 +45,7 @@ PlayerFishObject::PlayerFishObject(sf::Vector2f p_Position, sf::Sprite *p_Sprite
 	m_StageTwo =false;
 	m_bHasPlayedDeathMusic = false;
 	m_GameOver = false;
+	m_GameWin = false;
 };
 
 PlayerFishObject::~PlayerFishObject()
@@ -413,13 +414,22 @@ AnimatedSprite* PlayerFishObject::GetCurrentAnimation()
 	return m_pxCurrentAnimation;
 }
 
-void PlayerFishObject::SetGameStatus(bool p_Status)
+void PlayerFishObject::SetGameOverStatus(bool p_Status)
 {
 	m_GameOver = p_Status;
 }
-bool PlayerFishObject::GetGameStatus()
+bool PlayerFishObject::GetGameOverStatus()
 {
 	return m_GameOver;
+}
+
+void PlayerFishObject::SetGameWinStatus(bool p_Status)
+{
+	m_GameWin = p_Status;
+}
+bool PlayerFishObject::GetGameWinStatus()
+{
+	return m_GameWin;
 }
 
 void PlayerFishObject::SetSoundManager(SoundManager* p_soundmanager)
@@ -540,7 +550,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		{
 			if(tempptr->GetSubType() == "Stage3")
 			{
-				m_GameOver = true;
+				m_GameWin = true;
 			}
 
 			ExperienceGain(10);
@@ -560,7 +570,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			}
 
 			cout <<"XP: " << GetExperience() << std::endl;
-			cout <<"Level: " << GetCurrentLevel() << endl;
+			/*cout <<"Level: " << GetCurrentLevel() << endl;*/
 		}
 	}
 }

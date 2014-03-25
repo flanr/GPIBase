@@ -41,6 +41,7 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 
 void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level, float p_Deltatime)
 {
+	/* following code stops the camera movement when the player come to a certain position*/ 
 	//m_MovingXAxis = false;
 	//m_MovingYAxis = false;
 	//if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 

@@ -53,6 +53,7 @@ using namespace std;
 #include "StartState.h"
 #include "OptionState.h"
 #include "EndState.h"
+#include "WinState.h"
 #include "Geographics.h"
 #include "Collider.h"
 #include "Level.h"

@@ -223,7 +223,7 @@ void GameState::ExitState()
 {
 	cout << "GameState::ExitState" << endl;
 }
-	
+
 
 bool GameState::Update(float p_DeltaTime)
 {
@@ -248,18 +248,30 @@ bool GameState::Update(float p_DeltaTime)
 		UpdateGUI();
 		UpdateTutorial();
 
-		if(m_GameObjMgr->m_pxPlayer->GetGameStatus() )
+		/*if(m_GameObjMgr->m_pxPlayer->GetGameStatus() )
 		{
-			m_pCore->m_StateManager.SetState("EndState");
-			Cleanup();
-		}
+
+		}*/
 	} else
 	{
+		HandlePause();
+	}
+
+	if(m_GameObjMgr->m_pxPlayer->GetGameWinStatus() )
+	{
+
+		m_pCore->m_StateManager.SetState("WinState");
+		Cleanup();
+	}
+	else if(m_GameObjMgr->m_pxPlayer->GetGameOverStatus() )
+	{
+		m_pCore->m_StateManager.SetState("EndState");
+		Cleanup();
 		/*m_window->setView(m_window->getDefaultView());
 		m_Camera->Update(m_GameObjMgr, m_LevelLayerMidleGround, p_DeltaTime );*/
 
 
-		HandlePause();
+
 	}
 
 	//else if (m_GameObjMgr->GetEnemyCounter() == 0)
@@ -626,7 +638,7 @@ void GameState::HandleInput()
 			m_ButtonWindowedPos = sf::Vector2f(m_OptionBackground->getPosition().x + 364,m_OptionBackground->getPosition().y + 389);
 
 			m_ButtonReturnPos = sf::Vector2f(m_OptionBackground->getPosition().x + 364 ,m_OptionBackground->getPosition().y + 481);
-	
+
 
 			m_SliderMusicVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+205,600,25);
 			m_SliderSoundVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+314,600,25);

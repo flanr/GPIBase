@@ -102,6 +102,10 @@ sf::Sprite *m_BackGroundImg;
 	sf::Vector2f m_ButtonWindowedPos;
 	Button m_ButtonReturn;
 	sf::Vector2f m_ButtonReturnPos;
+	/*Button m_ButtonExit;
+	sf::Vector2f m_Bu;
+	Button m_a;
+	sf::Vector2f m_a;*/
 
 	// Sliders
 	Slider m_SliderMusicVol;
