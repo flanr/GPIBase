@@ -305,7 +305,35 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 
 			}
-			if (row[i] == 'v')
+			if (row[i] == 't')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_1.png", 0,0, 398, 334);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-220,iY - 100));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'u')
+			{
+				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_2.png", 0,0, 556, 424);
+				sprite->setPosition(iX,iY);
+
+				GameObject *go = new GameObject(sprite->getPosition(),sprite);
+				go->SetPosition(sf::Vector2f(iX-470,iY-185));
+				go->SetLevelLayer(layer);
+				m_pxGameObjMgr->Attach(go);
+
+
+				iX += m_iWidth;
+				continue;
+			}
+			else if (row[i] == 'v')
 			{
 				sf::Sprite *sprite = p_pSpriteManager->Load("human_prop_3.png", 0,0, 397, 390);
 				sprite->setPosition(iX,iY);
@@ -318,8 +346,6 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 
 				iX += m_iWidth;
 				continue;
-
-
 			}
 
 

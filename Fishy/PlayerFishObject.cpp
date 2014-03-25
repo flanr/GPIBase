@@ -570,7 +570,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			}
 
 			cout <<"XP: " << GetExperience() << std::endl;
-			cout <<"Level: " << GetCurrentLevel() << endl;
+			/*cout <<"Level: " << GetCurrentLevel() << endl;*/
 		}
 	}
 }
