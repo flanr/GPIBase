@@ -15,6 +15,7 @@ public:
 
 	void SetPlayerScale(float x);
 	void Update(InputManager *p_pxInputManager,SpriteManager *p_SpriteManager ,Camera *p_Camera ,float p_Deltatime);
+	void MenuUpdate(float p_Deltatime);
 	void AddAnimation(const std::string &p_sName, AnimatedSprite *p_pxAnimSprite);
 	void ChangeStageAnimation(const std::string &p_sName, SpriteManager *p_pxSpriteManager);
 
@@ -30,8 +31,11 @@ public:
 	bool HasGrown();
 	AnimatedSprite* GetCurrentAnimation();
 
-	void SetGameStatus(bool p_Status);
-	bool GetGameStatus();
+	void SetGameOverStatus(bool p_Status);
+	bool GetGameOverStatus();
+
+	void SetGameWinStatus(bool p_Status);
+	bool GetGameWinStatus();
 
 	void SetSoundManager(SoundManager* p_soundmanager);
 	void OnCollision(GameObject* other, sf::Vector2f& offset);
@@ -64,6 +68,7 @@ private:
 	float m_Energy;
 	int m_Experience;
 	bool m_GameOver;
+	bool m_GameWin;
 
 	bool m_StageTwo;
 	int m_PowerupLightCounter;

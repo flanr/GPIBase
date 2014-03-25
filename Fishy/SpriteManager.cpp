@@ -131,7 +131,7 @@ bool SpriteManager::LoadImage(const std::string &filename){
 	{
 		return false;
 	}
-
+	//texture->setSmooth(true);
 	m_axSprites.insert(std::pair<std::string, sf::Texture*>(filename, texture) );
 	return true;
 

@@ -6,6 +6,7 @@
 
 using namespace std;
 class SpriteManager;
+class PlayerFishObject;
 class StartState : public State
 {
 public:
@@ -39,6 +40,7 @@ private:
 	SpriteManager *m_SpriteManager;
 	sf::Sprite *m_BackGroundImg;
 	sf::Sprite *m_TitleImg;
+	PlayerFishObject *m_AvatarAnim;
 	// Start
 	Button m_ButtonStart;
 	sf::Vector2f m_ButtonStartPos;

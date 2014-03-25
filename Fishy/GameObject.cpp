@@ -148,7 +148,7 @@ void GameObject::FlipXRight(float scale)
 
 void GameObject::Update(float deltatime)
 {
-	if(GetType() == "InteractiveLight")
+	/*if(GetType() == "InteractiveLight")
 	{
 		if(HasLight() )
 		{
@@ -162,7 +162,7 @@ void GameObject::Update(float deltatime)
 				}
 			}
 		}
-	}
+	}*/
 
 	if (GetCollider() != nullptr)
 	{

@@ -27,17 +27,21 @@ void CollisionManager::CheckCollisionRectVsRect()
 	sf::Vector2f offset = sf::Vector2f(0.f,0.f);
 	for (int i = 0; i < m_axRectColliders.size()-1; i++)
 	{
-		
+		if(m_axRectColliders[i]->GetParent()->GetType().compare("Player") == 0) {
+			int asdijdiajsd = 0;
+		}
+
 		//if the collider is not within the camera then continue to next collider
 		if(!(m_axRectColliders[i]->GetParent()->GetActive() ) )
 		{
 			continue;
 		}
 		
-		if (m_axRectColliders[i]->GetParent()->GetType() == "BrownBrick")
+		if (m_axRectColliders[i]->GetParent()->GetType().compare("BrownBrick") == 0)
 		{
 			continue;
 		}
+
 		for (int j = i+1; j < m_axRectColliders.size(); j++)
 		{
 			//if the collider is not within the camera then continue to next collider

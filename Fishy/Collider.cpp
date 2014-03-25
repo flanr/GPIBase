@@ -14,7 +14,8 @@ Collider::Collider(sf::Vector2f p_position, sf::Vector2f p_extension)
 	: m_position(p_position)
 	, m_extention(p_extension)
 {
-
+	m_radius = 0.f;
+	m_xParent = nullptr;
 	////Temporary for testing
 }
 

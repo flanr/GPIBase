@@ -39,8 +39,9 @@ void Camera::Initialize(sf::RenderWindow *p_window, sf::Vector2f p_Position)
 	m_FilterSprite->setPosition(p_Position );
 }
 
-void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
+void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level, float p_Deltatime)
 {
+	/* following code stops the camera movement when the player come to a certain position*/ 
 	//m_MovingXAxis = false;
 	//m_MovingYAxis = false;
 	//if( ( (p_GameObjMgr->m_pxPlayer->GetPosition().x - (GetCameraView().getSize().x / 2.0f) )<= -35) 
@@ -129,10 +130,10 @@ void Camera::Update(GameObjectManager *p_GameObjMgr, Level *p_Level)
 		{
 			if( !(p_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == MIDDLEGROUND || p_GameObjMgr->m_apxGameObject[i]->GetLevelLayer() == FOREGROUND) )
 			{
-				p_GameObjMgr->m_apxGameObject[i]->GetSprite()->setScale(p_GameObjMgr->m_apxGameObject[i]->GetSprite()->getScale() * GetZoomStrength());
+				p_GameObjMgr->m_apxGameObject[i]->GetSprite()->setScale(p_GameObjMgr->m_apxGameObject[i]->GetSprite()->getScale() * GetZoomStrength() );
 			}
 		}
-		m_FilterSprite->setScale(m_FilterSprite->getScale() * GetZoomStrength() );
+		m_FilterSprite->setScale((m_FilterSprite->getScale() * GetZoomStrength() )  );
 		m_TotalZoom *= GetZoomStrength();
 		//cout << "TotalZoom: " << m_TotalZoom << endl;
 		if(p_GameObjMgr->m_pxPlayer->HasGrown() == false)
@@ -251,7 +252,7 @@ sf::FloatRect Camera::GetCameraViewport()
 void Camera::AddLayer()
 {
 	m_FilterTexture = new sf::RenderTexture();
-	m_FilterTexture->create(m_CameraView.getSize().x, m_CameraView.getSize().y);
+	m_FilterTexture->create(m_CameraView.getSize().x , m_CameraView.getSize().y);
 	m_FilterSprite = new sf::Sprite();
 	m_FilterSprite->setTexture(m_FilterTexture->getTexture() );
 	m_FilterSprite->setOrigin(m_FilterTexture->getTexture().getSize().x / 2.0f, m_FilterTexture->getTexture().getSize().y / 2.0f  );
@@ -331,10 +332,10 @@ float Camera::GetTotalZoom()
 
 void Camera::SetObjectsActive(GameObject* p_GameObject)
 {
-	if(p_GameObject->GetPosition().x >= (GetCameraView().getCenter().x - ((GetCameraView().getSize().x + 2048) /2.0f)) &&
-		p_GameObject->GetPosition().x <= (GetCameraView().getCenter().x + ((GetCameraView().getSize().x + 2048) /2.0f)) &&
-		p_GameObject->GetPosition().y >= (GetCameraView().getCenter().y - ((GetCameraView().getSize().y + 768) /2.0f)) &&
-		p_GameObject->GetPosition().y <= (GetCameraView().getCenter().y + ((GetCameraView().getSize().y + 768) /2.0f)) 
+	if(p_GameObject->GetPosition().x  >= (GetCameraView().getCenter().x - ((GetCameraView().getSize().x + 3072) /2.0f)) &&
+		p_GameObject->GetPosition().x <= (GetCameraView().getCenter().x + ((GetCameraView().getSize().x + 3072) /2.0f)) &&
+		p_GameObject->GetPosition().y >= (GetCameraView().getCenter().y - ((GetCameraView().getSize().y + 2048) /2.0f)) &&
+		p_GameObject->GetPosition().y <= (GetCameraView().getCenter().y + ((GetCameraView().getSize().y + 2048) /2.0f)) 
 		)
 	{
 		p_GameObject->SetActive(true);
