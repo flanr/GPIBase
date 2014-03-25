@@ -31,6 +31,7 @@ Level::~Level()
 
 bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, bool p_collider, ELayer layer)
 {
+
 	int count = 0;
 	ifstream stream(p_sFileName);
 
@@ -430,7 +431,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					{
 
 						collider->SetExtention(sf::Vector2f(549,205));
-						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+						EnemyFishObject *enemy = new EnemyFishObject("Stage1", sf::Vector2f(iX, iY ),nullptr,collider, p_pSpriteManager);
 						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyNormalAnim.txt");	
 						enemy->AddAnimation("EnemyNormal", pxAnimSprite);
 						enemy->SetLevelLayer(MIDDLEGROUND);
@@ -439,7 +440,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						enemy->SetScale(Random_Size);
 						collider->SetExtention(sf::Vector2f(549.f*enemy->GetScale(), 205.f*enemy->GetScale())); 
 						enemy->SetPosition(sf::Vector2f(iX, iY) );
-						enemy->SetSubType("Stage1");
+						//enemy->SetSubType("Stage1");
 						enemy->SetSpeed(100);
 						enemy->SetSubTypeSize(Random_Size);
 						m_pxGameObjMgr->Attach(enemy);
@@ -447,16 +448,17 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					}
 					else if(greenFish == true)
 					{
-						collider->SetExtention(sf::Vector2f(295, 140));
-						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+						collider->SetExtention(sf::Vector2f(295, 141));
+						EnemyFishObject *enemy = new EnemyFishObject("Stage2", sf::Vector2f(iX, iY ),nullptr,collider, p_pSpriteManager);
 						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreenAnim.txt");	
 						enemy->AddAnimation("EnemyGreen", pxAnimSprite);
 						enemy->GetSprite()->setOrigin(295/2.0f, 140/2.0f);
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetScale(Random_Size);
+						collider->SetExtention(sf::Vector2f(295.f*enemy->GetScale(), 141.f*enemy->GetScale()));
 						enemy->SetCurrentLevel(fishLevel);
 						enemy->SetPosition(sf::Vector2f(iX, iY) );
-						enemy->SetSubType("Stage2");
+						//enemy->SetSubType("Stage2");
 						enemy->SetSpeed(100);
 						enemy->SetSubTypeSize(Random_Size);
 						m_pxGameObjMgr->Attach(enemy);
@@ -484,8 +486,8 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						//tempEnemy->setPosition(iX, iY);
 						//EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),tempEnemy,collider);
 
-						collider->SetExtention(sf::Vector2f(495, 385));
-						EnemyFishObject *enemy = new EnemyFishObject(sf::Vector2f(iX, iY ),nullptr,collider);
+						collider->SetExtention(sf::Vector2f(772, 596));
+						EnemyFishObject *enemy = new EnemyFishObject("Stage3", sf::Vector2f(iX, iY ),nullptr,collider, p_pSpriteManager);
 						AnimatedSprite *pxAnimSprite = p_pSpriteManager->LoadAnim("../data/anim/EnemyGreyAnim.txt");	
 						enemy->AddAnimation("EnemyGrey", pxAnimSprite);
 						enemy->GetSprite()->setOrigin(495/2.0f, 385/2.0f); 
@@ -493,8 +495,9 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						enemy->SetLevelLayer(MIDDLEGROUND);
 						enemy->SetCurrentLevel(fishLevel);
 						enemy->SetScale(Random_Size);
+						collider->SetExtention(sf::Vector2f(772.f*enemy->GetScale(), 596.f*enemy->GetScale()));
 						enemy->SetPosition(sf::Vector2f(iX, iY) );
-						enemy->SetSubType("Stage3"); //glöm inte att ändra i enemyfish så alla animationer uppdateras
+						//enemy->SetSubType("Stage3"); //glöm inte att ändra i enemyfish så alla animationer uppdateras
 						enemy->SetSpeed(100);
 						enemy->SetSubTypeSize(Random_Size);
 						m_pxGameObjMgr->Attach(enemy);

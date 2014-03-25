@@ -106,9 +106,26 @@ bool GameState::EnterState()
 		Player->GetLightSprite()->setOrigin(1023 / 2.0f, 1023 /2.0f);
 		Player->GetLightSprite()->setScale(0.3f, 0.3f);
 
+
 		m_GameObjMgr->AttachPlayer(Player);
 		m_pxCollisionManager->AttachCollider(Player->GetCollider() );
 		m_GameObjMgr->m_pxPlayer->SetSoundManager(m_pCore->m_SoundManager);
+
+		/*GlowTexture1 = new sf::Texture;
+		GlowTexture1->loadFromFile("../data/sprites/enemy2_finalglowsheet.png", sf::IntRect(0,0,2279,1015));*/
+
+		m_SpriteManager->LoadImage("enemy2_finalglowsheet.png");
+		m_SpriteManager->LoadImage("enemy1_finalglowsheet.png");
+		m_SpriteManager->LoadImage("enemy3_finalglowsheet.png");
+		
+
+		/*GlowTexture2 = new sf::Texture;
+		GlowTexture2->loadFromFile("../data/sprites/enemy_spritesheet_glow.png", sf::IntRect(0,0,2279,1015));
+
+		GlowTexture3 = new sf::Texture;
+		GlowTexture3->loadFromFile("../data/sprites/enemy3_finalglowsheet.png", sf::IntRect(0,0,2279,1015));*/
+
+
 
 		// MiddleGround
 		m_LevelLayerMidleGround = new Level(m_GameObjMgr, m_pxCollisionManager);
@@ -198,6 +215,21 @@ bool GameState::Update(float p_DeltaTime)
 		cout<< "YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
 		m_pCore->m_StateManager.SetState("EndState");
 		Cleanup();
+	}
+	for (int i = 0; i < m_GameObjMgr->m_apxGameObject.size(); i++)
+	{
+		if (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy" && m_GameObjMgr->m_apxGameObject[i]->GetCurrentLevel() < m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+		{
+			m_GameObjMgr->m_apxGameObject[i]->SetColor(sf::Color::Green);
+		}
+		else if (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy" && m_GameObjMgr->m_apxGameObject[i]->GetCurrentLevel() == m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+		{
+			m_GameObjMgr->m_apxGameObject[i]->SetColor(sf::Color::Yellow);
+		}
+		else if (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy" && m_GameObjMgr->m_apxGameObject[i]->GetCurrentLevel() < m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+		{
+			m_GameObjMgr->m_apxGameObject[i]->SetColor(sf::Color::Red);
+		}
 	}
 
 	return true;
@@ -438,6 +470,7 @@ void GameState::Cleanup()
 	Gui = nullptr;
 	delete m_Camera;
 	m_Camera = nullptr;
+	
 }
 
 void GameState::TutorialWASD()

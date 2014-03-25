@@ -81,6 +81,8 @@ private:
 	sf::Sprite m_TutorialSpriteSPACE;
 	sf::Sprite m_TutorialSpriteF;
 
-
+	sf::Texture* GlowTexture1;
+	sf::Texture* GlowTexture2;
+	sf::Texture* GlowTexture3;
 
 };
