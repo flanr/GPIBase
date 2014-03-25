@@ -1,5 +1,5 @@
 tileset_256.png
-29 256 256
+33 256 256
 1 0 0 256 256
 2 256 0 256 256
 3 512 0 256 256
@@ -18,6 +18,8 @@ f 0 0 0 0
 g 0 0 0 0
 h 0 0 0 0
 l 0 0 0 0
+m 0 0 0 0
+n 0 0 0 0
 p 0 0 0 0
 q 0 0 0 0
 r 0 0 0 0
@@ -25,8 +27,10 @@ S 0 0 0 0
 t 0 0 0 0
 u 0 0 0 0
 v 0 0 0 0
-z 0 0 0 0
+w 0 0 0 0
 x 0 0 0 0
+y 0 0 0 0
+z 0 0 0 0
 E 0 0 0 0
 F 0 0 0 0
 
@@ -38,9 +42,9 @@ dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 dddddb333333333333cdddb333333333333333333cdb333cddddddddddddddddddddddddddddddddddddddddd
 ddddd2000000000000833370000000000000000004d20004ddddddddddddddddddddddddddddddddddddddddd
 ddddd2000000000000000000000000000000000059d20008333cddddddddddddddddddddddddddddddddddddd
-ddddd200000000000E000000000000z0516000059db700000004ddddddddddddddddddddddddddddddddddddd
-ddddda1116000x00z0t000E0000051119da11119dd2000000004ddddddddddddddddddddddddddddddddddddd
-ddddddddda111111116000000000833333333333337000000004ddddddddddddddddddddddddddddddddddddd
+ddddd20ynw0000000E000000000000z0516000059db700000004ddddddddddddddddddddddddddddddddddddd
+ddddda1116tmyxnwz0m000E0000051119da11119dd2000000004ddddddddddddddddddddddddddddddddddddd
+ddddddddda111111116y00000000833333333333337000000004ddddddddddddddddddddddddddddddddddddd
 dddddddddddddddddda6000000q0000000000000000000000004ddddddddddddddddddddddddddddddddddddd
 ddddddddddddddddddda60000000000E0000E0000000000000083cddddddddddddddddddddddddddddddddddd
 dddddddddddddddddddda600z0511600x000x0000x000v00r00004ddddddddddddddddddddddddddddddddddd
