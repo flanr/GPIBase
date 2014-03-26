@@ -553,14 +553,15 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				m_GameWin = true;
 			}
 
-			ExperienceGain(10);
-			SetHealth(GetHealth() + 10);
-			if(UpdateLevel() )
-			{
-				m_HasGrown = true;
-			}
+
 			if(m_pxCurrentAnimation->GetCurrentFrame() >= 1)
 			{
+				ExperienceGain(10);
+				SetHealth(GetHealth() + 10);
+				if(UpdateLevel() )
+				{
+					m_HasGrown = true;
+				}
 				if(GetState() != Chewing )
 				{
 					SetState(Chewing);
