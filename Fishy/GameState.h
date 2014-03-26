@@ -86,6 +86,11 @@ private:
 	sf::Sprite m_TutorialSpriteSPACE;
 	sf::Sprite m_TutorialSpriteF;
 
+
+	sf::Texture* GlowTexture1;
+	sf::Texture* GlowTexture2;
+	sf::Texture* GlowTexture3;
+
 	/// PAUSE / OPTIONS ///
 	sf::Sprite *m_OptionBackground;
 sf::Sprite *m_BackGroundImg;
@@ -102,14 +107,15 @@ sf::Sprite *m_BackGroundImg;
 	sf::Vector2f m_ButtonWindowedPos;
 	Button m_ButtonReturn;
 	sf::Vector2f m_ButtonReturnPos;
-	/*Button m_ButtonExit;
-	sf::Vector2f m_Bu;
-	Button m_a;
-	sf::Vector2f m_a;*/
+	Button m_ButtonExit;
+	sf::Vector2f m_ButtonExitPos;
+	Button m_ButtonPlay;
+	sf::Vector2f m_ButtonPlayPos;
 
 	// Sliders
 	Slider m_SliderMusicVol;
 	Slider m_SliderSoundVol;
+
 
 
 };

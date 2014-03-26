@@ -9,11 +9,13 @@
 class Collider;
 class AnimatedSprite;
 template class AIStateMachine<EnemyFishObject>;
+
+
 class EnemyFishObject : public FishObject
 {
 public:
 	//EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite);
-	EnemyFishObject(sf::Vector2f p_xPosition, sf::Sprite *p_xSprite, Collider* p_xCollider = nullptr);
+	EnemyFishObject(std::string p_SubType, sf::Vector2f p_xPosition, sf::Sprite *p_xSprite, Collider* p_xCollider = nullptr, SpriteManager* p_SpriteManger = nullptr);
 	~EnemyFishObject();
 
 	void Update(float deltatime, PlayerFishObject *player);
@@ -35,6 +37,7 @@ public:
 	void setGlowPosition();
 	void UpdateGlow();
 	void UpdateGlowTexture();
+	
 
 	/*----------------AI STUFF-------------------*/
 	AIStateMachine<EnemyFishObject>* GetFSM()				{return m_pAIStateMachine;}
@@ -62,7 +65,8 @@ public:
 	void Attracted();
 	LightSource* GetPlayerLightSource()						{return m_pPlayerLightSource;}
 
-									
+
+
 private:
 	sf::Vector2f m_xSpawnPosition, m_xPlayerPosition, m_vPlayerVelocity;
 	int m_iStateTimer, m_iPlayerDirection;
@@ -76,3 +80,4 @@ private:
 	/*sf::Sprite* glow;*/
 	
 };
+

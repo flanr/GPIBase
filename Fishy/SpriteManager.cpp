@@ -27,6 +27,7 @@ void SpriteManager::Cleanup()
 		it++;
 	}
 	m_axSprites.clear();
+	printf("cleanup\r\n");
 };
 
 sf::Sprite* SpriteManager::Load(const std::string &filename, int x, int y, int width, int height){
@@ -83,7 +84,7 @@ AnimatedSprite* SpriteManager::LoadAnim(const std::string &p_sFilename)
 	}
 	//Flytta allt nedan till egen funktion så man kan bestämma vilken 
 	AnimatedSprite *pxSprite = new AnimatedSprite(it->second, 0, 0, 0, 0);
-	
+
 
 	while(!file.eof()) 
 	{
@@ -135,3 +136,13 @@ bool SpriteManager::LoadImage(const std::string &filename){
 	return true;
 
 };
+
+sf::Texture* SpriteManager::GetTexture(const std::string& filename)
+{
+	auto it = m_axSprites.find(filename);
+	if (it != m_axSprites.end())
+	{
+		return it->second;
+	}
+	return m_axSprites.begin()->second;
+}
