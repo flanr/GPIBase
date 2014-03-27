@@ -478,7 +478,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			{
 				m_light->SetRadius(m_light->GetRadius() * 1.1f);
 				m_LightSprite->setScale(m_LightSprite->getScale() * 1.1f);
-				cout << "LIGHT" << endl;
+				//cout << "LIGHT" << endl;
 				m_PowerupLightCounter++;
 			}
 		}
@@ -488,7 +488,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			if (m_PowerupSpeedCounter < 3)
 			{
 				SetSpeed(GetSpeed() * 1.2f);
-				cout << "SPEED" << endl;
+				//cout << "SPEED" << endl;
 				m_PowerupSpeedCounter++;
 			}		
 		}
@@ -498,8 +498,8 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			if (m_PowerupEnergyCounter < 3)
 			{
 				SetEnergy(GetEnergy() * 1.1f);
-				cout << "ENERGY" << endl;
-				cout << GetEnergy() << endl;
+				//cout << "ENERGY" << endl;
+				//cout << GetEnergy() << endl;
 				m_PowerupEnergyCounter++;
 
 				if (m_Energy > 100)
@@ -579,7 +579,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 				}
 			}
 
-			cout <<"XP: " << GetExperience() << std::endl;
+			//cout <<"XP: " << GetExperience() << std::endl;
 			/*cout <<"Level: " << GetCurrentLevel() << endl;*/
 		}
 	}

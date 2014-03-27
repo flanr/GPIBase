@@ -350,7 +350,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 				sprite->setScale(0.5f, 0.5f);
 
 				GameObject *go = new GameObject(sprite->getPosition(),sprite);
-				go->SetPosition(sf::Vector2f(iX-400,iY-650));
+				go->SetPosition(sf::Vector2f(iX-144,iY-650));
 				go->SetLevelLayer(layer);
 				m_pxGameObjMgr->Attach(go);
 
@@ -450,7 +450,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 						Random_Size = Random(0.1f , 0.25f);
 						if( Random_Size < 0.15f)		{ fishLevel = 0; }
 						else if(Random_Size < 0.20f)	{ fishLevel = 1; }
-						else							{ fishLevel = 2; }
+						else							{ fishLevel = 1; }
 					}
 					else if ( (iY >= 5400) && (iY < 12800) )
 					{
