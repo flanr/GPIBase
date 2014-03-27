@@ -371,32 +371,32 @@ bool PlayerFishObject::UpdateLevel()
 		SetCurrentLevel(4);
 		return true;
 	}
-	else if(GetExperience() == 1030)
+	else if(GetExperience() == 1050)
 	{
 		SetCurrentLevel(5);
 		return true;
 	}
-	else if(GetExperience() == 1070)
+	else if(GetExperience() == 1100)
 	{
 		SetCurrentLevel(6);
 		return true;
 	}
-	else if(GetExperience() == 1120)
+	else if(GetExperience() == 1180)
 	{
 		SetCurrentLevel(7);
 		return true;
 	}
-	else if(GetExperience() == 1180)
+	else if(GetExperience() == 1220)
 	{
 		SetCurrentLevel(8);
 		return true;
 	}
-	else if(GetExperience() == 1250)
+	else if(GetExperience() == 1260)
 	{
 		SetCurrentLevel(9);
 		return true;
 	}
-	else if(GetExperience() == 1350)
+	else if(GetExperience() == 1300)
 	{
 		SetCurrentLevel(10);
 		return true;
