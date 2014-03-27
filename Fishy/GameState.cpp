@@ -162,7 +162,7 @@ bool GameState::EnterState()
 		m_SpriteManager->LoadImage("enemy2_finalglowsheet.png");
 		m_SpriteManager->LoadImage("enemy1_finalglowsheet.png");
 		m_SpriteManager->LoadImage("enemy3_finalglowsheet.png");
-		
+
 
 		/*GlowTexture2 = new sf::Texture;
 		GlowTexture2->loadFromFile("../data/sprites/enemy_spritesheet_glow.png", sf::IntRect(0,0,2279,1015));
@@ -299,17 +299,21 @@ bool GameState::Update(float p_DeltaTime)
 	}
 	for (int i = 0; i < m_GameObjMgr->m_apxGameObject.size(); i++)
 	{
-		if (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy" && m_GameObjMgr->m_apxGameObject[i]->GetCurrentLevel() < m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+		if(m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy")
 		{
-			m_GameObjMgr->m_apxGameObject[i]->SetColor(sf::Color::Green);
-		}
-		else if (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy" && m_GameObjMgr->m_apxGameObject[i]->GetCurrentLevel() == m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
-		{
-			m_GameObjMgr->m_apxGameObject[i]->SetColor(sf::Color::Yellow);
-		}
-		else if (m_GameObjMgr->m_apxGameObject[i]->GetType() == "Enemy" && m_GameObjMgr->m_apxGameObject[i]->GetCurrentLevel() < m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
-		{
-			m_GameObjMgr->m_apxGameObject[i]->SetColor(sf::Color::Red);
+			EnemyFishObject* tempenemy = dynamic_cast<EnemyFishObject*>(m_GameObjMgr->m_apxGameObject[i]);
+			if (tempenemy->GetCurrentLevel() < m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+			{
+				tempenemy->SetColor(sf::Color::Green);
+			}
+			else if (tempenemy->GetCurrentLevel() == m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+			{
+				tempenemy->SetColor(sf::Color::Yellow);
+			}
+			else if (tempenemy->GetCurrentLevel() > m_GameObjMgr->m_pxPlayer->GetCurrentLevel())
+			{
+				tempenemy->SetColor(sf::Color::Red);
+			}
 		}
 	}
 
@@ -743,6 +747,7 @@ void GameState::HandleInput()
 			m_SliderSoundVol.SetSlider(m_OptionBackground->getPosition().x+65,m_OptionBackground->getPosition().y+314,600,25);
 		}
 	}
+
 	if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
 	{
 		//m_pCore->m_StateManager.SetState("StartState");
@@ -763,12 +768,8 @@ void GameState::HandleInput()
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num0))
 	{
 		/*if(m_Camera->GetFilterStatus() == true )
-		{
-			m_Camera->ToggleFilterOn(false);
-		}
-		else
-		{
-			m_Camera->ToggleFilterOn(true);
+
+		m_Camera->ToggleFilterOn(true);
 		}*/
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num9))
@@ -786,6 +787,7 @@ void GameState::HandleInput()
 
 
 
+
 void GameState::Draw()
 {
 	m_DrawManager->ClearWindow();
@@ -798,7 +800,6 @@ void GameState::Draw()
 	{
 		m_DrawManager->Draw(m_Camera->GetFilterSprite() );
 	}
-
 
 
 
@@ -863,7 +864,7 @@ void GameState::Cleanup()
 	Gui = nullptr;
 	delete m_Camera;
 	m_Camera = nullptr;
-	
+
 }
 
 void GameState::TutorialWASD()

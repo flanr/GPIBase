@@ -65,8 +65,8 @@ public:
 	sf::Texture* GetGlowTexture()							{return GlowTexture;}
 	void SetColor(sf::Color p_color);
 
-	int GetCurrentLevel();
-	void SetCurrentLevel(int p);
+	/*int GetCurrentLevel();
+	void SetCurrentLevel(int p);*/
 
 protected:
 	sf::Sprite *m_pxSprite;
@@ -83,5 +83,5 @@ protected:
 	sf::Texture* GlowTexture;
 	sf::VertexArray GlowRectangle;
 
-	int m_CurrentLevel;
+	//int m_CurrentLevel;
 };

@@ -209,11 +209,11 @@ void GameObject::OnCollision(GameObject* p_xOther, sf::Vector2f& p_Offset)
 {
 	std::cout << "GameObject::OnCollision: GameObject A: " << GetType() << " GameObject B: " << p_xOther->GetType() << std::endl;
 }
-int GameObject::GetCurrentLevel()
-{
-	return m_CurrentLevel;
-}
-void GameObject::SetCurrentLevel(int i)
-{
-	m_CurrentLevel = i;
-}
+//int GameObject::GetCurrentLevel()
+//{
+//	return m_CurrentLevel;
+//}
+//void GameObject::SetCurrentLevel(int i)
+//{
+//	m_CurrentLevel = i;
+//}
