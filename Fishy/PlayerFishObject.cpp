@@ -381,22 +381,22 @@ bool PlayerFishObject::UpdateLevel()
 		SetCurrentLevel(6);
 		return true;
 	}
-	else if(GetExperience() == 1220)
+	else if(GetExperience() == 1120)
 	{
 		SetCurrentLevel(7);
 		return true;
 	}
-	else if(GetExperience() == 1280)
+	else if(GetExperience() == 1180)
 	{
 		SetCurrentLevel(8);
 		return true;
 	}
-	else if(GetExperience() == 1350)
+	else if(GetExperience() == 1250)
 	{
 		SetCurrentLevel(9);
 		return true;
 	}
-	else if(GetExperience() == 1450)
+	else if(GetExperience() == 1350)
 	{
 		SetCurrentLevel(10);
 		return true;
@@ -513,6 +513,12 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 	if (p_other->GetType() == "Enemy")
 	{
 		EnemyFishObject* tempptr = dynamic_cast<EnemyFishObject*>(p_other);
+		//Gameover if collision with higher level enemy
+		if(GetCurrentLevel() < tempptr->GetCurrentLevel() )
+		{
+			m_GameOver = true;
+		}
+
 		if (tempptr->GetSubType() == "Stage2" )
 		{
 			DamageCooldown();
@@ -550,7 +556,10 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 		{
 			if(tempptr->GetSubType() == "Stage3")
 			{
-				m_GameWin = true;
+				if(GetCurrentLevel() == 10)
+				{
+					m_GameWin = true;
+				}
 			}
 
 

@@ -568,7 +568,7 @@ bool Level::Load(const string &p_sFileName, SpriteManager *p_pSpriteManager, boo
 					enemy->GetSprite()->setOrigin(495/2.0f, 385/2.0f); 
 
 					enemy->SetLevelLayer(MIDDLEGROUND);
-					enemy->SetCurrentLevel(fishLevel);
+					enemy->SetCurrentLevel(10);
 					//enemy->SetScale(Random_Size);
 					enemy->SetScale(1.0f);
 					collider->SetExtention(sf::Vector2f(772.f*enemy->GetScale(), 596.f*enemy->GetScale()));
