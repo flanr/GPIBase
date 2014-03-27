@@ -745,41 +745,41 @@ void GameState::HandleInput()
 	}
 	if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
 	{
-		m_pCore->m_StateManager.SetState("StartState");
+		//m_pCore->m_StateManager.SetState("StartState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
 	{
-		cout << " You are already in GameState" << endl;
+		//cout << " You are already in GameState" << endl;
 		//m_pCore->m_StateManager.SetState("GameState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
 	{
-		m_pCore->m_StateManager.SetState("OptionState");
+		//m_pCore->m_StateManager.SetState("OptionState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num4))
 	{
-		m_pCore->m_StateManager.SetState("EndState");
+		//m_pCore->m_StateManager.SetState("EndState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num0))
 	{
-		if(m_Camera->GetFilterStatus() == true )
+		/*if(m_Camera->GetFilterStatus() == true )
 		{
 			m_Camera->ToggleFilterOn(false);
 		}
 		else
 		{
 			m_Camera->ToggleFilterOn(true);
-		}
+		}*/
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num9))
 	{
-		m_Camera->ZoomStart(m_window->getDefaultView() );
+		//m_Camera->ZoomStart(m_window->getDefaultView() );
 	}
 	if (m_pInputManager->IsDownK(sf::Keyboard::Num8))
 	{
 
-		m_Camera->SetZoomStrength(1.005f);
-		m_Camera->ZoomOut(m_Camera->GetZoomStrength()  );
+		//m_Camera->SetZoomStrength(1.005f);
+		//m_Camera->ZoomOut(m_Camera->GetZoomStrength()  );
 	}
 
 }

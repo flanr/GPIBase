@@ -171,11 +171,11 @@ void PlayerFishObject::Update(InputManager *p_pxInputManager, SpriteManager *p_S
 
 	if (p_pxInputManager->IsDownK(sf::Keyboard::H))
 	{
-		if (m_Health >= 100)
+		/*if (m_Health >= 100)
 		{
 			m_Health = 0;
 		}
-		m_Health ++;
+		m_Health ++;*/
 	}
 
 	Move(GetVelocity() );
@@ -740,7 +740,7 @@ void PlayerFishObject::UpdateInput(InputManager *p_pxInputManager, float p_Delta
 		{*/
 		SetState(Attack);
 		m_SoundManager->PlaySound("dashSound2.wav");
-		cout << "Dash Sound play" << endl;
+		//cout << "Dash Sound play" << endl;
 		m_pxCurrentAnimation->SetActiveAnimation("Dash");
 		/*}*/
 	}
