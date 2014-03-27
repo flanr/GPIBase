@@ -557,7 +557,7 @@ void PlayerFishObject::OnCollision(GameObject* p_other, sf::Vector2f& p_Offset)
 			if(m_pxCurrentAnimation->GetCurrentFrame() >= 1)
 			{
 				ExperienceGain(10);
-				SetHealth(GetHealth() + 10);
+				SetHealth(GetHealth() + 20);
 				if(UpdateLevel() )
 				{
 					m_HasGrown = true;
