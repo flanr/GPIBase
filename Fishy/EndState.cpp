@@ -149,19 +149,19 @@ void EndState::HandleInput()
 {
 		if(m_pInputManager->IsDownOnceK(sf::Keyboard::Num1))
 	{
-		m_pCore->m_StateManager.SetState("StartState");
+		//m_pCore->m_StateManager.SetState("StartState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num2))
 	{
-		m_pCore->m_StateManager.SetState("GameState");
+		//m_pCore->m_StateManager.SetState("GameState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num3))
 	{
-		m_pCore->m_StateManager.SetState("OptionState");
+		//m_pCore->m_StateManager.SetState("OptionState");
 	}
 	if (m_pInputManager->IsDownOnceK(sf::Keyboard::Num4))
 	{
-		cout << " You are already in EndState" << endl;
+		//cout << " You are already in EndState" << endl;
 	}
 
 	MouseOver(sf::Mouse::getPosition(*m_window).x, sf::Mouse::getPosition(*m_window).y);
